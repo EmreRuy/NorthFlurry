@@ -84,7 +84,10 @@ fun SettingsPreview() {
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun SettingsView(onBackPressed: () -> Unit) {
+fun SettingsView(
+    onBackPressed: () -> Unit,
+    onFeedbackClicked: (Boolean) -> Unit,
+) {
     val (selected, setSelected) = remember {
         mutableStateOf(0)
     }
@@ -139,6 +142,8 @@ fun SettingsView(onBackPressed: () -> Unit) {
                         0 -> {
                             ExpandableCard()
                             SettingsCardOne()
+                            SettingsCardFive { onFeedbackClicked(true) }
+                            SettingsCardSix { onFeedbackClicked(false) }
                         }
 
                         1 -> {
@@ -372,56 +377,59 @@ fun ExpandableCard() {
     }
 }
 
+
 @Composable
-private fun SettingsCardFive() {
+private fun SettingsCardFive(onTroubleWithAppClicked: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onTroubleWithAppClicked() }
             .padding(horizontal = 18.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-        Box(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(160.dp)
-                .background(Color.LightGray.copy(alpha = 0.3f))
+                .padding(24.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .align(Alignment.CenterStart)
-            ) {
-                Spacer(modifier = Modifier.height(40.dp))
-                Text(
-                    modifier = Modifier.padding(top = 16.dp),
-                    text = "Global Weather Forecast",
-                    fontWeight = FontWeight.Medium,
-                    color = Dark20,
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = Modifier.height(4.dp)) // Adds some space between the two texts
-                Text(
-                    text = "Check weather forecast around the world with the interactive map",
-                    fontWeight = FontWeight.Light,
-                    color = Dark20,
-                    fontSize = 14.sp
-                )
-            }
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.map),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
+            Text(
+                text = "Trouble with the app?",
+                fontWeight = FontWeight.Medium,
+                color = Dark20,
+                fontSize = 18.sp
             )
         }
     }
 }
+
+
+@Composable
+private fun SettingsCardSix(onIdeaClicked: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onIdeaClicked() }
+            .padding(horizontal = 18.dp, vertical = 8.dp),
+        shape = RoundedCornerShape(28.dp),
+        elevation = 4.dp,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp)
+        ) {
+            Text(
+                text = "Any good ideas?",
+                fontWeight = FontWeight.Medium,
+                color = Dark20,
+                fontSize = 18.sp
+            )
+        }
+    }
+}
+
+
 @Composable
 private fun MyTabIndicator(
     indicatorWidth: Dp,
@@ -520,8 +528,9 @@ fun CustomTab(
         }
     }
 }
+
 @Composable
-fun TroubleWithApp(){
+fun TroubleWithApp() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -541,7 +550,7 @@ fun TroubleWithApp(){
                     .padding(8.dp)
                     .align(Alignment.CenterStart)
             ) {
-                Icon(painter = painterResource(id = R.drawable.sun), contentDescription = null )
+                Icon(painter = painterResource(id = R.drawable.sun), contentDescription = null)
                 Text(
                     modifier = Modifier.padding(start = 8.dp),
                     text = "Trouble with the App?",
