@@ -52,6 +52,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -136,9 +137,11 @@ fun FirstCardView(
     onLocationButtonClicked: (SearchedLocation) -> Unit,
     onDetailsButtonClicked: (TemperatureResponse) -> Unit,
     onClose: () -> Unit,
-   // onTemperatureUnitChanged: (String) -> Unit,
+    // onTemperatureUnitChanged: (String) -> Unit,
     onSettingsClicked: (String) -> Unit,
 ) {
+    val isSearchExpanded = remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -164,7 +167,7 @@ fun FirstCardView(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                SearchBar(onSearch, onClose)
+                SearchBar(isSearchExpanded, onSearch, onClose)
                 if (locations != null) {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
@@ -177,6 +180,7 @@ fun FirstCardView(
                                     .padding(vertical = 4.dp, horizontal = 16.dp)
                                     .clip(RoundedCornerShape(30.dp))
                                     .clickable {
+                                        isSearchExpanded.value = false
                                         searchedLocation.value = location
                                         onLocationButtonClicked(location)
                                     },
@@ -426,6 +430,7 @@ fun LottieAnimationCloud() {
         modifier = Modifier.size(60.dp)
     )
 }
+
 @Composable
 fun DetailButton(onDetailsButtonClicked: () -> Unit) {
     var isPressed by remember { mutableStateOf(false) }
@@ -461,10 +466,10 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
 @Composable
 fun DropDownMenu(
     onSettingsClicked: (String) -> Unit,
-   // onTemperatureUnitChanged: (String) -> Unit
+    // onTemperatureUnitChanged: (String) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-  //  var selectedTemperatureUnit by remember { mutableStateOf("celsius") }
+    //  var selectedTemperatureUnit by remember { mutableStateOf("celsius") }
     // var selectedPrecipitationUnit by remember { mutableStateOf("mm") }
     isExpanded = rememberUpdatedState(isExpanded).value
     Box(
@@ -518,24 +523,24 @@ fun DropDownMenu(
                 }
             }
         }
-          /*  CustomRadioButton(
-                text = "Fahrenheit",
-                isChecked = selectedTemperatureUnit == "fahrenheit"
-            ) {
-                selectedTemperatureUnit = "fahrenheit"
-                onTemperatureUnitChanged("fahrenheit")
-                isExpanded = false
-            }
-            CustomRadioButton(
-                text = "Celsius",
-                isChecked = selectedTemperatureUnit == "celsius"
-            ) {
-                selectedTemperatureUnit = "celsius"
-                onTemperatureUnitChanged("celsius")
-                isExpanded = false
-            } */
-        }
+        /*  CustomRadioButton(
+              text = "Fahrenheit",
+              isChecked = selectedTemperatureUnit == "fahrenheit"
+          ) {
+              selectedTemperatureUnit = "fahrenheit"
+              onTemperatureUnitChanged("fahrenheit")
+              isExpanded = false
+          }
+          CustomRadioButton(
+              text = "Celsius",
+              isChecked = selectedTemperatureUnit == "celsius"
+          ) {
+              selectedTemperatureUnit = "celsius"
+              onTemperatureUnitChanged("celsius")
+              isExpanded = false
+          } */
     }
+}
 
 @Composable
 fun CustomRadioButton(
@@ -715,16 +720,21 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation) {
 
 @Composable
 fun SearchBar(
+    isSearchExpanded: MutableState<Boolean>,
     onSearch: (String) -> Unit,
     onClose: () -> Unit
 ) {
-    var isSearchExpanded by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
     var query by remember { mutableStateOf("") }
     val gradient = Brush.horizontalGradient(
-        colors = if (isSearchExpanded) listOf(White, Color(0xFF56CCF2))
+        colors = if (isSearchExpanded.value) listOf(White, Color(0xFF56CCF2))
         else listOf(Transparent, Transparent)
     )
+
+    LaunchedEffect(isSearchExpanded.value) {
+        query = ""
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -737,7 +747,7 @@ fun SearchBar(
         horizontalArrangement = Arrangement.Start
     ) {
         AnimatedVisibility(
-            visible = isSearchExpanded,
+            visible = isSearchExpanded.value,
             enter = slideInHorizontally(initialOffsetX = { -it }),
             exit = slideOutHorizontally(targetOffsetX = { -it })
         ) {
@@ -784,20 +794,20 @@ fun SearchBar(
         }
         IconButton(
             onClick = {
-                isSearchExpanded = !isSearchExpanded
-                if (!isSearchExpanded) {
+                isSearchExpanded.value = !isSearchExpanded.value
+                if (!isSearchExpanded.value) {
                     query = ""
                 }
                 onClose()
             },
             modifier = Modifier
-                .padding(end = 16.dp, bottom = if (isSearchExpanded) 0.dp else 8.dp)
-                .rotate(if (isSearchExpanded) 1f else 360f)
+                .padding(end = 16.dp, bottom = if (isSearchExpanded.value) 0.dp else 8.dp)
+                .rotate(if (isSearchExpanded.value) 1f else 360f)
         ) {
             Icon(
-                imageVector = if (isSearchExpanded) Icons.Default.Clear else Icons.Default.Search,
+                imageVector = if (isSearchExpanded.value) Icons.Default.Clear else Icons.Default.Search,
                 contentDescription = "Search",
-                tint = if (isSearchExpanded) Black else White,
+                tint = if (isSearchExpanded.value) Black else White,
                 modifier = Modifier.size(32.dp)
             )
         }

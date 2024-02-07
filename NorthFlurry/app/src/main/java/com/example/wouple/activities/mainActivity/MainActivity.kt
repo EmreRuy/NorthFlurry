@@ -10,6 +10,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.platform.LocalFocusManager
 import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.activities.detailActivity.SecondActivity
 import com.example.wouple.activities.settingsActivity.SettingsActivity
@@ -24,8 +26,13 @@ import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.WoupleTheme
 class MainActivity : ComponentActivity() {
     private val temp: MutableState<TemperatureResponse?> = mutableStateOf(null)
+
+    // The list of all locations when searching
     private val searchedLocations: MutableState<List<SearchedLocation>?> = mutableStateOf(null)
+
+    //The current location the user is having
     private val searchedLocation: MutableState<SearchedLocation?> = mutableStateOf(null)
+
     private val airQuality: MutableState<AirQuality?> = mutableStateOf(null)
 
 
@@ -58,11 +65,13 @@ class MainActivity : ComponentActivity() {
 
     private fun displayFirstCardView() {
         setContent {
+            val focusManager = LocalFocusManager.current
             if (temp.value !== null) {
                 FirstCardView(
                     temp = temp.value!!,
                     locations = searchedLocations.value,
                     onLocationButtonClicked = { location ->
+                        focusManager.clearFocus()
                         onLocationButtonClicked(location)
                     },
                     searchedLocation = searchedLocation,
@@ -131,11 +140,7 @@ class MainActivity : ComponentActivity() {
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
             precipitationUnit = TemperatureUnitPref.getTemperatureUnit(this)
         )
-        searchedLocation.value?.let {
-            getAirQuality(
-                it
-            )
-        }
+        getAirQuality(location)
         searchedLocations.value = null
     }
 
