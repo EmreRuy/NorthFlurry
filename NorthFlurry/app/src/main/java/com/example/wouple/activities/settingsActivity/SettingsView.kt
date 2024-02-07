@@ -79,9 +79,8 @@ import com.example.wouple.ui.theme.clearSky
 @Composable
 fun SettingsPreview() {
     WoupleTheme {
-        SettingsView()
-    }
-} */
+        SettingsView()*/
+
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -132,12 +131,22 @@ fun SettingsView() {
                     CustomTab(
                         selectedItemIndex = selected,
                         items = listOf("General", "Units"),
-                        onClick = setSelected
+                        onClick = {
+                            setSelected(it)
+                        }
                     )
-                    ExpandableCard()
-                    SettingsCardOne()
-                    SettingsCardTwo()
-                    SettingsCardThree()
+                    when (selected) {
+                        0 -> {
+                            ExpandableCard()
+                            SettingsCardOne()
+                        }
+
+                        1 -> {
+                            SettingsCardTwo()
+                            SettingsCardThree()
+                            TroubleWithApp()
+                        }
+                    }
                 }
                 Box(
                     modifier = Modifier
@@ -171,13 +180,14 @@ fun SettingsView() {
         }
     )
 }
+
 @Composable
 private fun SettingsCardOne() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(26.dp),
         elevation = 4.dp,
     ) {
         Box(
@@ -219,6 +229,7 @@ private fun SettingsCardOne() {
         }
     }
 }
+
 @Composable
 private fun DarkModeSwitch() {
     var checked by remember { mutableStateOf(false) }
@@ -235,13 +246,22 @@ private fun DarkModeSwitch() {
 
         )
 }
+
 @Composable
 private fun SettingsCardTwo() {
+    Spacer(modifier = Modifier.padding(top = 8.dp))
+    Text(
+        text = "Unit Settings",
+        modifier = Modifier.padding(8.dp),
+        fontWeight = FontWeight.Medium,
+        color = beige.copy(alpha = 0.8f),
+        fontSize = 28.sp
+    )
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(26.dp),
         elevation = 4.dp,
     ) {
         Box(
@@ -268,13 +288,14 @@ private fun SettingsCardTwo() {
         }
     }
 }
+
 @Composable
 private fun SettingsCardThree() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
         Box(
@@ -307,12 +328,13 @@ private fun SettingsCardThree() {
         }
     }
 }
+
 @Composable
 fun ExpandableCard() {
     var expanded by remember { mutableStateOf(false) }
     Spacer(modifier = Modifier.padding(top = 8.dp))
     Text(
-        text = "Weather Units",
+        text = "General Settings",
         modifier = Modifier.padding(8.dp),
         fontWeight = FontWeight.Medium,
         color = beige.copy(alpha = 0.8f),
@@ -349,56 +371,7 @@ fun ExpandableCard() {
         }
     }
 }
-@Composable
-private fun SettingsCardFive() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 18.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
-        elevation = 4.dp,
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(160.dp)
-                .background(Color.LightGray.copy(alpha = 0.3f))
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(8.dp)
-                    .align(Alignment.CenterStart)
-            ) {
-                Spacer(modifier = Modifier.height(40.dp))
-                Text(
-                    modifier = Modifier.padding(top = 16.dp),
-                    text = "Global Weather Forecast",
-                    fontWeight = FontWeight.Medium,
-                    color = Dark20,
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = Modifier.height(4.dp)) // Adds some space between the two texts
-                Text(
-                    text = "Check weather forecast around the world with the interactive map",
-                    fontWeight = FontWeight.Light,
-                    color = Dark20,
-                    fontSize = 14.sp
-                )
-            }
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.map),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-            )
-        }
-    }
-}
+
 @Composable
 private fun MyTabIndicator(
     indicatorWidth: Dp,
@@ -422,6 +395,7 @@ private fun MyTabIndicator(
             ),
     )
 }
+
 @Composable
 private fun MyTabItem(
     isSelected: Boolean,
@@ -453,6 +427,7 @@ private fun MyTabItem(
         textAlign = TextAlign.Center,
     )
 }
+
 @Composable
 fun CustomTab(
     selectedItemIndex: Int,
@@ -481,7 +456,7 @@ fun CustomTab(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.clip(CircleShape),
         ) {
-            items.mapIndexed { index, text ->
+            items.forEachIndexed { index, text ->
                 val isSelected = index == selectedItemIndex
                 MyTabItem(
                     isSelected = isSelected,
@@ -490,6 +465,38 @@ fun CustomTab(
                     },
                     tabWidth = tabWidth,
                     text = text,
+                )
+            }
+        }
+    }
+}
+@Composable
+fun TroubleWithApp(){
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 18.dp, vertical = 8.dp),
+        shape = RoundedCornerShape(28.dp),
+        elevation = 4.dp,
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(70.dp)
+                .background(Color.LightGray.copy(alpha = 0.3f))
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .align(Alignment.CenterStart)
+            ) {
+                Icon(painter = painterResource(id = R.drawable.sun), contentDescription = null )
+                Text(
+                    modifier = Modifier.padding(start = 8.dp),
+                    text = "Trouble with the App?",
+                    fontWeight = FontWeight.Medium,
+                    color = Dark20,
+                    fontSize = 18.sp
                 )
             }
         }
