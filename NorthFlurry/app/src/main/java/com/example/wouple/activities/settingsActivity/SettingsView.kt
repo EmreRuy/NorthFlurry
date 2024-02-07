@@ -391,7 +391,7 @@ private fun SettingsCardFive(onTroubleWithAppClicked: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(24.dp)
+                .padding(16.dp)
         ) {
             Text(
                 text = "Trouble with the app?",
