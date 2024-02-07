@@ -33,7 +33,7 @@
         <activity
             android:name=".activities.mainActivity.MainActivity"
             android:exported="true"
-            android:label="MainActivity"
+            android:label="NorthFlurry"
             android:theme="@style/Theme.Wouple" >
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.MAIN" />

@@ -525,6 +525,7 @@ fun TroubleWithApp(){
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable {  }
             .padding(horizontal = 18.dp, vertical = 8.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
