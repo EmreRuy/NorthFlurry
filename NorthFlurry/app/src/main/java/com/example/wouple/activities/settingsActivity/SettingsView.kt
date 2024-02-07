@@ -85,7 +85,7 @@ fun SettingsPreview() {
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun SettingsView() {
+fun SettingsView(onBackPressed: () -> Unit) {
     val (selected, setSelected) = remember {
         mutableStateOf(0)
     }
@@ -103,7 +103,7 @@ fun SettingsView() {
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = { }
+                        onClick = onBackPressed
                     ) {
                         Icon(
                             Icons.Default.ArrowBack,
@@ -171,6 +171,7 @@ fun SettingsView() {
         }
     )
 }
+
 @Composable
 private fun SettingsCardOne() {
     Card(
@@ -219,6 +220,7 @@ private fun SettingsCardOne() {
         }
     }
 }
+
 @Composable
 private fun DarkModeSwitch() {
     var checked by remember { mutableStateOf(false) }
@@ -235,6 +237,7 @@ private fun DarkModeSwitch() {
 
         )
 }
+
 @Composable
 private fun SettingsCardTwo() {
     Card(
@@ -268,6 +271,7 @@ private fun SettingsCardTwo() {
         }
     }
 }
+
 @Composable
 private fun SettingsCardThree() {
     Card(
@@ -307,6 +311,7 @@ private fun SettingsCardThree() {
         }
     }
 }
+
 @Composable
 fun ExpandableCard() {
     var expanded by remember { mutableStateOf(false) }
@@ -349,6 +354,7 @@ fun ExpandableCard() {
         }
     }
 }
+
 @Composable
 private fun SettingsCardFive() {
     Card(
@@ -399,6 +405,7 @@ private fun SettingsCardFive() {
         }
     }
 }
+
 @Composable
 private fun MyTabIndicator(
     indicatorWidth: Dp,
@@ -422,6 +429,7 @@ private fun MyTabIndicator(
             ),
     )
 }
+
 @Composable
 private fun MyTabItem(
     isSelected: Boolean,
@@ -453,6 +461,7 @@ private fun MyTabItem(
         textAlign = TextAlign.Center,
     )
 }
+
 @Composable
 fun CustomTab(
     selectedItemIndex: Int,
