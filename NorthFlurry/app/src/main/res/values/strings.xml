@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wouple</string>
+    <string name="app_name">NorthFlurry</string>
     <string name="title_activity_second">SecondActivity</string>
     <string name="title_activity_start">StartActivity</string>
 </resources>
