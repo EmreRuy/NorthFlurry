@@ -251,7 +251,6 @@ private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
         }
     }
 }
-
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
 @Composable

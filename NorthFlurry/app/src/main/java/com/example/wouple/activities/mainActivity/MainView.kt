@@ -466,11 +466,8 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
 @Composable
 fun DropDownMenu(
     onSettingsClicked: (String) -> Unit,
-    // onTemperatureUnitChanged: (String) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-    //  var selectedTemperatureUnit by remember { mutableStateOf("celsius") }
-    // var selectedPrecipitationUnit by remember { mutableStateOf("mm") }
     isExpanded = rememberUpdatedState(isExpanded).value
     Box(
         modifier = Modifier
@@ -523,71 +520,8 @@ fun DropDownMenu(
                 }
             }
         }
-        /*  CustomRadioButton(
-              text = "Fahrenheit",
-              isChecked = selectedTemperatureUnit == "fahrenheit"
-          ) {
-              selectedTemperatureUnit = "fahrenheit"
-              onTemperatureUnitChanged("fahrenheit")
-              isExpanded = false
-          }
-          CustomRadioButton(
-              text = "Celsius",
-              isChecked = selectedTemperatureUnit == "celsius"
-          ) {
-              selectedTemperatureUnit = "celsius"
-              onTemperatureUnitChanged("celsius")
-              isExpanded = false
-          } */
     }
 }
-
-@Composable
-fun CustomRadioButton(
-    text: String,
-    isChecked: Boolean,
-    onClick: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .selectable(
-                selected = isChecked,
-                onClick = onClick
-            )
-            .padding(4.dp)
-            .padding(horizontal = 4.dp)
-            .background(White),
-        elevation = 4.dp
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .selectable(
-                    selected = isChecked,
-                    onClick = onClick
-                )
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                modifier = Modifier.padding(end = 8.dp),
-                text = text,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Light
-            )
-            RadioButton(
-                selected = isChecked,
-                colors = RadioButtonDefaults.colors(selectedColor = Spiro),
-                onClick = onClick,
-                modifier = Modifier
-                    .size(16.dp)
-                    .padding(top = 5.dp)
-            )
-        }
-    }
-}
-
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -695,7 +629,7 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation) {
                     color = Dark20,
                     fontSize = 18.sp
                 )
-                Spacer(modifier = Modifier.height(4.dp)) // Add some space between the two texts
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "Check where lightnings occurs around the world",
                     fontWeight = FontWeight.Light,

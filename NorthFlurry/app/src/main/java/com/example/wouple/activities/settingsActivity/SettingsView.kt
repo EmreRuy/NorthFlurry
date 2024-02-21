@@ -298,18 +298,16 @@ fun TemperatureUnitSettings() {
             textAlign = TextAlign.Start
         )
         var selectedUnitIndex by remember { mutableStateOf(0) }
-        val temperatureUnits = listOf("Fahrenheit", "Celsius", "Kelvin")
+        val temperatureUnits = listOf("Fahrenheit", "Celsius")
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             { index ->
                 selectedUnitIndex = index
-
             },
             units = temperatureUnits
         )
     }
 }
-
 @Composable
 fun WindUnitSettings() {
     Column {
@@ -322,7 +320,7 @@ fun WindUnitSettings() {
             textAlign = TextAlign.Start
         )
         var selectedUnitIndex by remember { mutableStateOf(0) }
-        val units = listOf("Kmh", "Ms", "Kn")
+        val units = listOf("Kmh", "Ms", "Kn","Mph")
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
@@ -333,7 +331,6 @@ fun WindUnitSettings() {
     }
 
 }
-
 @Composable
 fun PrecipitationUnitSettings() {
     Column {
@@ -346,7 +343,7 @@ fun PrecipitationUnitSettings() {
             textAlign = TextAlign.Start
         )
         var selectedUnitIndex by remember { mutableStateOf(0) }
-        val units = listOf("Default", "mm", "inc")
+        val units = listOf("mm", "inc")
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
@@ -356,7 +353,6 @@ fun PrecipitationUnitSettings() {
         )
     }
 }
-
 @Composable
 private fun ShareTheAppSettings() {
     Card(
@@ -397,7 +393,6 @@ private fun ShareTheAppSettings() {
         }
     }
 }
-
 @Composable
 fun RateUsSettings() {
     Card(
@@ -435,8 +430,6 @@ fun RateUsSettings() {
         }
     }
 }
-
-
 @Composable
 private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
     var isSelected by remember { mutableStateOf(false) }
@@ -479,8 +472,6 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
         }
     }
 }
-
-
 @Composable
 private fun IdeasSettings(onIdeaClicked: () -> Unit) {
     Card(
@@ -516,8 +507,6 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
         }
     }
 }
-
-
 @Composable
 private fun MyTabIndicator(
     indicatorWidth: Dp,
@@ -541,7 +530,6 @@ private fun MyTabIndicator(
             ),
     )
 }
-
 @Composable
 private fun MyTabItem(
     isSelected: Boolean,
@@ -575,7 +563,6 @@ private fun MyTabItem(
         fontWeight = FontWeight.Medium
     )
 }
-
 @Composable
 fun CustomTab(
     selectedItemIndex: Int,
