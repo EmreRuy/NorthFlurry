@@ -2,11 +2,15 @@ package com.example.wouple.manager
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.ui.text.toLowerCase
 import com.airbnb.lottie.BuildConfig
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.ApiRequest
+import com.example.wouple.model.api.PrecipitationUnit
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.model.api.TemperatureUnit
+import com.example.wouple.model.api.WindUnit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,8 +66,9 @@ object WeatherManager {
         context: Context,
         location: SearchedLocation?,
         onSuccessCall: (TemperatureResponse?) -> Unit,
-        temperaUnit: String,
-        precipitationUnit: String
+        temperaUnit: TemperatureUnit,
+        windUnit: WindUnit,
+        precipitationUnit: PrecipitationUnit
     ) {
         if (location == null) {
             onSuccessCall(null)
@@ -72,7 +77,7 @@ object WeatherManager {
         if (BuildConfig.DEBUG) {
             getDataFromMock(onSuccessCall)
         } else {
-            fetchDataFromBackend(context, location, onSuccessCall, temperaUnit, precipitationUnit)
+            fetchDataFromBackend(context, location, onSuccessCall, temperaUnit,windUnit,  precipitationUnit)
         }
     }
 
@@ -84,16 +89,18 @@ object WeatherManager {
         context: Context,
         location: SearchedLocation,
         onSuccessCall: (TemperatureResponse) -> Unit,
-        temperaUnit: String,
-        precipitationUnit: String
+        temperaUnit: TemperatureUnit,
+        windUnit: WindUnit,
+        precipitationUnit: PrecipitationUnit
     ) {
         val api = getApiBuilder(OPEN_METEO_BASE_URL)
 
         api.getTemperature(
             location.lat,
             location.lon,
-            temperature_unit = temperaUnit.lowercase(),
-            precipitation_unit = precipitationUnit.lowercase()
+            wind_speed_unit = windUnit.name.lowercase(),
+            temperature_unit = temperaUnit.name.lowercase(),
+            precipitation_unit = precipitationUnit.name.lowercase()
         ).enqueue(object : Callback<TemperatureResponse> {
             override fun onFailure(call: Call<TemperatureResponse>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()

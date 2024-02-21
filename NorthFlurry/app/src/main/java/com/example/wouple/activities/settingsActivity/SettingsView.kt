@@ -53,6 +53,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -64,6 +65,12 @@ import com.example.wouple.activities.ui.theme.getBackgroundGradient
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.UnitSettings
 import com.example.wouple.elements.rememberPhaseState
+import com.example.wouple.model.api.PrecipitationUnit
+import com.example.wouple.model.api.TemperatureUnit
+import com.example.wouple.model.api.WindUnit
+import com.example.wouple.preferences.PrecipitationUnitPref
+import com.example.wouple.preferences.TemperatureUnitPref
+import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.Whitehis
@@ -288,6 +295,7 @@ private fun SettingsCardTwo() {
 
 @Composable
 fun TemperatureUnitSettings() {
+    val context = LocalContext.current
     Column {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
@@ -297,19 +305,22 @@ fun TemperatureUnitSettings() {
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
         )
-        var selectedUnitIndex by remember { mutableStateOf(0) }
-        val temperatureUnits = listOf("Fahrenheit", "Celsius")
+        val temperatureUnits = TemperatureUnit.values()
+        var selectedUnitIndex by remember { mutableStateOf(temperatureUnits.indexOf(TemperatureUnitPref.getTemperatureUnit(context))) }
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
-            { index ->
+            onUnitSelected = { index ->
+                TemperatureUnitPref.setTemperatureUnit(context, temperatureUnits[index])
                 selectedUnitIndex = index
             },
-            units = temperatureUnits
+            units = temperatureUnits.map { it.toString() }
         )
     }
 }
+
 @Composable
 fun WindUnitSettings() {
+    val context = LocalContext.current
     Column {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
@@ -319,20 +330,22 @@ fun WindUnitSettings() {
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
         )
-        var selectedUnitIndex by remember { mutableStateOf(0) }
-        val units = listOf("Kmh", "Ms", "Kn","Mph")
+        val units = WindUnit.values()
+        var selectedUnitIndex by remember { mutableStateOf(units.indexOf(WindUnitPref.getWindUnit(context))) }
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
+                WindUnitPref.setWindUnit(context, units[index])
                 selectedUnitIndex = index
             },
-            units = units
+            units = units.map { it.toString() }
         )
     }
-
 }
+
 @Composable
 fun PrecipitationUnitSettings() {
+    val context = LocalContext.current
     Column {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
@@ -342,17 +355,19 @@ fun PrecipitationUnitSettings() {
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
         )
-        var selectedUnitIndex by remember { mutableStateOf(0) }
-        val units = listOf("mm", "inc")
+        val units = PrecipitationUnit.values()
+        var selectedUnitIndex by remember { mutableStateOf(units.indexOf(PrecipitationUnitPref.getPrecipitationUnit(context))) }
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
+                PrecipitationUnitPref.setPrecipitationUnit(context, units[index])
                 selectedUnitIndex = index
             },
-            units = units
+            units = units.map { it.toString() }
         )
     }
 }
+
 @Composable
 private fun ShareTheAppSettings() {
     Card(
@@ -393,6 +408,7 @@ private fun ShareTheAppSettings() {
         }
     }
 }
+
 @Composable
 fun RateUsSettings() {
     Card(
@@ -430,6 +446,7 @@ fun RateUsSettings() {
         }
     }
 }
+
 @Composable
 private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
     var isSelected by remember { mutableStateOf(false) }
@@ -472,6 +489,7 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
         }
     }
 }
+
 @Composable
 private fun IdeasSettings(onIdeaClicked: () -> Unit) {
     Card(
@@ -507,6 +525,7 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
         }
     }
 }
+
 @Composable
 private fun MyTabIndicator(
     indicatorWidth: Dp,
@@ -530,6 +549,7 @@ private fun MyTabIndicator(
             ),
     )
 }
+
 @Composable
 private fun MyTabItem(
     isSelected: Boolean,
@@ -563,6 +583,7 @@ private fun MyTabItem(
         fontWeight = FontWeight.Medium
     )
 }
+
 @Composable
 fun CustomTab(
     selectedItemIndex: Int,

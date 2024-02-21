@@ -21,6 +21,7 @@ import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.preferences.LocationPref
+import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.WoupleTheme
@@ -89,7 +90,7 @@ class MainActivity : ComponentActivity() {
                         intent.putExtra("temp", temp)
                         intent.putExtra("air", airQuality.value)
                         intent.putExtra("location", searchedLocation.value)
-                        intent.putExtra("precipitationUnit", WindUnitPref.getPrecipitationUnit(this) )
+                        intent.putExtra("precipitationUnit", WindUnitPref.getWindUnit(this) )
                         this.startActivity(intent)
                     },
                  /*   onTemperatureUnitChanged = { temperatureUnit ->
@@ -138,7 +139,8 @@ class MainActivity : ComponentActivity() {
                 temp.value = temperature
             },
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            precipitationUnit = TemperatureUnitPref.getTemperatureUnit(this)
+            windUnit = WindUnitPref.getWindUnit(this) ,
+            precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
         )
         getAirQuality(location)
         searchedLocations.value = null
@@ -152,7 +154,8 @@ class MainActivity : ComponentActivity() {
             context = this,
             location = searchedLocation.value,
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            precipitationUnit = WindUnitPref.getPrecipitationUnit(this) ,
+            windUnit = WindUnitPref.getWindUnit(this) ,
+            precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
             onSuccessCall = { temperature ->
                 temp.value = temperature
             },

@@ -19,6 +19,7 @@ import com.example.wouple.manager.WeatherManager
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.preferences.LocationPref
+import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
 import com.google.gson.Gson
@@ -60,7 +61,8 @@ class StartActivity : ComponentActivity() {
                 temp.value = temperature
             },
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            precipitationUnit = WindUnitPref.getPrecipitationUnit(this)
+            windUnit = WindUnitPref.getWindUnit(this),
+            precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this)
         )
         searchedLocations.value = null
     }
@@ -73,7 +75,8 @@ class StartActivity : ComponentActivity() {
             context = this,
             location = searchedLocation.value,
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            precipitationUnit = WindUnitPref.getPrecipitationUnit(this),
+            precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
+            windUnit = WindUnitPref.getWindUnit(this),
             onSuccessCall = { temperature ->
                 temp.value = temperature
             },

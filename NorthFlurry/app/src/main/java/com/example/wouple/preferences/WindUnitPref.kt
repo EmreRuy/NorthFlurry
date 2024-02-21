@@ -1,19 +1,21 @@
 package com.example.wouple.preferences
 
 import android.content.Context
+import com.example.wouple.model.api.PrecipitationUnit
+import com.example.wouple.model.api.WindUnit
 
 object WindUnitPref {
-    fun getPrecipitationUnit(context: Context): String {
-        val sharedPref = context.getSharedPreferences("preferences", Context.MODE_PRIVATE) ?: return "mm"
-        val help = sharedPref.getString("precipitationUnitKey", "mm") ?: "mm"
-        return help
+
+    private const val key = "windUnitPrefKey"
+    fun getWindUnit(context: Context): WindUnit {
+        val sharedPref = context.getSharedPreferences("preferences", Context.MODE_PRIVATE) ?: return WindUnit.KMH
+        return sharedPref.getString(key, WindUnit.KMH.name)?.let { WindUnit.valueOf(it) } ?: WindUnit.KMH
     }
 
-    fun setTemperatureUnit(context: Context, windaUnit: String) {
-
+    fun setWindUnit(context: Context, windUnit: WindUnit) {
         val sharedPref = context.getSharedPreferences("preferences", Context.MODE_PRIVATE) ?: return
         with(sharedPref.edit()) {
-            putString("precipitationUnitKey", windaUnit)
+            putString(key, windUnit.name)
             apply()
         }
     }
