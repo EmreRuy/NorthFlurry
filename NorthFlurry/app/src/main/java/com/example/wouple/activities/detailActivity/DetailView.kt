@@ -26,7 +26,6 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -66,7 +65,6 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
@@ -261,6 +259,7 @@ fun LocationView(
     temp: TemperatureResponse,
     searchedLocation: SearchedLocation,
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth(1f)

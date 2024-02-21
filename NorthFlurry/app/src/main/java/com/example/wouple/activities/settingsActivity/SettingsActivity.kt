@@ -1,15 +1,10 @@
 package com.example.wouple.activities.settingsActivity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.MutableState
-import com.example.wouple.activities.mainActivity.MainActivity
-import com.example.wouple.activities.startScreen.StartActivity
-import com.example.wouple.model.api.AirQuality
-import com.example.wouple.model.api.TemperatureResponse
 
 class SettingsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,14 +13,28 @@ class SettingsActivity : ComponentActivity() {
             SettingsView(
                 onBackPressed = { onBackPressedDispatcher.onBackPressed() },
                 onFeedbackClicked = { trouble ->
-                    SendEmail(trouble)
+                    sendEmail(trouble)
                 }
             )
         }
     }
+    private fun sendEmail(isProblem: Boolean) {
+        val selectorIntent = Intent(Intent.ACTION_SENDTO)
+        selectorIntent.data = Uri.parse("mailto:")
 
-    fun SendEmail(isTrouble: Boolean){
-        //Copy the code here
-        Toast.makeText(this, "send email: $isTrouble", Toast.LENGTH_LONG).show()
+        val emailIntent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_EMAIL, arrayOf("uyar.em.eu@gmail.com"))
+            putExtra(Intent.EXTRA_SUBJECT, if (isProblem) "Trouble with the app" else "have an idea")
+            putExtra(
+                Intent.EXTRA_TEXT, """
+                
+                
+                ––––––––––––––––––
+                Device name: ${android.os.Build.MODEL}
+                OS version: ${android.os.Build.VERSION.RELEASE}""".trimIndent()
+            )
+        }
+        emailIntent.selector = selectorIntent
+        startActivity(Intent.createChooser(emailIntent, "Send email..."))
     }
 }
