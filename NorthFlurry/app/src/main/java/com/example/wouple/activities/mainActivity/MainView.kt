@@ -98,6 +98,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
 import com.example.wouple.activities.lightningMap.LightningMapActivity
 import com.example.wouple.activities.rainMap.WeatherRadarWebView
+import com.example.wouple.activities.ui.theme.getBackgroundGradient
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
@@ -106,7 +107,10 @@ import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
+import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.mocassin
+import kotlinx.coroutines.Delay
+import kotlinx.coroutines.delay
 
 
 /*@Preview(showBackground = true)
@@ -527,9 +531,14 @@ private fun getProperDisplayName(displayName: String?) = displayName?.split(",")
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun TodayWeatherCard() {
-
     var showDialog by remember { mutableStateOf(false) }
-
+    var visible by remember {
+        mutableStateOf(false)
+    }
+    LaunchedEffect(visible) {
+        delay(500)
+        visible = true
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -548,7 +557,7 @@ private fun TodayWeatherCard() {
         ) {
             Column(
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(16.dp)
                     .align(CenterStart)
             ) {
                 Spacer(modifier = Modifier.height(40.dp))
@@ -559,7 +568,7 @@ private fun TodayWeatherCard() {
                     color = Dark20,
                     fontSize = 18.sp
                 )
-                Spacer(modifier = Modifier.height(4.dp)) // Add some space between the two texts
+                Spacer(modifier = Modifier.height(2.dp)) // Adds some space between the two texts
                 Text(
                     text = "Check weather forecast around the world with the interactive map",
                     fontWeight = FontWeight.Light,
@@ -568,18 +577,37 @@ private fun TodayWeatherCard() {
                 )
             }
         }
-
+        val color = listOf(
+            Color(0xFF8ABFCC),
+            Color(0xFFC0DDE1),
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)
-                .background(mocassin.copy(alpha = 0.3f))
+                .background(brush = Brush.verticalGradient(color)),
+            contentAlignment = CenterStart
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.map),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-            )
+            AnimatedVisibility(
+                visible = visible,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                Row(modifier = Modifier.padding(start = 12.dp)){
+                    Icon(
+                        painter = painterResource(id = R.drawable.baseline_circle_notifications_24) ,
+                        contentDescription = "notification",
+                        tint = White
+                    )
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = "Reel feel is 17 atm in your location",
+                        fontWeight = FontWeight.Light,
+                        color = Dark20,
+                        fontSize = 14.sp
+                    )
+                }
+            }
         }
     }
     if (showDialog) {
@@ -600,6 +628,11 @@ private fun TodayWeatherCard() {
 @Composable
 fun ClickableCardDemo(searchedLocation: SearchedLocation) {
     val context = LocalContext.current
+    var visible by remember { mutableStateOf(false) }
+    LaunchedEffect(visible) {
+        delay(500)
+        visible = true
+    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -618,7 +651,7 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation) {
         ) {
             Column(
                 modifier = Modifier
-                    .padding(8.dp)
+                    .padding(16.dp)
                     .align(CenterStart)
             ) {
                 Spacer(modifier = Modifier.height(40.dp))
@@ -629,7 +662,7 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation) {
                     color = Dark20,
                     fontSize = 18.sp
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = "Check where lightnings occurs around the world",
                     fontWeight = FontWeight.Light,
@@ -638,16 +671,38 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation) {
                 )
             }
         }
+        val color = listOf(
+            Color(0xFF8ABFCC),
+            Color(0xFFC0DDE1),
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp)
+                .background(brush = Brush.verticalGradient(color)),
+            contentAlignment = CenterStart,
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.map),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-            )
+            AnimatedVisibility(
+                visible = visible,
+                enter = slideInVertically(),
+                exit = fadeOut()
+            ) {
+                Row(modifier = Modifier.padding(start = 12.dp)) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.baseline_circle_notifications_24) ,
+                        contentDescription = "notification",
+                        tint = White
+                    )
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = "Lightning potential in your location is : 4JK",
+                        fontWeight = FontWeight.Light,
+                        color = Dark20,
+                        fontSize = 14.sp,
+                    )
+                }
+            }
+
         }
     }
 }

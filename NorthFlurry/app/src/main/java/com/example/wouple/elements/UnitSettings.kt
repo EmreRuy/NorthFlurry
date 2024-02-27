@@ -2,6 +2,7 @@ package com.example.wouple.elements
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
@@ -18,7 +19,7 @@ fun UnitSettings(
 ) {
     Card(
         modifier = modifier
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = 8.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {

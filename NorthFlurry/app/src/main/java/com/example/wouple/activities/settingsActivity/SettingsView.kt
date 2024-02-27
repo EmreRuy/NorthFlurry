@@ -76,6 +76,7 @@ import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.clearSky
+import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.moc
 import com.example.wouple.ui.theme.mocassin
 import kotlinx.coroutines.delay
@@ -91,7 +92,7 @@ fun SettingsPreview() {
 @Composable
 fun SettingsView(
     onBackPressed: () -> Unit,
-    onFeedbackClicked: (Boolean) -> Unit,
+    onFeedbackClicked: (Boolean) -> Unit
 ) {
     val (selected, setSelected) = remember {
         mutableStateOf(0)
@@ -179,8 +180,8 @@ fun SettingsView(
                         1 -> {
                             SettingsCardTwo()
                             TemperatureUnitSettings()
-                            WindUnitSettings()
                             PrecipitationUnitSettings()
+                            WindUnitSettings()
                         }
                     }
                 }
@@ -234,10 +235,11 @@ private fun LanguageSettings() {
         shape = RoundedCornerShape(26.dp),
         elevation = 4.dp,
     ) {
+        val backgroundColor = getSecondaryGradients()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(mocassin.copy(alpha = 0.7f))
+                .background(brush = Brush.verticalGradient(backgroundColor))
         ) {
             Row(
                 modifier = Modifier
@@ -296,7 +298,7 @@ private fun SettingsCardTwo() {
 @Composable
 fun TemperatureUnitSettings() {
     val context = LocalContext.current
-    Column {
+    Column(modifier = Modifier.padding(horizontal = 2.dp)) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = "Temperature Units",
@@ -306,7 +308,13 @@ fun TemperatureUnitSettings() {
             textAlign = TextAlign.Start
         )
         val temperatureUnits = TemperatureUnit.values()
-        var selectedUnitIndex by remember { mutableStateOf(temperatureUnits.indexOf(TemperatureUnitPref.getTemperatureUnit(context))) }
+        var selectedUnitIndex by remember {
+            mutableStateOf(
+                temperatureUnits.indexOf(
+                    TemperatureUnitPref.getTemperatureUnit(context)
+                )
+            )
+        }
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
@@ -331,7 +339,15 @@ fun WindUnitSettings() {
             textAlign = TextAlign.Start
         )
         val units = WindUnit.values()
-        var selectedUnitIndex by remember { mutableStateOf(units.indexOf(WindUnitPref.getWindUnit(context))) }
+        var selectedUnitIndex by remember {
+            mutableStateOf(
+                units.indexOf(
+                    WindUnitPref.getWindUnit(
+                        context
+                    )
+                )
+            )
+        }
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
@@ -356,7 +372,15 @@ fun PrecipitationUnitSettings() {
             textAlign = TextAlign.Start
         )
         val units = PrecipitationUnit.values()
-        var selectedUnitIndex by remember { mutableStateOf(units.indexOf(PrecipitationUnitPref.getPrecipitationUnit(context))) }
+        var selectedUnitIndex by remember {
+            mutableStateOf(
+                units.indexOf(
+                    PrecipitationUnitPref.getPrecipitationUnit(
+                        context
+                    )
+                )
+            )
+        }
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
@@ -379,10 +403,11 @@ private fun ShareTheAppSettings() {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
+        val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(mocassin.copy(alpha = 0.7f))
+                .background(brush = Brush.verticalGradient(backgroundColor))
                 .padding(16.dp),
             horizontalArrangement = Arrangement.Center
         ) {
@@ -420,10 +445,11 @@ fun RateUsSettings() {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
+        val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(mocassin.copy(alpha = 0.7f))
+                .background(brush = Brush.verticalGradient(backgroundColor))
                 .padding(16.dp),
             horizontalArrangement = Arrangement.Center
         ) {
@@ -463,10 +489,11 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
+        val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(mocassin.copy(alpha = 0.7f))
+                .background(brush = Brush.verticalGradient(backgroundColor))
                 .padding(16.dp),
             horizontalArrangement = Arrangement.Center
         ) {
@@ -500,10 +527,11 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
+        val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(mocassin.copy(alpha = 0.7f))
+                .background(brush = Brush.verticalGradient(backgroundColor))
                 .padding(16.dp)
         ) {
             Icon(painter = painterResource(id = R.drawable.menuicon), contentDescription = null)

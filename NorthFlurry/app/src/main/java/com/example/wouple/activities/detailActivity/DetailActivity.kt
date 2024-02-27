@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.model.api.WindUnit
 
 class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

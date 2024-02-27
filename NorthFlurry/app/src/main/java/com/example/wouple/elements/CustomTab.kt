@@ -22,13 +22,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.beige
+import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.mocassin
 
 @Composable
@@ -84,6 +87,7 @@ private fun MyTabItem(
         text = text,
         color = tabTextColor,
         textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Medium
     )
 }
 
@@ -92,20 +96,19 @@ fun CustomTab(
     selectedItemIndex: Int,
     items: List<String>,
     modifier: Modifier = Modifier,
-    tabWidth: Dp = 105.dp,
+    tabWidth: Dp = 120.dp,
     onClick: (index: Int) -> Unit,
     tabHeight: Dp = 38.dp,
-    tabBackgroundColor: Color = Color.Transparent
 ) {
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
     )
-
+    val gradient = getSecondaryGradients()
     Box(
         modifier = modifier
             .clip(CircleShape)
-            .background(Color.White)
+            .background(brush = Brush.verticalGradient(gradient))
             .height(tabHeight),
     ) {
         MyTabIndicator(

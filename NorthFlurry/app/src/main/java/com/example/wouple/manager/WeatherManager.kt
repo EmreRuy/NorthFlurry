@@ -2,7 +2,6 @@ package com.example.wouple.manager
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.ui.text.toLowerCase
 import com.airbnb.lottie.BuildConfig
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.ApiRequest
@@ -69,7 +68,7 @@ object WeatherManager {
         temperaUnit: TemperatureUnit,
         windUnit: WindUnit,
         precipitationUnit: PrecipitationUnit
-    ) {
+        ) {
         if (location == null) {
             onSuccessCall(null)
             return
@@ -91,7 +90,7 @@ object WeatherManager {
         onSuccessCall: (TemperatureResponse) -> Unit,
         temperaUnit: TemperatureUnit,
         windUnit: WindUnit,
-        precipitationUnit: PrecipitationUnit
+        precipitationUnit: PrecipitationUnit,
     ) {
         val api = getApiBuilder(OPEN_METEO_BASE_URL)
 

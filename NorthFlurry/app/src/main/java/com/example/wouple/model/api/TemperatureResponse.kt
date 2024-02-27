@@ -18,7 +18,7 @@ data class TemperatureResponse(
     val timezone_abbreviation: String,
     val utc_offset_seconds: Int,
     val precipitation: Double
-) : Parcelable {
+    ) : Parcelable {
 
     companion object {
         fun getMockInstance() = TemperatureResponse(
@@ -1968,7 +1968,7 @@ data class TemperatureResponse(
             timezone = "Europe/Oslo",
             timezone_abbreviation = "CEST",
             utc_offset_seconds = 7200,
-            precipitation = 10.0
+            precipitation = 10.0,
         )
     }
 }

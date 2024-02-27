@@ -26,6 +26,7 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -84,6 +85,7 @@ import com.example.wouple.ui.theme.northerner
 import com.example.wouple.ui.theme.vintage
 import java.time.ZoneId
 import java.time.ZonedDateTime
+
 
 @Preview()
 @Composable
@@ -163,6 +165,8 @@ fun SecondCardView(
         val rainPr = rainIndex.let { temp.hourly.precipitation[rainIndex].toInt() }
         val visibilityInMeters = index.let { temp.hourly.visibility[it].toInt() }
         val windSpeed = index.let { temp.hourly.windspeed_10m[it].toInt() }
+    /*   val context = LocalContext.current
+        val windUnit = WindUnitPref.getWindUnit(context) */
         LocationView(temp, searchedLocation)
         UvIndexCard(temp)
         SunsetSunriseCard(temp)
@@ -170,6 +174,7 @@ fun SecondCardView(
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
         val pagerState = rememberPagerState()
+
         HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
         { page ->
             when (page) {
@@ -189,7 +194,7 @@ fun SecondCardView(
 
                 2 -> ExtraCards(
                     Text = "Wind Speed",
-                    Numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
+                    Numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m.firstOrNull(),
                     Icon = painterResource(id = R.drawable.ic_wind)
                 )
 
@@ -258,7 +263,6 @@ fun LocationView(
     temp: TemperatureResponse,
     searchedLocation: SearchedLocation,
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxWidth(1f)
@@ -317,6 +321,7 @@ fun LocationView(
         val weatherCode = temp.current_weather.weathercode
         val weatherDescription = weatherDescriptions[weatherCode] ?: "Unknown"
         Row(
+            modifier = Modifier.padding(horizontal = 8.dp),
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -335,14 +340,14 @@ fun LocationView(
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = weatherDescription,
                 color = color,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
                 color = color,
@@ -410,7 +415,7 @@ fun AirQualityCard(air: AirQuality?, temp: TemperatureResponse) {
             )
         }
 
-        AirQualityChart(air)
+        AirQualityChart(air, temp)
     }
 }
 
@@ -473,7 +478,7 @@ fun UvIndexCard(temp: TemperatureResponse) {
 }
 
 @Composable
-fun AirQualityChart(air: AirQuality?) {
+fun AirQualityChart(air: AirQuality?, temp: TemperatureResponse) {
     val airQualityValue = air?.current?.european_aqi ?: 0
     val colorRanges = listOf(
         20 to Color(0xFFADD8E6),
@@ -509,9 +514,11 @@ fun AirQualityChart(air: AirQuality?) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
+            val isDay = temp.current_weather.is_day == 1
+            val textColor = if (isDay) Black else White
             Icon(
                 imageVector = Icons.Default.KeyboardArrowUp,
-                tint = Black,
+                tint = textColor,
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)
@@ -563,9 +570,11 @@ fun UvIndexChart(temp: TemperatureResponse) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
+            val isDay = temp.current_weather.is_day == 1
+            val textColor = if (isDay) Black else White
             Icon(
                 imageVector = Icons.Default.KeyboardArrowUp,
-                tint = Black,
+                tint = textColor,
                 contentDescription = null,
                 modifier = Modifier
                     .size(24.dp)

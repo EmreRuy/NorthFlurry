@@ -6,6 +6,7 @@ import androidx.compose.animation.core.EaseInBounce
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.EaseOutBack
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
@@ -44,13 +45,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Bottom
+import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -69,6 +75,7 @@ import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.Whitehis
+import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
 
@@ -101,7 +108,7 @@ fun StartScreenView(
         delay(800)
         textVisible = true
     }
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         delay(1500)
         searchBarVisible = true
     }
@@ -115,15 +122,15 @@ fun StartScreenView(
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      // Navigation()
+        // Navigation()
         Spacer(modifier = Modifier.padding(40.dp))
-     /*   val scale by animateFloatAsState(
-            targetValue = if (textVisible) 1f else 0.8f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(durationMillis = 500),
-                repeatMode = RepeatMode.Reverse
-            )
-        ) */
+        /*   val scale by animateFloatAsState(
+               targetValue = if (textVisible) 1f else 0.8f,
+               animationSpec = infiniteRepeatable(
+                   animation = tween(durationMillis = 500),
+                   repeatMode = RepeatMode.Reverse
+               )
+           ) */
         AnimatedVisibility(
             visible = textVisible,
             enter = slideInVertically(
@@ -131,15 +138,16 @@ fun StartScreenView(
                 animationSpec = tween(durationMillis = 1000, easing = EaseOut)
             ) + fadeIn(initialAlpha = 0.3f)
         ) {
-        Text(
-            modifier = Modifier.padding(8.dp),
-            textAlign = TextAlign.Center,
-            text = "Sun, Rain, or Snow – Know Before You Go!",
-            fontWeight = FontWeight.Normal,
-            fontFamily = FontFamily.Default,
-            fontSize = 16.sp,
-            color = vintage,
-        )}
+            Text(
+                modifier = Modifier.padding(8.dp),
+                textAlign = TextAlign.Center,
+                text = "Sun, Rain, or Snow – Know Before You Go!",
+                fontWeight = FontWeight.Normal,
+                fontFamily = FontFamily.Default,
+                fontSize = 16.sp,
+                color = vintage,
+            )
+        }
         Spacer(modifier = Modifier.padding(6.dp))
         AnimatedVisibility(
             visible = searchBarVisible,
@@ -148,7 +156,8 @@ fun StartScreenView(
                 animationSpec = tween(durationMillis = 1000, easing = EaseIn)
             ) + expandVertically(animationSpec = tween(durationMillis = 1000))
         ) {
-        SimpleSearchBar(onSearch)}
+            SimpleSearchBar(onSearch)
+        }
         if (locations != null) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -190,23 +199,46 @@ fun StartScreenView(
             }
         }
     }
+    var cardsVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Float) {
+        delay(400)
+        cardsVisible = true
+    }
+    LaunchedEffect(cardsVisible) {
+        if (cardsVisible) {
+            delay(3000)
+            cardsVisible = false
+        }
+    }
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
+        // .padding(bottom = 38.dp),
         contentAlignment = Center
     ) {
-        Row(verticalAlignment = CenterVertically, horizontalArrangement = Arrangement.Center) {
-            Icon(
-                painter = painterResource(id = R.drawable.snowyicon),
-                contentDescription = null, modifier = Modifier.size(32.dp), tint = Whitehis
+        AnimatedVisibility(
+            visible = cardsVisible,
+            enter = fadeIn(
+                animationSpec = tween(
+                    durationMillis = 2000,
+                    easing = LinearEasing
+                )
             )
-            Text(
-                text = "App's Icon Will Be Here",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = White
-            )
-        }
+        ) {
+            Row {
+                Icon(painter = painterResource(id = R.drawable.sun), contentDescription = null)
+                Text(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp),
+                    text = "Thank you for downloading NorthFlurry, your ultimate weather companion!",
+                    color = White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Light
+                )
+            }
 
+        }
     }
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -217,7 +249,7 @@ fun StartScreenView(
             alpha = 1f,
             amplitude = 50f,
             frequency = 0.5f,
-            gradientColors = listOf(Color(0xFF2F80ED), Color(0xFF56CCF2))
+            gradientColors = listOf(mocassin, Color(0xFF56CCF2))
         )
         HorizontalWave(
             phase = rememberPhaseState(startPosition = 15f),
@@ -235,6 +267,7 @@ fun StartScreenView(
         )
     }
 }
+
 @Composable
 fun SimpleSearchBar(
     onSearch: (String) -> Unit
