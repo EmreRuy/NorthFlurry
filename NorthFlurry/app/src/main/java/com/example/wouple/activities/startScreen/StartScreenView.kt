@@ -1,6 +1,7 @@
 package com.example.wouple.activities.startScreen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.EaseInBounce
 import androidx.compose.animation.core.EaseOut
@@ -346,22 +347,26 @@ data class Snowflake(
 @Composable
 fun SnowfallEffect() {
     val snowflakes = remember { List(100) { generateRandomSnowflake() } }
-    val infiniteTransition = rememberInfiniteTransition()
 
-    val offsetY by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1000f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 5000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-    )
+    val offsetY = remember { Animatable(0f) }
+    val colorAlpha = remember { Animatable(1f) }
+
+    LaunchedEffect(Unit) {
+        offsetY.animateTo(
+            targetValue = 1000f,
+            animationSpec = tween(durationMillis = 5_000, easing = LinearEasing)
+        )
+        colorAlpha.animateTo(
+            0f,
+            animationSpec = tween(durationMillis = 500, easing = LinearEasing)
+        )
+    }
 
     Canvas(modifier = Modifier
         .fillMaxSize()
         .background(Transparent)) {
         snowflakes.forEach { snowflake ->
-            drawSnowflake(snowflake, offsetY % size.height)
+            drawSnowflake(colorAlpha.value, snowflake, offsetY.value % size.height)
         }
     }
 }
@@ -375,7 +380,7 @@ fun generateRandomSnowflake(): Snowflake {
     )
 }
 
-fun DrawScope.drawSnowflake(snowflake: Snowflake, offsetY: Float) {
+fun DrawScope.drawSnowflake(alpha: Float, snowflake: Snowflake, offsetY: Float) {
     val newY = (snowflake.y + offsetY * snowflake.speed) % size.height
-    drawCircle(Color.White, radius = snowflake.radius, center = Offset(snowflake.x * size.width, newY))
+    drawCircle(White, alpha = alpha, radius = snowflake.radius, center = Offset(snowflake.x * size.width, newY))
 }
