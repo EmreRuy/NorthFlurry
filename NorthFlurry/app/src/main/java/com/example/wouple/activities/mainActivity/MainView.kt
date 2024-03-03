@@ -3,6 +3,7 @@ package com.example.wouple.activities.mainActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
@@ -27,6 +28,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -590,8 +592,8 @@ private fun TodayWeatherCard() {
         ) {
             AnimatedVisibility(
                 visible = visible,
-                enter = fadeIn(),
-                exit = fadeOut()
+                enter = slideInVertically(initialOffsetY = { -it }, animationSpec = tween(2000)),
+                exit = slideOutVertically(targetOffsetY = { height -> height }, animationSpec = tween(delayMillis = 2000))
             ) {
                 Row(modifier = Modifier.padding(start = 12.dp)){
                     Icon(
@@ -624,7 +626,6 @@ private fun TodayWeatherCard() {
         }
     }
 }
-
 @Composable
 fun ClickableCardDemo(searchedLocation: SearchedLocation) {
     val context = LocalContext.current

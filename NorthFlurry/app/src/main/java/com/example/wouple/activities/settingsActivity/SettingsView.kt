@@ -79,6 +79,7 @@ import com.example.wouple.ui.theme.clearSky
 import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.moc
 import com.example.wouple.ui.theme.mocassin
+import com.example.wouple.ui.theme.orgn
 import kotlinx.coroutines.delay
 
 /*@Preview
@@ -298,11 +299,13 @@ private fun SettingsCardTwo() {
 @Composable
 fun TemperatureUnitSettings() {
     val context = LocalContext.current
-    Column(modifier = Modifier.padding(horizontal = 2.dp)) {
+    Column(
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+    ) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = "Temperature Units",
-            color = Spiro,
+            color = orgn,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
@@ -329,11 +332,11 @@ fun TemperatureUnitSettings() {
 @Composable
 fun WindUnitSettings() {
     val context = LocalContext.current
-    Column {
+    Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 2.dp)) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = "WindSpeed Units",
-            color = Spiro,
+            color = orgn,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
@@ -362,11 +365,11 @@ fun WindUnitSettings() {
 @Composable
 fun PrecipitationUnitSettings() {
     val context = LocalContext.current
-    Column {
+    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = "Precipitation Units",
-            color = Spiro,
+            color = orgn,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
@@ -634,7 +637,7 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = moc//MaterialTheme.colorScheme.primary,
+            indicatorColor = Color(0xFF547F8A)//MaterialTheme.colorScheme.primary,
         )
         Row(
             horizontalArrangement = Arrangement.Center,

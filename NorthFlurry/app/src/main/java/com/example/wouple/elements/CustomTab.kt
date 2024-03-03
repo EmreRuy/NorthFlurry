@@ -11,19 +11,24 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -98,7 +103,7 @@ fun CustomTab(
     modifier: Modifier = Modifier,
     tabWidth: Dp = 120.dp,
     onClick: (index: Int) -> Unit,
-    tabHeight: Dp = 38.dp,
+    tabHeight: Dp = 50.dp,
 ) {
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
@@ -107,6 +112,7 @@ fun CustomTab(
     val gradient = getSecondaryGradients()
     Box(
         modifier = modifier
+            .fillMaxWidth()
             .clip(CircleShape)
             .background(brush = Brush.verticalGradient(gradient))
             .height(tabHeight),
@@ -118,7 +124,9 @@ fun CustomTab(
         )
         Row(
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.clip(CircleShape),
+            modifier = Modifier
+                .clip(CircleShape)
+                .padding(top = 8.dp),
         ) {
             items.forEachIndexed { index, text ->
                 val isSelected = index == selectedItemIndex

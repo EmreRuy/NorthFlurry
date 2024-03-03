@@ -8,12 +8,15 @@ import androidx.compose.animation.core.EaseOutBack
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -38,6 +41,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -53,11 +57,13 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -78,6 +84,7 @@ import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 @Preview(showBackground = true)
 @Composable
@@ -122,6 +129,7 @@ fun StartScreenView(
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        SnowfallEffect()
         // Navigation()
         Spacer(modifier = Modifier.padding(40.dp))
         /*   val scale by animateFloatAsState(
@@ -327,4 +335,47 @@ fun SimpleSearchBar(
             )
         )
     }
+}
+data class Snowflake(
+    var x: Float,
+    var y: Float,
+    var radius: Float,
+    var speed: Float
+)
+
+@Composable
+fun SnowfallEffect() {
+    val snowflakes = remember { List(100) { generateRandomSnowflake() } }
+    val infiniteTransition = rememberInfiniteTransition()
+
+    val offsetY by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1000f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 5000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+    )
+
+    Canvas(modifier = Modifier
+        .fillMaxSize()
+        .background(Transparent)) {
+        snowflakes.forEach { snowflake ->
+            drawSnowflake(snowflake, offsetY % size.height)
+        }
+    }
+}
+
+fun generateRandomSnowflake(): Snowflake {
+    return Snowflake(
+        x = Random.nextFloat(),
+        y = Random.nextFloat() * 1000f,
+        radius = Random.nextFloat() * 2f + 2f, // Snowflake size
+        speed = Random.nextFloat() * 1.2f + 1f  // Falling speed
+    )
+}
+
+fun DrawScope.drawSnowflake(snowflake: Snowflake, offsetY: Float) {
+    val newY = (snowflake.y + offsetY * snowflake.speed) % size.height
+    drawCircle(Color.White, radius = snowflake.radius, center = Offset(snowflake.x * size.width, newY))
 }

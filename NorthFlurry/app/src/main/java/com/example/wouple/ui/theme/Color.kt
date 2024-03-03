@@ -39,6 +39,7 @@ val tea = Color(0xFF778899)
 val clearSky = Color(0xFF1D244D)
 val mocassin = Color(0xFFFFE4B5)
 val moc = Color(0xFF006666)
+val orgn = Color(0xFFFFC047)
 
 
 
