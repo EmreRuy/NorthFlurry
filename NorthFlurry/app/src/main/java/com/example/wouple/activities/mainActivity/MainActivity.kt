@@ -24,6 +24,7 @@ import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.WoupleTheme
+
 class MainActivity : ComponentActivity() {
     private val temp: MutableState<TemperatureResponse?> = mutableStateOf(null)
 
@@ -38,16 +39,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
 
         setContent {
             WoupleTheme {
-                if (isFirstLaunch)
+                if (temp.value == null)
                     NoTemperatureView(
                         onStartButtonClicked = {
                             Log.d("NoTemperatureView", "Start button clicked")
-                            sharedPreferences.edit().putBoolean("isFirstLaunch", false).apply()
                             val intent = Intent(this@MainActivity, StartActivity::class.java)
                             startActivity(intent)
                             val secondIntent = Intent(this, StartActivity::class.java)
@@ -57,65 +55,63 @@ class MainActivity : ComponentActivity() {
                         }
                     )
                 else {
-                    displayFirstCardView()
+                    temp.value?.let { displayFirstCardView(it) }
                 }
             }
         }
     }
 
-    private fun displayFirstCardView() {
+    private fun displayFirstCardView(temp: TemperatureResponse) {
         setContent {
             val focusManager = LocalFocusManager.current
-            if (temp.value !== null) {
-                FirstCardView(
-                    temp = temp.value!!,
-                    locations = searchedLocations.value,
-                    onLocationButtonClicked = { location ->
-                        focusManager.clearFocus()
-                        onLocationButtonClicked(location)
-                    },
-                    searchedLocation = searchedLocation,
-                    onClose = { searchedLocations.value = null },
-                    onSearch = { query ->
-                       WeatherManager.getSearchedLocations(
-                            context = this,
-                            address = query,
-                            onSuccessCall = { location ->
-                                searchedLocations.value = location
-                            })
-                    },
-                    onDetailsButtonClicked = { temp ->
-                        val intent = Intent(this, SecondActivity::class.java)
-                        intent.putExtra("temp", temp)
-                        intent.putExtra("air", airQuality.value)
-                        intent.putExtra("location", searchedLocation.value)
-                        intent.putExtra("precipitationUnit", WindUnitPref.getWindUnit(this) )
-                        this.startActivity(intent)
-                    },
-                 /*   onTemperatureUnitChanged = { temperatureUnit ->
-                        val precipitationUnit = WindUnitPref.getPrecipitationUnit(this)
-                        TemperatureUnitPref.setTemperatureUnit(this, temperatureUnit)
-                        WindUnitPref.setTemperatureUnit(this, precipitationUnit)
-                        getCurrentWeather(
-                            context = this,
-                            location = searchedLocation.value,
-                            temperaUnit = temperatureUnit,
-                            precipitationUnit = precipitationUnit ,
-                            onSuccessCall = { temperature ->
-                                temp.value = temperature
-                            })
-                        searchedLocation.value?.let {
-                            getAirQuality(
-                                it
-                            )
-                        }
-                    } */
-                    onSettingsClicked = {
-                        val intent = Intent(this, SettingsActivity::class.java)
-                        startActivity(intent)
-                    }
-                )
-            }
+            FirstCardView(
+                temp = temp,
+                locations = searchedLocations.value,
+                onLocationButtonClicked = { location ->
+                    focusManager.clearFocus()
+                    onLocationButtonClicked(location)
+                },
+                searchedLocation = searchedLocation,
+                onClose = { searchedLocations.value = null },
+                onSearch = { query ->
+                    WeatherManager.getSearchedLocations(
+                        context = this,
+                        address = query,
+                        onSuccessCall = { location ->
+                            searchedLocations.value = location
+                        })
+                },
+                onDetailsButtonClicked = { temp ->
+                    val intent = Intent(this, SecondActivity::class.java)
+                    intent.putExtra("temp", temp)
+                    intent.putExtra("air", airQuality.value)
+                    intent.putExtra("location", searchedLocation.value)
+                    intent.putExtra("precipitationUnit", WindUnitPref.getWindUnit(this))
+                    this.startActivity(intent)
+                },
+                /*   onTemperatureUnitChanged = { temperatureUnit ->
+                       val precipitationUnit = WindUnitPref.getPrecipitationUnit(this)
+                       TemperatureUnitPref.setTemperatureUnit(this, temperatureUnit)
+                       WindUnitPref.setTemperatureUnit(this, precipitationUnit)
+                       getCurrentWeather(
+                           context = this,
+                           location = searchedLocation.value,
+                           temperaUnit = temperatureUnit,
+                           precipitationUnit = precipitationUnit ,
+                           onSuccessCall = { temperature ->
+                               temp.value = temperature
+                           })
+                       searchedLocation.value?.let {
+                           getAirQuality(
+                               it
+                           )
+                       }
+                   } */
+                onSettingsClicked = {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                }
+            )
         }
     }
 
@@ -138,7 +134,7 @@ class MainActivity : ComponentActivity() {
                 temp.value = temperature
             },
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            windUnit = WindUnitPref.getWindUnit(this) ,
+            windUnit = WindUnitPref.getWindUnit(this),
             precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
         )
         getAirQuality(location)
@@ -153,7 +149,7 @@ class MainActivity : ComponentActivity() {
             context = this,
             location = searchedLocation.value,
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            windUnit = WindUnitPref.getWindUnit(this) ,
+            windUnit = WindUnitPref.getWindUnit(this),
             precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
             onSuccessCall = { temperature ->
                 temp.value = temperature

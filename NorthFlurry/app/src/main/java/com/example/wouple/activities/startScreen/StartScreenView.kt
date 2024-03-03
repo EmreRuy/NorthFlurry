@@ -110,103 +110,96 @@ fun StartScreenView(
     onButtonClicked: (SearchedLocation) -> Unit,
     searchedLocation: MutableState<SearchedLocation?>
 ) {
-    var searchBarVisible by remember { mutableStateOf(false) }
-    var textVisible by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        delay(800)
-        textVisible = true
-    }
-    LaunchedEffect(Unit) {
-        delay(1500)
-        searchBarVisible = true
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = getBackgroundGradient()
-                )
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        SnowfallEffect()
-        // Navigation()
-        Spacer(modifier = Modifier.padding(40.dp))
-        /*   val scale by animateFloatAsState(
+    val searchBarVisible = remember { mutableStateOf(false) }
+    Box {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = getBackgroundGradient()
+                    )
+                ),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            // Navigation()
+            Spacer(modifier = Modifier.padding(40.dp))
+            /*   val scale by animateFloatAsState(
                targetValue = if (textVisible) 1f else 0.8f,
                animationSpec = infiniteRepeatable(
                    animation = tween(durationMillis = 500),
                    repeatMode = RepeatMode.Reverse
                )
            ) */
-        AnimatedVisibility(
-            visible = textVisible,
-            enter = slideInVertically(
-                initialOffsetY = { -40 },
-                animationSpec = tween(durationMillis = 1000, easing = EaseOut)
-            ) + fadeIn(initialAlpha = 0.3f)
-        ) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                textAlign = TextAlign.Center,
-                text = "Sun, Rain, or Snow – Know Before You Go!",
-                fontWeight = FontWeight.Normal,
-                fontFamily = FontFamily.Default,
-                fontSize = 16.sp,
-                color = vintage,
-            )
-        }
-        Spacer(modifier = Modifier.padding(6.dp))
-        AnimatedVisibility(
-            visible = searchBarVisible,
-            enter = slideInVertically(
-                initialOffsetY = { -40 },
-                animationSpec = tween(durationMillis = 1000, easing = EaseIn)
-            ) + expandVertically(animationSpec = tween(durationMillis = 1000))
-        ) {
-            SimpleSearchBar(onSearch)
-        }
-        if (locations != null) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(vertical = 4.dp)
+            AnimatedVisibility(
+                visible = searchBarVisible.value,
+                enter = slideInVertically(
+                    initialOffsetY = { -40 },
+                    animationSpec = tween(durationMillis = 1000, easing = EaseOut)
+                ) + fadeIn(initialAlpha = 0.3f)
             ) {
-                items(locations) { location ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp, horizontal = 24.dp)
-                            .clip(RoundedCornerShape(24.dp))
-                            .clickable {
-                                searchedLocation.value = location
-                                onButtonClicked(location)
-                            },
-                        elevation = 4.dp,
-                        backgroundColor = White
-                    ) {
-                        Row(
+                Text(
+                    modifier = Modifier.padding(8.dp),
+                    textAlign = TextAlign.Center,
+                    text = "Sun, Rain, or Snow – Know Before You Go!",
+                    fontWeight = FontWeight.Normal,
+                    fontFamily = FontFamily.Default,
+                    fontSize = 16.sp,
+                    color = vintage,
+                )
+            }
+            Spacer(modifier = Modifier.padding(6.dp))
+            AnimatedVisibility(
+                visible = searchBarVisible.value,
+                enter = slideInVertically(
+                    initialOffsetY = { -80 },
+                    animationSpec = tween(durationMillis = 2000, easing = EaseIn)
+                ) + expandVertically(animationSpec = tween(durationMillis = 1000))
+            ) {
+                SimpleSearchBar(onSearch)
+            }
+            if (locations != null) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(vertical = 4.dp)
+                ) {
+                    items(locations) { location ->
+                        Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(12.dp),
-                            verticalAlignment = CenterVertically
+                                .padding(vertical = 4.dp, horizontal = 24.dp)
+                                .clip(RoundedCornerShape(24.dp))
+                                .clickable {
+                                    searchedLocation.value = location
+                                    onButtonClicked(location)
+                                },
+                            elevation = 4.dp,
+                            backgroundColor = White
                         ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.pin),
-                                contentDescription = null,
-                                tint = Color.Unspecified
-                            )
-                            Text(
-                                text = location.display_name,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 16.sp,
-                                color = Color.Black
-                            )
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(12.dp),
+                                verticalAlignment = CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.pin),
+                                    contentDescription = null,
+                                    tint = Color.Unspecified
+                                )
+                                Text(
+                                    text = location.display_name,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 16.sp,
+                                    color = Color.Black
+                                )
+                            }
                         }
                     }
                 }
             }
         }
+        SnowfallEffect(searchBarVisible)
     }
     var cardsVisible by remember { mutableStateOf(false) }
 
@@ -337,6 +330,7 @@ fun SimpleSearchBar(
         )
     }
 }
+
 data class Snowflake(
     var x: Float,
     var y: Float,
@@ -345,9 +339,8 @@ data class Snowflake(
 )
 
 @Composable
-fun SnowfallEffect() {
+fun SnowfallEffect(searchBarAppear: MutableState<Boolean>) {
     val snowflakes = remember { List(100) { generateRandomSnowflake() } }
-
     val offsetY = remember { Animatable(0f) }
     val colorAlpha = remember { Animatable(1f) }
 
@@ -360,11 +353,15 @@ fun SnowfallEffect() {
             0f,
             animationSpec = tween(durationMillis = 500, easing = LinearEasing)
         )
+        //delay(5_000)
+        searchBarAppear.value = true
     }
 
-    Canvas(modifier = Modifier
-        .fillMaxSize()
-        .background(Transparent)) {
+    Canvas(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Transparent)
+    ) {
         snowflakes.forEach { snowflake ->
             drawSnowflake(colorAlpha.value, snowflake, offsetY.value % size.height)
         }
