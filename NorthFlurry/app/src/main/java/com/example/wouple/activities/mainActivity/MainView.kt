@@ -1,5 +1,7 @@
 package com.example.wouple.activities.mainActivity
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.RepeatMode
@@ -53,6 +55,7 @@ import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -92,6 +95,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.core.content.ContextCompat.startActivity
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -102,6 +106,10 @@ import com.example.wouple.activities.lightningMap.LightningMapActivity
 import com.example.wouple.activities.rainMap.WeatherRadarWebView
 import com.example.wouple.activities.ui.theme.getBackgroundGradient
 import com.example.wouple.elements.HorizontalWave
+import com.example.wouple.elements.LightningCardNotification
+import com.example.wouple.elements.SearchBar
+import com.example.wouple.elements.WeatherCardNotification
+import com.example.wouple.elements.getWeeklyForecast
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
@@ -111,6 +119,7 @@ import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.mocassin
+import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
 
@@ -309,18 +318,18 @@ fun FirstCardView(
             modifier = Modifier
                 .fillMaxHeight(0.5f)
                 .background(White)
-                .padding(top = 16.dp)
+                .padding(top = 8.dp)
         ) {
-            TodayWeatherCard()
+            TodayWeatherCard(temp)
         }
         Box(
             modifier = Modifier
                 .fillMaxHeight(1f)
                 .background(White)
-                .padding(bottom = 16.dp),
+                .padding(bottom = 8.dp),
             contentAlignment = Center
         ) {
-            searchedLocation.value?.let { ClickableCardDemo(it) }
+            searchedLocation.value?.let { ClickableCardDemo(it, temp) }
         }
     }
 }
@@ -443,8 +452,8 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
     val infiniteTransition = rememberInfiniteTransition()
 
     val colorTransition by infiniteTransition.animateColor(
-        initialValue = Color(0xFF2F80ED),
-        targetValue = Color(0xFF56CCF2),
+        initialValue = vintage,
+        targetValue = mocassin,
         animationSpec = infiniteRepeatable(
             animation = tween(2000),
             repeatMode = RepeatMode.Reverse
@@ -461,7 +470,7 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
             backgroundColor = if (isPressed) {
                 colorTransition
             } else {
-                Spiro
+               vintage
             }
         )
     ) {
@@ -507,6 +516,7 @@ fun DropDownMenu(
                     }
                 ) {
                     Text(
+                        modifier = Modifier,
                         text = "Settings",
                         fontWeight = FontWeight.Light,
                         color = Color.Black
@@ -528,11 +538,12 @@ fun DropDownMenu(
         }
     }
 }
+
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun TodayWeatherCard() {
+private fun TodayWeatherCard(temp: TemperatureResponse) {
     var showDialog by remember { mutableStateOf(false) }
     var visible by remember {
         mutableStateOf(false)
@@ -551,18 +562,25 @@ private fun TodayWeatherCard() {
         shape = RoundedCornerShape(16.dp),
         elevation = 4.dp,
     ) {
+        val colors = listOf(
+            Color(0xFF1D244D),
+            Color(0xFF25508C),
+            Color(0xFF4180B3),
+            Color(0xFF8ABFCC),
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(LightGray.copy(alpha = 0.3f))
+                .background(brush = Brush.verticalGradient(colors))
         ) {
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
-                    .align(CenterStart)
+                    .padding( top = 42.dp, end = 4.dp, start = 4.dp)
+                    .align(Alignment.Center)
             ) {
-                Spacer(modifier = Modifier.height(40.dp))
+                getWeeklyForecast(temp)
+               /* Spacer(modifier = Modifier.height(40.dp))
                 Text(
                     modifier = Modifier.padding(top = 16.dp),
                     text = "Global Weather Forecast",
@@ -576,41 +594,10 @@ private fun TodayWeatherCard() {
                     fontWeight = FontWeight.Light,
                     color = Dark20,
                     fontSize = 14.sp
-                )
+                ) */
             }
         }
-        val color = listOf(
-            Color(0xFF8ABFCC),
-            Color(0xFFC0DDE1),
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .background(brush = Brush.verticalGradient(color)),
-            contentAlignment = CenterStart
-        ) {
-            AnimatedVisibility(
-                visible = visible,
-                enter = slideInVertically(initialOffsetY = { -it }, animationSpec = tween(2000)),
-                exit = slideOutVertically(targetOffsetY = { height -> height }, animationSpec = tween(delayMillis = 2000))
-            ) {
-                Row(modifier = Modifier.padding(start = 12.dp)){
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_circle_notifications_24) ,
-                        contentDescription = "notification",
-                        tint = White
-                    )
-                    Spacer(modifier = Modifier.padding(4.dp))
-                    Text(
-                        text = "Reel feel is 17 atm in your location",
-                        fontWeight = FontWeight.Light,
-                        color = Dark20,
-                        fontSize = 14.sp
-                    )
-                }
-            }
-        }
+        WeatherCardNotification(temp)
     }
     if (showDialog) {
         Dialog(
@@ -626,14 +613,10 @@ private fun TodayWeatherCard() {
         }
     }
 }
+
 @Composable
-fun ClickableCardDemo(searchedLocation: SearchedLocation) {
+fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureResponse) {
     val context = LocalContext.current
-    var visible by remember { mutableStateOf(false) }
-    LaunchedEffect(visible) {
-        delay(500)
-        visible = true
-    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -644,17 +627,25 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation) {
         shape = RoundedCornerShape(16.dp),
         elevation = 4.dp,
     ) {
+        val colors = listOf(
+            Color(0xFF1D244D),
+            Color(0xFF25508C),
+            Color(0xFF4180B3),
+            Color(0xFF8ABFCC),
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(LightGray.copy(alpha = 0.3f))
+                .background(brush = Brush.verticalGradient(colors))
         ) {
             Column(
                 modifier = Modifier
                     .padding(16.dp)
                     .align(CenterStart)
             ) {
+                getHourlyWeatherInfo(temp)
+                /*
                 Spacer(modifier = Modifier.height(40.dp))
                 Text(
                     modifier = Modifier,
@@ -669,137 +660,9 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation) {
                     fontWeight = FontWeight.Light,
                     color = Dark20,
                     fontSize = 14.sp
-                )
+                ) */
             }
         }
-        val color = listOf(
-            Color(0xFF8ABFCC),
-            Color(0xFFC0DDE1),
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp)
-                .background(brush = Brush.verticalGradient(color)),
-            contentAlignment = CenterStart,
-        ) {
-            AnimatedVisibility(
-                visible = visible,
-                enter = slideInVertically(),
-                exit = fadeOut()
-            ) {
-                Row(modifier = Modifier.padding(start = 12.dp)) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.baseline_circle_notifications_24) ,
-                        contentDescription = "notification",
-                        tint = White
-                    )
-                    Spacer(modifier = Modifier.padding(4.dp))
-                    Text(
-                        text = "Lightning potential in your location is : 4JK",
-                        fontWeight = FontWeight.Light,
-                        color = Dark20,
-                        fontSize = 14.sp,
-                    )
-                }
-            }
-
-        }
-    }
-}
-
-@Composable
-fun SearchBar(
-    isSearchExpanded: MutableState<Boolean>,
-    onSearch: (String) -> Unit,
-    onClose: () -> Unit
-) {
-    val focusManager = LocalFocusManager.current
-    var query by remember { mutableStateOf("") }
-    val gradient = Brush.horizontalGradient(
-        colors = if (isSearchExpanded.value) listOf(White, Color(0xFF56CCF2))
-        else listOf(Transparent, Transparent)
-    )
-
-    LaunchedEffect(isSearchExpanded.value) {
-        query = ""
-    }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 5.dp, horizontal = 16.dp)
-            .background(
-                brush = gradient,
-                shape = RoundedCornerShape(28.dp)
-            ),
-        verticalAlignment = CenterVertically,
-        horizontalArrangement = Arrangement.Start
-    ) {
-        AnimatedVisibility(
-            visible = isSearchExpanded.value,
-            enter = slideInHorizontally(initialOffsetX = { -it }),
-            exit = slideOutHorizontally(targetOffsetX = { -it })
-        ) {
-            TextField(
-                value = query,
-                maxLines = 1,
-                onValueChange = {
-                    query = it
-                    if (query.length >= 3) {
-                        onSearch(query)
-                    }
-                },
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 18.dp),
-                textStyle = TextStyle(
-                    color = Black,
-                    fontSize = 18.sp,
-                ),
-                placeholder = {
-                    Text(
-                        modifier = Modifier.padding(start = 16.dp),
-                        text = "Search a city or airport",
-                        color = Black.copy(alpha = 0.7f)
-                    )
-                },
-                keyboardOptions = KeyboardOptions(
-                    imeAction = ImeAction.Search,
-                    capitalization = KeyboardCapitalization.Characters,
-                    keyboardType = KeyboardType.Text
-                ),
-                keyboardActions = KeyboardActions(
-                    onSearch = {
-                        focusManager.clearFocus(true)
-                    }
-                ),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = Transparent,
-                    focusedIndicatorColor = Transparent,
-                    unfocusedIndicatorColor = Transparent,
-                    cursorColor = Spiro,
-                )
-            )
-        }
-        IconButton(
-            onClick = {
-                isSearchExpanded.value = !isSearchExpanded.value
-                if (!isSearchExpanded.value) {
-                    query = ""
-                }
-                onClose()
-            },
-            modifier = Modifier
-                .padding(end = 16.dp, bottom = if (isSearchExpanded.value) 0.dp else 8.dp)
-                .rotate(if (isSearchExpanded.value) 1f else 360f)
-        ) {
-            Icon(
-                imageVector = if (isSearchExpanded.value) Icons.Default.Clear else Icons.Default.Search,
-                contentDescription = "Search",
-                tint = if (isSearchExpanded.value) Black else White,
-                modifier = Modifier.size(32.dp)
-            )
-        }
+        LightningCardNotification()
     }
 }

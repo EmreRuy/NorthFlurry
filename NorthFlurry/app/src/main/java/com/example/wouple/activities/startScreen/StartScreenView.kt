@@ -78,6 +78,7 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.activities.ui.theme.getBackgroundGradient
 import com.example.wouple.elements.HorizontalWave
+import com.example.wouple.elements.SnowfallEffect
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.ui.theme.Spiro
@@ -102,7 +103,6 @@ fun StartScreenPreview() {
         searchedLocation = searchedLocation
     )
 }
-
 @Composable
 fun StartScreenView(
     locations: List<SearchedLocation>?,
@@ -122,15 +122,7 @@ fun StartScreenView(
                 ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Navigation()
             Spacer(modifier = Modifier.padding(40.dp))
-            /*   val scale by animateFloatAsState(
-               targetValue = if (textVisible) 1f else 0.8f,
-               animationSpec = infiniteRepeatable(
-                   animation = tween(durationMillis = 500),
-                   repeatMode = RepeatMode.Reverse
-               )
-           ) */
             AnimatedVisibility(
                 visible = searchBarVisible.value,
                 enter = slideInVertically(
@@ -168,7 +160,7 @@ fun StartScreenView(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(vertical = 4.dp, horizontal = 24.dp)
-                                .clip(RoundedCornerShape(24.dp))
+                                .clip(RoundedCornerShape(28.dp))
                                 .clickable {
                                     searchedLocation.value = location
                                     onButtonClicked(location)
@@ -179,13 +171,14 @@ fun StartScreenView(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(12.dp),
+                                    .padding(16.dp),
                                 verticalAlignment = CenterVertically
                             ) {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.pin),
+                                    modifier = Modifier.size(32.dp),
+                                    painter = painterResource(id = R.drawable.ic_pin),
                                     contentDescription = null,
-                                    tint = Color.Unspecified
+                                    tint = Unspecified
                                 )
                                 Text(
                                     text = location.display_name,
@@ -228,23 +221,20 @@ fun StartScreenView(
                 )
             )
         ) {
-            Row {
-                Icon(painter = painterResource(id = R.drawable.sun), contentDescription = null)
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp),
-                    text = "Thank you for downloading NorthFlurry, your ultimate weather companion!",
-                    color = White,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Light
-                )
-            }
-
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp),
+                text = "Thank you for downloading NorthFlurry, \nLet's Begin!",
+                color = White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Light,
+                textAlign = TextAlign.Center
+            )
         }
     }
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.BottomCenter
+        contentAlignment = BottomCenter
     ) {
         HorizontalWave(
             phase = rememberPhaseState(startPosition = 0f),
@@ -269,7 +259,6 @@ fun StartScreenView(
         )
     }
 }
-
 @Composable
 fun SimpleSearchBar(
     onSearch: (String) -> Unit
@@ -329,55 +318,4 @@ fun SimpleSearchBar(
             )
         )
     }
-}
-
-data class Snowflake(
-    var x: Float,
-    var y: Float,
-    var radius: Float,
-    var speed: Float
-)
-
-@Composable
-fun SnowfallEffect(searchBarAppear: MutableState<Boolean>) {
-    val snowflakes = remember { List(100) { generateRandomSnowflake() } }
-    val offsetY = remember { Animatable(0f) }
-    val colorAlpha = remember { Animatable(1f) }
-
-    LaunchedEffect(Unit) {
-        offsetY.animateTo(
-            targetValue = 1000f,
-            animationSpec = tween(durationMillis = 5_000, easing = LinearEasing)
-        )
-        colorAlpha.animateTo(
-            0f,
-            animationSpec = tween(durationMillis = 500, easing = LinearEasing)
-        )
-        //delay(5_000)
-        searchBarAppear.value = true
-    }
-
-    Canvas(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Transparent)
-    ) {
-        snowflakes.forEach { snowflake ->
-            drawSnowflake(colorAlpha.value, snowflake, offsetY.value % size.height)
-        }
-    }
-}
-
-fun generateRandomSnowflake(): Snowflake {
-    return Snowflake(
-        x = Random.nextFloat(),
-        y = Random.nextFloat() * 1000f,
-        radius = Random.nextFloat() * 2f + 2f, // Snowflake size
-        speed = Random.nextFloat() * 1.2f + 1f  // Falling speed
-    )
-}
-
-fun DrawScope.drawSnowflake(alpha: Float, snowflake: Snowflake, offsetY: Float) {
-    val newY = (snowflake.y + offsetY * snowflake.speed) % size.height
-    drawCircle(White, alpha = alpha, radius = snowflake.radius, center = Offset(snowflake.x * size.width, newY))
 }

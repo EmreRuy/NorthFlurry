@@ -16,5 +16,5 @@ data class Hourly(
     val uv_index: List<Double>,
     val visibility: List<Double>,
     val weathercode: List<Int>,
-    val windspeed_10m: List<Double>
-): Parcelable
+    val windspeed_10m: List<Double>,
+    ): Parcelable

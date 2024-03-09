@@ -21,12 +21,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -66,6 +68,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
@@ -79,6 +82,8 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.wouple.elements.BarChart
+import com.example.wouple.elements.CustomBarChart
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.ui.theme.WoupleTheme
 import com.example.wouple.ui.theme.northerner
@@ -87,7 +92,7 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 
-@Preview()
+@Preview
 @Composable
 fun StartScreenPreview() {
     val locations = listOf(
@@ -104,16 +109,22 @@ fun StartScreenPreview() {
 fun SecondCardView(
     temp: TemperatureResponse,
     searchedLocation: SearchedLocation,
-    air: AirQuality?
+    air: AirQuality?,
+    onBackPressed: () -> Unit,
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
+            /* Color(0xFF25508C),
+             Color(0xFF87CEEB),
+             Color(0xFFB0E0E6),
+             Color(0xFFE0FFFF),
+             Color(0xFFFFE4B5), */
+            Color(0xFF1D244D),
             Color(0xFF25508C),
-            Color(0xFF87CEEB),
-            Color(0xFFB0E0E6),
-            Color(0xFFE0FFFF),
-            Color(0xFFFFE4B5),
+            Color(0xFF4180B3),
+            Color(0xFF8ABFCC),
+            Color(0xFFFFE4B5)
         )
     } else {
         listOf(
@@ -154,6 +165,20 @@ fun SecondCardView(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
+        TopAppBar(
+            navigationIcon = {
+                IconButton(onClick = onBackPressed) {
+                    Icon(
+                        Icons.Default.ArrowBack, contentDescription = "Back",
+                        modifier = Modifier.size(32.dp),
+                        tint = White
+                    )
+                }
+            },
+            backgroundColor = Transparent,
+            elevation = 0.dp,
+            title = { }
+        )
         val index =
             temp.hourly.time.map { LocalDateTime.parse(it).hour }.indexOf(LocalDateTime.now().hour)
         val feelsLike = index.let { temp.hourly.apparent_temperature[it].toInt() }
@@ -165,61 +190,63 @@ fun SecondCardView(
         val rainPr = rainIndex.let { temp.hourly.precipitation[rainIndex].toInt() }
         val visibilityInMeters = index.let { temp.hourly.visibility[it].toInt() }
         val windSpeed = index.let { temp.hourly.windspeed_10m[it].toInt() }
-    /*   val context = LocalContext.current
-        val windUnit = WindUnitPref.getWindUnit(context) */
+        /*   val context = LocalContext.current
+            val windUnit = WindUnitPref.getWindUnit(context) */
         LocationView(temp, searchedLocation)
-        UvIndexCard(temp)
+       ChartView(temp)
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+        // UvIndexCard(temp)
         SunsetSunriseCard(temp)
         AirQualityCard(air, temp)
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
         val pagerState = rememberPagerState()
-
         HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
         { page ->
             when (page) {
                 0 -> ExtraCards(
-                    Text = "Feels Like",
-                    Numbers = temp.hourly.apparent_temperature.getOrNull(feelsLike)?.let {
+                    text = "Feels Like",
+                    numbers = temp.hourly.apparent_temperature.getOrNull(feelsLike)?.let {
                         it.toInt().toString() + temp.hourly_units.apparent_temperature
                     } ?: "No Data",
-                    Icon = painterResource(id = R.drawable.ic_term)
+                    icon = painterResource(id = R.drawable.ic_term)
                 )
 
                 1 -> ExtraCards(
-                    Text = "Rainfall",
-                    Numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
-                    Icon = painterResource(id = R.drawable.ic_drop)
+                    text = "Rainfall",
+                    numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
+                    icon = painterResource(id = R.drawable.ic_drop)
                 )
 
                 2 -> ExtraCards(
-                    Text = "Wind Speed",
-                    Numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m.firstOrNull(),
-                    Icon = painterResource(id = R.drawable.ic_wind)
+                    text = "Wind Speed",
+                    numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m.firstOrNull(),
+                    icon = painterResource(id = R.drawable.ic_wind)
                 )
 
                 3 -> ExtraCards(
-                    Text = "Visibility",
-                    Numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
-                    Icon = painterResource(id = R.drawable.eye)
+                    text = "Visibility",
+                    numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
+                    icon = painterResource(id = R.drawable.eye)
                 )
 
                 4 -> ExtraCards(
-                    Text = "Humidity",
-                    Numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
-                    Icon = painterResource(id = R.drawable.ic_humidity)
+                    text = "Humidity",
+                    numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
+                    icon = painterResource(id = R.drawable.ic_humidity)
                 )
 
                 5 -> ExtraCards(
-                    Text = "Dew Point",
-                    Numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
-                    Icon = painterResource(id = R.drawable.ic_drop)
+                    text = "Dew Point",
+                    numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
+                    icon = painterResource(id = R.drawable.ic_drop)
                 )
             }
         }
         HorizontalPagerIndicator(step = pagerState.currentPage, totalSteps = pagerState.pageCount)
     }
 }
+
 
 @Composable
 private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
@@ -256,6 +283,7 @@ private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
         }
     }
 }
+
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
 @Composable
@@ -266,16 +294,16 @@ fun LocationView(
     Column(
         modifier = Modifier
             .fillMaxWidth(1f)
-            .padding(horizontal = 16.dp, vertical = 24.dp),
+            .padding(horizontal = 16.dp),
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         val isDay = temp.current_weather.is_day == 1
-        val color = if (isDay) Black else White
+        val color = if (isDay) Whitehis else White
         Spacer(modifier = Modifier.padding(top = 8.dp))
         Text(
             text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
-            fontWeight = FontWeight.Light,
+            fontWeight = FontWeight.Thin,
             fontSize = 50.sp,
             color = color,
             textAlign = TextAlign.Center,
@@ -285,7 +313,7 @@ fun LocationView(
             text = "${temp.current_weather.temperature.toInt()}°",
             color = color,
             modifier = Modifier.padding(start = 4.dp),
-            fontWeight = FontWeight.Light,
+            fontWeight = FontWeight.Thin,
             fontSize = 64.sp,
             textAlign = TextAlign.Center
         )
@@ -338,7 +366,8 @@ fun LocationView(
                 text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
                 color = color,
                 fontSize = 24.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Light
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
@@ -352,7 +381,8 @@ fun LocationView(
                 text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
                 color = color,
                 fontSize = 24.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Light
             )
             Icon(
                 modifier = Modifier.size(30.dp),
@@ -365,10 +395,45 @@ fun LocationView(
 }
 
 @Composable
+fun ChartView(temp: TemperatureResponse) {
+    val dailyUv = temp.daily.uv_index_max // Assuming temp.daily.uv_index_max contains the UV index data as List<Double>
+    val maxUv = dailyUv.maxOrNull()?.toFloat() ?: 0f // Compute the maximum UV index value
+    val labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+    Column(modifier = Modifier.background(Transparent)) {
+        Row(
+            modifier = Modifier.height(300.dp),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            dailyUv.forEach { value ->
+                CustomBarChart(size = value.toFloat().dp, max = maxUv)
+            }
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(20.dp),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            labels.forEach { label ->
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .width(10.dp), contentAlignment = Center
+                ) {
+                    Text(text = label)
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun AirQualityCard(air: AirQuality?, temp: TemperatureResponse) {
     Column(
         modifier = Modifier
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
             //.shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(Transparent),
         horizontalAlignment = CenterHorizontally
@@ -378,13 +443,13 @@ fun AirQualityCard(air: AirQuality?, temp: TemperatureResponse) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             val isDay = temp.current_weather.is_day == 1
-            val textColor = if (isDay) Black else White
+            val textColor = if (isDay) Whitehis else White
             Text(
                 modifier = Modifier.padding(4.dp),
                 text = "air quality index".uppercase(),
                 textAlign = TextAlign.Start,
                 color = textColor,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Light
             )
             Spacer(modifier = Modifier.weight(1f))
             val aqiValue = air?.current?.european_aqi.toString()
@@ -392,7 +457,7 @@ fun AirQualityCard(air: AirQuality?, temp: TemperatureResponse) {
                 modifier = Modifier.padding(end = 10.dp),
                 text = aqiValue,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Light,
                 color = textColor
             )
             val airQualityDescriptions = mapOf(
@@ -410,7 +475,7 @@ fun AirQualityCard(air: AirQuality?, temp: TemperatureResponse) {
                 modifier = Modifier.padding(start = 4.dp),
                 text = descriptionText,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Light,
                 color = textColor
             )
         }
@@ -440,7 +505,7 @@ fun UvIndexCard(temp: TemperatureResponse) {
                 text = "uv index".uppercase(),
                 textAlign = TextAlign.Start,
                 color = textColor,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Light
             )
             Spacer(modifier = Modifier.weight(1f))
             val timeZone = temp.timezone
@@ -451,7 +516,7 @@ fun UvIndexCard(temp: TemperatureResponse) {
                 modifier = Modifier.padding(end = 10.dp),
                 text = aqiValue,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Light,
                 color = textColor
             )
             val uvIndexDescriptions = when (temp.hourly.uv_index[currentHour].toInt()) {
@@ -469,7 +534,7 @@ fun UvIndexCard(temp: TemperatureResponse) {
                 modifier = Modifier.padding(start = 4.dp),
                 text = uvIndexDescriptions,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Light,
                 color = textColor
             )
         }
@@ -481,16 +546,13 @@ fun UvIndexCard(temp: TemperatureResponse) {
 fun AirQualityChart(air: AirQuality?, temp: TemperatureResponse) {
     val airQualityValue = air?.current?.european_aqi ?: 0
     val colorRanges = listOf(
-        20 to Color(0xFFADD8E6),
-        25 to Color(0xFF87CEEB),
-        30 to Color(0xFF6495ED),
-        40 to Color(0xFF4169E1),
-        50 to Color(0xFF0000FF),
-        55 to Color(0xFF0000CD),
-        60 to Color(0xFF191970),
-        70 to Color(0xFF000080),
-        80 to Color(0xFF000033),
-        100 to Color(0xFF00001A)
+        20 to Color(0xFF89CFF0),  // Light blue
+        10 to Color(0xFF8CD790),  // Light green
+        10 to Color(0xFF8CD790),  // Light green
+        30 to Color(0xFF7A9CC2),  // Blue
+        40 to Color(0xFF8A77B7),  // Purple
+        60 to Color(0xFFCD6C85),  // Reddish-purple
+        80 to Color(0xFFD7564E)   // Red
     )
     val totalBars = colorRanges.size
     var arrowPosition by remember { mutableStateOf(0f) }
@@ -515,7 +577,7 @@ fun AirQualityChart(air: AirQuality?, temp: TemperatureResponse) {
                 .padding(horizontal = 16.dp)
         ) {
             val isDay = temp.current_weather.is_day == 1
-            val textColor = if (isDay) Black else White
+            val textColor = if (isDay) Color.Black else Color.White
             Icon(
                 imageVector = Icons.Default.KeyboardArrowUp,
                 tint = textColor,
@@ -523,7 +585,7 @@ fun AirQualityChart(air: AirQuality?, temp: TemperatureResponse) {
                 modifier = Modifier
                     .size(24.dp)
                     .offset(x = arrowPosition * 300.dp)
-                    .background(Transparent)
+                    .background(Color.Transparent)
             )
         }
     }
@@ -536,16 +598,12 @@ fun UvIndexChart(temp: TemperatureResponse) {
     val currentHour = currentDateTime.hour
     val aqiValue = temp.hourly.uv_index[currentHour].toString()
     val colorRanges = listOf(
-        20 to Color(0xFFADD8E6),
-        25 to Color(0xFF87CEEB),
-        30 to Color(0xFF6495ED),
-        40 to Color(0xFF4169E1),
-        50 to Color(0xFF0000FF),
-        55 to Color(0xFF0000CD),
-        60 to Color(0xFF191970),
-        70 to Color(0xFF000080),
-        80 to Color(0xFF000033),
-        100 to Color(0xFF00001A)
+        20 to Color(0xFF89CFF0),  // Light blue
+        10 to Color(0xFF8CD790),  // Light green
+        30 to Color(0xFF7A9CC2),  // Blue
+        40 to Color(0xFF8A77B7),  // Purple
+        60 to Color(0xFFCD6C85),  // Reddish-purple
+        80 to Color(0xFFD7564E)   // Red
     )
     val totalBars = colorRanges.size
     val stepSize = 1.0 / totalBars.toDouble()
@@ -597,19 +655,18 @@ fun HourlyForecastView(temp: TemperatureResponse) {
     )
     Column(
         modifier = Modifier
-            .padding(vertical = 14.dp, horizontal = 12.dp)
+            .padding(vertical = 8.dp, horizontal = 12.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(northerner)
             .padding(16.dp),
-
-        ) {
+    ) {
         Row(
             modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
         ) {
             Text(
                 modifier = Modifier
                     .align(CenterVertically)
-                    .padding(top = 4.dp, start = 16.dp),
+                    .padding(top = 4.dp),
                 text = "Next 24 Hours",
                 color = Corn,
                 fontWeight = FontWeight.Light,
@@ -625,8 +682,9 @@ fun HourlyForecastView(temp: TemperatureResponse) {
             TabRow(
                 selectedTabIndex = selectedTabIndex,
                 backgroundColor = Transparent,
-                contentColor = Whitehis
-            ) {
+                contentColor = Whitehis,
+
+                ) {
                 tabItem.forEachIndexed { index, item ->
                     Tab(
                         selected = index == selectedTabIndex,
@@ -1035,7 +1093,7 @@ fun WeeklyForeCastView(
 ) {
     Column(
         modifier = Modifier
-            .padding(vertical = 12.dp, horizontal = 14.dp)
+            .padding(vertical = 8.dp, horizontal = 14.dp)
             .fillMaxWidth()
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(northerner)
@@ -1050,7 +1108,7 @@ fun WeeklyForeCastView(
                 modifier = Modifier
                     .align(CenterVertically)
                     .padding(start = 3.dp),
-                text = "Next 7 Days",
+                text = "Next Days",
                 color = Corn,
                 fontWeight = FontWeight.Light,
                 fontSize = 20.sp
@@ -1082,7 +1140,8 @@ fun WeeklyForeCastView(
                     .size(30.dp)
             )
         }
-        for (days in 0..6) {
+
+        for (days in 0 until temp.daily.time.size) {
             val daysOfWeek = temp.daily.time[days]
             val somessd = LocalDate.parse(daysOfWeek).dayOfWeek.toString()
             val forecastMin = temp.daily.temperature_2m_min[days].toInt()
@@ -1168,48 +1227,48 @@ fun WeeklyForeCastView(
 
 @Composable
 fun ExtraCards(
-    Text: String,
-    Numbers: String,
-    Icon: Painter
+    text: String,
+    numbers: String,
+    icon: Painter
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp, horizontal = 2.dp)
             .size(120.dp)
+            .padding(vertical = 2.dp)
             .padding(start = 16.dp, end = 16.dp)
-            .shadow(1.dp, RoundedCornerShape(20.dp))
+            .shadow(1.dp, RoundedCornerShape(21.dp))
             .background(northerner),
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Row(
             modifier = Modifier,
-            verticalAlignment = CenterVertically
+            verticalAlignment = CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
+            Icon(
+                painter = icon,
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(32.dp),
+                tint = Spiro
+            )
             Text(
-                modifier = Modifier,
-                text = Text,
+                modifier = Modifier.padding(8.dp),
+                text = text,
                 color = Spiro,
                 fontSize = 22.sp,
 
                 )
 
             Text(
-                modifier = Modifier.padding(start = 16.dp),
-                text = Numbers,
+                modifier = Modifier.padding(8.dp),
+                text = numbers,
                 color = Corn,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold
-            )
-
-            Icon(
-                painter = Icon,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(48.dp)
-                    .padding(start = 16.dp)
             )
 
         }

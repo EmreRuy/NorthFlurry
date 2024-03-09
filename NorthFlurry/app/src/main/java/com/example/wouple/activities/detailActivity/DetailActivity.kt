@@ -28,7 +28,12 @@ class SecondActivity : ComponentActivity() {
                 throw IllegalStateException("temp is missing or wrong")
             }
 
-            SecondCardView(temp, location, air)
+            SecondCardView(
+                onBackPressed = { onBackPressedDispatcher.onBackPressed() },
+                temp = temp,
+                searchedLocation = location,
+                air = air,
+                )
         }
     }
 }

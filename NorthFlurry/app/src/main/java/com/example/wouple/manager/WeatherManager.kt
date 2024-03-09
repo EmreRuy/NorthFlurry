@@ -67,7 +67,7 @@ object WeatherManager {
         onSuccessCall: (TemperatureResponse?) -> Unit,
         temperaUnit: TemperatureUnit,
         windUnit: WindUnit,
-        precipitationUnit: PrecipitationUnit
+        precipitationUnit: PrecipitationUnit,
         ) {
         if (location == null) {
             onSuccessCall(null)
@@ -76,7 +76,14 @@ object WeatherManager {
         if (BuildConfig.DEBUG) {
             getDataFromMock(onSuccessCall)
         } else {
-            fetchDataFromBackend(context, location, onSuccessCall, temperaUnit,windUnit,  precipitationUnit)
+            fetchDataFromBackend(
+                context,
+                location,
+                onSuccessCall,
+                temperaUnit,
+                windUnit,
+                precipitationUnit
+            )
         }
     }
 
@@ -99,7 +106,7 @@ object WeatherManager {
             location.lon,
             wind_speed_unit = windUnit.name.lowercase(),
             temperature_unit = temperaUnit.name.lowercase(),
-            precipitation_unit = precipitationUnit.name.lowercase()
+            precipitation_unit = precipitationUnit.name.lowercase(),
         ).enqueue(object : Callback<TemperatureResponse> {
             override fun onFailure(call: Call<TemperatureResponse>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()

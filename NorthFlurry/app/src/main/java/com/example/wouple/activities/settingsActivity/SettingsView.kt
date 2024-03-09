@@ -1,6 +1,9 @@
 package com.example.wouple.activities.settingsActivity
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -9,6 +12,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,7 +52,6 @@ import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
@@ -72,15 +75,13 @@ import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.Dark20
-import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.clearSky
 import com.example.wouple.ui.theme.getSecondaryGradients
-import com.example.wouple.ui.theme.moc
-import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.orgn
 import kotlinx.coroutines.delay
+
 
 /*@Preview
 @Composable
@@ -397,10 +398,21 @@ fun PrecipitationUnitSettings() {
 
 @Composable
 private fun ShareTheAppSettings() {
+    val context = LocalContext.current
+    val interactionSource = remember { MutableInteractionSource() }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                    putExtra(Intent.EXTRA_TEXT, "https://northFlurry.com/Emre") //actual URL of my app will be added after publishing
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                context.startActivity(shareIntent)
             }
             .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
@@ -439,10 +451,25 @@ private fun ShareTheAppSettings() {
 
 @Composable
 fun RateUsSettings() {
+    val interactionSource = remember { MutableInteractionSource() }
+    val context = LocalContext.current
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                val appURL = "https://play.google.com/store/apps" // actual URL of my app will be added after publishing
+                val playIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_VIEW
+                    data = Uri.parse(appURL)
+                }
+                try {
+                    context.startActivity(playIntent)
+                } catch (e: Exception) {
+                    Log.e("TAG", "Error opening URL: ${e.message}")
+                }
             }
             .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
@@ -475,20 +502,19 @@ fun RateUsSettings() {
         }
     }
 }
-
 @Composable
 private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
-    var isSelected by remember { mutableStateOf(false) }
-
+    val interactionSource = remember { MutableInteractionSource() }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                isSelected = !isSelected
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
                 onTroubleWithAppClicked()
             }
-            .padding(horizontal = 24.dp, vertical = 12.dp)
-            .scale(scale = if (isSelected) 0.95f else 1f),
+            .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
@@ -522,10 +548,14 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
 
 @Composable
 private fun IdeasSettings(onIdeaClicked: () -> Unit) {
+    val interactionSource = remember { MutableInteractionSource() }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onIdeaClicked() }
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) { onIdeaClicked() }
             .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
