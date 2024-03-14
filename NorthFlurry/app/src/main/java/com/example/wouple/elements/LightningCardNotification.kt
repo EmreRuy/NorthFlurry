@@ -27,20 +27,48 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
+import kotlin.io.path.createTempDirectory
 
 @Composable
-fun LightningCardNotification() {
+fun LightningCardNotification(temp: TemperatureResponse) {
     val color = listOf(
         Color(0xFF25508C),
         Color(0xFF4180B3),
        /* Color(0xFF8ABFCC),
         Color(0xFFC0DDE1), */
     )
+    val isDay = temp.current_weather.is_day == 1
+    val background: List<Color> = if (isDay) {
+        val baseColor = Color(0xFF4067DD)
+
+        // Generate lighter shades
+        val lighterShades = listOf(
+            baseColor,
+            baseColor.copy(alpha = 0.9f),
+            baseColor.copy(alpha = 0.8f),
+            baseColor.copy(alpha = 0.3f),
+            // baseColor.copy(alpha = 0.6f),
+            //  baseColor.copy(alpha = 0.5f),
+            /* baseColor.copy(alpha = 0.4f),
+             baseColor.copy(alpha = 0.3f),
+             baseColor.copy(alpha = 0.2f),
+             baseColor.copy(alpha = 0.1f) */
+        )
+
+        lighterShades
+    } else {
+        listOf(
+            Color(0xFF1D244D),
+            Color(0xFF2E3A59),
+            Color(0xFF3F5066),
+        )
+    }
     val texts = listOf(
         "Lightning possibility in Oslo 17 J/Kg",
         "Wind Direction is from the West",
-        "Sunshine Duration is 2359 Seconds"
+        "Sunshine Duration is "
     )
 
     var visible by remember { mutableStateOf(true) }
@@ -60,7 +88,7 @@ fun LightningCardNotification() {
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .background(brush = Brush.verticalGradient(color)),
+            .background(brush = Brush.verticalGradient(background)),
         contentAlignment = CenterStart,
     ) {
         Row(modifier = Modifier.padding(start = 12.dp)) {

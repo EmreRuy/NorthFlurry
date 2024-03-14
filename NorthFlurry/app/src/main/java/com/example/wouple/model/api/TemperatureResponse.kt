@@ -57,7 +57,7 @@ data class TemperatureResponse(
                 time = listOf("2023-08-10", "2023-08-11", "2023-08-12", "2023-08-13", "2023-08-14", "2023-08-15", "2023-08-16"),
                 uv_index_max = listOf(5.2, 5.3, 5.25, 5.15, 4.5, 3.2, 4.05),
                 weathercode = listOf(3, 3, 51, 61, 80, 63, 3),
-                showers_sum = listOf(1.1,2.1),
+                showers_sum = listOf(1.1,2.1)
             ),
             daily_units = DailyUnits(
                 precipitation_sum = "mm",

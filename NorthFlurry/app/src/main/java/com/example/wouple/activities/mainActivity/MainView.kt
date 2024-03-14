@@ -2,6 +2,7 @@ package com.example.wouple.activities.mainActivity
 
 import android.content.Context
 import android.content.Intent
+import android.widget.ScrollView
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.RepeatMode
@@ -19,6 +20,7 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,11 +37,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -102,6 +106,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
+import com.example.wouple.activities.detailActivity.UvChartViewCard
 import com.example.wouple.activities.lightningMap.LightningMapActivity
 import com.example.wouple.activities.rainMap.WeatherRadarWebView
 import com.example.wouple.activities.ui.theme.getBackgroundGradient
@@ -143,6 +148,7 @@ fun DefaultPreview() {
         FirstCardView(temperature, temperature)
     }
 }*/
+
 @Composable
 fun FirstCardView(
     temp: TemperatureResponse,
@@ -156,7 +162,6 @@ fun FirstCardView(
     onSettingsClicked: (String) -> Unit,
 ) {
     val isSearchExpanded = remember { mutableStateOf(false) }
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -166,13 +171,39 @@ fun FirstCardView(
             Color(0xFF4180B3),
             Color(0xFF8ABFCC),
         )
+        val isDay = temp.current_weather.is_day == 1
+        val background: List<Color> = if (isDay) {
+            val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
+
+            // Generate lighter shades
+            val lighterShades = listOf(
+                baseColor,
+                baseColor.copy(alpha = 0.9f),
+                baseColor.copy(alpha = 0.8f),
+                baseColor.copy(alpha = 0.5f),
+               // baseColor.copy(alpha = 0.6f),
+              //  baseColor.copy(alpha = 0.5f),
+               /* baseColor.copy(alpha = 0.4f),
+                baseColor.copy(alpha = 0.3f),
+                baseColor.copy(alpha = 0.2f),
+                baseColor.copy(alpha = 0.1f) */
+            )
+
+            lighterShades
+        } else {
+            listOf(
+                Color(0xFF1D244D),
+                Color(0xFF2E3A59),
+                Color(0xFF3F5066),
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxHeight(0.5f)
                 .fillMaxWidth()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = colors
+                        colors = background
                     )
                 )
                 .padding(bottom = 18.dp),
@@ -314,7 +345,7 @@ fun FirstCardView(
                 )
             }
         }
-        Box(
+       Box(
             modifier = Modifier
                 .fillMaxHeight(0.5f)
                 .background(White)
@@ -568,15 +599,41 @@ private fun TodayWeatherCard(temp: TemperatureResponse) {
             Color(0xFF4180B3),
             Color(0xFF8ABFCC),
         )
+        val isDay = temp.current_weather.is_day == 1
+        val background: List<Color> = if (isDay) {
+            val baseColor = Color(0xFF4067DD)
+
+            // Generate lighter shades
+            val lighterShades = listOf(
+                baseColor,
+                baseColor.copy(alpha = 0.9f),
+                baseColor.copy(alpha = 0.8f),
+                baseColor.copy(alpha = 0.3f),
+                // baseColor.copy(alpha = 0.6f),
+                //  baseColor.copy(alpha = 0.5f),
+                /* baseColor.copy(alpha = 0.4f),
+                 baseColor.copy(alpha = 0.3f),
+                 baseColor.copy(alpha = 0.2f),
+                 baseColor.copy(alpha = 0.1f) */
+            )
+
+            lighterShades
+        } else {
+            listOf(
+                Color(0xFF1D244D),
+                Color(0xFF2E3A59),
+                Color(0xFF3F5066),
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(brush = Brush.verticalGradient(colors))
+                .background(brush = Brush.verticalGradient(background))
         ) {
             Column(
                 modifier = Modifier
-                    .padding( top = 42.dp, end = 4.dp, start = 4.dp)
+                    .padding(top = 42.dp, end = 4.dp, start = 4.dp)
                     .align(Alignment.Center)
             ) {
                 getWeeklyForecast(temp)
@@ -633,11 +690,37 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
             Color(0xFF4180B3),
             Color(0xFF8ABFCC),
         )
+        val isDay = temp.current_weather.is_day == 1
+        val background: List<Color> = if (isDay) {
+            val baseColor = Color(0xFF4067DD)
+
+            // Generate lighter shades
+            val lighterShades = listOf(
+                baseColor,
+                baseColor.copy(alpha = 0.9f),
+                baseColor.copy(alpha = 0.8f),
+                baseColor.copy(alpha = 0.3f),
+                // baseColor.copy(alpha = 0.6f),
+                //  baseColor.copy(alpha = 0.5f),
+                /* baseColor.copy(alpha = 0.4f),
+                 baseColor.copy(alpha = 0.3f),
+                 baseColor.copy(alpha = 0.2f),
+                 baseColor.copy(alpha = 0.1f) */
+            )
+
+            lighterShades
+        } else {
+            listOf(
+                Color(0xFF1D244D),
+                Color(0xFF2E3A59),
+                Color(0xFF3F5066),
+            )
+        }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(brush = Brush.verticalGradient(colors))
+                .background(brush = Brush.verticalGradient(background))
         ) {
             Column(
                 modifier = Modifier
@@ -645,24 +728,8 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
                     .align(CenterStart)
             ) {
                 getHourlyWeatherInfo(temp)
-                /*
-                Spacer(modifier = Modifier.height(40.dp))
-                Text(
-                    modifier = Modifier,
-                    text = "Realtime Lightning Map",
-                    fontWeight = FontWeight.Medium,
-                    color = Dark20,
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = "Check where lightnings occurs around the world",
-                    fontWeight = FontWeight.Light,
-                    color = Dark20,
-                    fontSize = 14.sp
-                ) */
             }
         }
-        LightningCardNotification()
+        LightningCardNotification(temp)
     }
 }

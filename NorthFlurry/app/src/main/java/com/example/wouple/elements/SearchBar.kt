@@ -50,7 +50,7 @@ fun SearchBar(
     val focusManager = LocalFocusManager.current
     var query by remember { mutableStateOf("") }
     val gradient = Brush.horizontalGradient(
-        colors = if (isSearchExpanded.value) listOf(Color.White, Color(0xFF56CCF2))
+        colors = if (isSearchExpanded.value) listOf(Color.White, Color(0xFF4067DD))//Color(0xFF56CCF2))
         else listOf(Color.Transparent, Color.Transparent)
     )
 

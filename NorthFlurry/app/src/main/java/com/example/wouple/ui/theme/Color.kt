@@ -34,13 +34,15 @@ val some = Color(0xFFF4F4F4)
 val vintage = Color(0xFFF8C35F)
 val turquoise = Color(0xFF40E0D0)
 val northerner = Color(0xFF25508C)
+val northerners = Color(0xFF224D88)
 val beige = Color(0xFFF5E2BA)
 val tea = Color(0xFF778899)
 val clearSky = Color(0xFF1D244D)
 val mocassin = Color(0xFFFFE4B5)
 val moc = Color(0xFF006666)
 val orgn = Color(0xFFFFC047)
-val kmns = Color(0xFF145794)
+val kmns = Color(0xFFDEF4FC)
+
 
 
 

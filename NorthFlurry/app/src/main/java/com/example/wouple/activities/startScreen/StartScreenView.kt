@@ -111,13 +111,17 @@ fun StartScreenView(
     searchedLocation: MutableState<SearchedLocation?>
 ) {
     val searchBarVisible = remember { mutableStateOf(false) }
+    val colors = listOf(
+        Color(0xFF1D244D),
+        Color(0xFF2E3A59),
+    )
     Box {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = getBackgroundGradient()
+                        colors = colors
                     )
                 ),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -265,7 +269,7 @@ fun SimpleSearchBar(
 ) {
     var query by remember { mutableStateOf("") }
     val gradient = Brush.horizontalGradient(
-        colors = listOf(White, Color(0xFF56CCF2))
+        colors = listOf(White,Color(0xFF4067DD)) //Color(0xFF56CCF2))
     )
     Row(
         modifier = Modifier

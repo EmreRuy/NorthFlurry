@@ -42,6 +42,32 @@ fun WeatherCardNotification(temp: TemperatureResponse) {
         /* Color(0xFF8ABFCC),
          Color(0xFFC0DDE1), */
     )
+    val isDay = temp.current_weather.is_day == 1
+    val background: List<Color> = if (isDay) {
+        val baseColor = Color(0xFF4067DD)
+
+        // Generate lighter shades
+        val lighterShades = listOf(
+            baseColor,
+            baseColor.copy(alpha = 0.9f),
+            baseColor.copy(alpha = 0.8f),
+            baseColor.copy(alpha = 0.3f),
+            // baseColor.copy(alpha = 0.6f),
+            //  baseColor.copy(alpha = 0.5f),
+            /* baseColor.copy(alpha = 0.4f),
+             baseColor.copy(alpha = 0.3f),
+             baseColor.copy(alpha = 0.2f),
+             baseColor.copy(alpha = 0.1f) */
+        )
+
+        lighterShades
+    } else {
+        listOf(
+            Color(0xFF1D244D),
+            Color(0xFF2E3A59),
+            Color(0xFF3F5066),
+        )
+    }
     var hottestDayIndex by remember { mutableStateOf(0) }
     var hottestTemperature = temp.daily.temperature_2m_max[0].toInt()
 
@@ -90,7 +116,7 @@ fun WeatherCardNotification(temp: TemperatureResponse) {
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .background(brush = Brush.verticalGradient(color)),
+            .background(brush = Brush.verticalGradient(background)),
         contentAlignment = CenterStart
     ) {
         Row(modifier = Modifier.padding(start = 12.dp)) {

@@ -22,15 +22,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.orgn
-import com.example.wouple.ui.theme.vintage
 
 @Composable
-fun RowScope.CustomBarChart(
+fun RowScope.CustomPrecipitationBarChart(
     size: Float,
     max: Float
 ) {
@@ -41,17 +38,16 @@ fun RowScope.CustomBarChart(
         tween(2000, delayMillis = 300, easing = LinearEasing), label = ""
     )
     LaunchedEffect(key1 = size ){
-        height = size * 20
+        height = size *20
     }
     Box(
         modifier = Modifier.padding(start = 6.dp, end = 6.dp, top = 4.dp)
             .size(heightStateAnimate)
             .weight(1f)
             .border(BorderStroke(1.dp, color = Color.Transparent))
-            .background(orgn.copy(alpha = size/ max ), shape = RoundedCornerShape(10.dp))
+            .background(Spiro, shape = RoundedCornerShape(10.dp))
             .clickable {
                 Toast.makeText(context, "UV: $size", Toast.LENGTH_SHORT).show()
             }
     )
 }
-
