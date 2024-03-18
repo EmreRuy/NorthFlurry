@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,6 +38,7 @@ import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.getSecondaryGradients
+import com.example.wouple.ui.theme.kmns
 import com.example.wouple.ui.theme.mocassin
 
 @Composable
@@ -97,7 +99,7 @@ private fun MyTabItem(
 }
 
 @Composable
-fun CustomTab(
+fun CustomTabForSettings(
     selectedItemIndex: Int,
     items: List<String>,
     modifier: Modifier = Modifier,
@@ -120,13 +122,13 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = Dark20.copy(alpha = 0.9f),
+            indicatorColor = kmns,
         )
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .clip(CircleShape)
-                .padding(top = 8.dp),
+                .padding(top = 6.dp),
         ) {
             items.forEachIndexed { index, text ->
                 val isSelected = index == selectedItemIndex

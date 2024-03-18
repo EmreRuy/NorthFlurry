@@ -180,7 +180,7 @@ fun FirstCardView(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
                 baseColor.copy(alpha = 0.8f),
-                baseColor.copy(alpha = 0.5f),
+              //  baseColor.copy(alpha = 0.5f),
                // baseColor.copy(alpha = 0.6f),
               //  baseColor.copy(alpha = 0.5f),
                /* baseColor.copy(alpha = 0.4f),

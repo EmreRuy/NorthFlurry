@@ -19,7 +19,7 @@ interface ApiRequest {
         @Query("current_weather") current_weather: String = "true",
         @Query("temperature_unit") temperature_unit: String,
         @Query("precipitation_unit") precipitation_unit: String,
-        @Query("wind_unit") wind_speed_unit: String,
+        @Query("wind_speed_unit") wind_speed_unit: String,
         @Query("minutely_15") minutely_15: String = "lightning_potential",
     ): Call<TemperatureResponse>
 

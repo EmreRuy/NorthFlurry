@@ -69,6 +69,7 @@ import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.UnitSettings
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.PrecipitationUnit
+import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.model.api.TemperatureUnit
 import com.example.wouple.model.api.WindUnit
 import com.example.wouple.preferences.PrecipitationUnitPref
@@ -79,6 +80,7 @@ import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.clearSky
 import com.example.wouple.ui.theme.getSecondaryGradients
+import com.example.wouple.ui.theme.kmns
 import com.example.wouple.ui.theme.orgn
 import kotlinx.coroutines.delay
 
@@ -128,7 +130,7 @@ fun SettingsView(
                     }
                 },
                 contentColor = Whitehis,
-                backgroundColor = clearSky
+                backgroundColor = kmns
             )
         },
         content = {
@@ -136,11 +138,19 @@ fun SettingsView(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
+
+                val background =
+                    listOf(
+                        // Color(0xFF4067DD),
+                        // Color(0xFF4067DD),
+                        Color(0xFF3D52BB),
+                        Color(0xFF3D52BB)
+                    )
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .verticalScroll(rememberScrollState())
-                        .background(brush = Brush.verticalGradient(getBackgroundGradient())),
+                        .background(brush = Brush.verticalGradient(background)),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Spacer(modifier = Modifier.padding(top = 32.dp))
@@ -301,7 +311,7 @@ private fun SettingsCardTwo() {
 fun TemperatureUnitSettings() {
     val context = LocalContext.current
     Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
@@ -651,6 +661,7 @@ fun CustomTab(
     items: List<String>,
     modifier: Modifier = Modifier,
     tabWidth: Dp = 120.dp,
+    //tabHeight: Dp = 50.dp,
     onClick: (index: Int) -> Unit,
 ) {
     val indicatorOffset: Dp by animateDpAsState(

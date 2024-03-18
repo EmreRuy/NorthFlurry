@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +25,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.activities.ui.theme.getBackgroundGradient
 import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.vintage
@@ -33,12 +33,22 @@ import com.example.wouple.ui.theme.vintage
 fun NoTemperatureView(
     onStartButtonClicked: () -> Unit
 ) {
+    val background =
+        listOf(
+            // Color(0xFF4067DD),
+            // Color(0xFF4067DD),
+          /*  Color(0xFF3D52BB),
+            Color(0xFF3D52BB),
+            Whitehis */
+            Color(0xFF3D52BB),
+            Color(0xFF3D52BB)
+        )
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
-                    colors = getBackgroundGradient(),
+                    colors = background,
                 )
             ),
         verticalArrangement = Arrangement.Center,

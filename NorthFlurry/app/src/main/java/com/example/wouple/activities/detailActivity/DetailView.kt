@@ -233,7 +233,7 @@ fun SecondCardView(
 
                 2 -> ExtraCards(
                     text = "Wind Speed",
-                    numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m.firstOrNull(),
+                    numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
                     icon = painterResource(id = R.drawable.ic_wind),
                     temp = temp
                 )
@@ -442,7 +442,7 @@ private fun WeeklyChartCard(temp: TemperatureResponse) {
 @Composable
 fun WeeklyShowersChartView(temp: TemperatureResponse) {
     val precipitationSum = temp.daily.precipitation_sum.take(7)
-    val maxRainSum = precipitationSum.maxOrNull()?.toFloat() ?: 0f
+    val maxRainSum = precipitationSum.maxOrNull()?.toFloat()?: 0f
     val labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
     Column(
         modifier = Modifier
@@ -458,7 +458,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpView()
-        if (maxRainSum <= 1){
+        if (maxRainSum <= 0.1){
             Text(
                 modifier = Modifier.padding(16.dp),
                 text = "No Precipitation expected for next days",
@@ -1349,14 +1349,9 @@ fun WeeklyForeCastView(
             Color(0xFF1D244D),
             Color(0xFF2E3A59),
             Color(0xFF3F5066),
-            Color(0xFF50767D),
+           // Color(0xFF50767D),
         )
     }
-    val colors = listOf(
-        Color(0xFF2E3A59),
-        Color(0xFF3F5066),
-        Color(0xFF50767D),
-    )
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 14.dp)

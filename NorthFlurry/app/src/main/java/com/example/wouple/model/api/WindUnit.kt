@@ -6,5 +6,5 @@ enum class WindUnit {
     KMH,
     MS,
     KN,
-  //  MPH
+   //MPH
 }

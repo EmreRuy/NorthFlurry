@@ -1,23 +1,13 @@
 package com.example.wouple.activities.startScreen
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseInBounce
 import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.EaseOutBack
-import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -42,7 +32,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -50,21 +39,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.Bottom
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -76,17 +59,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.activities.ui.theme.getBackgroundGradient
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SnowfallEffect
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
-import kotlin.random.Random
 
 @Preview(showBackground = true)
 @Composable
@@ -103,6 +83,7 @@ fun StartScreenPreview() {
         searchedLocation = searchedLocation
     )
 }
+
 @Composable
 fun StartScreenView(
     locations: List<SearchedLocation>?,
@@ -112,8 +93,8 @@ fun StartScreenView(
 ) {
     val searchBarVisible = remember { mutableStateOf(false) }
     val colors = listOf(
-        Color(0xFF1D244D),
-        Color(0xFF2E3A59),
+        Color(0xFF3D52BB),
+        Color(0xFF3D52BB)
     )
     Box {
         Column(
@@ -135,7 +116,7 @@ fun StartScreenView(
                 ) + fadeIn(initialAlpha = 0.3f)
             ) {
                 Text(
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.padding(4.dp),
                     textAlign = TextAlign.Center,
                     text = "Sun, Rain, or Snow – Know Before You Go!",
                     fontWeight = FontWeight.Normal,
@@ -144,7 +125,7 @@ fun StartScreenView(
                     color = vintage,
                 )
             }
-            Spacer(modifier = Modifier.padding(6.dp))
+            Spacer(modifier = Modifier.padding(4.dp))
             AnimatedVisibility(
                 visible = searchBarVisible.value,
                 enter = slideInVertically(
@@ -163,8 +144,8 @@ fun StartScreenView(
                         Card(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 4.dp, horizontal = 24.dp)
-                                .clip(RoundedCornerShape(28.dp))
+                                .padding(vertical = 4.dp, horizontal = 16.dp)
+                                .clip(RoundedCornerShape(30.dp))
                                 .clickable {
                                     searchedLocation.value = location
                                     onButtonClicked(location)
@@ -175,7 +156,7 @@ fun StartScreenView(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp),
+                                    .padding(12.dp),
                                 verticalAlignment = CenterVertically
                             ) {
                                 Icon(
@@ -195,6 +176,9 @@ fun StartScreenView(
                     }
                 }
             }
+          /* else {
+                emptyList<SearchedLocation>().isEmpty()
+        }*/
         }
         SnowfallEffect(searchBarVisible)
     }
@@ -213,7 +197,6 @@ fun StartScreenView(
     Box(
         modifier = Modifier
             .fillMaxSize(),
-        // .padding(bottom = 38.dp),
         contentAlignment = Center
     ) {
         AnimatedVisibility(
@@ -252,24 +235,25 @@ fun StartScreenView(
             alpha = 0.5f,
             amplitude = 80f,
             frequency = 0.4f,
-            gradientColors = listOf(Color(0xFF2F80ED), Color(0xFF56CCF2))
+            gradientColors = listOf(mocassin, Color(0xFF56CCF2))
         )
         HorizontalWave(
             phase = rememberPhaseState(10f),
             alpha = 0.2f,
             amplitude = 60f,
             frequency = 0.4f,
-            gradientColors = listOf(Color(0xFF2F80ED), Color(0xFF56CCF2))
+            gradientColors = listOf(mocassin, Color(0xFF56CCF2))
         )
     }
 }
+
 @Composable
 fun SimpleSearchBar(
     onSearch: (String) -> Unit
 ) {
     var query by remember { mutableStateOf("") }
     val gradient = Brush.horizontalGradient(
-        colors = listOf(White,Color(0xFF4067DD)) //Color(0xFF56CCF2))
+        colors = listOf(White, Color(0xFF4067DD)) //Color(0xFF56CCF2))
     )
     Row(
         modifier = Modifier

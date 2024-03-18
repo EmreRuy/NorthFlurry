@@ -83,7 +83,8 @@ class MainActivity : ComponentActivity() {
                         intent.putExtra("temp", temp)
                         intent.putExtra("air", airQuality.value)
                         intent.putExtra("location", searchedLocation.value)
-                        intent.putExtra("precipitationUnit", WindUnitPref.getWindUnit(this) )
+                        intent.putExtra("precipitationUnit", PrecipitationUnitPref.getPrecipitationUnit(this) )
+                        intent.putExtra("wind_unit", WindUnitPref.getWindUnit(this))
                         this.startActivity(intent)
                     },
                     /*   onTemperatureUnitChanged = { temperatureUnit ->
