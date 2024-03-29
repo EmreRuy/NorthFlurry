@@ -73,7 +73,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.substring
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import com.airbnb.lottie.compose.LottieAnimation
@@ -84,8 +88,11 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.elements.CustomBarChart
 import com.example.wouple.elements.CustomPrecipitationBarChart
 import com.example.wouple.model.api.AirQuality
+import com.example.wouple.model.api.PrecipitationUnit
+import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.ui.theme.WoupleTheme
 import com.example.wouple.ui.theme.vintage
+import java.time.DayOfWeek
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.Calendar
@@ -209,7 +216,7 @@ fun SecondCardView(
                 3 -> ExtraCards(
                     text = stringResource(id = R.string.Visibility),
                     numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
-                    icon = painterResource(id = R.drawable.eye),
+                    icon = painterResource(id = R.drawable.ic_visibility),
                     temp = temp
                 )
 
@@ -411,12 +418,9 @@ private fun WeeklyChartCard(temp: TemperatureResponse) {
 fun WeeklyShowersChartView(temp: TemperatureResponse) {
     val precipitationSum = temp.daily.precipitation_sum.take(7)
     val maxRainSum = precipitationSum.maxOrNull()?.toFloat() ?: 0f
-    val currentDayIndex = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
-    val labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-        .let { rotatedList ->
-            rotatedList.takeLast(rotatedList.size - currentDayIndex) +
-                    rotatedList.take(currentDayIndex)
-        }
+    val daysOfWeek = (0 until 7).map {
+        LocalDate.now().plusDays(it.toLong()).dayOfWeek.name.substring(0, 3)
+    }
     Column(
         modifier = Modifier
             .padding(horizontal = 12.dp, vertical = 8.dp),
@@ -466,7 +470,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
             verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.Start
         ) {
-            labels.forEach { label ->
+            daysOfWeek.forEach { label ->
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -474,7 +478,8 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
                 ) {
                     Text(
                         text = label,
-                        color = White
+                        color = White,
+                        fontSize = 12.sp
                     )
                 }
             }
@@ -533,12 +538,9 @@ fun UvChartView(temp: TemperatureResponse) {
     val dailyUv =
         temp.daily.uv_index_max.take(7) // Assuming temp.daily.uv_index_max contains the UV index data as List<Double>
     val maxUv = dailyUv.maxOrNull()?.toFloat() ?: 0f // Compute the maximum UV index value
-    val currentDayIndex = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1
-    val labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
-        .let { rotatedList ->
-            rotatedList.takeLast(rotatedList.size - currentDayIndex) +
-                    rotatedList.take(currentDayIndex)
-        }
+    val daysOfWeek = (0 until 7).map {
+        LocalDate.now().plusDays(it.toLong()).dayOfWeek.name.substring(0, 3)
+    }
     Column(
         modifier = Modifier
             .background(Transparent)
@@ -579,7 +581,7 @@ fun UvChartView(temp: TemperatureResponse) {
             verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.Start
         ) {
-            labels.forEach { label ->
+            daysOfWeek.forEach { label ->
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -587,7 +589,8 @@ fun UvChartView(temp: TemperatureResponse) {
                 ) {
                     Text(
                         text = label,
-                        color = White
+                        color = White,
+                        fontSize = 12.sp
                     )
                 }
             }
@@ -666,7 +669,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
             val textColor = if (isDay) Whitehis else White
             Icon(
                 modifier = Modifier.padding(end = 4.dp).size(20.dp),
-                painter = painterResource(id = R.drawable.ic_sun),
+                painter = painterResource(id = R.drawable.ic_airquality),
                 contentDescription = null,
                 tint = White
             )
@@ -714,7 +717,9 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
     val background = if (isDay) {
         listOf(
             Color(0xFF3D52BB),
-            Color(0xFF3D52BB)
+            //Color(0xFF3D52BB)
+            Color(0xFF3954C4),
+
         )
     } else {
         listOf(
@@ -741,7 +746,8 @@ fun UvIndexCard(temp: TemperatureResponse) {
             // Color(0xFF4067DD),
             // Color(0xFF4067DD),
             Color(0xFF3D52BB),
-            Color(0xFF3D52BB)
+            Color(0xFF3954C4),
+
         )
     } else {
         listOf(
@@ -776,7 +782,7 @@ fun UvIndex(temp: TemperatureResponse) {
             val textColor = White
             Icon(
                 modifier = Modifier.padding(end = 4.dp).size(20.dp),
-                painter = painterResource(id = R.drawable.ic_drop_hollow),
+                painter = painterResource(id = R.drawable.ic_sun),
                 contentDescription = null,
                 tint = textColor
             )

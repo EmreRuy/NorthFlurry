@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.orgn
 
@@ -47,7 +48,7 @@ fun RowScope.CustomPrecipitationBarChart(
             .border(BorderStroke(1.dp, color = Color.Transparent))
             .background(Spiro, shape = RoundedCornerShape(10.dp))
             .clickable {
-                Toast.makeText(context, "UV: $size", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "$size", Toast.LENGTH_SHORT).show()
             }
     )
 }
