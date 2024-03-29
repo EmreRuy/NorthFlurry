@@ -1,5 +1,6 @@
 package com.example.wouple.elements
 
+import android.graphics.drawable.Drawable
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,26 +20,21 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.wouple.ui.theme.Dark20
-import com.example.wouple.ui.theme.Spiro
+import com.example.wouple.R
+import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.getSecondaryGradients
-import com.example.wouple.ui.theme.kmns
-import com.example.wouple.ui.theme.mocassin
 
 @Composable
 private fun MyTabIndicator(
@@ -105,13 +100,15 @@ fun CustomTabForSettings(
     modifier: Modifier = Modifier,
     tabWidth: Dp = 120.dp,
     onClick: (index: Int) -> Unit,
-    tabHeight: Dp = 50.dp,
+    tabHeight: Dp = 40.dp,
+    temp: TemperatureResponse
 ) {
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
     )
     val gradient = getSecondaryGradients()
+    val isDay = temp.current_weather.is_day == 1
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -122,13 +119,13 @@ fun CustomTabForSettings(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = kmns,
+            indicatorColor = if (isDay)  Color(0xFF324BBA) else Color(0xFF3A4377),
         )
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .clip(CircleShape)
-                .padding(top = 6.dp),
+                .padding(top = 2.dp),
         ) {
             items.forEachIndexed { index, text ->
                 val isSelected = index == selectedItemIndex

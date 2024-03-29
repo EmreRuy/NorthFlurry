@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -66,7 +67,7 @@ fun NoTemperatureView(
             modifier = Modifier
                 .align(CenterHorizontally),
             textAlign = TextAlign.Center,
-            text = "NorthFlurry",
+            text = stringResource(id = R.string.app_name),
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.Default,
             fontSize = 32.sp,
@@ -76,7 +77,7 @@ fun NoTemperatureView(
             modifier = Modifier
                 .align(CenterHorizontally),
             textAlign = TextAlign.Center,
-            text = "Weather Forecast",
+            text = stringResource(id = R.string.WeatherForecast),
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.SansSerif,
             fontSize = 32.sp,
@@ -87,7 +88,7 @@ fun NoTemperatureView(
                 .align(CenterHorizontally)
                 .padding(horizontal = 8.dp),
             textAlign = TextAlign.Center,
-            text = "the ultimate weather companion designed to make your daily life easier. Our app delivers accurate, real-time weather forecasts, ensuring you're prepared for whatever Mother Nature has in store.",
+            text = stringResource(id = R.string.AppExplainer),
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.Default,
             fontSize = 16.sp,
@@ -102,7 +103,7 @@ fun NoTemperatureView(
             }
         ) {
             Text(
-                text = "Get Started"
+                text = stringResource(id = R.string.GetStartButton)
             )
         }
         Spacer(modifier = Modifier.weight(2f))

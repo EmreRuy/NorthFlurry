@@ -1,65 +1,34 @@
 package com.example.wouple.activities.mainActivity
 
-import android.content.Context
-import android.content.Intent
-import android.widget.ScrollView
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOut
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.RadioButton
-import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -75,41 +44,27 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.LightGray
-import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.core.content.ContextCompat.startActivity
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
-import com.example.wouple.activities.detailActivity.UvChartViewCard
 import com.example.wouple.activities.lightningMap.LightningMapActivity
 import com.example.wouple.activities.rainMap.WeatherRadarWebView
-import com.example.wouple.activities.ui.theme.getBackgroundGradient
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.LightningCardNotification
 import com.example.wouple.elements.SearchBar
@@ -118,36 +73,9 @@ import com.example.wouple.elements.getWeeklyForecast
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Dark20
-import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.Whitehis
-import com.example.wouple.ui.theme.beige
-import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.delay
-
-
-/*@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    val temperature = TemperatureResponse(
-        elevation = 3.0,
-        generationtime_ms = 3.0,
-        hourly = Hourly(listOf(), listOf()),
-        hourly_units = HourlyUnits("", ""),
-        latitude = 3.0,
-        longitude = 3.0,
-        timezone = "yeet",
-        timezone_abbreviation = "woop",
-        utc_offset_seconds = 2
-    )
-
-    WoupleTheme {
-        FirstCardView(temperature, temperature)
-    }
-}*/
 
 @Composable
 fun FirstCardView(
@@ -159,36 +87,20 @@ fun FirstCardView(
     onDetailsButtonClicked: (TemperatureResponse) -> Unit,
     onClose: () -> Unit,
     // onTemperatureUnitChanged: (String) -> Unit,
-    onSettingsClicked: (String) -> Unit,
+    onSettingsClicked: (TemperatureResponse) -> Unit,
 ) {
     val isSearchExpanded = remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        val colors = listOf(
-            Color(0xFF1D244D),
-            Color(0xFF25508C),
-            Color(0xFF4180B3),
-            Color(0xFF8ABFCC),
-        )
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
             val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
-
-            // Generate lighter shades
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
                 baseColor.copy(alpha = 0.8f),
-              //  baseColor.copy(alpha = 0.5f),
-               // baseColor.copy(alpha = 0.6f),
-              //  baseColor.copy(alpha = 0.5f),
-               /* baseColor.copy(alpha = 0.4f),
-                baseColor.copy(alpha = 0.3f),
-                baseColor.copy(alpha = 0.2f),
-                baseColor.copy(alpha = 0.1f) */
             )
-
             lighterShades
         } else {
             listOf(
@@ -273,7 +185,6 @@ fun FirstCardView(
                     color = White,
                 )
                 Spacer(modifier = Modifier.padding(horizontal = 8.dp))
-                val isDay = temp.current_weather.is_day == 1
                 when {
                     (temp.current_weather.weathercode in listOf(
                         0,
@@ -310,7 +221,7 @@ fun FirstCardView(
                     horizontalArrangement = Arrangement.Center
                 )
                 {
-                    DropDownMenu(onSettingsClicked)
+                    DropDownMenu{ onSettingsClicked(temp) }
                     Spacer(modifier = Modifier.padding(28.dp))
                     DetailButton {
                         onDetailsButtonClicked(temp)
@@ -345,14 +256,16 @@ fun FirstCardView(
                 )
             }
         }
-       Box(
+      Box(
             modifier = Modifier
-                .fillMaxHeight(0.5f)
+                .fillMaxHeight(1f)
                 .background(White)
-                .padding(top = 8.dp)
+                .padding(top = 8.dp),
+          contentAlignment = Center
         ) {
             TodayWeatherCard(temp)
         }
+        /*
         Box(
             modifier = Modifier
                 .fillMaxHeight(1f)
@@ -362,6 +275,7 @@ fun FirstCardView(
         ) {
             searchedLocation.value?.let { ClickableCardDemo(it, temp) }
         }
+        */
     }
 }
 
@@ -511,8 +425,9 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
 
 @Composable
 fun DropDownMenu(
-    onSettingsClicked: (String) -> Unit,
+    onSettingsClicked:() -> Unit,
 ) {
+    var isPressed by remember { mutableStateOf(false) }
     var isExpanded by remember { mutableStateOf(false) }
     isExpanded = rememberUpdatedState(isExpanded).value
     Box(
@@ -521,7 +436,10 @@ fun DropDownMenu(
             .clip(RoundedCornerShape(32.dp))
     ) {
         IconButton(
-            onClick = { isExpanded = !isExpanded }
+            onClick = {
+                isPressed = !isPressed
+                onSettingsClicked()
+            }
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.menuicon),
@@ -530,7 +448,7 @@ fun DropDownMenu(
                 tint = White,
             )
         }
-        AnimatedVisibility(
+      /*  AnimatedVisibility(
             visible = isExpanded,
             enter = fadeIn(),
             exit = fadeOut()
@@ -544,29 +462,31 @@ fun DropDownMenu(
                     onClick = {
                         isExpanded = false
                         onSettingsClicked("Settings")
+                        isPressed = !isPressed
                     }
                 ) {
                     Text(
                         modifier = Modifier,
                         text = "Settings",
                         fontWeight = FontWeight.Light,
-                        color = Color.Black
+                        color = Black
                     )
                 }
                 DropdownMenuItem(
                     onClick = {
                         isExpanded = false
                         onSettingsClicked("feedback")
+                        isPressed = !isPressed
                     }
                 ) {
                     Text(
                         text = "Feed Back",
                         fontWeight = FontWeight.Light,
-                        color = Color.Black
+                        color = Black
                     )
                 }
             }
-        }
+        } */
     }
 }
 
@@ -593,30 +513,15 @@ private fun TodayWeatherCard(temp: TemperatureResponse) {
         shape = RoundedCornerShape(16.dp),
         elevation = 4.dp,
     ) {
-        val colors = listOf(
-            Color(0xFF1D244D),
-            Color(0xFF25508C),
-            Color(0xFF4180B3),
-            Color(0xFF8ABFCC),
-        )
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
             val baseColor = Color(0xFF4067DD)
-
-            // Generate lighter shades
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
                 baseColor.copy(alpha = 0.8f),
                 baseColor.copy(alpha = 0.3f),
-                // baseColor.copy(alpha = 0.6f),
-                //  baseColor.copy(alpha = 0.5f),
-                /* baseColor.copy(alpha = 0.4f),
-                 baseColor.copy(alpha = 0.3f),
-                 baseColor.copy(alpha = 0.2f),
-                 baseColor.copy(alpha = 0.1f) */
             )
-
             lighterShades
         } else {
             listOf(
@@ -634,24 +539,9 @@ private fun TodayWeatherCard(temp: TemperatureResponse) {
             Column(
                 modifier = Modifier
                     .padding(top = 42.dp, end = 4.dp, start = 4.dp)
-                    .align(Alignment.Center)
+                    .align(Center)
             ) {
                 getWeeklyForecast(temp)
-               /* Spacer(modifier = Modifier.height(40.dp))
-                Text(
-                    modifier = Modifier.padding(top = 16.dp),
-                    text = "Global Weather Forecast",
-                    fontWeight = FontWeight.Medium,
-                    color = Dark20,
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = Modifier.height(2.dp)) // Adds some space between the two texts
-                Text(
-                    text = "Check weather forecast around the world with the interactive map",
-                    fontWeight = FontWeight.Light,
-                    color = Dark20,
-                    fontSize = 14.sp
-                ) */
             }
         }
         WeatherCardNotification(temp)
@@ -684,12 +574,6 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
         shape = RoundedCornerShape(16.dp),
         elevation = 4.dp,
     ) {
-        val colors = listOf(
-            Color(0xFF1D244D),
-            Color(0xFF25508C),
-            Color(0xFF4180B3),
-            Color(0xFF8ABFCC),
-        )
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
             val baseColor = Color(0xFF4067DD)

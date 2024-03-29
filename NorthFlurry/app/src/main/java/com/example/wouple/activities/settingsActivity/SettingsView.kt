@@ -55,16 +55,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.activities.ui.theme.getBackgroundGradient
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.UnitSettings
 import com.example.wouple.elements.rememberPhaseState
@@ -78,9 +79,7 @@ import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
-import com.example.wouple.ui.theme.clearSky
 import com.example.wouple.ui.theme.getSecondaryGradients
-import com.example.wouple.ui.theme.kmns
 import com.example.wouple.ui.theme.orgn
 import kotlinx.coroutines.delay
 
@@ -96,7 +95,8 @@ fun SettingsPreview() {
 @Composable
 fun SettingsView(
     onBackPressed: () -> Unit,
-    onFeedbackClicked: (Boolean) -> Unit
+    onFeedbackClicked: (Boolean) -> Unit,
+    temp: TemperatureResponse
 ) {
     val (selected, setSelected) = remember {
         mutableStateOf(0)
@@ -106,13 +106,27 @@ fun SettingsView(
         delay(600)
         cardsVisible = true
     }
+    val isDay = temp.current_weather.is_day == 1
+    val background: List<Color> = if (isDay) {
+        listOf(
+            Color(0xFF3954C4),
+            Color(0xFF384BB4)
+        )
+    } else {
+        listOf(
+            Color(0xFF1C2249),
+            Color(0xFF1C2249),
+            //Color(0xFF1D244D),
+            //Color(0xFF2E3A59)
+        )
+    }
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
                         modifier = Modifier.padding(start = 4.dp),
-                        text = "Settings",
+                        text = stringResource(id = R.string.Settings),
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Light,
                         color = Whitehis,
@@ -130,7 +144,11 @@ fun SettingsView(
                     }
                 },
                 contentColor = Whitehis,
-                backgroundColor = kmns
+                backgroundColor = Transparent,
+                elevation = 0.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(brush = Brush.verticalGradient(background))
             )
         },
         content = {
@@ -138,14 +156,24 @@ fun SettingsView(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-
-                val background =
-                    listOf(
-                        // Color(0xFF4067DD),
-                        // Color(0xFF4067DD),
-                        Color(0xFF3D52BB),
-                        Color(0xFF3D52BB)
+                val isDay = temp.current_weather.is_day == 1
+                val background: List<Color> = if (isDay) {
+                    val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
+                    val lighterShades = listOf(
+                        baseColor,
+                        baseColor.copy(alpha = 0.9f),
+                        baseColor.copy(alpha = 0.8f),
+                        baseColor.copy(alpha = 0.5f),
                     )
+
+                    lighterShades
+                } else {
+                    listOf(
+                        Color(0xFF1D244D),
+                        Color(0xFF2E3A59),
+                        Color(0xFF3F5066),
+                    )
+                }
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -180,7 +208,8 @@ fun SettingsView(
                                     verticalArrangement = Arrangement.Center,
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
-                                    LanguageSettings()
+                                    //LanguageSettings()
+                                    SettingsCardOne()
                                     TroubleOnAppSettings { onFeedbackClicked(true) }
                                     IdeasSettings { onFeedbackClicked(false) }
                                     ShareTheAppSettings()
@@ -191,9 +220,9 @@ fun SettingsView(
 
                         1 -> {
                             SettingsCardTwo()
-                            TemperatureUnitSettings()
-                            PrecipitationUnitSettings()
-                            WindUnitSettings()
+                            TemperatureUnitSettings(temp)
+                            PrecipitationUnitSettings(temp)
+                            WindUnitSettings(temp)
                         }
                     }
                 }
@@ -208,21 +237,21 @@ fun SettingsView(
                         alpha = 0.5f,
                         amplitude = 40f,
                         frequency = 0.5f,
-                        gradientColors = listOf(Color(0xFF608ECA), Color(0xFF56CCF2))
+                        gradientColors = listOf(White, White)
                     )
                     HorizontalWave(
                         phase = rememberPhaseState(startPosition = 15f),
                         alpha = 0.5f,
                         amplitude = 80f,
                         frequency = 0.4f,
-                        gradientColors = listOf(Color(0xFF608ECA), Color(0xFF56CCF2))
+                        gradientColors = listOf(White, White)
                     )
                     HorizontalWave(
                         phase = rememberPhaseState(10f),
                         alpha = 0.2f,
                         amplitude = 60f,
                         frequency = 0.4f,
-                        gradientColors = listOf(Color(0xFF608ECA), Color(0xFF56CCF2))
+                        gradientColors = listOf(White, White)
                     )
                 }
             }
@@ -234,7 +263,7 @@ fun SettingsView(
 private fun LanguageSettings() {
     Spacer(modifier = Modifier.padding(top = 12.dp))
     Text(
-        text = "General Settings",
+        text = stringResource(id = R.string.GeneralSettings),
         modifier = Modifier.padding(8.dp),
         fontWeight = FontWeight.Medium,
         color = beige.copy(alpha = 0.8f),
@@ -244,7 +273,7 @@ private fun LanguageSettings() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 12.dp),
-        shape = RoundedCornerShape(26.dp),
+        shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
         val backgroundColor = getSecondaryGradients()
@@ -294,12 +323,22 @@ private fun LanguageSettings() {
         }
     }
 }
-
+@Composable
+private fun SettingsCardOne(){
+    Spacer(modifier = Modifier.padding(top = 12.dp))
+    Text(
+        text = stringResource(id = R.string.GeneralSettings),
+        modifier = Modifier.padding(8.dp),
+        fontWeight = FontWeight.Medium,
+        color = beige.copy(alpha = 0.8f),
+        fontSize = 28.sp
+    )
+}
 @Composable
 private fun SettingsCardTwo() {
     Spacer(modifier = Modifier.padding(top = 12.dp))
     Text(
-        text = "Unit Settings",
+        text = stringResource(id = R.string.UnitSettings),
         modifier = Modifier.padding(8.dp),
         fontWeight = FontWeight.Medium,
         color = beige.copy(alpha = 0.8f),
@@ -308,14 +347,14 @@ private fun SettingsCardTwo() {
 }
 
 @Composable
-fun TemperatureUnitSettings() {
+fun TemperatureUnitSettings(temp: TemperatureResponse) {
     val context = LocalContext.current
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
-            text = "Temperature Units",
+            text = stringResource(id = R.string.TemperatureUnits),
             color = orgn,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
@@ -335,18 +374,19 @@ fun TemperatureUnitSettings() {
                 TemperatureUnitPref.setTemperatureUnit(context, temperatureUnits[index])
                 selectedUnitIndex = index
             },
-            units = temperatureUnits.map { it.toString() }
+            units = temperatureUnits.map { it.toString() },
+            temp = temp
         )
     }
 }
 
 @Composable
-fun WindUnitSettings() {
+fun WindUnitSettings(temp: TemperatureResponse) {
     val context = LocalContext.current
     Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 2.dp)) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
-            text = "WindSpeed Units",
+            text = stringResource(id = R.string.WindSpeedUnits),
             color = orgn,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
@@ -368,18 +408,19 @@ fun WindUnitSettings() {
                 WindUnitPref.setWindUnit(context, units[index])
                 selectedUnitIndex = index
             },
-            units = units.map { it.toString() }
+            units = units.map { it.toString() },
+            temp = temp
         )
     }
 }
 
 @Composable
-fun PrecipitationUnitSettings() {
+fun PrecipitationUnitSettings(temp: TemperatureResponse) {
     val context = LocalContext.current
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
-            text = "Precipitation Units",
+            text = stringResource(id = R.string.PrecipitationUnits),
             color = orgn,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
@@ -401,7 +442,8 @@ fun PrecipitationUnitSettings() {
                 PrecipitationUnitPref.setPrecipitationUnit(context, units[index])
                 selectedUnitIndex = index
             },
-            units = units.map { it.toString() }
+            units = units.map { it.toString() },
+            temp = temp
         )
     }
 }
@@ -418,7 +460,10 @@ private fun ShareTheAppSettings() {
                 indication = null
             ) {
                 val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                    putExtra(Intent.EXTRA_TEXT, "https://northFlurry.com/Emre") //actual URL of my app will be added after publishing
+                    putExtra(
+                        Intent.EXTRA_TEXT,
+                        "https://northFlurry.com/Emre"
+                    ) //actual URL of my app will be added after publishing
                     type = "text/plain"
                 }
                 val shareIntent = Intent.createChooser(sendIntent, null)
@@ -433,7 +478,7 @@ private fun ShareTheAppSettings() {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(brush = Brush.verticalGradient(backgroundColor))
-                .padding(16.dp),
+                .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(
@@ -442,7 +487,7 @@ private fun ShareTheAppSettings() {
             )
             Spacer(modifier = Modifier.width(26.dp))
             Text(
-                text = "Share the App",
+                text = stringResource(id = R.string.ShareTheApp),
                 fontWeight = FontWeight.SemiBold,
                 color = Dark20,
                 fontSize = 18.sp
@@ -470,7 +515,8 @@ fun RateUsSettings() {
                 interactionSource = interactionSource,
                 indication = null
             ) {
-                val appURL = "https://play.google.com/store/apps" // actual URL of my app will be added after publishing
+                val appURL =
+                    "https://play.google.com/store/apps" // actual URL of my app will be added after publishing
                 val playIntent: Intent = Intent().apply {
                     action = Intent.ACTION_VIEW
                     data = Uri.parse(appURL)
@@ -490,13 +536,13 @@ fun RateUsSettings() {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(brush = Brush.verticalGradient(backgroundColor))
-                .padding(16.dp),
+                .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(painter = painterResource(id = R.drawable.menuicon), contentDescription = null)
             Spacer(modifier = Modifier.width(26.dp))
             Text(
-                text = "Rate Us",
+                text = stringResource(id = R.string.RateUs),
                 fontWeight = FontWeight.SemiBold,
                 color = Dark20,
                 fontSize = 18.sp
@@ -512,6 +558,7 @@ fun RateUsSettings() {
         }
     }
 }
+
 @Composable
 private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -533,13 +580,13 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(brush = Brush.verticalGradient(backgroundColor))
-                .padding(16.dp),
+                .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(painter = painterResource(id = R.drawable.menuicon), contentDescription = null)
             Spacer(modifier = Modifier.width(26.dp))
             Text(
-                text = "Trouble with the app?",
+                text = stringResource(id = R.string.TroubleWithTheApp),
                 fontWeight = FontWeight.SemiBold,
                 color = Dark20,
                 fontSize = 18.sp
@@ -575,12 +622,12 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(brush = Brush.verticalGradient(backgroundColor))
-                .padding(16.dp)
+                .padding(12.dp)
         ) {
             Icon(painter = painterResource(id = R.drawable.menuicon), contentDescription = null)
             Spacer(modifier = Modifier.width(26.dp))
             Text(
-                text = "Any good ideas?",
+                text = stringResource(id = R.string.AnyGoodIdeas),
                 fontWeight = FontWeight.Medium,
                 color = Dark20,
                 fontSize = 18.sp
@@ -678,7 +725,7 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = Color(0xFF547F8A)//MaterialTheme.colorScheme.primary,
+            indicatorColor =  Color(0xFF384BB4)//MaterialTheme.colorScheme.primary,
         )
         Row(
             horizontalArrangement = Arrangement.Center,

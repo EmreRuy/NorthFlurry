@@ -49,6 +49,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -118,7 +119,7 @@ fun StartScreenView(
                 Text(
                     modifier = Modifier.padding(4.dp),
                     textAlign = TextAlign.Center,
-                    text = "Sun, Rain, or Snow – Know Before You Go!",
+                    text = stringResource(id = R.string.SearchBeforeYouGo),
                     fontWeight = FontWeight.Normal,
                     fontFamily = FontFamily.Default,
                     fontSize = 16.sp,
@@ -211,7 +212,7 @@ fun StartScreenView(
             Text(
                 modifier = Modifier
                     .padding(horizontal = 16.dp),
-                text = "Thank you for downloading NorthFlurry, \nLet's Begin!",
+                text = stringResource(id = R.string.ThankYouForDownloading),
                 color = White,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Light,
@@ -219,6 +220,7 @@ fun StartScreenView(
             )
         }
     }
+    Color(0xFF56CCF2)
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = BottomCenter
@@ -228,21 +230,21 @@ fun StartScreenView(
             alpha = 1f,
             amplitude = 50f,
             frequency = 0.5f,
-            gradientColors = listOf(mocassin, Color(0xFF56CCF2))
+            gradientColors = listOf(mocassin, White)
         )
         HorizontalWave(
             phase = rememberPhaseState(startPosition = 15f),
             alpha = 0.5f,
             amplitude = 80f,
             frequency = 0.4f,
-            gradientColors = listOf(mocassin, Color(0xFF56CCF2))
+            gradientColors = listOf(mocassin, White)
         )
         HorizontalWave(
             phase = rememberPhaseState(10f),
             alpha = 0.2f,
             amplitude = 60f,
             frequency = 0.4f,
-            gradientColors = listOf(mocassin, Color(0xFF56CCF2))
+            gradientColors = listOf(mocassin, White)
         )
     }
 }
@@ -285,7 +287,7 @@ fun SimpleSearchBar(
             placeholder = {
                 Text(
                     modifier = Modifier.padding(start = 24.dp),
-                    text = "Search a city or airport",
+                    text = stringResource(id = R.string.SearchACity),
                     color = Color.Black.copy(alpha = 0.7f)
                 )
             },

@@ -105,9 +105,10 @@ class MainActivity : ComponentActivity() {
                                )
                            }
                        } */
-                    onSettingsClicked = {
+                    onSettingsClicked = {temp->
                         val intent = Intent(this, SettingsActivity::class.java)
-                        startActivity(intent)
+                        intent.putExtra("temp", temp)
+                        this.startActivity(intent)
                     }
                 )
             }

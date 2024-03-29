@@ -1,9 +1,7 @@
 package com.example.wouple.activities.detailActivity
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,13 +17,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Tab
@@ -36,15 +28,12 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
-import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -78,17 +67,14 @@ import java.util.Locale
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
-import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.times
 import androidx.compose.ui.window.Dialog
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -99,10 +85,10 @@ import com.example.wouple.elements.CustomBarChart
 import com.example.wouple.elements.CustomPrecipitationBarChart
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.ui.theme.WoupleTheme
-import com.example.wouple.ui.theme.kmns
 import com.example.wouple.ui.theme.vintage
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.util.Calendar
 
 
 @Preview
@@ -127,20 +113,12 @@ fun SecondCardView(
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
-
-        // Generate lighter shades
+        val baseColor = Color(0xFF3F54BE)
         val lighterShades = listOf(
             baseColor,
             baseColor.copy(alpha = 0.9f),
             baseColor.copy(alpha = 0.8f),
             baseColor.copy(alpha = 0.5f),
-            // baseColor.copy(alpha = 0.6f),
-            //  baseColor.copy(alpha = 0.5f),
-            /* baseColor.copy(alpha = 0.4f),
-             baseColor.copy(alpha = 0.3f),
-             baseColor.copy(alpha = 0.2f),
-             baseColor.copy(alpha = 0.1f) */
         )
 
         lighterShades
@@ -192,23 +170,13 @@ fun SecondCardView(
         val rainPr = rainIndex.let { temp.hourly.precipitation[rainIndex].toInt() }
         val visibilityInMeters = index.let { temp.hourly.visibility[it].toInt() }
         val windSpeed = index.let { temp.hourly.windspeed_10m[it].toInt() }
-        /*   val context = LocalContext.current
-            val windUnit = WindUnitPref.getWindUnit(context) */
         LocationView(temp, searchedLocation)
-        // UvIndexCard(temp)
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
-        //UvChartView(temp)
         CurrentAirQualityCard(temp, air)
-        CurrentUvIndexCard(temp)
+        UvIndexCard(temp)
         UvChartViewCard(temp)
-        //SunsetSunriseColumn(temp)
         SunsetSunriseColumnCard(temp)
-
-
-        // AirQualityCard(air, temp)
         HourlyForecastView(temp)
-        //WeeklyShowersChartView(temp)
-
         WeeklyForeCastView(temp)
         WeeklyChartCard(temp)
         val pagerState = rememberPagerState()
@@ -216,7 +184,7 @@ fun SecondCardView(
         { page ->
             when (page) {
                 0 -> ExtraCards(
-                    text = "Feels Like",
+                    text = stringResource(id = R.string.FeelsLike),
                     numbers = temp.hourly.apparent_temperature.getOrNull(feelsLike)?.let {
                         it.toInt().toString() + temp.hourly_units.apparent_temperature
                     } ?: "No Data",
@@ -225,35 +193,35 @@ fun SecondCardView(
                 )
 
                 1 -> ExtraCards(
-                    text = "Rainfall",
+                    text = stringResource(id = R.string.Rainfall),
                     numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
                     icon = painterResource(id = R.drawable.ic_drop),
                     temp = temp
                 )
 
                 2 -> ExtraCards(
-                    text = "Wind Speed",
+                    text = stringResource(id = R.string.WindSpeed),
                     numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
                     icon = painterResource(id = R.drawable.ic_wind),
                     temp = temp
                 )
 
                 3 -> ExtraCards(
-                    text = "Visibility",
+                    text = stringResource(id = R.string.Visibility),
                     numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
                     icon = painterResource(id = R.drawable.eye),
                     temp = temp
                 )
 
                 4 -> ExtraCards(
-                    text = "Humidity",
+                    text = stringResource(id = R.string.Humidity),
                     numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
                     icon = painterResource(id = R.drawable.ic_humidity),
                     temp = temp
                 )
 
                 5 -> ExtraCards(
-                    text = "Dew Point",
+                    text = stringResource(id = R.string.DewPoint),
                     numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
                     icon = painterResource(id = R.drawable.ic_drop),
                     temp = temp
@@ -416,8 +384,8 @@ private fun WeeklyChartCard(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-           // Color(0xFF4067DD),
-           // Color(0xFF4067DD),
+            // Color(0xFF4067DD),
+            // Color(0xFF4067DD),
             Color(0xFF3F54BE),
             Color(0xFF3F54BE)
         )
@@ -442,8 +410,13 @@ private fun WeeklyChartCard(temp: TemperatureResponse) {
 @Composable
 fun WeeklyShowersChartView(temp: TemperatureResponse) {
     val precipitationSum = temp.daily.precipitation_sum.take(7)
-    val maxRainSum = precipitationSum.maxOrNull()?.toFloat()?: 0f
+    val maxRainSum = precipitationSum.maxOrNull()?.toFloat() ?: 0f
+    val currentDayIndex = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2
     val labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+        .let { rotatedList ->
+            rotatedList.takeLast(rotatedList.size - currentDayIndex) +
+                    rotatedList.take(currentDayIndex)
+        }
     Column(
         modifier = Modifier
             .padding(horizontal = 12.dp, vertical = 8.dp),
@@ -451,17 +424,17 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
     ) {
         Text(
             modifier = Modifier,
-            text = "Precipitation For Upcoming Days",
+            text = stringResource(id = R.string.Precipitation_For_Upcoming_Days),
             fontWeight = FontWeight.Light,
             fontSize = 18.sp,
             color = White
         )
         Spacer(modifier = Modifier.weight(1f))
-        PopUpView()
-        if (maxRainSum <= 0.1){
+        PopUpViewForPrecipitation(temp)
+        if (maxRainSum <= 0.1) {
             Text(
                 modifier = Modifier.padding(16.dp),
-                text = "No Precipitation expected for next days",
+                text = stringResource(id = R.string.No_Precipitation_expected_for_next_days),
                 fontWeight = FontWeight.Light,
                 fontSize = 15.sp,
                 color = Spiro
@@ -509,12 +482,31 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
     }
 }
 @Composable
+fun PopUpViewForPrecipitation(temp: TemperatureResponse) {
+    var popupVisible by remember { mutableStateOf(false) }
+    if (popupVisible) {
+        PopUpContent(
+            title = stringResource(id = R.string.Weekly_precipitation_chart),
+            text = stringResource(id = R.string.Explainer_For_Precipitation),
+            onDismiss = { popupVisible = false },
+            temp = temp
+        )
+    }
+    IconButton(onClick = { popupVisible = true }) {
+        Icon(
+            Icons.Default.Info,
+            contentDescription = "Show Popup",
+            tint = White
+        )
+    }
+}
+@Composable
 fun UvChartViewCard(temp: TemperatureResponse) {
-   val isDay = temp.current_weather.is_day == 1
+    val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-           // Color(0xFF4067DD),
-           // Color(0xFF4067DD),
+            // Color(0xFF4067DD),
+            // Color(0xFF4067DD),
             Color(0xFF3D52BB),
             Color(0xFF3D52BB)
         )
@@ -541,7 +533,12 @@ fun UvChartView(temp: TemperatureResponse) {
     val dailyUv =
         temp.daily.uv_index_max.take(7) // Assuming temp.daily.uv_index_max contains the UV index data as List<Double>
     val maxUv = dailyUv.maxOrNull()?.toFloat() ?: 0f // Compute the maximum UV index value
+    val currentDayIndex = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1
     val labels = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+        .let { rotatedList ->
+            rotatedList.takeLast(rotatedList.size - currentDayIndex) +
+                    rotatedList.take(currentDayIndex)
+        }
     Column(
         modifier = Modifier
             .background(Transparent)
@@ -550,13 +547,13 @@ fun UvChartView(temp: TemperatureResponse) {
     ) {
         Text(
             modifier = Modifier.padding(8.dp),
-            text = "UV Index For Upcoming Days",
+            text = stringResource(id = R.string.UV_Index_For_Upcoming_Days),
             fontWeight = FontWeight.Light,
             fontSize = 18.sp,
             color = White
         )
         Spacer(modifier = Modifier.weight(1f))
-        PopUpView()
+        PopUpView(temp)
         Row(
             modifier = Modifier
                 .height(170.dp)
@@ -599,17 +596,14 @@ fun UvChartView(temp: TemperatureResponse) {
 }
 
 @Composable
-fun PopUpView() {
+fun PopUpView(temp: TemperatureResponse) {
     var popupVisible by remember { mutableStateOf(false) }
     if (popupVisible) {
         PopUpContent(
-            title = "The Ultraviolet Index",
-            text = "The UV index is a measure of the strength of ultraviolet radiation from the sun.\n" +
-                    "The UV index is primarily used to help people understand the level of UV radiation present in their environment and take appropriate precautions to protect their skin and eyes.\n"
-                    + "0-2 means You can safely enjoy being outside!\n"
-                    + "3-7 means Seek shade during midday hours! slop on sunscreen and wear a hat!\n"
-                    + "8 and above means Avoid being outside during midday hours!",
+            title = stringResource(id = R.string.The_Ultraviolet_Index),
+            text = stringResource(id = R.string.Explainer_Of_Uv_Index),
             onDismiss = { popupVisible = false },
+            temp = temp
         )
     }
     IconButton(onClick = { popupVisible = true }) {
@@ -622,11 +616,8 @@ fun PopUpView() {
 }
 
 @Composable
-fun PopUpContent(title: String, text: String, onDismiss: () -> Unit) {
-    val colors = listOf(
-        Color(0xFF1D244D),
-        Color(0xFF2E3A59),
-        )
+fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: TemperatureResponse) {
+    val isDay = temp.current_weather.is_day == 1
     Dialog(
         onDismissRequest = { onDismiss() },
         content = {
@@ -635,7 +626,7 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit) {
                     .padding(24.dp),
                 elevation = 8.dp,
                 shape = RoundedCornerShape(16.dp),
-                color =  Color(0xFF2E3A59)
+                color =  if (isDay) Color(0xFF7988D2) else  Color(0xFF3F5066) //Color(0xFF2E3A59)
             ) {
                 Column(
                     modifier = Modifier
@@ -650,7 +641,7 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit) {
                     Text(
                         text = text,
                         style = MaterialTheme.typography.body1,
-                        fontSize = 15.sp,
+                        fontSize = 16.sp,
                         color = White
                     )
                 }
@@ -660,11 +651,10 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit) {
 }
 
 @Composable
-fun AirQualityCard(air: AirQuality?, temp: TemperatureResponse) {
+fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(horizontal = 20.dp)
-            // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(Transparent),
         horizontalAlignment = CenterHorizontally
     ) {
@@ -674,9 +664,15 @@ fun AirQualityCard(air: AirQuality?, temp: TemperatureResponse) {
         ) {
             val isDay = temp.current_weather.is_day == 1
             val textColor = if (isDay) Whitehis else White
+            Icon(
+                modifier = Modifier.padding(end = 4.dp).size(20.dp),
+                painter = painterResource(id = R.drawable.ic_sun),
+                contentDescription = null,
+                tint = White
+            )
             Text(
                 modifier = Modifier.padding(4.dp),
-                text = "air quality index".uppercase(),
+                text = stringResource(id = R.string.air_quality_index).uppercase(),
                 textAlign = TextAlign.Start,
                 color = textColor,
                 fontWeight = FontWeight.Light
@@ -709,11 +705,36 @@ fun AirQualityCard(air: AirQuality?, temp: TemperatureResponse) {
                 color = textColor
             )
         }
-       // AirQualityChart(air, temp)
     }
 }
+
 @Composable
-fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?){
+fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
+    val isDay = temp.current_weather.is_day == 1
+    val background = if (isDay) {
+        listOf(
+            Color(0xFF3D52BB),
+            Color(0xFF3D52BB)
+        )
+    } else {
+        listOf(
+            Color(0xFF1D244D),
+            Color(0xFF2E3A59),
+        )
+    }
+    Column(
+        modifier = Modifier
+            .padding(vertical = 8.dp, horizontal = 16.dp)
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(Brush.verticalGradient(background))
+            .padding(12.dp),
+    ) {
+        AirQualityIndex(air, temp)
+    }
+}
+
+@Composable
+fun UvIndexCard(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
@@ -736,42 +757,15 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?){
             .background(Brush.verticalGradient(background))
             .padding(12.dp),
     ) {
-        AirQualityCard(air, temp)
+        UvIndex(temp)
     }
 }
+
 @Composable
-fun CurrentUvIndexCard(temp: TemperatureResponse){
-    val isDay = temp.current_weather.is_day == 1
-    val background = if (isDay) {
-        listOf(
-            // Color(0xFF4067DD),
-            // Color(0xFF4067DD),
-            Color(0xFF3D52BB),
-            Color(0xFF3D52BB)
-        )
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-           // Color(0xFF3F5066),
-        )
-    }
-    Column(
-        modifier = Modifier
-            .padding(vertical = 8.dp, horizontal = 16.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(background))
-            .padding(12.dp),
-    ) {
-        UvIndexCard(temp)
-}
-}
-@Composable
-fun UvIndexCard(temp: TemperatureResponse) {
+fun UvIndex(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(horizontal = 20.dp)
-            // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(Transparent),
         horizontalAlignment = CenterHorizontally
     ) {
@@ -780,9 +774,15 @@ fun UvIndexCard(temp: TemperatureResponse) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             val textColor = White
+            Icon(
+                modifier = Modifier.padding(end = 4.dp).size(20.dp),
+                painter = painterResource(id = R.drawable.ic_drop_hollow),
+                contentDescription = null,
+                tint = textColor
+            )
             Text(
                 modifier = Modifier.padding(4.dp),
-                text = "uv index".uppercase(),
+                text = stringResource(id = R.string.uv_index).uppercase(),
                 textAlign = TextAlign.Start,
                 color = textColor,
                 fontWeight = FontWeight.Light
@@ -822,68 +822,18 @@ fun UvIndexCard(temp: TemperatureResponse) {
 }
 
 @Composable
-fun AirQualityChart(air: AirQuality?, temp: TemperatureResponse) {
-    val airQualityValue = air?.current?.european_aqi ?: 0
-    val colorRanges = listOf(
-        20 to Color(0xFF89CFF0),  // Light blue
-        10 to Color(0xFF8CD790),  // Light green
-        10 to Color(0xFF8CD790),  // Light green
-        30 to Color(0xFF7A9CC2),  // Blue
-        40 to Color(0xFF8A77B7),  // Purple
-        60 to Color(0xFFCD6C85),  // Reddish-purple
-        80 to Color(0xFFD7564E)   // Red
-    )
-    val totalBars = colorRanges.size
-    var arrowPosition by remember { mutableStateOf(0f) }
-    // this one is calculating the arrow position based on the air quality index
-    arrowPosition = ((airQualityValue.toFloat() / 100f) * totalBars.toFloat()) / totalBars.toFloat()
-    val gradientColors = colorRanges.map { it.second }
-    Column {
-        Canvas(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(10.dp)
-                .clip(RoundedCornerShape(5.dp))
-        ) {
-            drawRect(
-                brush = Brush.horizontalGradient(gradientColors),
-                size = Size(size.width, size.height)
-            )
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-        ) {
-            val isDay = temp.current_weather.is_day == 1
-            val textColor = if (isDay) Color.Black else Color.White
-            Icon(
-                imageVector = Icons.Default.KeyboardArrowUp,
-                tint = textColor,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(24.dp)
-                    .offset(x = arrowPosition * 300.dp)
-                    .background(Color.Transparent)
-            )
-        }
-    }
-}
-@Composable
 fun HourlyForecastView(temp: TemperatureResponse) {
     val tabItem = listOf(
         TabItem(
-            title = "Temperature",
+            title = stringResource(id = R.string.Temperature),
         ),
         TabItem(
-            title = "Precipitation",
+            title = stringResource(id = R.string.Precipitation),
         )
     )
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-          //  Color(0xFF4067DD),
-          //  Color(0xFF4067DD),
             Color(0xFF3F54BE),
             Color(0xFF3F54BE)
         )
@@ -900,11 +850,11 @@ fun HourlyForecastView(temp: TemperatureResponse) {
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(Brush.verticalGradient(background))
             .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = CenterHorizontally
     ) {
         Text(
             modifier = Modifier.padding(12.dp),
-            text = "Next 24 Hours",
+            text = stringResource(id = R.string.Next_24_Hours),
             color = White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
@@ -1005,10 +955,6 @@ fun PrecipitationContent(temp: TemperatureResponse) {
         for (index in currentHour..(currentHour + 23)) {
             val time = DateFormatter.formatDate(temp.hourly.time[index])
             val precipitationPr = temp.hourly.precipitation_probability[index]
-            /* precipitationPr = (precipitationPr + 5) / 10 * 10
-             if (precipitationPr < 41) {
-                 precipitationPr = 0
-             }*/
             val hourlyWeatherCondition = when (temp.hourly.weathercode[index]) {
                 0, 1 -> WeatherCondition.SUNNY
                 2 -> WeatherCondition.PARTLYCLOUDY
@@ -1122,7 +1068,7 @@ fun DayLength(temp: TemperatureResponse) {
     ) {
         Text(
             modifier = Modifier,
-            text = "Day Length",
+            text = stringResource(id = R.string.Day_Length),
             fontWeight = FontWeight.Thin,
             fontSize = 28.sp,
             color = White,
@@ -1142,8 +1088,6 @@ private fun SunsetSunriseColumnCard(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-           // Color(0xFF4067DD),
-           // Color(0xFF4067DD),
             Color(0xFF3F54BE),
             Color(0xFF3F54BE)
         )
@@ -1171,10 +1115,10 @@ private fun SunsetSunriseColumn(temp: TemperatureResponse) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = CenterHorizontally
     ) {
         Text(
-            text = "Sunrise & Sunset Times",
+            text = stringResource(id = R.string.Sunrise_Sunset),
             color = White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
@@ -1185,7 +1129,7 @@ private fun SunsetSunriseColumn(temp: TemperatureResponse) {
                 .padding(8.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = CenterVertically
         ) {
             Column(
                 modifier = Modifier
@@ -1213,7 +1157,7 @@ private fun SunsetSunriseColumn(temp: TemperatureResponse) {
             }
             Column(
                 modifier = Modifier.weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = CenterHorizontally
             ) {
                 LottieAnimationSun()
             }
@@ -1270,17 +1214,6 @@ fun Hours(
             fontWeight = FontWeight.Bold,
             fontSize = 17.sp
         )
-        /*  if (precipitationPr > 29 &&
-              (hourlyWeatherCondition == WeatherCondition.RAINY || hourlyWeatherCondition == WeatherCondition.SNOWY)
-          ) {
-              Text(
-                  modifier = Modifier,
-                  text = "%$precipitationPr",
-                  color = Spiro,
-                  fontSize = 14.sp
-              )
-
-          }*/
     }
 }
 
@@ -1339,8 +1272,8 @@ fun WeeklyForeCastView(
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-          //  Color(0xFF4067DD),
-          //  Color(0xFF4067DD),
+            //  Color(0xFF4067DD),
+            //  Color(0xFF4067DD),
             Color(0xFF3F54BE),
             Color(0xFF3F54BE)
         )
@@ -1349,7 +1282,7 @@ fun WeeklyForeCastView(
             Color(0xFF1D244D),
             Color(0xFF2E3A59),
             Color(0xFF3F5066),
-           // Color(0xFF50767D),
+            // Color(0xFF50767D),
         )
     }
     Column(
@@ -1369,7 +1302,7 @@ fun WeeklyForeCastView(
                 modifier = Modifier
                     .align(CenterVertically)
                     .padding(start = 3.dp),
-                text = "Upcoming Days",
+                text = stringResource(id = R.string.Upcoming_Days),
                 color = Corn,
                 fontWeight = FontWeight.Light,
                 fontSize = 18.sp
@@ -1395,7 +1328,7 @@ fun WeeklyForeCastView(
         }
         for (days in 0 until temp.daily.time.size) {
             val daysOfWeek = temp.daily.time[days]
-            val somessd = LocalDate.parse(daysOfWeek).dayOfWeek.toString()
+            val localDay = LocalDate.parse(daysOfWeek).dayOfWeek.toString()
             val forecastMin = temp.daily.temperature_2m_min[days].toInt()
             val forecastMax = temp.daily.temperature_2m_max[days].toInt()
             val weatherCondition = when (temp.daily.weathercode[days]) {
@@ -1432,7 +1365,7 @@ fun WeeklyForeCastView(
                 Text(
                     modifier = Modifier
                         .weight(1f),
-                    text = somessd.lowercase()
+                    text = localDay.lowercase()
                         .replaceFirstChar {
                             if (it.isLowerCase()) it.titlecase(locale = Locale.ENGLISH) else it.toString()
                         },
@@ -1473,7 +1406,6 @@ fun WeeklyForeCastView(
                 )
             }
         }
-      //  WeeklyShowersChartView(temp)
     }
 }
 
@@ -1487,8 +1419,6 @@ fun ExtraCards(
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-            //  Color(0xFF4067DD),
-            //  Color(0xFF4067DD),
             Color(0xFF3F54BE),
             Color(0xFF3F54BE)
         )
@@ -1500,11 +1430,6 @@ fun ExtraCards(
             Color(0xFF50767D),
         )
     }
-    val colors = listOf(
-        Color(0xFF2E3A59),
-        Color(0xFF3F5066),
-        Color(0xFF50767D),
-    )
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -1526,8 +1451,9 @@ fun ExtraCards(
                 contentDescription = null,
                 modifier = Modifier
                     .padding(8.dp)
-                    .size(32.dp),
-                tint = Spiro
+                    .padding(top = 4.dp)
+                    .size(28.dp),
+                tint = Whitehis
             )
             Text(
                 modifier = Modifier.padding(8.dp),
@@ -1540,7 +1466,7 @@ fun ExtraCards(
             Text(
                 modifier = Modifier.padding(8.dp),
                 text = numbers,
-                color = Corn,
+                color = Whitehis,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -1549,7 +1475,7 @@ fun ExtraCards(
 
         Text(
             modifier = Modifier,
-            text = "Expected Today",
+            text = stringResource(id = R.string.Expected_Today),
             color = White,
             fontSize = 16.sp
         )
@@ -1565,7 +1491,7 @@ fun ExtraCards(
             alpha = 0.2f,
             amplitude = 60f,
             frequency = 0.4f,
-            gradientColors = listOf(Color(0xFF82AAF3),Color(0xFF82AAF3),)
+            gradientColors = listOf(Whitehis, Whitehis)
         )
 
     }

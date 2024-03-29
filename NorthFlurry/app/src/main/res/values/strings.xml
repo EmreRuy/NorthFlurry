@@ -2,4 +2,49 @@
     <string name="app_name">NorthFlurry</string>
     <string name="title_activity_second">SecondActivity</string>
     <string name="title_activity_start">StartActivity</string>
+    <string name="WeatherForecast">"Weather Forecast"</string>
+    <string name="AppExplainer">"the ultimate weather companion designed to make your daily life easier.
+        Our app delivers accurate, real-time weather forecasts, ensuring you're prepared for whatever
+        Mother Nature has in store."</string>
+    <string name="GetStartButton">"Get Started"</string>
+    <string name="SearchBeforeYouGo">"Sun, Rain, or Snow – Know Before You Go!"</string>
+    <string name="ThankYouForDownloading">"Thank you for downloading NorthFlurry,
+Let's Begin!"</string>
+    <string name="SearchACity">"Search a city or airport"</string>
+    <string name="Settings">"Settings"</string>
+    <string name="GeneralSettings">"General Settings"</string>
+    <string name="UnitSettings">"Unit Settings"</string>
+    <string name="TemperatureUnits">"Temperature Units"</string>
+    <string name="WindSpeedUnits">"WindSpeed Units"</string>
+    <string name="PrecipitationUnits">"Precipitation Units"</string>
+    <string name="ShareTheApp">"Share the App"</string>
+    <string name="RateUs">"Rate Us"</string>
+    <string name="TroubleWithTheApp">"Trouble with the app?"</string>
+    <string name="AnyGoodIdeas">"Any good ideas?"</string>
+    <string name="FeelsLike">"Feels Like"</string>
+    <string name="Rainfall">"Rainfall"</string>
+    <string name="WindSpeed">"Wind Speed"</string>
+    <string name="Visibility">"Visibility"</string>
+    <string name="Humidity">"Humidity"</string>
+    <string name="DewPoint">"Dew Point"</string>
+    <string name="Precipitation_For_Upcoming_Days">"Precipitation For Upcoming Days"</string>
+    <string name="No_Precipitation_expected_for_next_days">"No Precipitation expected for next days"</string>
+    <string name="UV_Index_For_Upcoming_Days">"UV Index For Upcoming Days"</string>
+    <string name="The_Ultraviolet_Index">"The Ultraviolet Index"</string>
+    <string name="Explainer_Of_Uv_Index">"The UV index is a measure of the strength of ultraviolet radiation from the sun.\n"
+                    "The UV index is primarily used to help people understand the level of UV radiation present in their environment and take appropriate precautions to protect their skin and eyes.\n"
+                     "0-2 means You can safely enjoy being outside!\n"
+                     "3-7 means Seek shade during midday hours! slop on sunscreen and wear a hat!\n"
+                     "8 and above means Avoid being outside during midday hours!"</string>
+    <string name="Weekly_precipitation_chart">"Weekly Precipitation Chart"</string>
+    <string name="Explainer_For_Precipitation">"Precipitation is defined as any liquid or solid water particle that falls from clouds and reaches the ground. Drizzle,rain, snow, snow pellets, ice crystals, and hail are some examples of these particles.\n This chart demonstrate total precipitation for a week."</string>
+    <string name="air_quality_index">"air quality index"</string>
+    <string name="uv_index">"uv index"</string>
+    <string name="Temperature">"Temperature"</string>
+    <string name="Precipitation">"Precipitation"</string>
+    <string name="Next_24_Hours">"Next 24 Hours"</string>
+    <string name="Day_Length">"Day Length"</string>
+    <string name="Sunrise_Sunset">"Sunrise / Sunset Times"</string>
+    <string name="Upcoming_Days">"Upcoming Days"</string>
+    <string name="Expected_Today">"Expected Today"</string>
 </resources>
