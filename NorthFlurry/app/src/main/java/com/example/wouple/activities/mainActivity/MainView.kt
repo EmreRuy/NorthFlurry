@@ -82,40 +82,7 @@ import com.example.wouple.ui.theme.WoupleTheme
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
-@Composable
-fun FirstCardView(
-    temp: TemperatureResponse,
-    locations: List<SearchedLocation>?,
-    onSearch: (String) -> Unit,
-    searchedLocation: MutableState<SearchedLocation?>,
-    onLocationButtonClicked: (SearchedLocation) -> Unit,
-    onDetailsButtonClicked: (TemperatureResponse) -> Unit,
-    onClose: () -> Unit,
-    // onTemperatureUnitChanged: (String) -> Unit,
-    onSettingsClicked: (TemperatureResponse) -> Unit,
-) {
-    val scrollState = rememberScrollState()
-        Column(
-            Modifier
-                .background(Spiro)
-                .fillMaxSize()
-                .verticalScroll(scrollState)
-        ) {
-            MainSome(onSettingsClicked = onSettingsClicked, temp = temp)
-            Column(Modifier.padding(16.dp)) {
-                Column(
-                    modifier = Modifier
-                        .padding(top = 32.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                   TodayWeatherCard(temp = temp)
-                }
-            }
-        }
-    }
 
-/*
 @Composable
 fun FirstCardView(
     temp: TemperatureResponse,
@@ -297,14 +264,14 @@ fun FirstCardView(
         }
       Box(
             modifier = Modifier
-                .fillMaxHeight(1f)
+                .fillMaxHeight(0.5f)
                 .background(White)
                 .padding(top = 8.dp),
           contentAlignment = Center
         ) {
             TodayWeatherCard(temp)
         }
-        /*
+
         Box(
             modifier = Modifier
                 .fillMaxHeight(1f)
@@ -314,10 +281,9 @@ fun FirstCardView(
         ) {
             searchedLocation.value?.let { ClickableCardDemo(it, temp) }
         }
-        */
+
     }
 }
-*/
 @Composable
 fun LottieAnimationClear() {
     val isPlaying by remember { mutableStateOf(true) }
