@@ -34,15 +34,13 @@ class MainActivity : ComponentActivity() {
     private val airQuality: MutableState<AirQuality?> = mutableStateOf(null)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val isFirstLaunch = sharedPreferences.getBoolean("isFirstLaunch", true)
+        val isFirstLaunch = LocationPref.getSearchedLocation(this)
         setContent {
             WoupleTheme {
-                if (isFirstLaunch)
+                if (isFirstLaunch == null)
                     NoTemperatureView(
                         onStartButtonClicked = {
                             Log.d("NoTemperatureView", "Start button clicked")
-                            sharedPreferences.edit().putBoolean("isFirstLaunch", false).apply()
                             val intent = Intent(this@MainActivity, StartActivity::class.java)
                             startActivity(intent)
                             val secondIntent = Intent(this, StartActivity::class.java)
