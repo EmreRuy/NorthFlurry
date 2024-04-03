@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -44,6 +45,7 @@ import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Alignment.Companion.Top
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -127,60 +129,19 @@ fun MainView(
                 .padding(bottom = 18.dp),
             contentAlignment = BottomCenter
         ) {
+            // Location name with degrees
             Column(
-                modifier = Modifier.padding(4.dp),
+                Modifier.padding(top = 70.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                SearchBar(isSearchExpanded, onSearch, onClose)
-                if (locations != null) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(vertical = 4.dp)
-                    ) {
-                        items(locations) { location ->
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp, horizontal = 16.dp)
-                                    .clip(RoundedCornerShape(30.dp))
-                                    .clickable {
-                                        isSearchExpanded.value = false
-                                        searchedLocation.value = location
-                                        onLocationButtonClicked(location)
-                                    },
-                                elevation = 4.dp,
-                                backgroundColor = White
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(12.dp),
-                                    verticalAlignment = CenterVertically
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_pin),
-                                        contentDescription = null,
-                                        tint = Unspecified,
-                                        modifier = Modifier.size(32.dp)
-                                    )
-                                    Text(
-                                        text = location.display_name,
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 16.sp,
-                                        color = Black
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
                 Text(
                     text = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D",
                     fontWeight = FontWeight.Thin,
                     textAlign = TextAlign.Center,
                     fontSize = 50.sp,
                     color = White,
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 Text(
                     modifier = Modifier.padding(start = 12.dp),
@@ -224,44 +185,93 @@ fun MainView(
                     else -> LottieAnimationSun()
                 }
                 Row(
-                    modifier = Modifier.padding(bottom = 4.dp),
-                    horizontalArrangement = Arrangement.Center
-                )
-                {
+                    modifier = Modifier
+                        .padding(bottom = 4.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     DropDownMenu { onSettingsClicked(temp) }
-                    Spacer(modifier = Modifier.padding(28.dp))
                     DetailButton {
                         onDetailsButtonClicked(temp)
                     }
-                    Spacer(modifier = Modifier.weight(1f))
+                    Spacer(modifier = Modifier.width(58.dp))
+                }
+
+                // Horizontal waves
+                Box(
+                    modifier = Modifier.fillMaxSize().padding(top = 32.dp),
+                    contentAlignment = BottomCenter
+                ) {
+                    HorizontalWave(
+                        phase = rememberPhaseState(0f),
+                        alpha = 1f,
+                        amplitude = 50f,
+                        frequency = 0.5f,
+                        gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+                    )
+                    HorizontalWave(
+                        phase = rememberPhaseState(15f),
+                        alpha = 0.5f,
+                        amplitude = 80f,
+                        frequency = 0.3f,
+                        gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+                    )
+                    HorizontalWave(
+                        phase = rememberPhaseState(10f),
+                        alpha = 0.2f,
+                        amplitude = 40f,
+                        frequency = 0.6f,
+                        gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+                    )
                 }
             }
 
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                HorizontalWave(
-                    phase = rememberPhaseState(0f),
-                    alpha = 1f,
-                    amplitude = 50f,
-                    frequency = 0.5f,
-                    gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
-                )
-                HorizontalWave(
-                    phase = rememberPhaseState(15f),
-                    alpha = 0.5f,
-                    amplitude = 80f,
-                    frequency = 0.3f,
-                    gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
-                )
-                HorizontalWave(
-                    phase = rememberPhaseState(10f),
-                    alpha = 0.2f,
-                    amplitude = 40f,
-                    frequency = 0.6f,
-                    gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
-                )
+
+            // locations search
+            Column(modifier = Modifier.padding(4.dp).align(Alignment.TopStart),) {
+                SearchBar(isSearchExpanded, onSearch, onClose)
+                if (locations != null) {
+                    LazyColumn(
+                        Modifier.height(360.dp),
+                        contentPadding = PaddingValues(vertical = 4.dp)
+                    ) {
+                        items(locations) { location ->
+                            Card(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 4.dp, horizontal = 16.dp)
+                                    .clip(RoundedCornerShape(30.dp))
+                                    .clickable {
+                                        isSearchExpanded.value = false
+                                        searchedLocation.value = location
+                                        onLocationButtonClicked(location)
+                                    },
+                                elevation = 4.dp,
+                                backgroundColor = White
+                            ) {
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(12.dp),
+                                    verticalAlignment = CenterVertically
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_pin),
+                                        contentDescription = null,
+                                        tint = Unspecified,
+                                        modifier = Modifier.size(32.dp)
+                                    )
+                                    Text(
+                                        text = location.display_name,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 16.sp,
+                                        color = Black
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -433,7 +443,7 @@ fun DropDownMenu(
     Box(
         modifier = Modifier
             .padding(start = 16.dp)
-            .clip(RoundedCornerShape(32.dp))
+            .clip(CircleShape)
     ) {
         IconButton(
             onClick = {
@@ -609,7 +619,7 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
             Column(
                 modifier = Modifier
                     .padding(16.dp)
-                    .align(CenterStart)
+                    .align(Center)
             ) {
                 getHourlyWeatherInfo(temp)
             }

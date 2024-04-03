@@ -96,6 +96,7 @@ import java.time.DayOfWeek
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.util.Calendar
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Local
 
 
 @Preview
@@ -416,6 +417,7 @@ private fun WeeklyChartCard(temp: TemperatureResponse) {
 
 @Composable
 fun WeeklyShowersChartView(temp: TemperatureResponse) {
+    val context = LocalContext.current
     val precipitationSum = temp.daily.precipitation_sum.take(7)
     val maxRainSum = precipitationSum.maxOrNull()?.toFloat() ?: 0f
     val daysOfWeek = (0 until 7).map {
@@ -435,7 +437,8 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpViewForPrecipitation(temp)
-        if (maxRainSum <= 0.1) {
+        val minSumForShowingGraph = if (PrecipitationUnitPref.getPrecipitationUnit(context) == PrecipitationUnit.MM) 0.1 else 0.01
+        if (maxRainSum <= minSumForShowingGraph) {
             Text(
                 modifier = Modifier.padding(16.dp),
                 text = stringResource(id = R.string.No_Precipitation_expected_for_next_days),
@@ -486,6 +489,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
         }
     }
 }
+
 @Composable
 fun PopUpViewForPrecipitation(temp: TemperatureResponse) {
     var popupVisible by remember { mutableStateOf(false) }
@@ -505,6 +509,7 @@ fun PopUpViewForPrecipitation(temp: TemperatureResponse) {
         )
     }
 }
+
 @Composable
 fun UvChartViewCard(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
@@ -629,7 +634,7 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: Tempe
                     .padding(24.dp),
                 elevation = 8.dp,
                 shape = RoundedCornerShape(16.dp),
-                color =  if (isDay) Color(0xFF7988D2) else  Color(0xFF3F5066) //Color(0xFF2E3A59)
+                color = if (isDay) Color(0xFF7988D2) else Color(0xFF3F5066) //Color(0xFF2E3A59)
             ) {
                 Column(
                     modifier = Modifier
@@ -668,7 +673,9 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
             val isDay = temp.current_weather.is_day == 1
             val textColor = if (isDay) Whitehis else White
             Icon(
-                modifier = Modifier.padding(end = 4.dp).size(20.dp),
+                modifier = Modifier
+                    .padding(end = 4.dp)
+                    .size(20.dp),
                 painter = painterResource(id = R.drawable.ic_airquality),
                 contentDescription = null,
                 tint = White
@@ -720,7 +727,7 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
             //Color(0xFF3D52BB)
             Color(0xFF3954C4),
 
-        )
+            )
     } else {
         listOf(
             Color(0xFF1D244D),
@@ -748,7 +755,7 @@ fun UvIndexCard(temp: TemperatureResponse) {
             Color(0xFF3D52BB),
             Color(0xFF3954C4),
 
-        )
+            )
     } else {
         listOf(
             Color(0xFF1D244D),
@@ -781,7 +788,9 @@ fun UvIndex(temp: TemperatureResponse) {
         ) {
             val textColor = White
             Icon(
-                modifier = Modifier.padding(end = 4.dp).size(20.dp),
+                modifier = Modifier
+                    .padding(end = 4.dp)
+                    .size(20.dp),
                 painter = painterResource(id = R.drawable.ic_sun),
                 contentDescription = null,
                 tint = textColor

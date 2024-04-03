@@ -38,8 +38,8 @@ fun RowScope.CustomPrecipitationBarChart(
         targetValue = height.dp,
         tween(2000, delayMillis = 300, easing = LinearEasing), label = ""
     )
-    LaunchedEffect(key1 = size ){
-        height = size *20
+    LaunchedEffect(key1 = size){
+        height = (size / max) * 100
     }
     Box(
         modifier = Modifier.padding(start = 6.dp, end = 6.dp, top = 4.dp)
