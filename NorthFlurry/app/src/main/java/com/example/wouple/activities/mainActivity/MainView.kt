@@ -21,13 +21,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -73,10 +76,46 @@ import com.example.wouple.elements.getWeeklyForecast
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.ui.theme.Dark20
+import com.example.wouple.ui.theme.Spiro
+import com.example.wouple.ui.theme.WoupleTheme
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
+@Composable
+fun FirstCardView(
+    temp: TemperatureResponse,
+    locations: List<SearchedLocation>?,
+    onSearch: (String) -> Unit,
+    searchedLocation: MutableState<SearchedLocation?>,
+    onLocationButtonClicked: (SearchedLocation) -> Unit,
+    onDetailsButtonClicked: (TemperatureResponse) -> Unit,
+    onClose: () -> Unit,
+    // onTemperatureUnitChanged: (String) -> Unit,
+    onSettingsClicked: (TemperatureResponse) -> Unit,
+) {
+    val scrollState = rememberScrollState()
+        Column(
+            Modifier
+                .background(Spiro)
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+        ) {
+            MainSome(onSettingsClicked = onSettingsClicked, temp = temp)
+            Column(Modifier.padding(16.dp)) {
+                Column(
+                    modifier = Modifier
+                        .padding(top = 32.dp)
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                   TodayWeatherCard(temp = temp)
+                }
+            }
+        }
+    }
 
+/*
 @Composable
 fun FirstCardView(
     temp: TemperatureResponse,
@@ -278,7 +317,7 @@ fun FirstCardView(
         */
     }
 }
-
+*/
 @Composable
 fun LottieAnimationClear() {
     val isPlaying by remember { mutableStateOf(true) }

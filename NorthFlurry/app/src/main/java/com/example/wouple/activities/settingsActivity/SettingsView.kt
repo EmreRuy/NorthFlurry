@@ -482,7 +482,8 @@ private fun ShareTheAppSettings() {
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_share_24),
+                modifier = Modifier.padding(start = 4.dp),
+                painter = painterResource(id = R.drawable.ic_world),
                 contentDescription = null
             )
             Spacer(modifier = Modifier.width(26.dp))
@@ -539,7 +540,7 @@ fun RateUsSettings() {
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Icon(painter = painterResource(id = R.drawable.menuicon), contentDescription = null)
+            Icon(painter = painterResource(id = R.drawable.ic_hand_heart), contentDescription = null, Modifier.padding(top = 4.dp, start = 4.dp))
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.RateUs),
@@ -583,7 +584,7 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Icon(painter = painterResource(id = R.drawable.menuicon), contentDescription = null)
+            Icon(painter = painterResource(id = R.drawable.ic_warning_triangle), contentDescription = null, Modifier.padding(start = 4.dp))
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.TroubleWithTheApp),
@@ -624,7 +625,7 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
                 .background(brush = Brush.verticalGradient(backgroundColor))
                 .padding(12.dp)
         ) {
-            Icon(painter = painterResource(id = R.drawable.menuicon), contentDescription = null)
+            Icon(painter = painterResource(id = R.drawable.ic_lightbulb), contentDescription = null, Modifier.padding(start = 4.dp))
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.AnyGoodIdeas),
