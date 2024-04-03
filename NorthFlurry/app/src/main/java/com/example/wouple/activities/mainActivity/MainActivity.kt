@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val focusManager = LocalFocusManager.current
             if (temp.value !== null) {
-                FirstCardView(
+                MainView(
                     temp = temp.value!!,
                     locations = searchedLocations.value,
                     onLocationButtonClicked = { location ->

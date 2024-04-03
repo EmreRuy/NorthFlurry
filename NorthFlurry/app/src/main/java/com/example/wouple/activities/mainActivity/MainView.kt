@@ -30,7 +30,6 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,6 +40,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -76,15 +76,12 @@ import com.example.wouple.elements.getWeeklyForecast
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Dark20
-import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.WoupleTheme
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
 
 @Composable
-fun FirstCardView(
+fun MainView(
     temp: TemperatureResponse,
     locations: List<SearchedLocation>?,
     onSearch: (String) -> Unit,
@@ -97,7 +94,9 @@ fun FirstCardView(
 ) {
     val isSearchExpanded = remember { mutableStateOf(false) }
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
@@ -115,9 +114,10 @@ fun FirstCardView(
                 Color(0xFF3F5066),
             )
         }
+
+        //Top view
         Box(
             modifier = Modifier
-                .fillMaxHeight(0.5f)
                 .fillMaxWidth()
                 .background(
                     brush = Brush.verticalGradient(
@@ -125,6 +125,7 @@ fun FirstCardView(
                     )
                 )
                 .padding(bottom = 18.dp),
+            contentAlignment = BottomCenter
         ) {
             Column(
                 modifier = Modifier.padding(4.dp),
@@ -227,7 +228,7 @@ fun FirstCardView(
                     horizontalArrangement = Arrangement.Center
                 )
                 {
-                    DropDownMenu{ onSettingsClicked(temp) }
+                    DropDownMenu { onSettingsClicked(temp) }
                     Spacer(modifier = Modifier.padding(28.dp))
                     DetailButton {
                         onDetailsButtonClicked(temp)
@@ -235,6 +236,7 @@ fun FirstCardView(
                     Spacer(modifier = Modifier.weight(1f))
                 }
             }
+
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.BottomCenter
@@ -262,28 +264,21 @@ fun FirstCardView(
                 )
             }
         }
-      Box(
+
+
+        //Bottom view
+        Column(
             modifier = Modifier
-                .fillMaxHeight(0.5f)
                 .background(White)
                 .padding(top = 8.dp),
-          contentAlignment = Center
+            verticalArrangement = Arrangement.Center
         ) {
             TodayWeatherCard(temp)
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxHeight(1f)
-                .background(White)
-                .padding(bottom = 8.dp),
-            contentAlignment = Center
-        ) {
             searchedLocation.value?.let { ClickableCardDemo(it, temp) }
         }
-
     }
 }
+
 @Composable
 fun LottieAnimationClear() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -420,7 +415,7 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
             backgroundColor = if (isPressed) {
                 colorTransition
             } else {
-               vintage
+                vintage
             }
         )
     ) {
@@ -430,7 +425,7 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
 
 @Composable
 fun DropDownMenu(
-    onSettingsClicked:() -> Unit,
+    onSettingsClicked: () -> Unit,
 ) {
     var isPressed by remember { mutableStateOf(false) }
     var isExpanded by remember { mutableStateOf(false) }
@@ -453,45 +448,45 @@ fun DropDownMenu(
                 tint = White,
             )
         }
-      /*  AnimatedVisibility(
-            visible = isExpanded,
-            enter = fadeIn(),
-            exit = fadeOut()
-        ) {
-            DropdownMenu(
-                expanded = isExpanded,
-                onDismissRequest = { isExpanded = false },
-                offset = DpOffset(x = 0.dp, y = 40.dp)
-            ) {
-                DropdownMenuItem(
-                    onClick = {
-                        isExpanded = false
-                        onSettingsClicked("Settings")
-                        isPressed = !isPressed
-                    }
-                ) {
-                    Text(
-                        modifier = Modifier,
-                        text = "Settings",
-                        fontWeight = FontWeight.Light,
-                        color = Black
-                    )
-                }
-                DropdownMenuItem(
-                    onClick = {
-                        isExpanded = false
-                        onSettingsClicked("feedback")
-                        isPressed = !isPressed
-                    }
-                ) {
-                    Text(
-                        text = "Feed Back",
-                        fontWeight = FontWeight.Light,
-                        color = Black
-                    )
-                }
-            }
-        } */
+        /*  AnimatedVisibility(
+              visible = isExpanded,
+              enter = fadeIn(),
+              exit = fadeOut()
+          ) {
+              DropdownMenu(
+                  expanded = isExpanded,
+                  onDismissRequest = { isExpanded = false },
+                  offset = DpOffset(x = 0.dp, y = 40.dp)
+              ) {
+                  DropdownMenuItem(
+                      onClick = {
+                          isExpanded = false
+                          onSettingsClicked("Settings")
+                          isPressed = !isPressed
+                      }
+                  ) {
+                      Text(
+                          modifier = Modifier,
+                          text = "Settings",
+                          fontWeight = FontWeight.Light,
+                          color = Black
+                      )
+                  }
+                  DropdownMenuItem(
+                      onClick = {
+                          isExpanded = false
+                          onSettingsClicked("feedback")
+                          isPressed = !isPressed
+                      }
+                  ) {
+                      Text(
+                          text = "Feed Back",
+                          fontWeight = FontWeight.Light,
+                          color = Black
+                      )
+                  }
+              }
+          } */
     }
 }
 
