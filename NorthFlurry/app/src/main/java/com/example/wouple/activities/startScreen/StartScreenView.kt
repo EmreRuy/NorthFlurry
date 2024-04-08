@@ -1,9 +1,20 @@
 package com.example.wouple.activities.startScreen
 
+import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.Easing
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateValueAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -37,6 +48,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
@@ -44,10 +56,12 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -60,6 +74,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.elements.GetPulsatingEffect
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SnowfallEffect
 import com.example.wouple.elements.rememberPhaseState
@@ -110,23 +125,21 @@ fun StartScreenView(
         ) {
             Spacer(modifier = Modifier.padding(40.dp))
             AnimatedVisibility(
-                visible = searchBarVisible.value,
-                enter = slideInVertically(
-                    initialOffsetY = { -40 },
-                    animationSpec = tween(durationMillis = 1000, easing = EaseOut)
-                ) + fadeIn(initialAlpha = 0.3f)
+               visible = searchBarVisible.value
             ) {
-                Text(
-                    modifier = Modifier.padding(4.dp),
-                    textAlign = TextAlign.Center,
-                    text = stringResource(id = R.string.SearchBeforeYouGo),
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = FontFamily.Default,
-                    fontSize = 16.sp,
-                    color = vintage,
-                )
+                GetPulsatingEffect {
+                    Text(
+                        modifier = Modifier.padding(4.dp),
+                        textAlign = TextAlign.Center,
+                        text = stringResource(id = R.string.SearchBeforeYouGo),
+                        fontWeight = FontWeight.Normal,
+                        fontFamily = FontFamily.Default,
+                        fontSize = 16.sp,
+                        color = vintage,
+                    )
+                }
             }
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.padding(2.dp))
             AnimatedVisibility(
                 visible = searchBarVisible.value,
                 enter = slideInVertically(
@@ -177,76 +190,11 @@ fun StartScreenView(
                     }
                 }
             }
-          /* else {
-                emptyList<SearchedLocation>().isEmpty()
-        }*/
         }
         SnowfallEffect(searchBarVisible)
     }
-    var cardsVisible by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Float) {
-        delay(400)
-        cardsVisible = true
-    }
-    LaunchedEffect(cardsVisible) {
-        if (cardsVisible) {
-            delay(3000)
-            cardsVisible = false
-        }
-    }
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Center
-    ) {
-        AnimatedVisibility(
-            visible = cardsVisible,
-            enter = fadeIn(
-                animationSpec = tween(
-                    durationMillis = 2000,
-                    easing = LinearEasing
-                )
-            )
-        ) {
-            Text(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
-                text = stringResource(id = R.string.ThankYouForDownloading),
-                color = White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Light,
-                textAlign = TextAlign.Center
-            )
-        }
-    }
-    Color(0xFF56CCF2)
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = BottomCenter
-    ) {
-        HorizontalWave(
-            phase = rememberPhaseState(startPosition = 0f),
-            alpha = 1f,
-            amplitude = 50f,
-            frequency = 0.5f,
-            gradientColors = listOf(mocassin, White)
-        )
-        HorizontalWave(
-            phase = rememberPhaseState(startPosition = 15f),
-            alpha = 0.5f,
-            amplitude = 80f,
-            frequency = 0.4f,
-            gradientColors = listOf(mocassin, White)
-        )
-        HorizontalWave(
-            phase = rememberPhaseState(10f),
-            alpha = 0.2f,
-            amplitude = 60f,
-            frequency = 0.4f,
-            gradientColors = listOf(mocassin, White)
-        )
-    }
+   GetAnimationOfWelcome()
+   GetHorizontalWaveForStartPage()
 }
 
 @Composable
@@ -307,5 +255,76 @@ fun SimpleSearchBar(
                 cursorColor = Spiro,
             )
         )
+    }
+}
+@Composable
+private fun GetHorizontalWaveForStartPage(){
+    Box(
+        modifier = Modifier.fillMaxSize(),
+
+        contentAlignment = BottomCenter
+    ) {
+        HorizontalWave(
+            phase = rememberPhaseState(startPosition = 0f),
+            alpha = 1f,
+            amplitude = 50f,
+            frequency = 0.5f,
+            gradientColors = listOf(mocassin, White)
+        )
+        HorizontalWave(
+            phase = rememberPhaseState(startPosition = 15f),
+            alpha = 0.5f,
+            amplitude = 80f,
+            frequency = 0.4f,
+            gradientColors = listOf(mocassin, White)
+        )
+        HorizontalWave(
+            phase = rememberPhaseState(10f),
+            alpha = 0.2f,
+            amplitude = 60f,
+            frequency = 0.4f,
+            gradientColors = listOf(mocassin, White)
+        )
+    }
+}
+
+@Composable
+private fun GetAnimationOfWelcome(){
+    var cardsVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Float) {
+        delay(400)
+        cardsVisible = true
+    }
+    LaunchedEffect(cardsVisible) {
+        if (cardsVisible) {
+            delay(3000)
+            cardsVisible = false
+        }
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Center
+    ) {
+        AnimatedVisibility(
+            visible = cardsVisible,
+            enter = fadeIn(
+                animationSpec = tween(
+                    durationMillis = 2000,
+                    easing = LinearEasing
+                )
+            )
+        ) {
+            Text(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp),
+                text = stringResource(id = R.string.ThankYouForDownloading),
+                color = White,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Light,
+                textAlign = TextAlign.Center
+            )
+        }
     }
 }

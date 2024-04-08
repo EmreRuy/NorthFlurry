@@ -49,6 +49,7 @@ import androidx.compose.ui.Alignment.Companion.Top
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
@@ -56,6 +57,7 @@ import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -68,6 +70,9 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
+import com.example.wouple.activities.detailActivity.DayLength
+import com.example.wouple.activities.detailActivity.SunRise
+import com.example.wouple.activities.detailActivity.SunSet
 import com.example.wouple.activities.lightningMap.LightningMapActivity
 import com.example.wouple.activities.rainMap.WeatherRadarWebView
 import com.example.wouple.elements.HorizontalWave
@@ -78,6 +83,7 @@ import com.example.wouple.elements.getWeeklyForecast
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
@@ -199,7 +205,9 @@ fun MainView(
 
                 // Horizontal waves
                 Box(
-                    modifier = Modifier.fillMaxSize().padding(top = 32.dp),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 32.dp),
                     contentAlignment = BottomCenter
                 ) {
                     HorizontalWave(
@@ -228,7 +236,9 @@ fun MainView(
 
 
             // locations search
-            Column(modifier = Modifier.padding(4.dp).align(Alignment.TopStart),) {
+            Column(modifier = Modifier
+                .padding(4.dp)
+                .align(Alignment.TopStart),) {
                 SearchBar(isSearchExpanded, onSearch, onClose)
                 if (locations != null) {
                     LazyColumn(
@@ -283,8 +293,10 @@ fun MainView(
                 .padding(top = 8.dp),
             verticalArrangement = Arrangement.Center
         ) {
+            SunsetSunriseColumnCard(temp)
             TodayWeatherCard(temp)
             searchedLocation.value?.let { ClickableCardDemo(it, temp) }
+
         }
     }
 }
@@ -525,12 +537,11 @@ private fun TodayWeatherCard(temp: TemperatureResponse) {
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF4067DD)
+            val baseColor = Color(0xFF3F54BE)
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
                 baseColor.copy(alpha = 0.8f),
-                baseColor.copy(alpha = 0.3f),
             )
             lighterShades
         } else {
@@ -586,20 +597,13 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF4067DD)
+            val baseColor = Color(0xFF3F54BE)
 
             // Generate lighter shades
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
                 baseColor.copy(alpha = 0.8f),
-                baseColor.copy(alpha = 0.3f),
-                // baseColor.copy(alpha = 0.6f),
-                //  baseColor.copy(alpha = 0.5f),
-                /* baseColor.copy(alpha = 0.4f),
-                 baseColor.copy(alpha = 0.3f),
-                 baseColor.copy(alpha = 0.2f),
-                 baseColor.copy(alpha = 0.1f) */
             )
 
             lighterShades
@@ -625,5 +629,119 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
             }
         }
         LightningCardNotification(temp)
+    }
+}
+
+@Composable
+private fun SunsetSunriseColumnCard(temp: TemperatureResponse) {
+    val isDay = temp.current_weather.is_day == 1
+    val background: List<Color> = if (isDay) {
+        val baseColor = Color(0xFF3F54BE)
+
+        // Generate lighter shades
+        val lighterShades = listOf(
+            baseColor,
+            baseColor.copy(alpha = 0.9f),
+            baseColor.copy(alpha = 0.8f),
+        )
+
+        lighterShades
+    } else {
+        listOf(
+            Color(0xFF1D244D),
+            Color(0xFF2E3A59),
+            Color(0xFF3F5066),
+        )
+    }
+  /*  Column(
+        modifier = Modifier
+            .padding(vertical = 16.dp, horizontal = 16.dp)
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(Brush.verticalGradient(background))
+            .padding(16.dp)
+    ) {
+        SunsetSunriseColumn(temp = temp)
+    } */
+    SunsetSunriseColumn(temp)
+}
+
+@Composable
+private fun SunsetSunriseColumn(temp: TemperatureResponse) {
+    val isDay = temp.current_weather.is_day == 1
+    val background: List<Color> = if (isDay) {
+        val baseColor = Color(0xFF3F54BE)
+
+        // Generate lighter shades
+        val lighterShades = listOf(
+            baseColor,
+            baseColor.copy(alpha = 0.9f),
+            baseColor.copy(alpha = 0.8f),
+        )
+
+        lighterShades
+    } else {
+        listOf(
+            Color(0xFF1D244D),
+            Color(0xFF2E3A59),
+            Color(0xFF3F5066),
+        )
+    }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .padding(vertical = 16.dp, horizontal = 12.dp)
+            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(brush = Brush.verticalGradient(background)),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = R.string.Sunrise_Sunset),
+            color = White,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Light,
+            textAlign = TextAlign.Center
+        )
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = CenterVertically
+        ) {
+            Column(
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .weight(1f)
+            ) {
+                SunRise(temp)
+                Row {
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrowdropup),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(30.dp),
+                        tint = Whitehis.copy(alpha = 0.9f),
+                    )
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrowdropdown),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(30.dp),
+                        tint = Whitehis.copy(alpha = 0.8f),
+                    )
+                }
+                SunSet(temp)
+            }
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                com.example.wouple.activities.detailActivity.LottieAnimationSun()
+            }
+            Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.End) {
+                DayLength(temp)
+            }
+        }
     }
 }

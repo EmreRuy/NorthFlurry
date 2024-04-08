@@ -726,7 +726,7 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor =  Color(0xFF384BB4)//MaterialTheme.colorScheme.primary,
+            indicatorColor =  Color(0xFF536AD5)//MaterialTheme.colorScheme.primary,
         )
         Row(
             horizontalArrangement = Arrangement.Center,

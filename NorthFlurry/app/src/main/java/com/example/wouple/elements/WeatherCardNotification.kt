@@ -44,20 +44,13 @@ fun WeatherCardNotification(temp: TemperatureResponse) {
     )
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF4067DD)
+        val baseColor = Color(0xFF7D8AE1) //#7D8AE1
 
         // Generate lighter shades
         val lighterShades = listOf(
-            baseColor,
-            baseColor.copy(alpha = 0.9f),
+            baseColor.copy(alpha = 0.7f),
             baseColor.copy(alpha = 0.8f),
-            baseColor.copy(alpha = 0.3f),
-            // baseColor.copy(alpha = 0.6f),
-            //  baseColor.copy(alpha = 0.5f),
-            /* baseColor.copy(alpha = 0.4f),
-             baseColor.copy(alpha = 0.3f),
-             baseColor.copy(alpha = 0.2f),
-             baseColor.copy(alpha = 0.1f) */
+            baseColor.copy(alpha = 0.9f),
         )
 
         lighterShades

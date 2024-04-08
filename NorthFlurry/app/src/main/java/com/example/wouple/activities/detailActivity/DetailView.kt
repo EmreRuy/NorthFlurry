@@ -183,7 +183,7 @@ fun SecondCardView(
         CurrentAirQualityCard(temp, air)
         UvIndexCard(temp)
         UvChartViewCard(temp)
-        SunsetSunriseColumnCard(temp)
+     //   SunsetSunriseColumnCard(temp)
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
         WeeklyChartCard(temp)
