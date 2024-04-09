@@ -1,6 +1,11 @@
 package com.example.wouple.elements
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Ease
+import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.Easing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
@@ -108,7 +113,7 @@ fun WeatherCardNotification(temp: TemperatureResponse) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(52.dp)
             .background(brush = Brush.verticalGradient(background)),
         contentAlignment = CenterStart
     ) {
@@ -122,7 +127,7 @@ fun WeatherCardNotification(temp: TemperatureResponse) {
             AnimatedVisibility(
                 visible = apparent,
                 enter = slideInVertically(initialOffsetY = { -it }),
-                exit = slideOutVertically(targetOffsetY = { it })
+                exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(animationSpec = tween(200,easing = EaseOut))
             ) {
                 Text(
                     text = currentText,

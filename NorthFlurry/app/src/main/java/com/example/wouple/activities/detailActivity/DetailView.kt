@@ -70,6 +70,8 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color.Companion.DarkGray
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -91,6 +93,7 @@ import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.PrecipitationUnit
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.ui.theme.WoupleTheme
+import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import java.time.DayOfWeek
 import java.time.ZoneId
@@ -183,7 +186,7 @@ fun SecondCardView(
         CurrentAirQualityCard(temp, air)
         UvIndexCard(temp)
         UvChartViewCard(temp)
-     //   SunsetSunriseColumnCard(temp)
+        SunsetSunriseColumnCard(temp)
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
         WeeklyChartCard(temp)
@@ -634,7 +637,7 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: Tempe
                     .padding(24.dp),
                 elevation = 8.dp,
                 shape = RoundedCornerShape(16.dp),
-                color = if (isDay) Color(0xFF7988D2) else Color(0xFF3F5066) //Color(0xFF2E3A59)
+                color = if (isDay) Color(0xFF586FCE) else Color(0xFF3F5066) //Color(0xFF2E3A59)
             ) {
                 Column(
                     modifier = Modifier
@@ -643,14 +646,14 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: Tempe
                     Text(
                         text = title,
                         style = MaterialTheme.typography.h6,
-                        color = vintage
+                        color = mocassin
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = text,
                         style = MaterialTheme.typography.body1,
                         fontSize = 16.sp,
-                        color = White
+                        color = Color(0xFFE0E0E0)
                     )
                 }
             }

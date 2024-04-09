@@ -293,9 +293,9 @@ fun MainView(
                 .padding(top = 8.dp),
             verticalArrangement = Arrangement.Center
         ) {
-            SunsetSunriseColumnCard(temp)
-            TodayWeatherCard(temp)
+            SunsetSunriseColumn(temp)
             searchedLocation.value?.let { ClickableCardDemo(it, temp) }
+            TodayWeatherCard(temp)
 
         }
     }
@@ -592,7 +592,7 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
             .clickable {
                 context.startActivity(LightningMapActivity.newIntent(context, searchedLocation))
             },
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         elevation = 4.dp,
     ) {
         val isDay = temp.current_weather.is_day == 1
@@ -633,39 +633,6 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
 }
 
 @Composable
-private fun SunsetSunriseColumnCard(temp: TemperatureResponse) {
-    val isDay = temp.current_weather.is_day == 1
-    val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF3F54BE)
-
-        // Generate lighter shades
-        val lighterShades = listOf(
-            baseColor,
-            baseColor.copy(alpha = 0.9f),
-            baseColor.copy(alpha = 0.8f),
-        )
-
-        lighterShades
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
-        )
-    }
-  /*  Column(
-        modifier = Modifier
-            .padding(vertical = 16.dp, horizontal = 16.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(background))
-            .padding(16.dp)
-    ) {
-        SunsetSunriseColumn(temp = temp)
-    } */
-    SunsetSunriseColumn(temp)
-}
-
-@Composable
 private fun SunsetSunriseColumn(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
@@ -689,13 +656,15 @@ private fun SunsetSunriseColumn(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .padding(vertical = 16.dp, horizontal = 12.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(brush = Brush.verticalGradient(background)),
+            .padding(12.dp)
+            .background(
+                shape = RoundedCornerShape(20.dp),
+                brush = Brush.verticalGradient(background)
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
+            modifier = Modifier.padding(top = 8.dp),
             text = stringResource(id = R.string.Sunrise_Sunset),
             color = White,
             fontSize = 18.sp,
@@ -704,13 +673,14 @@ private fun SunsetSunriseColumn(temp: TemperatureResponse) {
         )
         Row(
             modifier = Modifier
-                .padding(8.dp)
+                .padding(4.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = CenterVertically
         ) {
             Column(
                 modifier = Modifier
+                    .padding(vertical = 8.dp, horizontal = 12.dp)
                     .padding(start = 16.dp)
                     .weight(1f)
             ) {

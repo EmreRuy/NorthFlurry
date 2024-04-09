@@ -39,7 +39,7 @@ fun getHourlyWeatherInfo(temp: TemperatureResponse){
         val timeZone = temp.timezone
         val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
         val currentHour = currentDateTime.hour
-        for (index in currentHour..(currentHour + 7)) {
+        for (index in currentHour..(currentHour + 6)) {
             val time = DateFormatter.formatDate(temp.hourly.time[index])
             val temperature = temp.hourly.temperature_2m[index].toInt().toString()
             val isDaytime = temp.hourly.is_day.getOrNull(index) == 1
@@ -76,8 +76,9 @@ fun getSixHours(
     hourlyWeatherCondition: WeatherCondition
 ) {
     Column(
-        modifier = Modifier.padding(top = 32.dp, start = 8.dp, end = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.padding(top = 32.dp, start = 10.dp, end = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.padding(top = 4.dp),
@@ -88,7 +89,7 @@ fun getSixHours(
         Image(
             painter = painterResource(id = hourlyWeatherCondition.imageResourceId),
             contentDescription = null,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(26.dp)
         )
         Text(
             modifier = Modifier.padding(top = 4.dp,),

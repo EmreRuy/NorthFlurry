@@ -36,7 +36,7 @@ Let's Begin!"</string>
                      "0-2 means You can safely enjoy being outside!\n"
                      "3-7 means Seek shade during midday hours! slop on sunscreen and wear a hat!\n"
                      "8 and above means Avoid being outside during midday hours!"</string>
-    <string name="Weekly_precipitation_chart">"Weekly Precipitation Chart"</string>
+    <string name="Weekly_precipitation_chart">"Weekly Precipitation"</string>
     <string name="Explainer_For_Precipitation">"Precipitation is defined as any liquid or solid water particle that falls from clouds and reaches the ground. Drizzle,rain, snow, snow pellets, ice crystals, and hail are some examples of these particles.\n This chart demonstrate total precipitation for a week."</string>
     <string name="air_quality_index">"air quality index"</string>
     <string name="uv_index">"uv index"</string>

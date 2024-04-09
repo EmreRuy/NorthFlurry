@@ -27,7 +27,7 @@ import java.util.Locale
 @Composable
 fun getWeeklyForecast(temp: TemperatureResponse) {
     Row(
-        modifier = Modifier,//.horizontalScroll(rememberScrollState()),
+        modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(20.dp)
     ) {
@@ -58,7 +58,7 @@ fun getWeeklyForecast(temp: TemperatureResponse) {
 @Composable
 fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: Int) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(5.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -69,7 +69,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
         Image(
             painter = painterResource(id = imageResourceId),
             contentDescription = null,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(26.dp)
         )
         Text(
             text = "$temperature°",
