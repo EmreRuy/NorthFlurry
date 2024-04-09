@@ -15,9 +15,12 @@ import androidx.compose.animation.core.animateValueAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -125,7 +128,11 @@ fun StartScreenView(
         ) {
             Spacer(modifier = Modifier.padding(40.dp))
             AnimatedVisibility(
-               visible = searchBarVisible.value
+               visible = searchBarVisible.value,
+                enter = fadeIn(
+                    //initialOffsetY = { -40 },
+                    animationSpec = tween(durationMillis = 1000, easing = EaseIn)
+                ) + fadeIn(initialAlpha = 0.3f),
             ) {
                 GetPulsatingEffect {
                     Text(
@@ -314,6 +321,9 @@ private fun GetAnimationOfWelcome(){
                     durationMillis = 2000,
                     easing = LinearEasing
                 )
+            ),
+            exit = fadeOut(
+                animationSpec = tween(2000, easing = EaseOut)
             )
         ) {
             Text(
