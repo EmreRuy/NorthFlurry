@@ -422,13 +422,13 @@ private fun WeeklyChartCard(temp: TemperatureResponse) {
 fun WeeklyShowersChartView(temp: TemperatureResponse) {
     val context = LocalContext.current
     val precipitationSum = temp.daily.precipitation_sum.take(7)
-    val maxRainSum = precipitationSum.maxOrNull()?.toFloat() ?: 0f
+    val maxRainSum = precipitationSum.maxOrNull()?.toFloat() ?: return
     val daysOfWeek = (0 until 7).map {
         LocalDate.now().plusDays(it.toLong()).dayOfWeek.name.substring(0, 3)
     }
     Column(
         modifier = Modifier
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .padding(horizontal = 12.dp, vertical = 8.dp).fillMaxWidth(),
         horizontalAlignment = CenterHorizontally
     ) {
         Text(
@@ -449,44 +449,45 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
                 fontSize = 15.sp,
                 color = Spiro
             )
-        }
-        Row(
-            modifier = Modifier
-                .height(170.dp)
-                .drawBehind {
-                    // draw X-Axis
-                    drawLine(
-                        color = White,
-                        start = Offset(0f, size.height),
-                        end = Offset(size.width, size.height),
-                        //strokeWidth = strokeWidth
-                    )
-                },
-            verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            precipitationSum.forEach { value ->
-                CustomPrecipitationBarChart(size = value.toFloat(), max = maxRainSum)
+        } else {
+            Row(
+                modifier = Modifier
+                    .height(170.dp)
+                    .drawBehind {
+                        // draw X-Axis
+                        drawLine(
+                            color = White,
+                            start = Offset(0f, size.height),
+                            end = Offset(size.width, size.height),
+                            //strokeWidth = strokeWidth
+                        )
+                    },
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                precipitationSum.forEach { value ->
+                    CustomPrecipitationBarChart(size = value.toFloat(), max = maxRainSum)
+                }
             }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(20.dp),
-            verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            daysOfWeek.forEach { label ->
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .width(10.dp), contentAlignment = Center
-                ) {
-                    Text(
-                        text = label,
-                        color = White,
-                        fontSize = 12.sp
-                    )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(20.dp),
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                daysOfWeek.forEach { label ->
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .width(10.dp), contentAlignment = Center
+                    ) {
+                        Text(
+                            text = label,
+                            color = White,
+                            fontSize = 12.sp
+                        )
+                    }
                 }
             }
         }
