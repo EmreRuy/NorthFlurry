@@ -34,12 +34,18 @@ class StartActivity : ComponentActivity() {
            StartScreenView(
                locations = searchedLocations.value,
                onSearch = { query ->
-                   WeatherManager.getSearchedLocations(
-                       context = this,
-                       address = query,
-                       onSuccessCall = { location ->
-                           searchedLocations.value = location
-                       })
+                   if (query.isNotEmpty()) {
+                       WeatherManager.getSearchedLocations(
+                           context = this,
+                           address = query,
+                           onSuccessCall = { location ->
+                               searchedLocations.value = location
+                           }
+                       )
+                   } else {
+                       // Clears the list of locations when the query(searchBar) is empty
+                       searchedLocations.value = emptyList()
+                   }
                },
                onButtonClicked = { location ->
                    onLocationButtonClicked(location)

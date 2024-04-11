@@ -54,9 +54,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.AbsoluteAlignment
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
+import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -65,9 +68,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -203,8 +208,22 @@ fun StartScreenView(
     }
    GetAnimationOfWelcome()
    GetHorizontalWaveForStartPage()
+    GetIconOfMan()
 }
 
+@Composable
+fun GetIconOfMan(){
+   Box(
+        modifier = Modifier.fillMaxSize(),
+       contentAlignment = BottomEnd
+    ) {
+        Image(
+            painter =  painterResource(id = R.drawable.ic_man),
+            contentDescription = null,
+            modifier = Modifier.size(350.dp)
+        )
+    }
+}
 @Composable
 fun SimpleSearchBar(
     onSearch: (String) -> Unit
