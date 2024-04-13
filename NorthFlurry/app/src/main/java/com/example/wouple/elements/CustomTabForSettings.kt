@@ -119,7 +119,7 @@ fun CustomTabForSettings(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay)  Color(0xFF324BBA) else Color(0xFF3A4377),
+            indicatorColor = if (isDay)  Color(0xFF324BBA) else Color(0xFF495BB8),
         )
         Row(
             horizontalArrangement = Arrangement.Center,

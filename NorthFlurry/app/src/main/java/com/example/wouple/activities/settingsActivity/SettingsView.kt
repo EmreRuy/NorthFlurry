@@ -716,11 +716,11 @@ fun CustomTab(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
     )
-
+val somes = Color(0xFFFFEED9)
     Box(
         modifier = modifier
             .clip(CircleShape)
-            .background(White)
+            .background(somes)
             .height(intrinsicSize = IntrinsicSize.Min),
     ) {
         MyTabIndicator(

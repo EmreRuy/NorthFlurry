@@ -280,6 +280,7 @@ private fun GetLocationAndDegree(
             Spacer(modifier = Modifier.width(58.dp))
         }
         // Horizontal waves
+        Spacer(modifier = Modifier.height(30.dp))
         GetHorizontalWaveView()
     }
 }
@@ -325,7 +326,7 @@ private fun GetBottomView(
             .padding(top = 8.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        searchedLocation.value?.let { ClickableCardDemo(it, temp) }
+        searchedLocation.value?.let { GetSevenHoursForecast(it, temp) }
         TodayWeatherCard(temp)
 
     }
@@ -565,7 +566,7 @@ private fun TodayWeatherCard(temp: TemperatureResponse) {
     }
 }
 @Composable
-fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureResponse) {
+private fun GetSevenHoursForecast(searchedLocation: SearchedLocation, temp: TemperatureResponse) {
     val context = LocalContext.current
     Card(
         modifier = Modifier

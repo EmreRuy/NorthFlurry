@@ -38,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -70,17 +69,10 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color.Companion.DarkGray
-import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.Transparent
-import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.substring
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -92,31 +84,14 @@ import com.example.wouple.elements.CustomPrecipitationBarChart
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.PrecipitationUnit
 import com.example.wouple.preferences.PrecipitationUnitPref
-import com.example.wouple.ui.theme.WoupleTheme
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
-import java.time.DayOfWeek
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.util.Calendar
-import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities.Local
-
-
-@Preview
-@Composable
-fun StartScreenPreview() {
-    val locations = listOf(
-        SearchedLocation("59.9127", "10.7461", "Oslo"),
-        SearchedLocation("36.377", "33.9344", "Silifke"),
-    )
-    WoupleTheme {
-        HourlyForecastView(temp = TemperatureResponse.getMockInstance())
-    }
-}
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun SecondCardView(
+fun DetailView(
     temp: TemperatureResponse,
     searchedLocation: SearchedLocation,
     air: AirQuality?,
@@ -141,13 +116,6 @@ fun SecondCardView(
         )
     }
     val scrollState = rememberScrollState()
-    val colors = listOf(
-        Color(0xFF87CEEB),
-        Color(0xFF87CEEB),
-        Color(0xFF87CEEB),
-        Color(0xFF6495ED),
-        Color(0xFF4169E1),
-    )
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -188,7 +156,7 @@ fun SecondCardView(
         UvChartViewCard(temp)
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
-        WeeklyChartCard(temp)
+        WeeklyChart(temp)
         SunsetSunriseColumnCard(temp)
         val pagerState = rememberPagerState()
         HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
@@ -199,42 +167,42 @@ fun SecondCardView(
                     numbers = temp.hourly.apparent_temperature.getOrNull(feelsLike)?.let {
                         it.toInt().toString() + temp.hourly_units.apparent_temperature
                     } ?: "No Data",
-                    icon = painterResource(id = R.drawable.ic_term),
+                    //  icon = painterResource(id = R.drawable.ic_term),
                     temp = temp
                 )
 
                 1 -> ExtraCards(
                     text = stringResource(id = R.string.Rainfall),
                     numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
-                    icon = painterResource(id = R.drawable.ic_drop),
+                    //  icon = painterResource(id = R.drawable.ic_drop),
                     temp = temp
                 )
 
                 2 -> ExtraCards(
                     text = stringResource(id = R.string.WindSpeed),
                     numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
-                    icon = painterResource(id = R.drawable.ic_wind),
+                    //  icon = painterResource(id = R.drawable.ic_wind),
                     temp = temp
                 )
 
                 3 -> ExtraCards(
                     text = stringResource(id = R.string.Visibility),
                     numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
-                    icon = painterResource(id = R.drawable.ic_visibility),
+                    //  icon = painterResource(id = R.drawable.ic_visibility),
                     temp = temp
                 )
 
                 4 -> ExtraCards(
                     text = stringResource(id = R.string.Humidity),
                     numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
-                    icon = painterResource(id = R.drawable.ic_humidity),
+                    //   icon = painterResource(id = R.drawable.ic_humidity),
                     temp = temp
                 )
 
                 5 -> ExtraCards(
                     text = stringResource(id = R.string.DewPoint),
                     numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
-                    icon = painterResource(id = R.drawable.ic_drop),
+                    //  icon = painterResource(id = R.drawable.ic_drop),
                     temp = temp
                 )
             }
@@ -242,7 +210,6 @@ fun SecondCardView(
         HorizontalPagerIndicator(step = pagerState.currentPage, totalSteps = pagerState.pageCount)
     }
 }
-
 
 @Composable
 private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
@@ -391,7 +358,7 @@ fun LocationView(
 }
 
 @Composable
-private fun WeeklyChartCard(temp: TemperatureResponse) {
+private fun WeeklyChart(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
@@ -428,7 +395,8 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
     }
     Column(
         modifier = Modifier
-            .padding(horizontal = 12.dp, vertical = 8.dp).fillMaxWidth(),
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+            .fillMaxWidth(),
         horizontalAlignment = CenterHorizontally
     ) {
         Text(
@@ -440,7 +408,8 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpViewForPrecipitation(temp)
-        val minSumForShowingGraph = if (PrecipitationUnitPref.getPrecipitationUnit(context) == PrecipitationUnit.MM) 0.1 else 0.01
+        val minSumForShowingGraph =
+            if (PrecipitationUnitPref.getPrecipitationUnit(context) == PrecipitationUnit.MM) 0.1 else 0.01
         if (maxRainSum <= minSumForShowingGraph) {
             Text(
                 modifier = Modifier.padding(16.dp),
@@ -940,7 +909,7 @@ fun TemperatureContent(temp: TemperatureResponse) {
                     3 -> WeatherCondition.CLOUDY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
-                    95,96,99 -> WeatherCondition.THUNDERSTORM
+                    95, 96, 99 -> WeatherCondition.THUNDERSTORM
                     else -> WeatherCondition.SUNNY
                 }
                 Hours(time, temperature, hourlyWeatherCondition)
@@ -951,7 +920,7 @@ fun TemperatureContent(temp: TemperatureResponse) {
                     2, 3 -> WeatherCondition.CLOUDY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
-                    95,96,99 -> WeatherCondition.THUNDERSTORM
+                    95, 96, 99 -> WeatherCondition.THUNDERSTORM
                     else -> {
                         WeatherCondition.CLEARNIGHT
                     }
@@ -1096,9 +1065,9 @@ fun DayLength(temp: TemperatureResponse) {
             color = White,
         )
         Text(
-            modifier = Modifier.padding(start = 4.dp),
+            modifier = Modifier.padding(top = 2.dp),
             text = lengthOfTheDay,
-            fontWeight = FontWeight.Normal,
+            fontWeight = FontWeight.Medium,
             fontSize = 16.sp,
             color = Whitehis,
         )
@@ -1122,10 +1091,10 @@ private fun SunsetSunriseColumnCard(temp: TemperatureResponse) {
     }
     Column(
         modifier = Modifier
-            .padding(vertical = 8.dp, horizontal = 12.dp)
+            .padding(vertical = 8.dp, horizontal = 16.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(Brush.verticalGradient(background))
-            .padding(16.dp)
+            .padding(8.dp)
     ) {
         SunsetSunriseColumn(temp = temp)
     }
@@ -1140,7 +1109,7 @@ private fun SunsetSunriseColumn(temp: TemperatureResponse) {
         horizontalAlignment = CenterHorizontally
     ) {
         Text(
-            text = stringResource(id = R.string.Sunrise_Sunset),
+            text = stringResource(id = R.string.Daylight_Duration),
             color = White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
@@ -1436,7 +1405,7 @@ fun WeeklyForeCastView(
 fun ExtraCards(
     text: String,
     numbers: String,
-    icon: Painter,
+    // icon: Painter,
     temp: TemperatureResponse
 ) {
     val isDay = temp.current_weather.is_day == 1
@@ -1457,8 +1426,8 @@ fun ExtraCards(
         modifier = Modifier
             .fillMaxWidth()
             .size(120.dp)
-            .padding(vertical = 2.dp)
-            .padding(start = 16.dp, end = 16.dp)
+            .padding(vertical = 8.dp)
+            .padding(horizontal = 16.dp)
             .shadow(1.dp, RoundedCornerShape(21.dp))
             .background(brush = Brush.verticalGradient(background)),
         horizontalAlignment = CenterHorizontally,
@@ -1469,15 +1438,7 @@ fun ExtraCards(
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Icon(
-                painter = icon,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .padding(top = 4.dp)
-                    .size(28.dp),
-                tint = Whitehis
-            )
+
             Text(
                 modifier = Modifier.padding(8.dp),
                 text = text,

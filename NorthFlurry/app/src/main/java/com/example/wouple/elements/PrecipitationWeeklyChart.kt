@@ -1,5 +1,6 @@
 package com.example.wouple.elements
 
+import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -24,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.orgn
 
@@ -48,7 +50,8 @@ fun RowScope.CustomPrecipitationBarChart(
             .border(BorderStroke(1.dp, color = Color.Transparent))
             .background(Spiro, shape = RoundedCornerShape(10.dp))
             .clickable {
-                Toast.makeText(context, "$size", Toast.LENGTH_SHORT).show()
+                val unit = PrecipitationUnitPref.getPrecipitationUnit(context)
+                Toast.makeText(context, "$size $unit", Toast.LENGTH_SHORT).show()
             }
     )
 }

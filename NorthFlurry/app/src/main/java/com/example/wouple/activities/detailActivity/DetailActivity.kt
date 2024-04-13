@@ -7,7 +7,6 @@ import androidx.activity.compose.setContent
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.model.api.WindUnit
 
 class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +27,7 @@ class SecondActivity : ComponentActivity() {
                 throw IllegalStateException("temp is missing or wrong")
             }
 
-            SecondCardView(
+            DetailView(
                 onBackPressed = { onBackPressedDispatcher.onBackPressed() },
                 temp = temp,
                 searchedLocation = location,
