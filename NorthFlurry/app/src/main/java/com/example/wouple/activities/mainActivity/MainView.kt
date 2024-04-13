@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,13 +42,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Alignment.Companion.CenterVertically
-import androidx.compose.ui.Alignment.Companion.Top
+import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
@@ -70,9 +67,6 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
-import com.example.wouple.activities.detailActivity.DayLength
-import com.example.wouple.activities.detailActivity.SunRise
-import com.example.wouple.activities.detailActivity.SunSet
 import com.example.wouple.activities.lightningMap.LightningMapActivity
 import com.example.wouple.activities.rainMap.WeatherRadarWebView
 import com.example.wouple.elements.HorizontalWave
@@ -83,7 +77,6 @@ import com.example.wouple.elements.getWeeklyForecast
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
@@ -97,10 +90,8 @@ fun MainView(
     onLocationButtonClicked: (SearchedLocation) -> Unit,
     onDetailsButtonClicked: (TemperatureResponse) -> Unit,
     onClose: () -> Unit,
-    // onTemperatureUnitChanged: (String) -> Unit,
     onSettingsClicked: (TemperatureResponse) -> Unit,
 ) {
-    val isSearchExpanded = remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -122,7 +113,6 @@ fun MainView(
                 Color(0xFF3F5066),
             )
         }
-
         //Top view
         Box(
             modifier = Modifier
@@ -133,174 +123,213 @@ fun MainView(
                     )
                 )
                 .padding(bottom = 18.dp),
-            contentAlignment = BottomCenter
+            contentAlignment = TopStart
         ) {
             // Location name with degrees
-            Column(
-                Modifier.padding(top = 70.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D",
-                    fontWeight = FontWeight.Thin,
-                    textAlign = TextAlign.Center,
-                    fontSize = 50.sp,
-                    color = White,
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                Text(
-                    modifier = Modifier.padding(start = 12.dp),
-                    text = temp.current_weather.temperature.toInt()
-                        .toString() + temp.hourly_units.temperature_2m[0],
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Thin,
-                    fontSize = 50.sp,
-                    color = White,
-                )
-                Spacer(modifier = Modifier.padding(horizontal = 8.dp))
-                when {
-                    (temp.current_weather.weathercode in listOf(
-                        0,
-                        1
-                    ) && !isDay) -> LottieAnimationClear()
-
-                    (temp.current_weather.weathercode in listOf(
-                        0,
-                        1
-                    ) && isDay) -> LottieAnimationSun()
-
-                    (temp.current_weather.weathercode == 2 && isDay) -> LottieAnimationPartlyCloudy()
-                    (temp.current_weather.weathercode == 2 && !isDay) -> LottieAnimationPartlyCloudyNight()
-                    (temp.current_weather.weathercode == 3) -> LottieAnimationCloud()
-                    (temp.current_weather.weathercode in listOf(
-                        51,
-                        53,
-                        55,
-                        61,
-                        63,
-                        65,
-                        66,
-                        67,
-                        80,
-                        81,
-                        82
-                    )) -> LottieAnimationRain()
-
-                    (temp.current_weather.weathercode in listOf(85, 86)) -> LottieAnimationSnow()
-                    else -> LottieAnimationSun()
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(bottom = 4.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    DropDownMenu { onSettingsClicked(temp) }
-                    DetailButton {
-                        onDetailsButtonClicked(temp)
-                    }
-                    Spacer(modifier = Modifier.width(58.dp))
-                }
-
-                // Horizontal waves
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = 32.dp),
-                    contentAlignment = BottomCenter
-                ) {
-                    HorizontalWave(
-                        phase = rememberPhaseState(0f),
-                        alpha = 1f,
-                        amplitude = 50f,
-                        frequency = 0.5f,
-                        gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
-                    )
-                    HorizontalWave(
-                        phase = rememberPhaseState(15f),
-                        alpha = 0.5f,
-                        amplitude = 80f,
-                        frequency = 0.3f,
-                        gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
-                    )
-                    HorizontalWave(
-                        phase = rememberPhaseState(10f),
-                        alpha = 0.2f,
-                        amplitude = 40f,
-                        frequency = 0.6f,
-                        gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
-                    )
-                }
-            }
-
-
+            GetLocationAndDegree(
+                temp = temp,
+                searchedLocation = searchedLocation,
+                onDetailsButtonClicked = onDetailsButtonClicked,
+                onSettingsClicked = onSettingsClicked
+            )
             // locations search
-            Column(modifier = Modifier
-                .padding(4.dp)
-                .align(Alignment.TopStart),) {
-                SearchBar(isSearchExpanded, onSearch, onClose)
-                if (locations != null) {
-                    LazyColumn(
-                        Modifier.height(360.dp),
-                        contentPadding = PaddingValues(vertical = 4.dp)
+            GetSearchBarAndList(
+                locations = locations,
+                onSearch = onSearch,
+                searchedLocation = searchedLocation,
+                onLocationButtonClicked = onLocationButtonClicked,
+                onClose = onClose
+            )
+        }
+        //Bottom view
+        GetBottomView(searchedLocation = searchedLocation, temp = temp)
+    }
+}
+@Composable
+private fun GetSearchBarAndList(
+    locations: List<SearchedLocation>?,
+    onSearch: (String) -> Unit,
+    searchedLocation: MutableState<SearchedLocation?>,
+    onLocationButtonClicked: (SearchedLocation) -> Unit,
+    onClose: () -> Unit,
+) {
+    val isSearchExpanded = remember { mutableStateOf(false) }
+    Column(
+        modifier = Modifier
+            .padding(4.dp)
+    ) {
+        SearchBar(isSearchExpanded, onSearch, onClose)
+        if (locations != null) {
+            LazyColumn(
+                Modifier.height(360.dp),
+                contentPadding = PaddingValues(vertical = 4.dp)
+            ) {
+                items(locations) { location ->
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 4.dp, horizontal = 16.dp)
+                            .clip(RoundedCornerShape(30.dp))
+                            .clickable {
+                                isSearchExpanded.value = false
+                                searchedLocation.value = location
+                                onLocationButtonClicked(location)
+                            },
+                        elevation = 4.dp,
+                        backgroundColor = White
                     ) {
-                        items(locations) { location ->
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 4.dp, horizontal = 16.dp)
-                                    .clip(RoundedCornerShape(30.dp))
-                                    .clickable {
-                                        isSearchExpanded.value = false
-                                        searchedLocation.value = location
-                                        onLocationButtonClicked(location)
-                                    },
-                                elevation = 4.dp,
-                                backgroundColor = White
-                            ) {
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(12.dp),
-                                    verticalAlignment = CenterVertically
-                                ) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.ic_pin),
-                                        contentDescription = null,
-                                        tint = Unspecified,
-                                        modifier = Modifier.size(32.dp)
-                                    )
-                                    Text(
-                                        text = location.display_name,
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 16.sp,
-                                        color = Black
-                                    )
-                                }
-                            }
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                            verticalAlignment = CenterVertically
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_pin),
+                                contentDescription = null,
+                                tint = Unspecified,
+                                modifier = Modifier.size(32.dp)
+                            )
+                            Text(
+                                text = location.display_name,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp,
+                                color = Black
+                            )
                         }
                     }
                 }
             }
         }
-
-
-        //Bottom view
-        Column(
-            modifier = Modifier
-                .background(White)
-                .padding(top = 8.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
-            SunsetSunriseColumn(temp)
-            searchedLocation.value?.let { ClickableCardDemo(it, temp) }
-            TodayWeatherCard(temp)
-
-        }
     }
 }
+@Composable
+private fun GetLocationAndDegree(
+    temp: TemperatureResponse,
+    searchedLocation: MutableState<SearchedLocation?>,
+    onDetailsButtonClicked: (TemperatureResponse) -> Unit,
+    onSettingsClicked: (TemperatureResponse) -> Unit,
+) {
+    val isDay = temp.current_weather.is_day == 1
+    Column(
+        Modifier.padding(top = 70.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D",
+            fontWeight = FontWeight.Thin,
+            textAlign = TextAlign.Center,
+            fontSize = 50.sp,
+            color = White,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+        Text(
+            modifier = Modifier.padding(start = 12.dp),
+            text = temp.current_weather.temperature.toInt()
+                .toString() + temp.hourly_units.temperature_2m[0],
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Thin,
+            fontSize = 50.sp,
+            color = White,
+        )
+        Spacer(modifier = Modifier.padding(horizontal = 8.dp))
+        when {
+            (temp.current_weather.weathercode in listOf(
+                0,
+                1
+            ) && !isDay) -> LottieAnimationClear()
 
+            (temp.current_weather.weathercode in listOf(
+                0,
+                1
+            ) && isDay) -> LottieAnimationSun()
+
+            (temp.current_weather.weathercode == 2 && isDay) -> LottieAnimationPartlyCloudy()
+            (temp.current_weather.weathercode == 2 && !isDay) -> LottieAnimationPartlyCloudyNight()
+            (temp.current_weather.weathercode == 3) -> LottieAnimationCloud()
+            (temp.current_weather.weathercode in listOf(
+                51,
+                53,
+                55,
+                61,
+                63,
+                65,
+                66,
+                67,
+                80,
+                81,
+                82
+            )) -> LottieAnimationRain()
+
+            (temp.current_weather.weathercode in listOf(85, 86)) -> LottieAnimationSnow()
+            else -> LottieAnimationSun()
+        }
+        Row(
+            modifier = Modifier
+                .padding(bottom = 4.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            //For Settings Button
+            DropDownMenu { onSettingsClicked(temp) }
+            // For Forecast Detail Button
+            DetailButton {
+                onDetailsButtonClicked(temp)
+            }
+            Spacer(modifier = Modifier.width(58.dp))
+        }
+        // Horizontal waves
+        GetHorizontalWaveView()
+    }
+}
+@Composable
+private fun GetHorizontalWaveView() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 32.dp),
+        contentAlignment = BottomCenter
+    ) {
+        HorizontalWave(
+            phase = rememberPhaseState(0f),
+            alpha = 1f,
+            amplitude = 50f,
+            frequency = 0.5f,
+            gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+        )
+        HorizontalWave(
+            phase = rememberPhaseState(15f),
+            alpha = 0.5f,
+            amplitude = 80f,
+            frequency = 0.3f,
+            gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+        )
+        HorizontalWave(
+            phase = rememberPhaseState(10f),
+            alpha = 0.2f,
+            amplitude = 40f,
+            frequency = 0.6f,
+            gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+        )
+    }
+}
+@Composable
+private fun GetBottomView(
+    searchedLocation: MutableState<SearchedLocation?>,
+    temp: TemperatureResponse
+) {
+    Column(
+        modifier = Modifier
+            .background(White)
+            .padding(top = 8.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+        searchedLocation.value?.let { ClickableCardDemo(it, temp) }
+        TodayWeatherCard(temp)
+
+    }
+}
 @Composable
 fun LottieAnimationClear() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -316,7 +345,6 @@ fun LottieAnimationClear() {
         modifier = Modifier.size(65.dp)
     )
 }
-
 @Composable
 fun LottieAnimationSun() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -332,7 +360,6 @@ fun LottieAnimationSun() {
         modifier = Modifier.size(50.dp)
     )
 }
-
 @Composable
 fun LottieAnimationSnow() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -348,7 +375,6 @@ fun LottieAnimationSnow() {
         modifier = Modifier.size(50.dp)
     )
 }
-
 @Composable
 fun LottieAnimationPartlyCloudyNight() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -364,7 +390,6 @@ fun LottieAnimationPartlyCloudyNight() {
         modifier = Modifier.size(50.dp)
     )
 }
-
 @Composable
 fun LottieAnimationPartlyCloudy() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -380,7 +405,6 @@ fun LottieAnimationPartlyCloudy() {
         modifier = Modifier.size(50.dp)
     )
 }
-
 @Composable
 fun LottieAnimationRain() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -396,7 +420,6 @@ fun LottieAnimationRain() {
         modifier = Modifier.size(55.dp)
     )
 }
-
 @Composable
 fun LottieAnimationCloud() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -412,7 +435,6 @@ fun LottieAnimationCloud() {
         modifier = Modifier.size(60.dp)
     )
 }
-
 @Composable
 fun DetailButton(onDetailsButtonClicked: () -> Unit) {
     var isPressed by remember { mutableStateOf(false) }
@@ -441,10 +463,11 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
             }
         )
     ) {
-        Text(text = "Forecast Details")
+        Text(
+            text = stringResource(id = R.string.Forecast_Details)
+        )
     }
 }
-
 @Composable
 fun DropDownMenu(
     onSettingsClicked: () -> Unit,
@@ -470,48 +493,8 @@ fun DropDownMenu(
                 tint = White,
             )
         }
-        /*  AnimatedVisibility(
-              visible = isExpanded,
-              enter = fadeIn(),
-              exit = fadeOut()
-          ) {
-              DropdownMenu(
-                  expanded = isExpanded,
-                  onDismissRequest = { isExpanded = false },
-                  offset = DpOffset(x = 0.dp, y = 40.dp)
-              ) {
-                  DropdownMenuItem(
-                      onClick = {
-                          isExpanded = false
-                          onSettingsClicked("Settings")
-                          isPressed = !isPressed
-                      }
-                  ) {
-                      Text(
-                          modifier = Modifier,
-                          text = "Settings",
-                          fontWeight = FontWeight.Light,
-                          color = Black
-                      )
-                  }
-                  DropdownMenuItem(
-                      onClick = {
-                          isExpanded = false
-                          onSettingsClicked("feedback")
-                          isPressed = !isPressed
-                      }
-                  ) {
-                      Text(
-                          text = "Feed Back",
-                          fontWeight = FontWeight.Light,
-                          color = Black
-                      )
-                  }
-              }
-          } */
     }
 }
-
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -581,7 +564,6 @@ private fun TodayWeatherCard(temp: TemperatureResponse) {
         }
     }
 }
-
 @Composable
 fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureResponse) {
     val context = LocalContext.current
@@ -629,89 +611,5 @@ fun ClickableCardDemo(searchedLocation: SearchedLocation, temp: TemperatureRespo
             }
         }
         LightningCardNotification(temp)
-    }
-}
-
-@Composable
-private fun SunsetSunriseColumn(temp: TemperatureResponse) {
-    val isDay = temp.current_weather.is_day == 1
-    val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF3F54BE)
-
-        // Generate lighter shades
-        val lighterShades = listOf(
-            baseColor,
-            baseColor.copy(alpha = 0.9f),
-            baseColor.copy(alpha = 0.8f),
-        )
-
-        lighterShades
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
-        )
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp)
-            .background(
-                shape = RoundedCornerShape(20.dp),
-                brush = Brush.verticalGradient(background)
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            modifier = Modifier.padding(top = 8.dp),
-            text = stringResource(id = R.string.Sunrise_Sunset),
-            color = White,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
-            textAlign = TextAlign.Center
-        )
-        Row(
-            modifier = Modifier
-                .padding(4.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = CenterVertically
-        ) {
-            Column(
-                modifier = Modifier
-                    .padding(vertical = 8.dp, horizontal = 12.dp)
-                    .padding(start = 16.dp)
-                    .weight(1f)
-            ) {
-                SunRise(temp)
-                Row {
-                    Icon(
-                        painter = painterResource(id = R.drawable.arrowdropup),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(30.dp),
-                        tint = Whitehis.copy(alpha = 0.9f),
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.arrowdropdown),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(30.dp),
-                        tint = Whitehis.copy(alpha = 0.8f),
-                    )
-                }
-                SunSet(temp)
-            }
-            Column(
-                modifier = Modifier.weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                com.example.wouple.activities.detailActivity.LottieAnimationSun()
-            }
-            Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.End) {
-                DayLength(temp)
-            }
-        }
     }
 }

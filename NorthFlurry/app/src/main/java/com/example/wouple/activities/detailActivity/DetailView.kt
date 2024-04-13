@@ -186,10 +186,10 @@ fun SecondCardView(
         CurrentAirQualityCard(temp, air)
         UvIndexCard(temp)
         UvChartViewCard(temp)
-        SunsetSunriseColumnCard(temp)
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
         WeeklyChartCard(temp)
+        SunsetSunriseColumnCard(temp)
         val pagerState = rememberPagerState()
         HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
         { page ->
@@ -938,8 +938,9 @@ fun TemperatureContent(temp: TemperatureResponse) {
                     0, 1 -> WeatherCondition.SUNNY
                     2 -> WeatherCondition.PARTLYCLOUDY
                     3 -> WeatherCondition.CLOUDY
-                    51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99 -> WeatherCondition.RAINY
+                    51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
+                    95,96,99 -> WeatherCondition.THUNDERSTORM
                     else -> WeatherCondition.SUNNY
                 }
                 Hours(time, temperature, hourlyWeatherCondition)
@@ -949,6 +950,8 @@ fun TemperatureContent(temp: TemperatureResponse) {
                     0, 1 -> WeatherCondition.CLEARNIGHT
                     2, 3 -> WeatherCondition.CLOUDY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
+                    71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
+                    95,96,99 -> WeatherCondition.THUNDERSTORM
                     else -> {
                         WeatherCondition.CLEARNIGHT
                     }
@@ -1281,7 +1284,8 @@ enum class WeatherCondition(val imageResourceId: Int) {
     CLOUDY(R.drawable.ic_clouds),
     PARTLYCLOUDY(R.drawable.ic_sun_cloudy),
     SNOWY(R.drawable.myicon),
-    CLEARNIGHT(R.drawable.ic_moon)
+    CLEARNIGHT(R.drawable.baseline_nights_stay_24),
+    THUNDERSTORM(R.drawable.baseline_thunderstorm_24)
 }
 
 @Composable

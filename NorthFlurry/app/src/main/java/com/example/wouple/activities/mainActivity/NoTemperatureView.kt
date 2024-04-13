@@ -58,7 +58,7 @@ fun NoTemperatureView(
     ) {
         Spacer(modifier = Modifier.weight(1f))
         Image(
-            painter = painterResource(id = R.drawable.ic_moon_cloud),
+            painter = painterResource(id = R.drawable.logo2),
             contentDescription = "cloud",
             alignment = Center,
             modifier = Modifier.size(150.dp)

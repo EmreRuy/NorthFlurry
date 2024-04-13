@@ -47,4 +47,5 @@ Let's Begin!"</string>
     <string name="Sunrise_Sunset">"Sunrise / Sunset Times"</string>
     <string name="Upcoming_Days">"Upcoming Days"</string>
     <string name="Expected_Today">"Expected Today"</string>
+    <string name="Forecast_Details">"Forecast Details"</string>
 </resources>

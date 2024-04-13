@@ -217,10 +217,11 @@ fun GetIconOfMan(){
         modifier = Modifier.fillMaxSize(),
        contentAlignment = BottomEnd
     ) {
+       Spacer(modifier = Modifier.padding(bottom = 40.dp))
         Image(
             painter =  painterResource(id = R.drawable.ic_man),
             contentDescription = null,
-            modifier = Modifier.size(350.dp)
+            modifier = Modifier.size(300.dp)
         )
     }
 }
