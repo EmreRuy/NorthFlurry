@@ -40,6 +40,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
@@ -81,25 +82,15 @@ fun StartScreenView(
     searchedLocation: MutableState<SearchedLocation?>
 ) {
     val searchBarVisible = remember { mutableStateOf(false) }
-    val colors = listOf(
-        Color(0xFF3D52BB),
-        Color(0xFF3D52BB)
-    )
     Box(
-        modifier = Modifier.fillMaxSize().background(Color(0xFF3D52BB)),
-        contentAlignment = BottomEnd
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color(0xFF3D52BB))
     ) {
-        val somess = listOf(
-            Transparent,
-           Transparent
-        )
+        Spacer(modifier = Modifier.height(if (searchBarVisible.value) 100.dp else 0.dp))
+       // getImageLogo()
         GetIconOfMan()
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(brush = Brush.verticalGradient(if (locations== null) somess else colors)),
-            horizontalAlignment = CenterHorizontally
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             SearchSection(
                 searchBarVisible = searchBarVisible,
                 onSearch = onSearch
@@ -117,11 +108,27 @@ fun StartScreenView(
 }
 
 @Composable
+private fun getImageLogo() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 20.dp),
+        contentAlignment = Center
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.logo2),
+            contentDescription = null,
+            modifier = Modifier.size(200.dp)
+        )
+    }
+}
+
+@Composable
 fun SearchSection(
     searchBarVisible: MutableState<Boolean>,
     onSearch: (String) -> Unit,
 ) {
-    Spacer(modifier = Modifier.padding(40.dp))
+    Spacer(modifier = Modifier.padding(top = 40.dp))
     AnimatedVisibility(
         visible = searchBarVisible.value,
         enter = fadeIn(
@@ -216,11 +223,18 @@ fun LocationItem(
 
 @Composable
 fun GetIconOfMan() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 20.dp),
+        contentAlignment = BottomEnd
+    ) {
     Image(
         painter = painterResource(id = R.drawable.ic_man),
         contentDescription = null,
-        modifier = Modifier.size(300.dp)
+        modifier = Modifier.size(150.dp)
     )
+}
 }
 
 @Composable
@@ -234,15 +248,8 @@ fun SimpleSearchBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 4.dp)
             .padding(horizontal = 24.dp)
-            .height(55.dp)
-            .background(
-                brush = gradient,
-                shape = RoundedCornerShape(28.dp)
-            ),
-        verticalAlignment = CenterVertically,
-        horizontalArrangement = Arrangement.Start
+            .background(brush = gradient, shape = RoundedCornerShape(28.dp))
     ) {
         TextField(
             value = query,
@@ -312,7 +319,9 @@ private fun GetHorizontalWaveForStartPage() {
             gradientColors = listOf(mocassin, White)
         )
     }
+
 }
+
 
 @Composable
 private fun GetAnimationOfWelcome() {
@@ -328,26 +337,14 @@ private fun GetAnimationOfWelcome() {
             cardsVisible = false
         }
     }
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Center
-    ) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Center) {
         AnimatedVisibility(
             visible = cardsVisible,
-            enter = fadeIn(
-                animationSpec = tween(
-                    durationMillis = 2000,
-                    easing = LinearEasing
-                )
-            ),
-            exit = fadeOut(
-                animationSpec = tween(2000, easing = EaseOut)
-            )
+            enter = fadeIn(animationSpec = tween(durationMillis = 2000, easing = LinearEasing)),
+            exit = fadeOut(animationSpec = tween(durationMillis = 2000, easing = LinearEasing))
         ) {
             Text(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = 16.dp),
                 text = stringResource(id = R.string.ThankYouForDownloading),
                 color = White,
                 fontSize = 18.sp,
