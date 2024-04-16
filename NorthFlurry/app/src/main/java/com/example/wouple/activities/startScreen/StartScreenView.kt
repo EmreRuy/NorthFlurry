@@ -1,6 +1,9 @@
 package com.example.wouple.activities.startScreen
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.LinearEasing
@@ -53,6 +56,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -85,8 +89,14 @@ fun StartScreenView(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF3D52BB))
+        // Color(0xFF3D52BB)
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.backgroynd),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = FillBounds // Adjust contentScale as needed
+        )
         Spacer(modifier = Modifier.height(if (searchBarVisible.value) 100.dp else 0.dp))
        // getImageLogo()
         GetIconOfMan()
@@ -220,7 +230,6 @@ fun LocationItem(
         }
     }
 }
-
 @Composable
 fun GetIconOfMan() {
     Box(
