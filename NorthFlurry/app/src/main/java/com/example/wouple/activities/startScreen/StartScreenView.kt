@@ -1,11 +1,7 @@
 package com.example.wouple.activities.startScreen
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.EaseIn
-import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
@@ -43,7 +39,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
@@ -53,10 +48,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -73,6 +66,7 @@ import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SnowfallEffect
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
+import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
@@ -89,18 +83,12 @@ fun StartScreenView(
     Box(
         modifier = Modifier
             .fillMaxSize()
-        // Color(0xFF3D52BB)
+            .background(Color(0xFF3D52BB))
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.backgroynd),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = FillBounds // Adjust contentScale as needed
-        )
+        AnimationOfSearchScreen()
         Spacer(modifier = Modifier.height(if (searchBarVisible.value) 100.dp else 0.dp))
-       // getImageLogo()
         GetIconOfMan()
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+        Column(horizontalAlignment = CenterHorizontally, verticalArrangement = Arrangement.Center) {
             SearchSection(
                 searchBarVisible = searchBarVisible,
                 onSearch = onSearch
@@ -118,18 +106,38 @@ fun StartScreenView(
 }
 
 @Composable
-private fun getImageLogo() {
+private fun AnimationOfSearchScreen() {
+    var animationVisible by remember { mutableStateOf(false) }
+    LaunchedEffect(Float) {
+        delay(5500)
+        animationVisible = true
+    }
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 20.dp),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.logo2),
-            contentDescription = null,
-            modifier = Modifier.size(200.dp)
-        )
+        AnimatedVisibility(
+            visible = animationVisible,
+            enter = fadeIn(animationSpec = tween(durationMillis = 1000, easing = LinearEasing))
+        ) {
+            Text(
+                modifier = Modifier.padding(start = 40.dp),
+                textAlign = TextAlign.Center,
+                text = stringResource(id = R.string.app_name),
+                fontWeight = FontWeight.Light,
+                fontFamily = FontFamily.Default,
+                fontSize = 28.sp,
+                color = vintage,
+            )
+            Text(
+                modifier = Modifier.padding(vertical = 28.dp),
+                text = stringResource(id = R.string.WeatherForecast),
+                fontWeight = FontWeight.Light,
+                fontFamily = FontFamily.SansSerif,
+                fontSize = 28.sp,
+                color = Corn,
+            )
+        }
     }
 }
 
@@ -162,8 +170,8 @@ fun SearchSection(
         visible = searchBarVisible.value,
         enter = slideInVertically(
             initialOffsetY = { -80 },
-            animationSpec = tween(durationMillis = 2000, easing = EaseIn)
-        ) + expandVertically(animationSpec = tween(durationMillis = 1000))
+            animationSpec = tween(durationMillis = 1000, easing = EaseIn)
+        ) + expandVertically(animationSpec = tween(durationMillis = 800))
     ) {
         SimpleSearchBar(onSearch)
     }
@@ -230,6 +238,7 @@ fun LocationItem(
         }
     }
 }
+
 @Composable
 fun GetIconOfMan() {
     Box(
@@ -238,12 +247,12 @@ fun GetIconOfMan() {
             .padding(top = 20.dp),
         contentAlignment = BottomEnd
     ) {
-    Image(
-        painter = painterResource(id = R.drawable.ic_man),
-        contentDescription = null,
-        modifier = Modifier.size(150.dp)
-    )
-}
+        Image(
+            painter = painterResource(id = R.drawable.ic_man),
+            contentDescription = null,
+            modifier = Modifier.size(150.dp)
+        )
+    }
 }
 
 @Composable
@@ -330,7 +339,6 @@ private fun GetHorizontalWaveForStartPage() {
     }
 
 }
-
 
 @Composable
 private fun GetAnimationOfWelcome() {

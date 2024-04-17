@@ -30,8 +30,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.model.api.CurrentWeather
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import kotlin.io.path.createTempDirectory
 
 @Composable
@@ -61,10 +64,24 @@ fun LightningCardNotification(temp: TemperatureResponse) {
             Color(0xFF3F5066),
         )
     }
+    val windDirectionCurrent = temp.current_weather.winddirection.toInt()
+    val currentWindSpeed =  temp.current_weather.windspeed
+    val currentWindSpeedUnit = temp.hourly_units.windspeed_10m
+    val pressure = temp.hourly.surface_pressure[0].toInt().toString()
+    val cloudCover = temp.hourly.cloud_cover[0].toInt().toString()
+    // for the precipitation probability
+    val timeZone = temp.timezone
+    val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
+    val currentHour = currentDateTime.hour
+    val precipitationPr = temp.hourly.precipitation_probability[currentHour]
+    //
     val texts = listOf(
-        "Lightning possibility in Oslo 17 J/Kg",
-        "Wind Direction is from the West",
-        "Sunshine Duration is "
+        "Precipitation Probability % $precipitationPr",
+        "Total Cloud Cover % $cloudCover",
+        "Surface Pressure $pressure hPa right now",
+      //  "Wind Direction is from $windDirectionCurrent",
+      //  "Sunshine Duration is ",
+        "Wind Speed: $currentWindSpeed $currentWindSpeedUnit at the moment"
     )
 
     var visible by remember { mutableStateOf(true) }

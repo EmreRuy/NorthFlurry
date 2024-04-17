@@ -29,7 +29,7 @@ data class TemperatureResponse(
                 time = "2023-08-10T22:00",
                 weathercode = 2,
                 winddirection = 356.0,
-                windspeed = 6.8
+                windspeed = 6.8,
             ),
             daily = Daily(
                 precipitation_sum = listOf(0.0, 0.0, 0.4, 3.1, 0.3, 16.8, 0.3),
@@ -1780,6 +1780,15 @@ data class TemperatureResponse(
                     2.0,
                     3.0,
                     4.0
+                ),
+                surface_pressure = listOf(
+                    1.2,
+                    1.3,
+                    1.4
+                ),
+                cloud_cover = listOf(
+                    123.2,
+                    124.5,
                 )
                 ,windspeed_10m = listOf(
                     6.1,
@@ -1952,6 +1961,7 @@ data class TemperatureResponse(
                     6.2
                 )
             ),
+
             hourly_units = HourlyUnits(
                 apparent_temperature = "°C",
                 dewpoint_2m = "°C",
@@ -1971,7 +1981,7 @@ data class TemperatureResponse(
             timezone_abbreviation = "CEST",
             utc_offset_seconds = 7200,
             precipitation = 10.0,
-            forecast_days = 16
+            forecast_days = 16,
         )
     }
 }

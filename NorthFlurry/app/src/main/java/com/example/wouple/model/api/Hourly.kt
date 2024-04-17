@@ -17,4 +17,6 @@ data class Hourly(
     val visibility: List<Double>,
     val weathercode: List<Int>,
     val windspeed_10m: List<Double>,
+    val surface_pressure: List<Double>,
+    val cloud_cover: List<Double>,
     ): Parcelable

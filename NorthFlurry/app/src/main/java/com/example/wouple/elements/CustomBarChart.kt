@@ -50,7 +50,17 @@ fun RowScope.CustomBarChart(
             .border(BorderStroke(1.dp, color = Color.Transparent))
             .background(orgn.copy(alpha = size/ max ), shape = RoundedCornerShape(10.dp))
             .clickable {
-                Toast.makeText(context, "UV: $size", Toast.LENGTH_SHORT).show()
+                val uvIndexDescriptionOfTheChart = when(size.toInt()){
+                    in 0..2 -> "Low"
+                    in 3..5 -> "Moderate"
+                    in 6..7 -> "High"
+                    in 8..10 -> "Very High"
+                    in 11..Int.MAX_VALUE -> "Extreme"
+                    else -> {
+                        "Unknown"
+                    }
+                }
+                Toast.makeText(context, "UV: $size $uvIndexDescriptionOfTheChart", Toast.LENGTH_SHORT).show()
             }
     )
 }

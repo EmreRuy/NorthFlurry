@@ -11,7 +11,7 @@ interface ApiRequest {
     fun getTemperature(
         @Query("latitude") latitude: String,
         @Query("longitude") longitude: String,
-        @Query("hourly") hourly: String = "precipitation,temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,weathercode,visibility,windspeed_10m,uv_index,is_day",
+        @Query("hourly") hourly: String = "precipitation,temperature_2m,relativehumidity_2m,dewpoint_2m,apparent_temperature,precipitation_probability,weathercode,visibility,windspeed_10m,uv_index,is_day,surface_pressure,cloud_cover",
         @Query("models") models: String = "best_match",
         @Query("daily") daily: String = "showers_sum,temperature_2m_max,temperature_2m_min,weathercode,sunrise,sunset,uv_index_max,precipitation_sum,rain_sum",
         @Query("timezone") timezone: String = "auto",

@@ -413,7 +413,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
         if (maxRainSum <= minSumForShowingGraph) {
             Text(
                 modifier = Modifier.padding(16.dp),
-                text = stringResource(id = R.string.No_Precipitation_expected_for_next_days),
+                text = stringResource(id = R.string.No_Precipitation_expected_for_the_week),
                 fontWeight = FontWeight.Light,
                 fontSize = 15.sp,
                 color = Spiro
@@ -423,12 +423,11 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
                 modifier = Modifier
                     .height(170.dp)
                     .drawBehind {
-                        // draw X-Axis
+                        // draws X-Axis
                         drawLine(
                             color = White,
                             start = Offset(0f, size.height),
-                            end = Offset(size.width, size.height),
-                            //strokeWidth = strokeWidth
+                            end = Offset(size.width, size.height)
                         )
                     },
                 verticalAlignment = Alignment.Bottom,
@@ -1344,7 +1343,8 @@ fun WeeklyForeCastView(
                 ) -> WeatherCondition.RAINY
 
                 in listOf(71, 73, 75, 77) -> WeatherCondition.SNOWY
-                else -> WeatherCondition.SUNNY // Sets a default weather condition in case of an unknown code
+                in listOf(95, 96, 99) -> WeatherCondition.THUNDERSTORM
+                else -> WeatherCondition.SUNNY // default weather condition in case of an unknown code
             }
             val imageResource = weatherCondition.imageResourceId
             Row(
