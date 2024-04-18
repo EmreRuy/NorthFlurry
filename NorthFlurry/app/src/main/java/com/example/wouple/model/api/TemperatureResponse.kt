@@ -30,6 +30,8 @@ data class TemperatureResponse(
                 weathercode = 2,
                 winddirection = 356.0,
                 windspeed = 6.8,
+                cloud_cover = 79,
+                surface_pressure = 1234
             ),
             daily = Daily(
                 precipitation_sum = listOf(0.0, 0.0, 0.4, 3.1, 0.3, 16.8, 0.3),
@@ -1789,6 +1791,10 @@ data class TemperatureResponse(
                 cloud_cover = listOf(
                     123.2,
                     124.5,
+                ),
+                wind_direction_10m = listOf(
+                    12.4,
+                    12.6
                 )
                 ,windspeed_10m = listOf(
                     6.1,

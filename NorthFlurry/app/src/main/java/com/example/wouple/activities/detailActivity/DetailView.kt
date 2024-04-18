@@ -99,7 +99,7 @@ fun DetailView(
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF3F54BE)
+        val baseColor = Color(0xFF3F54BE) // Color(0xFF494CC6)
         val lighterShades = listOf(
             baseColor,
             baseColor.copy(alpha = 0.9f),
@@ -166,39 +166,34 @@ fun DetailView(
                     text = stringResource(id = R.string.FeelsLike),
                     numbers = temp.hourly.apparent_temperature.getOrNull(feelsLike)?.let {
                         it.toInt().toString() + temp.hourly_units.apparent_temperature
-                    } ?: "No Data",
+                    } ?: "N/D",
                     //  icon = painterResource(id = R.drawable.ic_term),
                     temp = temp
                 )
-
                 1 -> ExtraCards(
                     text = stringResource(id = R.string.Rainfall),
                     numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
                     //  icon = painterResource(id = R.drawable.ic_drop),
                     temp = temp
                 )
-
                 2 -> ExtraCards(
                     text = stringResource(id = R.string.WindSpeed),
                     numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
                     //  icon = painterResource(id = R.drawable.ic_wind),
                     temp = temp
                 )
-
                 3 -> ExtraCards(
                     text = stringResource(id = R.string.Visibility),
                     numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
                     //  icon = painterResource(id = R.drawable.ic_visibility),
                     temp = temp
                 )
-
                 4 -> ExtraCards(
                     text = stringResource(id = R.string.Humidity),
                     numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
                     //   icon = painterResource(id = R.drawable.ic_humidity),
                     temp = temp
                 )
-
                 5 -> ExtraCards(
                     text = stringResource(id = R.string.DewPoint),
                     numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
@@ -210,7 +205,6 @@ fun DetailView(
         HorizontalPagerIndicator(step = pagerState.currentPage, totalSteps = pagerState.pageCount)
     }
 }
-
 @Composable
 private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
 
@@ -235,7 +229,6 @@ private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
                 .height(8.dp)
         )
     }
-
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         repeat(totalSteps) {
             if (it == step) {
@@ -246,7 +239,6 @@ private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
         }
     }
 }
-
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
 @Composable

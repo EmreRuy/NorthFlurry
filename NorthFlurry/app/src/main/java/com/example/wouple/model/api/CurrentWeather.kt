@@ -11,4 +11,6 @@ data class CurrentWeather(
     val weathercode: Int,
     val winddirection: Double,
     val windspeed: Double,
+    val cloud_cover: Int,
+    val surface_pressure: Int
 ): Parcelable

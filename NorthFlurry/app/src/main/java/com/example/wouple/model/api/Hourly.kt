@@ -19,4 +19,5 @@ data class Hourly(
     val windspeed_10m: List<Double>,
     val surface_pressure: List<Double>,
     val cloud_cover: List<Double>,
+    val wind_direction_10m: List<Double>,
     ): Parcelable

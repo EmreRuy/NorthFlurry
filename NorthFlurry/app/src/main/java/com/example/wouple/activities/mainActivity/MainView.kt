@@ -70,9 +70,9 @@ import com.example.wouple.R
 import com.example.wouple.activities.lightningMap.LightningMapActivity
 import com.example.wouple.activities.rainMap.WeatherRadarWebView
 import com.example.wouple.elements.HorizontalWave
-import com.example.wouple.elements.LightningCardNotification
+import com.example.wouple.elements.SevenHoursCardNotification
 import com.example.wouple.elements.SearchBar
-import com.example.wouple.elements.WeatherCardNotification
+import com.example.wouple.elements.SevenDaysCardNotification
 import com.example.wouple.elements.getWeeklyForecast
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
@@ -99,7 +99,7 @@ fun MainView(
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
+            val baseColor = Color(0xFF4C49C6)//Color(0xFF3F54BE)//Color(0xFF4067DD)
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
@@ -327,7 +327,7 @@ private fun GetBottomView(
         verticalArrangement = Arrangement.Center
     ) {
         searchedLocation.value?.let { GetSevenHoursForecast(it, temp) }
-        TodayWeatherCard(temp)
+        GetSevenDaysForecast(temp)
 
     }
 }
@@ -500,7 +500,7 @@ private fun getProperDisplayName(displayName: String?) = displayName?.split(",")
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun TodayWeatherCard(temp: TemperatureResponse) {
+private fun GetSevenDaysForecast(temp: TemperatureResponse) {
     var showDialog by remember { mutableStateOf(false) }
     var visible by remember {
         mutableStateOf(false)
@@ -521,12 +521,16 @@ private fun TodayWeatherCard(temp: TemperatureResponse) {
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF3F54BE)
+            val baseColor =Color(0xFF494CC6) //Color(0xFF3F54BE)
+
+
+            // Generate lighter shades
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
                 baseColor.copy(alpha = 0.8f),
             )
+
             lighterShades
         } else {
             listOf(
@@ -549,7 +553,7 @@ private fun TodayWeatherCard(temp: TemperatureResponse) {
                 getWeeklyForecast(temp)
             }
         }
-        WeatherCardNotification(temp)
+        SevenDaysCardNotification(temp)
     }
     if (showDialog) {
         Dialog(
@@ -580,7 +584,8 @@ private fun GetSevenHoursForecast(searchedLocation: SearchedLocation, temp: Temp
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF3F54BE)
+            val baseColor =Color(0xFF494CC6)  //Color(0xFF3F54BE)
+
 
             // Generate lighter shades
             val lighterShades = listOf(
@@ -611,6 +616,6 @@ private fun GetSevenHoursForecast(searchedLocation: SearchedLocation, temp: Temp
                 getHourlyWeatherInfo(temp)
             }
         }
-        LightningCardNotification(temp)
+        SevenHoursCardNotification(temp)
     }
 }

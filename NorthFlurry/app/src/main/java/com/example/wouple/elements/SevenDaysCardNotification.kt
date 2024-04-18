@@ -1,9 +1,7 @@
 package com.example.wouple.elements
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Ease
 import androidx.compose.animation.core.EaseOut
-import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -28,28 +26,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.Locale
 
 @Composable
-fun WeatherCardNotification(temp: TemperatureResponse) {
-    val color = listOf(
-        Color(0xFF25508C),
-        Color(0xFF4180B3),
-        /* Color(0xFF8ABFCC),
-         Color(0xFFC0DDE1), */
-    )
+fun SevenDaysCardNotification(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF7D8AE1) //#7D8AE1
+        val baseColor = Color(0xFF4C49C6) // Color(0xFF7D8AE1) //#7D8AE1
+
 
         // Generate lighter shades
         val lighterShades = listOf(
@@ -66,35 +61,34 @@ fun WeatherCardNotification(temp: TemperatureResponse) {
             Color(0xFF3F5066),
         )
     }
-    var hottestDayIndex by remember { mutableStateOf(0) }
-    var hottestTemperature = temp.daily.temperature_2m_max[0].toInt()
-
-    for (dayIndex in 1 until temp.daily.time.size) {
-        val maxTemperature = temp.daily.temperature_2m_max[dayIndex].toInt()
-        if (maxTemperature > hottestTemperature) {
-            hottestTemperature = maxTemperature
-            hottestDayIndex = dayIndex
+    // this code finds the warmest day in a list of daily temperatures
+    val warmestDayIndex = temp.daily.temperature_2m_max
+        .mapIndexed { index, temperature -> index to temperature.toInt() }
+        .maxByOrNull { it.second }
+        ?.first ?: 0
+    val hottestDate = LocalDate.parse(temp.daily.time[warmestDayIndex])
+    val warmestDayOfWeek = hottestDate.dayOfWeek.toString().lowercase()
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(
+        Locale.getDefault()
+    ) else it.toString()
         }
-    }
-
-    val hottestDayOfWeek = LocalDate.parse(temp.daily.time[hottestDayIndex])
-        .dayOfWeek.toString().lowercase().replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(locale = Locale.ENGLISH) else it.toString()
+    // this code finds the coolest day in the list of daily temperatures
+    val coolestDayIndex = temp.daily.temperature_2m_max
+        .mapIndexed { index, temperature -> index to temperature.toInt() }
+        .minByOrNull { it.second }
+        ?.first ?: 0
+    val coolestDate = LocalDate.parse(temp.daily.time[coolestDayIndex])
+    val coldestDayOfWeek = coolestDate.dayOfWeek.toString().lowercase()
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(
+        Locale.getDefault()
+    ) else it.toString()
         }
+    //
 
-    val index =
-        temp.hourly.time.map { LocalDateTime.parse(it).hour }.indexOf(LocalDateTime.now().hour)
-    val feelsLike = index.let { temp.hourly.apparent_temperature[it].toInt() }
-    val tempUnit = temp.hourly_units.apparent_temperature
-    val some = temp.current_weather.windspeed
-    val unit = temp.hourly_units.windspeed_10m
 
     val texts = listOf(
-        "ReelFeel $feelsLike $tempUnit",
-        "Air Quality  ",
-        "Preceding 15 minutes sum of Rain 18mm",
-        "WindSpeed $some $unit right now",
-        "Hottest Day is expected to be $hottestDayOfWeek"
+        "Warmest Day expected to be $warmestDayOfWeek",
+        "Coldest Day expected to be $coldestDayOfWeek",
     )
 
     var apparent by remember { mutableStateOf(true) }

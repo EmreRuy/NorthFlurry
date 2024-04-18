@@ -30,24 +30,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.model.api.CurrentWeather
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import kotlin.io.path.createTempDirectory
+import java.util.Locale
 
 @Composable
-fun LightningCardNotification(temp: TemperatureResponse) {
-    val color = listOf(
-        Color(0xFF25508C),
-        Color(0xFF4180B3),
-       /* Color(0xFF8ABFCC),
-        Color(0xFFC0DDE1), */
-    )
+fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF7D8AE1) //#7D8AE1
+        val baseColor = Color(0xFF4C49C6) // Color(0xFF7D8AE1) //#7D8AE1
+
 
         // Generate lighter shades
         val lighterShades = listOf(
@@ -64,22 +60,27 @@ fun LightningCardNotification(temp: TemperatureResponse) {
             Color(0xFF3F5066),
         )
     }
-    val windDirectionCurrent = temp.current_weather.winddirection.toInt()
-    val currentWindSpeed =  temp.current_weather.windspeed
-    val currentWindSpeedUnit = temp.hourly_units.windspeed_10m
-    val pressure = temp.hourly.surface_pressure[0].toInt().toString()
-    val cloudCover = temp.hourly.cloud_cover[0].toInt().toString()
-    // for the precipitation probability
     val timeZone = temp.timezone
     val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
     val currentHour = currentDateTime.hour
-    val precipitationPr = temp.hourly.precipitation_probability[currentHour]
     //
+    val precipitationPr = temp.hourly.precipitation_probability[currentHour]
+    val currentWindSpeed =  temp.current_weather.windspeed
+    val currentWindSpeedUnit = temp.hourly_units.windspeed_10m
+    val surfacePressure = temp.hourly.surface_pressure[currentHour].toInt()
+    val totalCloudCover = temp.hourly.cloud_cover[currentHour].toInt()
+    val windDegreesCurrent = temp.current_weather.winddirection.toInt()
+    val windDirection = GetWindDirection(windDegreesCurrent.toDouble())
+
+    val tempUnit = temp.hourly_units.apparent_temperature
+    val feelsLike = temp.hourly.apparent_temperature[currentHour].toInt()
+
     val texts = listOf(
         "Precipitation Probability % $precipitationPr",
-        "Total Cloud Cover % $cloudCover",
-        "Surface Pressure $pressure hPa right now",
-      //  "Wind Direction is from $windDirectionCurrent",
+        "Feels like $feelsLike $tempUnit now",
+        "Total Cloud Cover % $totalCloudCover",
+        "Surface Pressure $surfacePressure hPa currently",
+        "Wind Direction is from the $windDirection",
       //  "Sunshine Duration is ",
         "Wind Speed: $currentWindSpeed $currentWindSpeedUnit at the moment"
     )
@@ -125,4 +126,18 @@ fun LightningCardNotification(temp: TemperatureResponse) {
             }
         }
     }
+}
+@Composable
+private fun GetWindDirection(degrees: Double):String {
+    when (degrees) {
+        in 0.0..22.5, in 337.5..360.0 -> return "North"
+        in 22.5..67.5 -> return "North East"
+        in 67.5..112.5 -> return "East"
+        in 112.5..157.5 -> return "South East"
+        in 157.5..202.5 -> return "South"
+        in 202.5..247.5 -> return "South West"
+        in 247.5..292.5 -> return "West"
+        in 292.5..337.5 -> return "North West"
+    }
+    return "Unknown"
 }
