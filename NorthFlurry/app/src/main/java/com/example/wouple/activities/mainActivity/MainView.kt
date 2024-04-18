@@ -99,7 +99,7 @@ fun MainView(
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF4C49C6)//Color(0xFF3F54BE)//Color(0xFF4067DD)
+            val baseColor = Color(0xFF504ED2)//Color(0xFF4C49C6)//Color(0xFF3F54BE)//Color(0xFF4067DD)
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
@@ -512,7 +512,7 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(18.dp)
             .clickable {
                 showDialog = true
             },
@@ -547,7 +547,7 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
         ) {
             Column(
                 modifier = Modifier
-                    .padding(top = 42.dp, end = 4.dp, start = 4.dp)
+                    .padding(top = 32.dp, end = 4.dp, start = 4.dp)
                     .align(Center)
             ) {
                 getWeeklyForecast(temp)
@@ -575,7 +575,7 @@ private fun GetSevenHoursForecast(searchedLocation: SearchedLocation, temp: Temp
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(18.dp)
             .clickable {
                 context.startActivity(LightningMapActivity.newIntent(context, searchedLocation))
             },

@@ -84,11 +84,16 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
     ) else it.toString()
         }
     //
+    val sunIndex =
+        temp.daily.time.map { LocalDate.parse(it).dayOfWeek }.indexOf(LocalDate.now().dayOfWeek)
+    val sunShine = sunIndex.let { temp.daily.sunshine_duration[sunIndex].toInt() }
+    val sunDurationAsHours = sunShine / 3600
 
 
     val texts = listOf(
         "Warmest Day expected to be $warmestDayOfWeek",
         "Coldest Day expected to be $coldestDayOfWeek",
+        "Sunshine Duration $sunDurationAsHours hours today",
     )
 
     var apparent by remember { mutableStateOf(true) }

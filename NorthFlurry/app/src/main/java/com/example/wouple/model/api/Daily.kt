@@ -15,4 +15,5 @@ data class Daily(
     val uv_index_max: List<Double>,
     val weathercode: List<Int>,
     val showers_sum: List<Double>,
+    val sunshine_duration: List<Double>,
 ): Parcelable

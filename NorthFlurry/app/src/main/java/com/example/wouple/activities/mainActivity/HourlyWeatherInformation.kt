@@ -79,7 +79,7 @@ fun getSixHours(
     hourlyWeatherCondition: WeatherCondition
 ) {
     Column(
-        modifier = Modifier.padding(top = 32.dp, start = 10.dp, end = 10.dp),
+        modifier = Modifier.padding(top = 18.dp, start = 8.dp, end = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {

@@ -29,7 +29,7 @@ fun getWeeklyForecast(temp: TemperatureResponse) {
     Row(
         modifier = Modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         for (dayIndex in 0 until temp.daily.time.size.coerceAtMost(7)) {
             val timeZone = temp.timezone

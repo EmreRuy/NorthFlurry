@@ -31,7 +31,7 @@ data class TemperatureResponse(
                 winddirection = 356.0,
                 windspeed = 6.8,
                 cloud_cover = 79,
-                surface_pressure = 1234
+                snow_depth = 3
             ),
             daily = Daily(
                 precipitation_sum = listOf(0.0, 0.0, 0.4, 3.1, 0.3, 16.8, 0.3),
@@ -59,7 +59,8 @@ data class TemperatureResponse(
                 time = listOf("2023-08-10", "2023-08-11", "2023-08-12", "2023-08-13", "2023-08-14", "2023-08-15", "2023-08-16"),
                 uv_index_max = listOf(5.2, 5.3, 5.25, 5.15, 4.5, 3.2, 4.05),
                 weathercode = listOf(3, 3, 51, 61, 80, 63, 3),
-                showers_sum = listOf(1.1,2.1)
+                showers_sum = listOf(1.1,2.1),
+                sunshine_duration = listOf(12.3,23.4),
             ),
             daily_units = DailyUnits(
                 precipitation_sum = "mm",

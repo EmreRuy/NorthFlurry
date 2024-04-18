@@ -71,17 +71,14 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val totalCloudCover = temp.hourly.cloud_cover[currentHour].toInt()
     val windDegreesCurrent = temp.current_weather.winddirection.toInt()
     val windDirection = GetWindDirection(windDegreesCurrent.toDouble())
-
     val tempUnit = temp.hourly_units.apparent_temperature
     val feelsLike = temp.hourly.apparent_temperature[currentHour].toInt()
-
     val texts = listOf(
         "Precipitation Probability % $precipitationPr",
         "Feels like $feelsLike $tempUnit now",
         "Total Cloud Cover % $totalCloudCover",
         "Surface Pressure $surfacePressure hPa currently",
         "Wind Direction is from the $windDirection",
-      //  "Sunshine Duration is ",
         "Wind Speed: $currentWindSpeed $currentWindSpeedUnit at the moment"
     )
 
@@ -90,10 +87,10 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
 
     LaunchedEffect(Unit) {
         while (true) {
-            delay(400) // Adjust delay as needed
+            delay(400)
             currentTextIndex.value = (currentTextIndex.value + 1) % texts.size
             visible = true
-            delay(8000) // Adjust delay as needed
+            delay(8000)
             visible = false
         }
     }
