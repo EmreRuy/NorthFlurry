@@ -45,8 +45,6 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
         val baseColor = Color(0xFF4C49C6) // Color(0xFF7D8AE1) //#7D8AE1
-
-
         // Generate lighter shades
         val lighterShades = listOf(
             baseColor.copy(alpha = 0.7f),
@@ -67,8 +65,8 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         .mapIndexed { index, temperature -> index to temperature.toInt() }
         .maxByOrNull { it.second }
         ?.first ?: 0
-    val hottestDate = LocalDate.parse(temp.daily.time[warmestDayIndex])
-    val warmestDayOfWeek = hottestDate.dayOfWeek.toString().lowercase()
+    val warmestDate = LocalDate.parse(temp.daily.time[warmestDayIndex])
+    val warmestDayOfWeek = warmestDate.dayOfWeek.toString().lowercase()
         .replaceFirstChar { if (it.isLowerCase()) it.titlecase(
         Locale.getDefault()
     ) else it.toString()
@@ -131,7 +129,7 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         }
         texts += thunderstormInfo
     }
-
+    //adds precipitation to notification if location has precipitation in the week
     if (precipitationDays.isNotEmpty()) {
         val thunderstormInfo = if (precipitationDays.size >= 4) {
             "Precipitation expected during the week"
@@ -146,19 +144,14 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         }
         texts += thunderstormInfo
     }
-
-
-
-
-
     var apparent by remember { mutableStateOf(true) }
     val currentTextIndex = remember { mutableStateOf(0) }
     LaunchedEffect(Unit) {
         while (true) {
-            delay(1000) // Adjust delay as needed
+            delay(1000)
             currentTextIndex.value = (currentTextIndex.value + 1) % texts.size
             apparent = true
-            delay(6000) // Adjust delay as needed
+            delay(6000)
             apparent = false
         }
     }
@@ -196,4 +189,3 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         }
     }
 }
-

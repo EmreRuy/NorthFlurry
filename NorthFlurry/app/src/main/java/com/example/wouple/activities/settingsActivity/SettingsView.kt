@@ -76,6 +76,7 @@ import com.example.wouple.model.api.WindUnit
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
+import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
@@ -716,11 +717,10 @@ fun CustomTab(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
     )
-val somes = Color(0xFFFFEED9)
     Box(
         modifier = modifier
             .clip(CircleShape)
-            .background(somes)
+            .background(Corn)
             .height(intrinsicSize = IntrinsicSize.Min),
     ) {
         MyTabIndicator(

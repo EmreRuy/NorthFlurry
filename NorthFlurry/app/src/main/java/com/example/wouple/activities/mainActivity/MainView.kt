@@ -512,7 +512,8 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(18.dp)
+            .padding(horizontal = 18.dp)
+            .padding(bottom = 18.dp)
             .clickable {
                 showDialog = true
             },

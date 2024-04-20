@@ -157,7 +157,7 @@ fun DetailView(
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
         WeeklyChart(temp)
-        SunsetSunriseColumnCard(temp)
+        DayLightDurationCard(temp)
         val pagerState = rememberPagerState()
         HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
         { page ->
@@ -364,6 +364,7 @@ private fun WeeklyChart(temp: TemperatureResponse) {
             Color(0xFF1D244D),
             Color(0xFF2E3A59),
             Color(0xFF3F5066),
+
         )
     }
     Column(
@@ -952,7 +953,7 @@ fun PrecipitationContent(temp: TemperatureResponse) {
 }
 
 @Composable
-fun SunRise(temp: TemperatureResponse) {
+fun GetSunRise(temp: TemperatureResponse) {
     val now = LocalDateTime.now().toLocalDate()
     val todaySunrise = temp.daily.sunrise.firstOrNull {
         LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
@@ -979,7 +980,7 @@ fun SunRise(temp: TemperatureResponse) {
 }
 
 @Composable
-fun SunSet(temp: TemperatureResponse) {
+fun GetSunSet(temp: TemperatureResponse) {
     val now = LocalDateTime.now().toLocalDate()
     val todaySunSet = temp.daily.sunset.firstOrNull {
         LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
@@ -1004,38 +1005,37 @@ fun SunSet(temp: TemperatureResponse) {
         )
     }
 }
-
 @Composable
-fun DayLength(temp: TemperatureResponse) {
+private fun getFormattedSunset(temp: TemperatureResponse): String {
     val now = LocalDateTime.now().toLocalDate()
-    val todaySunrise = temp.daily.sunrise.firstOrNull {
+    val todaySunSet = temp.daily.sunset.firstOrNull {
         LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
             .toLocalDate()
             .isEqual(now)
     }
+    return todaySunSet?.let {
+        LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            .format(DateTimeFormatter.ofPattern("HH:mm"))
+    } ?: ""
+}
+@Composable
+fun GetDayLength(temp: TemperatureResponse) {
+    val now = LocalDate.now()
+    val todaySunrise = temp.daily.sunrise
+        .firstOrNull { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalDate() == now }
+        ?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalTime() }
 
-    val todaySunset = temp.daily.sunset.firstOrNull {
-        LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            .toLocalDate()
-            .isEqual(now)
-    }
+    val todaySunset = temp.daily.sunset
+        .firstOrNull { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalDate() == now }
+        ?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalTime() }
 
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
 
-    val formattedSunrise = todaySunrise?.let {
-        LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            .format(formatter)
-    } ?: ""
-
-    val formattedSunset = todaySunset?.let {
-        LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            .format(formatter)
-    } ?: ""
+    val formattedSunrise = todaySunrise?.format(formatter) ?: ""
+    val formattedSunset = todaySunset?.format(formatter) ?: ""
 
     val lengthOfTheDay = if (formattedSunrise.isNotEmpty() && formattedSunset.isNotEmpty()) {
-        val sunriseTime = LocalTime.parse(formattedSunrise, formatter)
-        val sunsetTime = LocalTime.parse(formattedSunset, formatter)
-        val length = Duration.between(sunriseTime, sunsetTime)
+        val length = Duration.between(todaySunrise, todaySunset)
         val hours = length.toHours()
         val minutes = length.minusHours(hours).toMinutes()
         "$hours hours $minutes minutes"
@@ -1067,7 +1067,7 @@ fun DayLength(temp: TemperatureResponse) {
 }
 
 @Composable
-private fun SunsetSunriseColumnCard(temp: TemperatureResponse) {
+private fun DayLightDurationCard(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
@@ -1084,73 +1084,76 @@ private fun SunsetSunriseColumnCard(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(background))
+            .background(
+                shape = RoundedCornerShape(20.dp),
+                brush = Brush.verticalGradient(background)
+            )
             .padding(8.dp)
     ) {
-        SunsetSunriseColumn(temp = temp)
+        GetDaylightDuration(temp = temp)
     }
 }
-
 @Composable
-private fun SunsetSunriseColumn(temp: TemperatureResponse) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        horizontalAlignment = CenterHorizontally
-    ) {
-        Text(
-            text = stringResource(id = R.string.Daylight_Duration),
-            color = Whitehis,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
-            textAlign = TextAlign.Center
-        )
-        Row(
+private fun GetDaylightDuration(temp: TemperatureResponse) {
+    val formattedSunset = getFormattedSunset(temp)
+    if (formattedSunset.isNotEmpty()) {
+        Column(
             modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = CenterVertically
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalAlignment = CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(start = 16.dp)
-                    .weight(1f)
+            Text(
+                text = stringResource(id = R.string.Daylight_Duration),
+                color = Whitehis,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Light,
+                textAlign = TextAlign.Center
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                SunRise(temp)
-                Row {
-                    Icon(
-                        painter = painterResource(id = R.drawable.arrowdropup),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(30.dp),
-                        tint = Whitehis.copy(alpha = 0.9f),
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.arrowdropdown),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(30.dp),
-                        tint = Whitehis.copy(alpha = 0.8f),
-                    )
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    GetSunRise(temp)
+                    Row {
+                        Icon(
+                            painter = painterResource(id = R.drawable.arrowdropup),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(30.dp),
+                            tint = Whitehis.copy(alpha = 0.9f),
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.arrowdropdown),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(30.dp),
+                            tint = Whitehis.copy(alpha = 0.8f),
+                        )
+                    }
+                    GetSunSet(temp)
                 }
-                SunSet(temp)
-            }
-            Column(
-                modifier = Modifier.weight(1f),
-                horizontalAlignment = CenterHorizontally
-            ) {
-                LottieAnimationSun()
-            }
-            Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.End) {
-                DayLength(temp)
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    LottieAnimationSun()
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    GetDayLength(temp)
+                }
             }
         }
     }
 }
-
 @Composable
 fun LottieAnimationSun() {
     val isPlaying by remember { mutableStateOf(true) }

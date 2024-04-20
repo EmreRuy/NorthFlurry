@@ -127,7 +127,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
 }
 @Composable
 private fun getWindDirection(degrees: Double):String {
-    when ((degrees % 360 + 360) % 360) {
+    when (degrees) {
         in 0.0..22.5, in 337.5..360.0 -> return "North"
         in 22.5..67.5 -> return "North East"
         in 67.5..112.5 -> return "East"
