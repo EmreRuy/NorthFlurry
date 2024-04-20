@@ -152,7 +152,7 @@ fun DetailView(
         LocationView(temp, searchedLocation)
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
         CurrentAirQualityCard(temp, air)
-        UvIndexCard(temp)
+        CurrentUvIndex(temp)
         UvChartViewCard(temp)
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
@@ -710,7 +710,7 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
 }
 
 @Composable
-fun UvIndexCard(temp: TemperatureResponse) {
+fun CurrentUvIndex(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
@@ -750,7 +750,8 @@ fun UvIndex(temp: TemperatureResponse) {
             verticalAlignment = CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            val textColor = White
+            val isDay = temp.current_weather.is_day == 1
+            val textColor = if (isDay) Whitehis else White
             Icon(
                 modifier = Modifier
                     .padding(end = 4.dp)
@@ -761,7 +762,7 @@ fun UvIndex(temp: TemperatureResponse) {
             )
             Text(
                 modifier = Modifier.padding(4.dp),
-                text = stringResource(id = R.string.uv_index).uppercase(),
+                text = stringResource(id = R.string.current_uv_index).uppercase(),
                 textAlign = TextAlign.Start,
                 color = textColor,
                 fontWeight = FontWeight.Light
@@ -1101,7 +1102,7 @@ private fun SunsetSunriseColumn(temp: TemperatureResponse) {
     ) {
         Text(
             text = stringResource(id = R.string.Daylight_Duration),
-            color = White,
+            color = Whitehis,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center

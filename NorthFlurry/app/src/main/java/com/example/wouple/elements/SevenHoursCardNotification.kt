@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.activities.detailActivity.WeatherCondition
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
 import java.time.LocalDate
@@ -63,25 +64,25 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val timeZone = temp.timezone
     val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
     val currentHour = currentDateTime.hour
+    val nextHourIndex = (currentHour + 1) % 24
     //
-    val precipitationPr = temp.hourly.precipitation_probability[currentHour]
+    val precipitationPr = temp.hourly.precipitation_probability[nextHourIndex]
     val currentWindSpeed =  temp.current_weather.windspeed
     val currentWindSpeedUnit = temp.hourly_units.windspeed_10m
     val surfacePressure = temp.hourly.surface_pressure[currentHour].toInt()
     val totalCloudCover = temp.hourly.cloud_cover[currentHour].toInt()
     val windDegreesCurrent = temp.current_weather.winddirection.toInt()
-    val windDirection = GetWindDirection(windDegreesCurrent.toDouble())
+    val windDirection = getWindDirection(windDegreesCurrent.toDouble())
     val tempUnit = temp.hourly_units.apparent_temperature
     val feelsLike = temp.hourly.apparent_temperature[currentHour].toInt()
     val texts = listOf(
-        "Precipitation Probability % $precipitationPr",
+        "Precipitation % $precipitationPr in the next hour",
         "Feels like $feelsLike $tempUnit now",
         "Total Cloud Cover % $totalCloudCover",
         "Surface Pressure $surfacePressure hPa currently",
         "Wind Direction is from the $windDirection",
         "Wind Speed: $currentWindSpeed $currentWindSpeedUnit at the moment"
     )
-
     var visible by remember { mutableStateOf(true) }
     val currentTextIndex = remember { mutableStateOf(0) }
 
@@ -108,7 +109,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
                 contentDescription = "notification",
                 tint = Color.White
             )
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(4.dp))
             AnimatedVisibility(
                 visible = visible,
                 enter = slideInVertically(initialOffsetY = { -it }),
@@ -125,8 +126,8 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     }
 }
 @Composable
-private fun GetWindDirection(degrees: Double):String {
-    when (degrees) {
+private fun getWindDirection(degrees: Double):String {
+    when ((degrees % 360 + 360) % 360) {
         in 0.0..22.5, in 337.5..360.0 -> return "North"
         in 22.5..67.5 -> return "North East"
         in 67.5..112.5 -> return "East"
@@ -136,5 +137,5 @@ private fun GetWindDirection(degrees: Double):String {
         in 247.5..292.5 -> return "West"
         in 292.5..337.5 -> return "North West"
     }
-    return "Unknown"
+    return "N/D"
 }
