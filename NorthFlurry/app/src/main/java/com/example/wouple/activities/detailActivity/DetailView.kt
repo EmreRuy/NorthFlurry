@@ -170,30 +170,35 @@ fun DetailView(
                     //  icon = painterResource(id = R.drawable.ic_term),
                     temp = temp
                 )
+
                 1 -> ExtraCards(
                     text = stringResource(id = R.string.Rainfall),
                     numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
                     //  icon = painterResource(id = R.drawable.ic_drop),
                     temp = temp
                 )
+
                 2 -> ExtraCards(
                     text = stringResource(id = R.string.WindSpeed),
                     numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
                     //  icon = painterResource(id = R.drawable.ic_wind),
                     temp = temp
                 )
+
                 3 -> ExtraCards(
                     text = stringResource(id = R.string.Visibility),
                     numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
                     //  icon = painterResource(id = R.drawable.ic_visibility),
                     temp = temp
                 )
+
                 4 -> ExtraCards(
                     text = stringResource(id = R.string.Humidity),
                     numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
                     //   icon = painterResource(id = R.drawable.ic_humidity),
                     temp = temp
                 )
+
                 5 -> ExtraCards(
                     text = stringResource(id = R.string.DewPoint),
                     numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
@@ -205,6 +210,7 @@ fun DetailView(
         HorizontalPagerIndicator(step = pagerState.currentPage, totalSteps = pagerState.pageCount)
     }
 }
+
 @Composable
 private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
 
@@ -239,6 +245,7 @@ private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
         }
     }
 }
+
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
 @Composable
@@ -365,7 +372,7 @@ private fun WeeklyChart(temp: TemperatureResponse) {
             Color(0xFF2E3A59),
             Color(0xFF3F5066),
 
-        )
+            )
     }
     Column(
         modifier = Modifier
@@ -1005,6 +1012,7 @@ fun GetSunSet(temp: TemperatureResponse) {
         )
     }
 }
+
 @Composable
 private fun getFormattedSunset(temp: TemperatureResponse): String {
     val now = LocalDateTime.now().toLocalDate()
@@ -1018,15 +1026,20 @@ private fun getFormattedSunset(temp: TemperatureResponse): String {
             .format(DateTimeFormatter.ofPattern("HH:mm"))
     } ?: ""
 }
+
 @Composable
 fun GetDayLength(temp: TemperatureResponse) {
     val now = LocalDate.now()
     val todaySunrise = temp.daily.sunrise
-        .firstOrNull { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalDate() == now }
+        .firstOrNull {
+            LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalDate() == now
+        }
         ?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalTime() }
 
     val todaySunset = temp.daily.sunset
-        .firstOrNull { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalDate() == now }
+        .firstOrNull {
+            LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalDate() == now
+        }
         ?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalTime() }
 
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
@@ -1093,23 +1106,24 @@ private fun DayLightDurationCard(temp: TemperatureResponse) {
         GetDaylightDuration(temp = temp)
     }
 }
+
 @Composable
 private fun GetDaylightDuration(temp: TemperatureResponse) {
-    val formattedSunset = getFormattedSunset(temp)
-    if (formattedSunset.isNotEmpty()) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            horizontalAlignment = CenterHorizontally
-        ) {
-            Text(
-                text = stringResource(id = R.string.Daylight_Duration),
-                color = Whitehis,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Light,
-                textAlign = TextAlign.Center
-            )
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalAlignment = CenterHorizontally
+    ) {
+        Text(
+            text = stringResource(id = R.string.Daylight_Duration),
+            color = Whitehis,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Light,
+            textAlign = TextAlign.Center
+        )
+        val formattedSunset = getFormattedSunset(temp)
+        if (formattedSunset.isNotEmpty()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -1151,9 +1165,30 @@ private fun GetDaylightDuration(temp: TemperatureResponse) {
                     GetDayLength(temp)
                 }
             }
+        } else {
+            Row(
+                modifier = Modifier.padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier.size(18.dp),
+                    painter = painterResource(id = R.drawable.baseline_error_outline_24),
+                    contentDescription = "error",
+                    tint = mocassin
+                )
+                Text(
+                    modifier = Modifier.padding(start = 4.dp),
+                    text = "No Data Available for Display",
+                    fontWeight = FontWeight.Light,
+                    fontSize = 15.sp,
+                    color = mocassin,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 }
+
 @Composable
 fun LottieAnimationSun() {
     val isPlaying by remember { mutableStateOf(true) }

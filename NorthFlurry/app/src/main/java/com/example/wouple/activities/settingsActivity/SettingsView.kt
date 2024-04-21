@@ -81,6 +81,7 @@ import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.getSecondaryGradients
+import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.orgn
 import kotlinx.coroutines.delay
 
@@ -356,7 +357,7 @@ fun TemperatureUnitSettings(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.TemperatureUnits),
-            color = orgn,
+            color = mocassin,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
@@ -388,7 +389,7 @@ fun WindUnitSettings(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.WindSpeedUnits),
-            color = orgn,
+            color = mocassin,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
@@ -422,7 +423,7 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.PrecipitationUnits),
-            color = orgn,
+            color = mocassin,
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Start
