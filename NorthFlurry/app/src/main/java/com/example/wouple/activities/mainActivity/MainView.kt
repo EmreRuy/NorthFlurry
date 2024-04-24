@@ -161,7 +161,7 @@ private fun GetSearchBarAndList(
         SearchBar(isSearchExpanded, onSearch, onClose)
         if (locations != null) {
             LazyColumn(
-                Modifier.height(360.dp),
+                Modifier.height(300.dp),
                 contentPadding = PaddingValues(vertical = 4.dp)
             ) {
                 items(locations) { location ->
