@@ -10,6 +10,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -83,6 +84,11 @@ import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.mocassin
 import kotlinx.coroutines.delay
+import nl.dionsegijn.konfetti.compose.KonfettiView
+import nl.dionsegijn.konfetti.core.Party
+import nl.dionsegijn.konfetti.core.Position
+import nl.dionsegijn.konfetti.core.emitter.Emitter
+import java.util.concurrent.TimeUnit
 
 
 /*@Preview
@@ -108,6 +114,7 @@ fun SettingsView(
         delay(600)
         cardsVisible = true
     }
+    var explodeConfetti by remember { mutableStateOf(false) }
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
         listOf(
@@ -122,143 +129,158 @@ fun SettingsView(
             //Color(0xFF2E3A59)
         )
     }
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        modifier = Modifier.padding(start = 4.dp),
-                        text = stringResource(id = R.string.Settings),
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Light,
-                        color = Whitehis,
-                    )
-                },
-                navigationIcon = {
-                    IconButton(
-                        onClick = onBackPressed
-                    ) {
-                        Icon(
-                            Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            modifier = Modifier.size(28.dp)
+    ConfettiView(explodeConfetti) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(
+                            modifier = Modifier.padding(start = 4.dp),
+                            text = stringResource(id = R.string.Settings),
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Light,
+                            color = Whitehis,
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(
+                            onClick = onBackPressed
+                        ) {
+                            Icon(
+                                Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                                modifier = Modifier.size(28.dp)
+                            )
+                        }
+                    },
+                    contentColor = Whitehis,
+                    backgroundColor = Transparent,
+                    elevation = 0.dp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(brush = Brush.verticalGradient(background))
+                )
+            },
+            content = {
+                Surface(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    val isDay = temp.current_weather.is_day == 1
+                    val background: List<Color> = if (isDay) {
+                        val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
+                        val lighterShades = listOf(
+                            baseColor,
+                            baseColor.copy(alpha = 0.9f),
+                            baseColor.copy(alpha = 0.8f),
+                            baseColor.copy(alpha = 0.5f),
+                        )
+
+                        lighterShades
+                    } else {
+                        listOf(
+                            Color(0xFF1D244D),
+                            Color(0xFF2E3A59),
+                            Color(0xFF3F5066),
                         )
                     }
-                },
-                contentColor = Whitehis,
-                backgroundColor = Transparent,
-                elevation = 0.dp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(brush = Brush.verticalGradient(background))
-            )
-        },
-        content = {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                val isDay = temp.current_weather.is_day == 1
-                val background: List<Color> = if (isDay) {
-                    val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
-                    val lighterShades = listOf(
-                        baseColor,
-                        baseColor.copy(alpha = 0.9f),
-                        baseColor.copy(alpha = 0.8f),
-                        baseColor.copy(alpha = 0.5f),
-                    )
-
-                    lighterShades
-                } else {
-                    listOf(
-                        Color(0xFF1D244D),
-                        Color(0xFF2E3A59),
-                        Color(0xFF3F5066),
-                    )
-                }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .verticalScroll(rememberScrollState())
-                        .background(brush = Brush.verticalGradient(background)),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.padding(top = 32.dp))
-                    CustomTab(
-                        selectedItemIndex = selected,
-                        items = listOf("General", "Units"),
-                        onClick = {
-                            setSelected(it)
-                        }
-                    )
-                    when (selected) {
-                        0 -> {
-                            AnimatedVisibility(
-                                visible = cardsVisible,
-                                enter = fadeIn(
-                                    animationSpec = tween(
-                                        durationMillis = 2000,
-                                        easing = LinearEasing
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .verticalScroll(rememberScrollState())
+                            .background(brush = Brush.verticalGradient(background)),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Spacer(modifier = Modifier.padding(top = 32.dp))
+                        CustomTab(
+                            selectedItemIndex = selected,
+                            items = listOf("General", "Units"),
+                            onClick = {
+                                setSelected(it)
+                            }
+                        )
+                        when (selected) {
+                            0 -> {
+                                AnimatedVisibility(
+                                    visible = cardsVisible,
+                                    enter = fadeIn(
+                                        animationSpec = tween(
+                                            durationMillis = 2000,
+                                            easing = LinearEasing
+                                        )
                                     )
-                                )
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .padding(vertical = 8.dp)
-                                        .fillMaxWidth()
-                                        .wrapContentHeight(),
-                                    verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
-                                    //LanguageSettings()
-                                    SettingsCardOne()
-                                    TroubleOnAppSettings { onFeedbackClicked(true) }
-                                    IdeasSettings { onFeedbackClicked(false) }
-                                    ShareTheAppSettings()
-                                    RateUsSettings()
+                                    Column(
+                                        modifier = Modifier
+                                            .padding(vertical = 8.dp)
+                                            .fillMaxWidth()
+                                            .wrapContentHeight(),
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        //LanguageSettings()
+                                        SettingsCardOne()
+                                        TroubleOnAppSettings { onFeedbackClicked(true) }
+                                        IdeasSettings { onFeedbackClicked(false) }
+                                        ShareTheAppSettings()
+                                        RateUsSettings()
+                                    }
                                 }
                             }
-                        }
 
-                        1 -> {
-                            SettingsCardTwo()
-                            TemperatureUnitSettings(temp)
-                            PrecipitationUnitSettings(temp)
-                            WindUnitSettings(temp   )
+                            1 -> {
+                                SettingsCardTwo()
+                                TemperatureUnitSettings(temp)
+                                PrecipitationUnitSettings(temp)
+                                WindUnitSettings(temp)
+                            }
                         }
                     }
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    contentAlignment = BottomCenter
-                ) {
-                    HorizontalWave(
-                        phase = rememberPhaseState(startPosition = 0f),
-                        alpha = 0.5f,
-                        amplitude = 40f,
-                        frequency = 0.5f,
-                        gradientColors = listOf(White, White)
-                    )
-                    HorizontalWave(
-                        phase = rememberPhaseState(startPosition = 15f),
-                        alpha = 0.5f,
-                        amplitude = 80f,
-                        frequency = 0.4f,
-                        gradientColors = listOf(White, White)
-                    )
-                    HorizontalWave(
-                        phase = rememberPhaseState(10f),
-                        alpha = 0.2f,
-                        amplitude = 60f,
-                        frequency = 0.4f,
-                        gradientColors = listOf(White, White)
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
+                        contentAlignment = BottomCenter
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_man),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(200.dp)
+                                .align(Alignment.BottomEnd)
+                                .clickable(
+                                    interactionSource = MutableInteractionSource(),
+                                    indication = null,
+                                    onClick = {
+                                        explodeConfetti = true
+                                    })
+                        )
+                        HorizontalWave(
+                            phase = rememberPhaseState(startPosition = 0f),
+                            alpha = 0.5f,
+                            amplitude = 40f,
+                            frequency = 0.5f,
+                            gradientColors = listOf(White, White)
+                        )
+                        HorizontalWave(
+                            phase = rememberPhaseState(startPosition = 15f),
+                            alpha = 0.5f,
+                            amplitude = 80f,
+                            frequency = 0.4f,
+                            gradientColors = listOf(White, White)
+                        )
+                        HorizontalWave(
+                            phase = rememberPhaseState(10f),
+                            alpha = 0.2f,
+                            amplitude = 60f,
+                            frequency = 0.4f,
+                            gradientColors = listOf(White, White)
+                        )
+                    }
                 }
             }
-        }
-    )
+        )
+    }
 }
 
 @Composable
@@ -325,8 +347,31 @@ private fun LanguageSettings() {
         }
     }
 }
+
 @Composable
-private fun SettingsCardOne(){
+private fun ConfettiView(explodeConfetti: Boolean , content: @Composable () -> Unit, ) {
+    Box {
+        content()
+        if (explodeConfetti){
+            val party = Party(
+                speed = 0f,
+                maxSpeed = 30f,
+                damping = 0.9f,
+                spread = 360,
+                colors = listOf(0xFFFCD00, 0xF1D71F2, 0xF1D244D, 0xF3F5066),
+                emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(100),
+                position = Position.Relative(0.5, 0.3)
+            )
+            KonfettiView(
+                modifier = Modifier.fillMaxSize(),
+                parties = listOf(party),
+            )
+        }
+    }
+}
+
+@Composable
+private fun SettingsCardOne() {
     Spacer(modifier = Modifier.padding(top = 12.dp))
     Text(
         text = stringResource(id = R.string.GeneralSettings),
@@ -336,6 +381,7 @@ private fun SettingsCardOne(){
         fontSize = 28.sp
     )
 }
+
 @Composable
 private fun SettingsCardTwo() {
     Spacer(modifier = Modifier.padding(top = 12.dp))
@@ -475,7 +521,7 @@ private fun ShareTheAppSettings() {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-      //  val backgroundColor = getSecondaryGradients()
+        //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -534,7 +580,7 @@ fun RateUsSettings() {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-      //  val backgroundColor = getSecondaryGradients()
+        //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -619,7 +665,7 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-      //  val backgroundColor = getSecondaryGradients()
+        //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -726,7 +772,7 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor =  Color(0xFF324BBA)//Color(0xFF536AD5)//MaterialTheme.colorScheme.primary,
+            indicatorColor = Color(0xFF324BBA)//Color(0xFF536AD5)//MaterialTheme.colorScheme.primary,
         )
         Row(
             horizontalArrangement = Arrangement.Center,
