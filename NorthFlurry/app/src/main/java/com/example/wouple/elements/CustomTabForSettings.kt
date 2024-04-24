@@ -107,7 +107,7 @@ fun CustomTabForSettings(
     tabHeight: Dp = 40.dp,
     temp: TemperatureResponse
 ) {
-    var tabWidth by remember { mutableStateOf(344.dp / items.size) }
+    var tabWidth by remember { mutableStateOf(350.dp / items.size) }
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
