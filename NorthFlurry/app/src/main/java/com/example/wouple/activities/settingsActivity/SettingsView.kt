@@ -82,7 +82,6 @@ import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.mocassin
-import com.example.wouple.ui.theme.orgn
 import kotlinx.coroutines.delay
 
 
@@ -100,6 +99,7 @@ fun SettingsView(
     onFeedbackClicked: (Boolean) -> Unit,
     temp: TemperatureResponse
 ) {
+
     val (selected, setSelected) = remember {
         mutableStateOf(0)
     }
@@ -224,7 +224,7 @@ fun SettingsView(
                             SettingsCardTwo()
                             TemperatureUnitSettings(temp)
                             PrecipitationUnitSettings(temp)
-                            WindUnitSettings(temp)
+                            WindUnitSettings(temp   )
                         }
                     }
                 }
@@ -359,7 +359,7 @@ fun TemperatureUnitSettings(temp: TemperatureResponse) {
             text = stringResource(id = R.string.TemperatureUnits),
             color = mocassin,
             fontSize = 18.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Light,
             textAlign = TextAlign.Start
         )
         val temperatureUnits = TemperatureUnit.values()
@@ -391,7 +391,7 @@ fun WindUnitSettings(temp: TemperatureResponse) {
             text = stringResource(id = R.string.WindSpeedUnits),
             color = mocassin,
             fontSize = 18.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Light,
             textAlign = TextAlign.Start
         )
         val units = WindUnit.values()
@@ -419,13 +419,13 @@ fun WindUnitSettings(temp: TemperatureResponse) {
 @Composable
 fun PrecipitationUnitSettings(temp: TemperatureResponse) {
     val context = LocalContext.current
-    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.PrecipitationUnits),
             color = mocassin,
             fontSize = 18.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Light,
             textAlign = TextAlign.Start
         )
         val units = PrecipitationUnit.values()
@@ -475,11 +475,11 @@ private fun ShareTheAppSettings() {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-        val backgroundColor = getSecondaryGradients()
+      //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(backgroundColor))
+                .background(White)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
@@ -534,11 +534,11 @@ fun RateUsSettings() {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-        val backgroundColor = getSecondaryGradients()
+      //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(backgroundColor))
+                .background(White)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
@@ -578,11 +578,10 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-        val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(backgroundColor))
+                .background(White)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
@@ -620,11 +619,11 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-        val backgroundColor = getSecondaryGradients()
+      //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(backgroundColor))
+                .background(White)
                 .padding(12.dp)
         ) {
             Icon(painter = painterResource(id = R.drawable.ic_lightbulb), contentDescription = null, Modifier.padding(start = 4.dp))
@@ -721,13 +720,13 @@ fun CustomTab(
     Box(
         modifier = modifier
             .clip(CircleShape)
-            .background(Corn)
+            .background(White)
             .height(intrinsicSize = IntrinsicSize.Min),
     ) {
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor =  Color(0xFF536AD5)//MaterialTheme.colorScheme.primary,
+            indicatorColor =  Color(0xFF324BBA)//Color(0xFF536AD5)//MaterialTheme.colorScheme.primary,
         )
         Row(
             horizontalArrangement = Arrangement.Center,

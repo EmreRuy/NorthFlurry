@@ -32,7 +32,6 @@ fun getWeeklyForecast(temp: TemperatureResponse) {
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         for (dayIndex in 0 until temp.daily.time.size.coerceAtMost(7)) {
-            val timeZone = temp.timezone
             val dayOfWeek = LocalDate.parse(temp.daily.time[dayIndex]).dayOfWeek.toString().take(3)
             val temperature = temp.daily.temperature_2m_max[dayIndex].toInt().toString()
             val weatherCode = temp.daily.weathercode[dayIndex]
@@ -72,11 +71,11 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
             contentDescription = null,
             modifier = Modifier.size(26.dp)
         )
-        Text(
-            text = "$temperature°",
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            fontSize = 15.sp
-        )
+            Text(
+                text = "$temperature°",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 15.sp
+            )
     }
 }
