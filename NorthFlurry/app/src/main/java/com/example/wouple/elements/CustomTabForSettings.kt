@@ -36,8 +36,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
@@ -91,7 +93,7 @@ private fun RowScope.MyTabItem(
             }
             .padding(top = 8.dp)
             .weight(1f),
-        text = text,
+        text = text.toLowerCase().capitalize(),
         color = tabTextColor,
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Medium
