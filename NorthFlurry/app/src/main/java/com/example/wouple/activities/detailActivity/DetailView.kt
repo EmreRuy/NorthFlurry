@@ -2,12 +2,15 @@ package com.example.wouple.activities.detailActivity
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -86,8 +89,13 @@ import com.example.wouple.model.api.PrecipitationUnit
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
+import nl.dionsegijn.konfetti.compose.KonfettiView
+import nl.dionsegijn.konfetti.core.Party
+import nl.dionsegijn.konfetti.core.Position
+import nl.dionsegijn.konfetti.core.emitter.Emitter
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.util.concurrent.TimeUnit
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -96,6 +104,7 @@ fun DetailView(
     searchedLocation: SearchedLocation,
     air: AirQuality?,
     onBackPressed: () -> Unit,
+    explodeConfettiCallback: () -> Unit
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
@@ -115,7 +124,12 @@ fun DetailView(
             Color(0xFF3F5066),
         )
     }
+    val (explodeConfetti, setExplodeConfetti) = remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
+    ConfettiView(
+        explodeConfetti = explodeConfetti,
+        explodeConfettiCallback = { setExplodeConfetti(true) }
+    ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -157,7 +171,7 @@ fun DetailView(
         HourlyForecastView(temp)
         WeeklyForeCastView(temp)
         WeeklyChart(temp)
-        DayLightDurationCard(temp)
+        DayLightDurationCard(temp, explodeConfettiCallback = { setExplodeConfetti(true) })
         val pagerState = rememberPagerState()
         HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
         { page ->
@@ -210,7 +224,48 @@ fun DetailView(
         HorizontalPagerIndicator(step = pagerState.currentPage, totalSteps = pagerState.pageCount)
     }
 }
+}
 
+@Composable
+private fun ConfettiView(
+    explodeConfetti: Boolean,
+    explodeConfettiCallback: () -> Unit,
+    content: @Composable () -> Unit,
+    ) {
+    Box {
+        content()
+        if (explodeConfetti){
+            explodeConfettiCallback()
+            val party = Party(
+                speed = 0f,
+                maxSpeed = 40f,
+                damping = 0.9f,
+                spread = 720,
+                colors = listOf(
+                    0xFF4CAF50.toInt(),
+                    0xFF2196F3.toInt(),
+                    0xFFFFC107.toInt(),
+                    0xFF9C27B0.toInt(),
+                    0xFFFF5722.toInt(),
+                    0xFF8BC34A.toInt(),  // Light Green
+                    0xFF9C27B0.toInt(),  // Deep Purple
+                    0xFFCDDC39.toInt(),  // Lime
+                    0xFFFCD00,
+                    0xF1D71F2,
+                    0xF1D244D,
+                    0xF3F5066,
+                    0xFFFFA500.toInt()),
+
+                emitter = Emitter(duration = 200, TimeUnit.MILLISECONDS).max(200),
+                position = Position.Relative(0.5, 0.3)
+            )
+            KonfettiView(
+                modifier = Modifier.fillMaxSize(),
+                parties = listOf(party),
+            )
+        }
+    }
+}
 @Composable
 private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
 
@@ -1080,7 +1135,7 @@ fun GetDayLength(temp: TemperatureResponse) {
 }
 
 @Composable
-private fun DayLightDurationCard(temp: TemperatureResponse) {
+private fun DayLightDurationCard(temp: TemperatureResponse, explodeConfettiCallback: () -> Unit) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
@@ -1103,12 +1158,14 @@ private fun DayLightDurationCard(temp: TemperatureResponse) {
             )
             .padding(8.dp)
     ) {
-        GetDaylightDuration(temp = temp)
+        GetDaylightDuration(temp = temp, explodeConfettiCallback)
     }
 }
 
+
 @Composable
-private fun GetDaylightDuration(temp: TemperatureResponse) {
+private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallback: () -> Unit) {
+    var explodeConfetti by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -1156,7 +1213,18 @@ private fun GetDaylightDuration(temp: TemperatureResponse) {
                     modifier = Modifier.weight(1f),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    LottieAnimationSun()
+                   // LottieAnimationSun()
+                    Image(
+                        modifier = Modifier.size(70.dp)
+                            .clickable(
+                                interactionSource = MutableInteractionSource(),
+                                indication = null,
+                                onClick = {
+                                    explodeConfettiCallback()
+                                }),
+                        painter = painterResource(id = R.drawable.logo2),
+                        contentDescription = null
+                    )
                 }
                 Column(
                     modifier = Modifier.weight(1f),

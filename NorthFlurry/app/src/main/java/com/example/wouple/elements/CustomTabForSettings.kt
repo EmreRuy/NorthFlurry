@@ -44,6 +44,12 @@ import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.beige
 import com.example.wouple.ui.theme.getSecondaryGradients
+import com.example.wouple.ui.theme.kmns
+import com.example.wouple.ui.theme.mocassin
+import com.example.wouple.ui.theme.orgn
+import com.example.wouple.ui.theme.tea
+import com.example.wouple.ui.theme.vintage
+import java.util.Locale
 
 @Composable
 private fun MyTabIndicator(
@@ -68,7 +74,6 @@ private fun MyTabIndicator(
             ),
     )
 }
-
 @Composable
 private fun RowScope.MyTabItem(
     isSelected: Boolean,
@@ -107,12 +112,11 @@ fun CustomTabForSettings(
     tabHeight: Dp = 40.dp,
     temp: TemperatureResponse
 ) {
-    var tabWidth by remember { mutableStateOf(350.dp / items.size) }
+    var tabWidth by remember { mutableStateOf(377.8.dp / items.size) }
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
     )
-    val gradient = getSecondaryGradients()
     val isDay = temp.current_weather.is_day == 1
     val density = LocalDensity.current
 
@@ -120,7 +124,7 @@ fun CustomTabForSettings(
         modifier = modifier
             .fillMaxWidth()
             .clip(CircleShape)
-            .background(brush = Brush.verticalGradient(gradient))
+            .background(Color.White)
             .onGloballyPositioned {
                 tabWidth = with(density) {
                     it.size.width.toDp() / items.size
@@ -131,7 +135,7 @@ fun CustomTabForSettings(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) Color(0xFF324BBA) else Color(0xFF3A4377),
+            indicatorColor = if (isDay) kmns else Color(0xFF5E6F80)//Color(0xFF324BBA) else Color(0xFF324BBA) // Color(0xFF3A4377),
         )
         Row(
             horizontalArrangement = Arrangement.Center,
@@ -147,7 +151,9 @@ fun CustomTabForSettings(
                     onClick = {
                         onClick(index)
                     },
-                    text = text,
+                    text = text.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(
+                        Locale.getDefault()
+                    ) else it.toString() },
                 )
             }
         }

@@ -17,18 +17,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wouple.activities.detailActivity.Hours
 import com.example.wouple.activities.detailActivity.WeatherCondition
 import com.example.wouple.formatter.DateFormatter
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.Whitehis
-import com.example.wouple.ui.theme.vintage
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Composable
-fun getHourlyWeatherInfo(temp: TemperatureResponse){
+fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
     val scrollState = rememberScrollState()
     Row(
         modifier = Modifier
@@ -53,7 +50,7 @@ fun getHourlyWeatherInfo(temp: TemperatureResponse){
                     95, 96, 99 -> WeatherCondition.THUNDERSTORM
                     else -> WeatherCondition.SUNNY
                 }
-                getSixHours(time, temperature, hourlyWeatherCondition)
+                GetSixHours(time, temperature, hourlyWeatherCondition)
             }
             if (!isDaytime) {
                 val hourlyWeatherConditionNight = when (temp.hourly.weathercode[index]) {
@@ -66,20 +63,21 @@ fun getHourlyWeatherInfo(temp: TemperatureResponse){
                         WeatherCondition.CLEARNIGHT
                     }
                 }
-                getSixHours(time, temperature, hourlyWeatherConditionNight)
+                GetSixHours(time, temperature, hourlyWeatherConditionNight)
             }
         }
 
     }
 }
+
 @Composable
-fun getSixHours(
+fun GetSixHours(
     time: String,
     temperature: String,
     hourlyWeatherCondition: WeatherCondition
 ) {
     Column(
-        modifier = Modifier.padding(top = 18.dp, start = 8.dp, end = 8.dp),
+        modifier = Modifier.padding(top = 18.dp, start = 10.dp, end = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
@@ -95,7 +93,7 @@ fun getSixHours(
             modifier = Modifier.size(26.dp)
         )
         Text(
-            modifier = Modifier.padding(top = 4.dp,),
+            modifier = Modifier.padding(top = 4.dp),
             text = "$temperature°",
             color = Color.White,
             fontWeight = FontWeight.Bold,

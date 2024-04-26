@@ -77,7 +77,6 @@ import com.example.wouple.model.api.WindUnit
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
-import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
@@ -90,13 +89,11 @@ import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.emitter.Emitter
 import java.util.concurrent.TimeUnit
 
-
 /*@Preview
 @Composable
 fun SettingsPreview() {
     TemperatureUnitSettings()
 }*/
-
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -105,7 +102,6 @@ fun SettingsView(
     onFeedbackClicked: (Boolean) -> Unit,
     temp: TemperatureResponse
 ) {
-
     val (selected, setSelected) = remember {
         mutableStateOf(0)
     }
@@ -166,8 +162,8 @@ fun SettingsView(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    val isDay = temp.current_weather.is_day == 1
-                    val background: List<Color> = if (isDay) {
+                    val isDayLight = temp.current_weather.is_day == 1
+                    val backgroundColors: List<Color> = if (isDayLight) {
                         val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
                         val lighterShades = listOf(
                             baseColor,
@@ -188,7 +184,7 @@ fun SettingsView(
                         modifier = Modifier
                             .fillMaxWidth()
                             .verticalScroll(rememberScrollState())
-                            .background(brush = Brush.verticalGradient(background)),
+                            .background(brush = Brush.verticalGradient(backgroundColors)),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Spacer(modifier = Modifier.padding(top = 32.dp))
@@ -242,7 +238,7 @@ fun SettingsView(
                             .padding(bottom = 16.dp),
                         contentAlignment = BottomCenter
                     ) {
-                        Image(
+                       Image(
                             painter = painterResource(id = R.drawable.ic_man),
                             contentDescription = null,
                             modifier = Modifier
@@ -358,7 +354,17 @@ private fun ConfettiView(explodeConfetti: Boolean , content: @Composable () -> U
                 maxSpeed = 30f,
                 damping = 0.9f,
                 spread = 360,
-                colors = listOf(0xFFFCD00, 0xF1D71F2, 0xF1D244D, 0xF3F5066),
+                colors = listOf(
+                    0xFF4CAF50.toInt(),
+                    0xFF2196F3.toInt(),
+                    0xFFFFC107.toInt(),
+                    0xFF9C27B0.toInt(),
+                    0xFFFF5722.toInt(),
+                    0xFFFCD00,
+                    0xF1D71F2,
+                    0xF1D244D,
+                    0xF3F5066
+                ),
                 emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(100),
                 position = Position.Relative(0.5, 0.3)
             )

@@ -68,12 +68,11 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
 import com.example.wouple.activities.lightningMap.LightningMapActivity
-import com.example.wouple.activities.rainMap.WeatherRadarWebView
+import com.example.wouple.elements.GetWeeklyForecast
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SevenHoursCardNotification
 import com.example.wouple.elements.SearchBar
 import com.example.wouple.elements.SevenDaysCardNotification
-import com.example.wouple.elements.getWeeklyForecast
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
@@ -99,12 +98,14 @@ fun MainView(
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF504ED2)//Color(0xFF4C49C6)//Color(0xFF3F54BE)//Color(0xFF4067DD)
+            val baseColor = Color(0xFF3F54BE) // Color(0xFF494CC6)
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
                 baseColor.copy(alpha = 0.8f),
+                baseColor.copy(alpha = 0.5f),
             )
+
             lighterShades
         } else {
             listOf(
@@ -439,7 +440,7 @@ fun LottieAnimationCloud() {
 @Composable
 fun DetailButton(onDetailsButtonClicked: () -> Unit) {
     var isPressed by remember { mutableStateOf(false) }
-    val infiniteTransition = rememberInfiniteTransition()
+    val infiniteTransition = rememberInfiniteTransition(label = "")
 
     val colorTransition by infiniteTransition.animateColor(
         initialValue = vintage,
@@ -447,7 +448,7 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
         animationSpec = infiniteRepeatable(
             animation = tween(2000),
             repeatMode = RepeatMode.Reverse
-        )
+        ), label = ""
     )
     Button(
         modifier = Modifier.padding(bottom = 16.dp),
@@ -551,7 +552,7 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
                     .padding(top = 32.dp, end = 4.dp, start = 4.dp)
                     .align(Center)
             ) {
-                getWeeklyForecast(temp)
+                GetWeeklyForecast(temp)
             }
         }
         SevenDaysCardNotification(temp)
@@ -565,7 +566,7 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Center
             ) {
-                WeatherRadarWebView(url = "https://map.worldweatheronline.com/temperature?lat=36.884804&lng=30.704044")
+                //WeatherRadarWebView(url = "https://map.worldweatheronline.com/temperature?lat=36.884804&lng=30.704044")
             }
         }
     }
@@ -614,7 +615,7 @@ private fun GetSevenHoursForecast(searchedLocation: SearchedLocation, temp: Temp
                     .padding(16.dp)
                     .align(Center)
             ) {
-                getHourlyWeatherInfo(temp)
+                GetHourlyWeatherInfo(temp)
             }
         }
         SevenHoursCardNotification(temp)
