@@ -26,18 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.activities.detailActivity.WeatherCondition
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.util.Locale
 
 @Composable
@@ -67,9 +62,10 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         ?.first ?: 0
     val warmestDate = LocalDate.parse(temp.daily.time[warmestDayIndex])
     val warmestDayOfWeek = warmestDate.dayOfWeek.toString().lowercase()
-        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(
-        Locale.getDefault()
-    ) else it.toString()
+        .replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
         }
     // this code finds the coolest day in the list of daily temperatures
     val coolestDayIndex = temp.daily.temperature_2m_max
@@ -78,9 +74,10 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         ?.first ?: 0
     val coolestDate = LocalDate.parse(temp.daily.time[coolestDayIndex])
     val coldestDayOfWeek = coolestDate.dayOfWeek.toString().lowercase()
-        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(
-        Locale.getDefault()
-    ) else it.toString()
+        .replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(
+                Locale.getDefault()
+            ) else it.toString()
         }
     //
     val sunIndex =
@@ -90,7 +87,7 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
     //
     val thunderstormDays = mutableListOf<String>()
     val precipitationDays = mutableListOf<String>()
-   // this code retrieves the thunderstorm days
+    // this code retrieves the thunderstorm days
     for (dayIndex in 0 until temp.daily.time.size.coerceAtMost(7)) {
         val dayOfWeek = LocalDate.parse(temp.daily.time[dayIndex]).dayOfWeek.toString().take(3)
         val weatherCode = temp.daily.weathercode[dayIndex]
@@ -103,7 +100,8 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
                 51, 53, 55, 56, 57,
                 61, 63, 65, 66, 67,
                 80, 81, 82, 71, 73, 75, 77
-            )) {
+            )
+        ) {
             precipitationDays.add(dayOfWeek)
         }
     }
@@ -114,7 +112,7 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         "Coldest Day expected: $coldestDayOfWeek",
         "Sunshine Duration: $sunDurationAsHours hours today"
     )
-   // adds thunderstorm information to notification if location has thunderstorm in the week
+    // adds thunderstorm information to notification if location has thunderstorm in the week
     if (thunderstormDays.isNotEmpty()) {
         val thunderstormInfo = if (thunderstormDays.size >= 4) {
             "Thunderstorms expected during the week"
@@ -177,7 +175,12 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
             AnimatedVisibility(
                 visible = apparent,
                 enter = slideInVertically(initialOffsetY = { -it }),
-                exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(animationSpec = tween(200,easing = EaseOut))
+                exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(
+                    animationSpec = tween(
+                        200,
+                        easing = EaseOut
+                    )
+                )
             ) {
                 Text(
                     text = currentText,

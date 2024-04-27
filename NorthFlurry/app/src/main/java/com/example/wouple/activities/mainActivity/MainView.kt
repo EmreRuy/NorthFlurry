@@ -44,7 +44,6 @@ import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.TopStart
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -146,6 +145,7 @@ fun MainView(
         GetBottomView(searchedLocation = searchedLocation, temp = temp)
     }
 }
+
 @Composable
 private fun GetSearchBarAndList(
     locations: List<SearchedLocation>?,
@@ -204,6 +204,7 @@ private fun GetSearchBarAndList(
         }
     }
 }
+
 @Composable
 private fun GetLocationAndDegree(
     temp: TemperatureResponse,
@@ -285,6 +286,7 @@ private fun GetLocationAndDegree(
         GetHorizontalWaveView()
     }
 }
+
 @Composable
 private fun GetHorizontalWaveView() {
     Box(
@@ -316,6 +318,7 @@ private fun GetHorizontalWaveView() {
         )
     }
 }
+
 @Composable
 private fun GetBottomView(
     searchedLocation: MutableState<SearchedLocation?>,
@@ -332,6 +335,7 @@ private fun GetBottomView(
 
     }
 }
+
 @Composable
 fun LottieAnimationClear() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -347,6 +351,7 @@ fun LottieAnimationClear() {
         modifier = Modifier.size(65.dp)
     )
 }
+
 @Composable
 fun LottieAnimationSun() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -362,6 +367,7 @@ fun LottieAnimationSun() {
         modifier = Modifier.size(50.dp)
     )
 }
+
 @Composable
 fun LottieAnimationSnow() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -377,6 +383,7 @@ fun LottieAnimationSnow() {
         modifier = Modifier.size(50.dp)
     )
 }
+
 @Composable
 fun LottieAnimationPartlyCloudyNight() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -392,6 +399,7 @@ fun LottieAnimationPartlyCloudyNight() {
         modifier = Modifier.size(50.dp)
     )
 }
+
 @Composable
 fun LottieAnimationPartlyCloudy() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -407,6 +415,7 @@ fun LottieAnimationPartlyCloudy() {
         modifier = Modifier.size(50.dp)
     )
 }
+
 @Composable
 fun LottieAnimationRain() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -422,6 +431,7 @@ fun LottieAnimationRain() {
         modifier = Modifier.size(55.dp)
     )
 }
+
 @Composable
 fun LottieAnimationCloud() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -437,6 +447,7 @@ fun LottieAnimationCloud() {
         modifier = Modifier.size(60.dp)
     )
 }
+
 @Composable
 fun DetailButton(onDetailsButtonClicked: () -> Unit) {
     var isPressed by remember { mutableStateOf(false) }
@@ -470,6 +481,7 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
         )
     }
 }
+
 @Composable
 fun DropDownMenu(
     onSettingsClicked: () -> Unit,
@@ -497,9 +509,9 @@ fun DropDownMenu(
         }
     }
 }
+
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun GetSevenDaysForecast(temp: TemperatureResponse) {
     var showDialog by remember { mutableStateOf(false) }
@@ -523,7 +535,7 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor =Color(0xFF494CC6) //Color(0xFF3F54BE)
+            val baseColor = Color(0xFF494CC6) //Color(0xFF3F54BE)
 
 
             // Generate lighter shades
@@ -571,6 +583,7 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
         }
     }
 }
+
 @Composable
 private fun GetSevenHoursForecast(searchedLocation: SearchedLocation, temp: TemperatureResponse) {
     val context = LocalContext.current
@@ -586,7 +599,7 @@ private fun GetSevenHoursForecast(searchedLocation: SearchedLocation, temp: Temp
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor =Color(0xFF494CC6)  //Color(0xFF3F54BE)
+            val baseColor = Color(0xFF494CC6)  //Color(0xFF3F54BE)
 
 
             // Generate lighter shades

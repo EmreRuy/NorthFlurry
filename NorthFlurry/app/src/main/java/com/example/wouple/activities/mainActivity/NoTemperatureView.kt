@@ -38,9 +38,9 @@ fun NoTemperatureView(
         listOf(
             // Color(0xFF4067DD),
             // Color(0xFF4067DD),
-          /*  Color(0xFF3D52BB),
-            Color(0xFF3D52BB),
-            Whitehis */
+            /*  Color(0xFF3D52BB),
+              Color(0xFF3D52BB),
+             */
             Color(0xFF3D52BB),
             Color(0xFF3D52BB)
         )
@@ -99,7 +99,7 @@ fun NoTemperatureView(
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(vintage),
             onClick = {
-              onStartButtonClicked()
+                onStartButtonClicked()
             }
         ) {
             Text(

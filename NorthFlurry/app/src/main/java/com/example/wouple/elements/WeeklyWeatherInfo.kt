@@ -33,7 +33,7 @@ fun GetWeeklyForecast(temp: TemperatureResponse) {
             val temperature = temp.daily.temperature_2m_max[dayIndex].toInt().toString()
             val weatherCondition = when (temp.daily.weathercode[dayIndex]) {
                 0, 1 -> WeatherCondition.SUNNY
-                2 -> WeatherCondition.PARTLYCLOUDY
+                2 -> WeatherCondition.PARTLY_CLOUDY
                 3, 4 -> WeatherCondition.CLOUDY
                 in listOf(
                     51,
@@ -65,6 +65,7 @@ fun GetWeeklyForecast(temp: TemperatureResponse) {
         }
     }
 }
+
 @Composable
 fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: Int) {
     Column(

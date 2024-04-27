@@ -5,7 +5,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -66,5 +65,10 @@ fun generateRandomSnowflake(): Snowflake {
 
 fun DrawScope.drawSnowflake(alpha: Float, snowflake: Snowflake, offsetY: Float) {
     val newY = (snowflake.y + offsetY * snowflake.speed) % size.height
-    drawCircle(Color.White, alpha = alpha, radius = snowflake.radius, center = Offset(snowflake.x * size.width, newY))
+    drawCircle(
+        Color.White,
+        alpha = alpha,
+        radius = snowflake.radius,
+        center = Offset(snowflake.x * size.width, newY)
+    )
 }

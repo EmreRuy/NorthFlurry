@@ -1,6 +1,5 @@
 package com.example.wouple.elements
 
-import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -24,10 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.orgn
 
 @Composable
 fun RowScope.CustomPrecipitationBarChart(
@@ -35,23 +32,26 @@ fun RowScope.CustomPrecipitationBarChart(
     max: Float
 ) {
     val context = LocalContext.current
-    var height by remember{ mutableStateOf(0f) }
+    var height by remember { mutableStateOf(0f) }
     val heightStateAnimate by animateDpAsState(
         targetValue = height.dp,
         tween(2000, delayMillis = 300, easing = LinearEasing), label = ""
     )
-    LaunchedEffect(key1 = size){
+    LaunchedEffect(key1 = size) {
         height = (size / max) * 100
     }
     Box(
-        modifier = Modifier.padding(start = 6.dp, end = 6.dp, top = 4.dp)
+        modifier = Modifier
+            .padding(start = 6.dp, end = 6.dp, top = 4.dp)
             .size(heightStateAnimate)
             .weight(1f)
             .border(BorderStroke(1.dp, color = Color.Transparent))
             .background(Spiro, shape = RoundedCornerShape(10.dp))
             .clickable {
                 val unit = PrecipitationUnitPref.getPrecipitationUnit(context)
-                Toast.makeText(context, "$size $unit", Toast.LENGTH_SHORT).show()
+                Toast
+                    .makeText(context, "$size $unit", Toast.LENGTH_SHORT)
+                    .show()
             }
     )
 }

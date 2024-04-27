@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.wouple.elements
 
 import androidx.compose.foundation.Canvas
@@ -45,7 +47,7 @@ fun HorizontalWave(
 
             drawPath(
                 path = wavePath,
-                brush = Brush.horizontalGradient( colors = gradientColors),
+                brush = Brush.horizontalGradient(colors = gradientColors),
                 alpha = alpha,
                 style = Fill
             )

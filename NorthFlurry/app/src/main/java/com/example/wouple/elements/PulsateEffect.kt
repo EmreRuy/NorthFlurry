@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 
 @Composable
-fun GetPulsatingEffect(pulseFraction: Float = 1f, content: @Composable () -> Unit){
-    val infiniteTransition = rememberInfiniteTransition()
+fun GetPulsatingEffect(pulseFraction: Float = 1f, content: @Composable () -> Unit) {
+    val infiniteTransition = rememberInfiniteTransition(label = "")
 
     val scale by infiniteTransition.animateFloat(
         initialValue = 0.9f,
@@ -21,7 +21,7 @@ fun GetPulsatingEffect(pulseFraction: Float = 1f, content: @Composable () -> Uni
         animationSpec = infiniteRepeatable(
             animation = tween(1000),
             repeatMode = RepeatMode.Reverse
-        )
+        ), label = ""
     )
 
     Box(modifier = Modifier.scale(scale)) {

@@ -30,14 +30,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.activities.detailActivity.WeatherCondition
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.util.Locale
 
 @Composable
 fun SevenHoursCardNotification(temp: TemperatureResponse) {
@@ -67,7 +63,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val nextHourIndex = (currentHour + 1) % 24
     //
     val precipitationPr = temp.hourly.precipitation_probability[nextHourIndex]
-    val currentWindSpeed =  temp.current_weather.windspeed
+    val currentWindSpeed = temp.current_weather.windspeed
     val currentWindSpeedUnit = temp.hourly_units.windspeed_10m
     val surfacePressure = temp.hourly.surface_pressure[currentHour].toInt()
     val totalCloudCover = temp.hourly.cloud_cover[currentHour].toInt()
@@ -113,7 +109,12 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
             AnimatedVisibility(
                 visible = visible,
                 enter = slideInVertically(initialOffsetY = { -it }),
-                exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(animationSpec = tween(200,easing = EaseOut))
+                exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(
+                    animationSpec = tween(
+                        200,
+                        easing = EaseOut
+                    )
+                )
             ) {
                 Text(
                     text = currentText,
@@ -125,8 +126,9 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
         }
     }
 }
+
 @Composable
-private fun getWindDirection(degrees: Double):String {
+private fun getWindDirection(degrees: Double): String {
     when (degrees) {
         in 0.0..22.5, in 337.5..360.0 -> return "North"
         in 22.5..67.5 -> return "North East"

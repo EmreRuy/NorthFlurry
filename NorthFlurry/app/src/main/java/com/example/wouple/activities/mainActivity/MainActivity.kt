@@ -4,7 +4,6 @@ package com.example.wouple.activities.mainActivity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.preference.PreferenceManager
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -27,8 +26,10 @@ import com.example.wouple.ui.theme.WoupleTheme
 
 class MainActivity : ComponentActivity() {
     private val temp: MutableState<TemperatureResponse?> = mutableStateOf(null)
+
     // The list of all locations when searching
     private val searchedLocations: MutableState<List<SearchedLocation>?> = mutableStateOf(null)
+
     //The current location the user is having
     private val searchedLocation: MutableState<SearchedLocation?> = mutableStateOf(null)
     private val airQuality: MutableState<AirQuality?> = mutableStateOf(null)
@@ -55,6 +56,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     private fun displayFirstCardView() {
         setContent {
             val focusManager = LocalFocusManager.current
@@ -81,7 +83,10 @@ class MainActivity : ComponentActivity() {
                         intent.putExtra("temp", temp)
                         intent.putExtra("air", airQuality.value)
                         intent.putExtra("location", searchedLocation.value)
-                        intent.putExtra("precipitationUnit", PrecipitationUnitPref.getPrecipitationUnit(this) )
+                        intent.putExtra(
+                            "precipitationUnit",
+                            PrecipitationUnitPref.getPrecipitationUnit(this)
+                        )
                         intent.putExtra("wind_unit", WindUnitPref.getWindUnit(this))
                         this.startActivity(intent)
                     },
@@ -103,7 +108,7 @@ class MainActivity : ComponentActivity() {
                                )
                            }
                        } */
-                    onSettingsClicked = {temp->
+                    onSettingsClicked = { temp ->
                         val intent = Intent(this, SettingsActivity::class.java)
                         intent.putExtra("temp", temp)
                         this.startActivity(intent)
@@ -112,6 +117,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     private fun getAirQuality(location: SearchedLocation) {
         WeatherManager.getAirQuality(
             longitude = location.lon,
@@ -121,6 +127,7 @@ class MainActivity : ComponentActivity() {
             airQuality.value = it
         }
     }
+
     private fun onLocationButtonClicked(location: SearchedLocation) {
         LocationPref.setSearchedLocation(this, location)
         getCurrentWeather(
@@ -130,12 +137,13 @@ class MainActivity : ComponentActivity() {
                 temp.value = temperature
             },
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            windUnit = WindUnitPref.getWindUnit(this) ,
+            windUnit = WindUnitPref.getWindUnit(this),
             precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this)
         )
         getAirQuality(location)
         searchedLocations.value = null
     }
+
     @SuppressLint("SuspiciousIndentation")
     override fun onResume() {
         super.onResume()
@@ -144,7 +152,7 @@ class MainActivity : ComponentActivity() {
             context = this,
             location = searchedLocation.value,
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            windUnit = WindUnitPref.getWindUnit(this) ,
+            windUnit = WindUnitPref.getWindUnit(this),
             precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
             onSuccessCall = { temperature ->
                 temp.value = temperature

@@ -1,21 +1,13 @@
 package com.example.wouple.activities.startScreen
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View.OnFocusChangeListener
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import com.example.wouple.activities.detailActivity.SecondActivity
 import com.example.wouple.activities.mainActivity.MainActivity
-import com.example.wouple.activities.splashScreen.Navigation
 import com.example.wouple.manager.WeatherManager
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
@@ -23,7 +15,6 @@ import com.example.wouple.preferences.LocationPref
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
-import com.google.gson.Gson
 
 class StartActivity : ComponentActivity() {
     private val temp: MutableState<TemperatureResponse?> = mutableStateOf(null)
@@ -33,33 +24,34 @@ class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-           StartScreenView(
-               locations = searchedLocations.value,
-               onSearch = { query ->
-                   if (query.isNotEmpty()) {
-                       WeatherManager.getSearchedLocations(
-                           context = this,
-                           address = query,
-                           onSuccessCall = { location ->
-                               searchedLocations.value = location
-                           }
-                       )
-                   } else {
-                       // Clears the list of locations when the query(searchBar) is empty
-                       searchedLocations.value = emptyList()
-                   }
-               },
-               onButtonClicked = { location ->
-                   onLocationButtonClicked(location)
-                   val intent = Intent(this, MainActivity::class.java)
-                   intent.putExtra("location", searchedLocation.value)
-                   this.startActivity(intent)
-               },
-               searchedLocation = searchedLocation
-           )
+            StartScreenView(
+                locations = searchedLocations.value,
+                onSearch = { query ->
+                    if (query.isNotEmpty()) {
+                        WeatherManager.getSearchedLocations(
+                            context = this,
+                            address = query,
+                            onSuccessCall = { location ->
+                                searchedLocations.value = location
+                            }
+                        )
+                    } else {
+                        // Clears the list of locations when the query(searchBar) is empty
+                        searchedLocations.value = emptyList()
+                    }
+                },
+                onButtonClicked = { location ->
+                    onLocationButtonClicked(location)
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("location", searchedLocation.value)
+                    this.startActivity(intent)
+                },
+                searchedLocation = searchedLocation
+            )
 
         }
     }
+
     private fun onLocationButtonClicked(location: SearchedLocation) {
         LocationPref.setSearchedLocation(this, location)
         WeatherManager.getCurrentWeather(

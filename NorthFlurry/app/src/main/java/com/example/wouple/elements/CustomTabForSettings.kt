@@ -1,7 +1,5 @@
 package com.example.wouple.elements
 
-import android.content.res.Configuration
-import android.graphics.drawable.Drawable
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -10,8 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -21,7 +17,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,26 +26,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.beige
-import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.kmns
-import com.example.wouple.ui.theme.mocassin
-import com.example.wouple.ui.theme.orgn
-import com.example.wouple.ui.theme.tea
-import com.example.wouple.ui.theme.vintage
 import java.util.Locale
 
 @Composable
@@ -76,6 +61,7 @@ private fun MyTabIndicator(
             ),
     )
 }
+
 @Composable
 private fun RowScope.MyTabItem(
     isSelected: Boolean,
@@ -98,13 +84,14 @@ private fun RowScope.MyTabItem(
             }
             .padding(top = 8.dp)
             .weight(1f),
-        text = text.toLowerCase().capitalize(),
+        text = text.lowercase().replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        },
         color = tabTextColor,
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.Medium
     )
 }
-
 @Composable
 fun CustomTabForSettings(
     selectedItemIndex: Int,
@@ -153,9 +140,11 @@ fun CustomTabForSettings(
                     onClick = {
                         onClick(index)
                     },
-                    text = text.lowercase().replaceFirstChar { if (it.isLowerCase()) it.titlecase(
-                        Locale.getDefault()
-                    ) else it.toString() },
+                    text = text.lowercase().replaceFirstChar {
+                        if (it.isLowerCase()) it.titlecase(
+                            Locale.getDefault()
+                        ) else it.toString()
+                    },
                 )
             }
         }

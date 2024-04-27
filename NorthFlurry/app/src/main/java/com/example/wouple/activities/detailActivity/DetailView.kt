@@ -63,7 +63,6 @@ import com.google.accompanist.pager.rememberPagerState
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import androidx.compose.runtime.*
@@ -77,11 +76,6 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.Dialog
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.elements.CustomBarChart
 import com.example.wouple.elements.CustomPrecipitationBarChart
 import com.example.wouple.model.api.AirQuality
@@ -103,8 +97,7 @@ fun DetailView(
     temp: TemperatureResponse,
     searchedLocation: SearchedLocation,
     air: AirQuality?,
-    onBackPressed: () -> Unit,
-    explodeConfettiCallback: () -> Unit
+    onBackPressed: () -> Unit
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
@@ -130,100 +123,104 @@ fun DetailView(
         explodeConfetti = explodeConfetti,
         explodeConfettiCallback = { setExplodeConfetti(true) }
     ) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(brush = Brush.verticalGradient(colors = background))
-            .verticalScroll(scrollState),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = CenterHorizontally
-    ) {
-        TopAppBar(
-            navigationIcon = {
-                IconButton(onClick = onBackPressed) {
-                    Icon(
-                        Icons.Default.ArrowBack, contentDescription = "Back",
-                        modifier = Modifier.size(32.dp),
-                        tint = White
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(brush = Brush.verticalGradient(colors = background))
+                .verticalScroll(scrollState),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = CenterHorizontally
+        ) {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = onBackPressed) {
+                        Icon(
+                            Icons.Default.ArrowBack, contentDescription = "Back",
+                            modifier = Modifier.size(32.dp),
+                            tint = White
+                        )
+                    }
+                },
+                backgroundColor = Transparent,
+                elevation = 0.dp,
+                title = { }
+            )
+            val index =
+                temp.hourly.time.map { LocalDateTime.parse(it).hour }
+                    .indexOf(LocalDateTime.now().hour)
+            val feelsLike = index.let { temp.hourly.apparent_temperature[it].toInt() }
+            val humidity = index.let { temp.hourly.relativehumidity_2m[it] }
+            val dewPoint = index.let { temp.hourly.dewpoint_2m[it].toInt() }
+            val rainIndex =
+                temp.daily.time.map { LocalDate.parse(it).dayOfWeek }
+                    .indexOf(LocalDate.now().dayOfWeek)
+            val rainFall = rainIndex.let { temp.daily.rain_sum[rainIndex].toInt() }
+            val visibilityInMeters = index.let { temp.hourly.visibility[it].toInt() }
+            val windSpeed = index.let { temp.hourly.windspeed_10m[it].toInt() }
+            LocationView(temp, searchedLocation)
+            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            CurrentAirQualityCard(temp, air)
+            CurrentUvIndex(temp)
+            UvChartViewCard(temp)
+            HourlyForecastView(temp)
+            WeeklyForeCastView(temp)
+            WeeklyChart(temp)
+            DayLightDurationCard(temp, explodeConfettiCallback = { setExplodeConfetti(true) })
+            val pagerState = rememberPagerState()
+            HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
+            { page ->
+                when (page) {
+                    0 -> ExtraCards(
+                        text = stringResource(id = R.string.FeelsLike),
+                        numbers = temp.hourly.apparent_temperature.getOrNull(feelsLike)?.let {
+                            it.toInt().toString() + temp.hourly_units.apparent_temperature
+                        } ?: "N/D",
+                        //  icon = painterResource(id = R.drawable.ic_term),
+                        temp = temp
+                    )
+
+                    1 -> ExtraCards(
+                        text = stringResource(id = R.string.Rainfall),
+                        numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
+                        //  icon = painterResource(id = R.drawable.ic_drop),
+                        temp = temp
+                    )
+
+                    2 -> ExtraCards(
+                        text = stringResource(id = R.string.WindSpeed),
+                        numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
+                        //  icon = painterResource(id = R.drawable.ic_wind),
+                        temp = temp
+                    )
+
+                    3 -> ExtraCards(
+                        text = stringResource(id = R.string.Visibility),
+                        numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
+                        //  icon = painterResource(id = R.drawable.ic_visibility),
+                        temp = temp
+                    )
+
+                    4 -> ExtraCards(
+                        text = stringResource(id = R.string.Humidity),
+                        numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
+                        //   icon = painterResource(id = R.drawable.ic_humidity),
+                        temp = temp
+                    )
+
+                    5 -> ExtraCards(
+                        text = stringResource(id = R.string.DewPoint),
+                        numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
+                        //  icon = painterResource(id = R.drawable.ic_drop),
+                        temp = temp
                     )
                 }
-            },
-            backgroundColor = Transparent,
-            elevation = 0.dp,
-            title = { }
-        )
-        val index =
-            temp.hourly.time.map { LocalDateTime.parse(it).hour }.indexOf(LocalDateTime.now().hour)
-        val feelsLike = index.let { temp.hourly.apparent_temperature[it].toInt() }
-        val humidity = index.let { temp.hourly.relativehumidity_2m[it] }
-        val dewPoint = index.let { temp.hourly.dewpoint_2m[it].toInt() }
-        val rainIndex =
-            temp.daily.time.map { LocalDate.parse(it).dayOfWeek }.indexOf(LocalDate.now().dayOfWeek)
-        val rainFall = rainIndex.let { temp.daily.rain_sum[rainIndex].toInt() }
-        val rainPr = rainIndex.let { temp.hourly.precipitation[rainIndex].toInt() }
-        val visibilityInMeters = index.let { temp.hourly.visibility[it].toInt() }
-        val windSpeed = index.let { temp.hourly.windspeed_10m[it].toInt() }
-        LocationView(temp, searchedLocation)
-        Spacer(modifier = Modifier.padding(vertical = 8.dp))
-        CurrentAirQualityCard(temp, air)
-        CurrentUvIndex(temp)
-        UvChartViewCard(temp)
-        HourlyForecastView(temp)
-        WeeklyForeCastView(temp)
-        WeeklyChart(temp)
-        DayLightDurationCard(temp, explodeConfettiCallback = { setExplodeConfetti(true) })
-        val pagerState = rememberPagerState()
-        HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
-        { page ->
-            when (page) {
-                0 -> ExtraCards(
-                    text = stringResource(id = R.string.FeelsLike),
-                    numbers = temp.hourly.apparent_temperature.getOrNull(feelsLike)?.let {
-                        it.toInt().toString() + temp.hourly_units.apparent_temperature
-                    } ?: "N/D",
-                    //  icon = painterResource(id = R.drawable.ic_term),
-                    temp = temp
-                )
-
-                1 -> ExtraCards(
-                    text = stringResource(id = R.string.Rainfall),
-                    numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
-                    //  icon = painterResource(id = R.drawable.ic_drop),
-                    temp = temp
-                )
-
-                2 -> ExtraCards(
-                    text = stringResource(id = R.string.WindSpeed),
-                    numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
-                    //  icon = painterResource(id = R.drawable.ic_wind),
-                    temp = temp
-                )
-
-                3 -> ExtraCards(
-                    text = stringResource(id = R.string.Visibility),
-                    numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
-                    //  icon = painterResource(id = R.drawable.ic_visibility),
-                    temp = temp
-                )
-
-                4 -> ExtraCards(
-                    text = stringResource(id = R.string.Humidity),
-                    numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
-                    //   icon = painterResource(id = R.drawable.ic_humidity),
-                    temp = temp
-                )
-
-                5 -> ExtraCards(
-                    text = stringResource(id = R.string.DewPoint),
-                    numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
-                    //  icon = painterResource(id = R.drawable.ic_drop),
-                    temp = temp
-                )
             }
+            HorizontalPagerIndicator(
+                step = pagerState.currentPage,
+                totalSteps = pagerState.pageCount
+            )
         }
-        HorizontalPagerIndicator(step = pagerState.currentPage, totalSteps = pagerState.pageCount)
     }
-}
 }
 
 @Composable
@@ -231,10 +228,10 @@ private fun ConfettiView(
     explodeConfetti: Boolean,
     explodeConfettiCallback: () -> Unit,
     content: @Composable () -> Unit,
-    ) {
+) {
     Box {
         content()
-        if (explodeConfetti){
+        if (explodeConfetti) {
             explodeConfettiCallback()
             val party = Party(
                 speed = 0f,
@@ -254,7 +251,8 @@ private fun ConfettiView(
                     0xF1D71F2,
                     0xF1D244D,
                     0xF3F5066,
-                    0xFFFFA500.toInt()),
+                    0xFFFFA500.toInt()
+                ),
 
                 emitter = Emitter(duration = 200, TimeUnit.MILLISECONDS).max(200),
                 position = Position.Relative(0.5, 0.3)
@@ -266,6 +264,7 @@ private fun ConfettiView(
         }
     }
 }
+
 @Composable
 private fun HorizontalPagerIndicator(step: Int, totalSteps: Int) {
 
@@ -960,7 +959,7 @@ fun TemperatureContent(temp: TemperatureResponse) {
             if (isDaytime) {
                 val hourlyWeatherCondition = when (temp.hourly.weathercode[index]) {
                     0, 1 -> WeatherCondition.SUNNY
-                    2 -> WeatherCondition.PARTLYCLOUDY
+                    2 -> WeatherCondition.PARTLY_CLOUDY
                     3 -> WeatherCondition.CLOUDY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
@@ -971,13 +970,13 @@ fun TemperatureContent(temp: TemperatureResponse) {
             }
             if (!isDaytime) {
                 val hourlyWeatherConditionNight = when (temp.hourly.weathercode[index]) {
-                    0, 1 -> WeatherCondition.CLEARNIGHT
+                    0, 1 -> WeatherCondition.CLEAR_NIGHT
                     2, 3 -> WeatherCondition.CLOUDY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
                     95, 96, 99 -> WeatherCondition.THUNDERSTORM
                     else -> {
-                        WeatherCondition.CLEARNIGHT
+                        WeatherCondition.CLEAR_NIGHT
                     }
                 }
                 Hours(time, temperature, hourlyWeatherConditionNight)
@@ -1003,7 +1002,7 @@ fun PrecipitationContent(temp: TemperatureResponse) {
             val precipitationPr = temp.hourly.precipitation_probability[index]
             val hourlyWeatherCondition = when (temp.hourly.weathercode[index]) {
                 0, 1 -> WeatherCondition.SUNNY
-                2 -> WeatherCondition.PARTLYCLOUDY
+                2 -> WeatherCondition.PARTLY_CLOUDY
                 3 -> WeatherCondition.CLOUDY
                 51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99 -> WeatherCondition.RAINY
                 71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
@@ -1165,7 +1164,6 @@ private fun DayLightDurationCard(temp: TemperatureResponse, explodeConfettiCallb
 
 @Composable
 private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallback: () -> Unit) {
-    var explodeConfetti by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -1184,11 +1182,11 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = CenterVertically
             ) {
                 Column(
                     modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = CenterHorizontally
                 ) {
                     GetSunRise(temp)
                     Row {
@@ -1211,11 +1209,12 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
                 }
                 Column(
                     modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = CenterHorizontally
                 ) {
-                   // LottieAnimationSun()
+                    // LottieAnimationSun()
                     Image(
-                        modifier = Modifier.size(70.dp)
+                        modifier = Modifier
+                            .size(70.dp)
                             .clickable(
                                 interactionSource = MutableInteractionSource(),
                                 indication = null,
@@ -1228,7 +1227,7 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
                 }
                 Column(
                     modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = CenterHorizontally
                 ) {
                     GetDayLength(temp)
                 }
@@ -1236,7 +1235,7 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
         } else {
             Row(
                 modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = CenterVertically
             ) {
                 Icon(
                     modifier = Modifier.size(18.dp),
@@ -1255,24 +1254,6 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
             }
         }
     }
-}
-
-@Composable
-fun LottieAnimationSun() {
-    val isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottieanimation))
-    val progress by animateLottieCompositionAsState(
-        composition,
-        isPlaying = isPlaying,
-        iterations = LottieConstants.IterateForever // makes the animation keeps playing constantly
-    )
-    LottieAnimation(
-        composition = composition,
-        progress = progress,
-        modifier = Modifier
-            .size(120.dp)
-            .padding(top = 4.dp)
-    )
 }
 
 @Composable
@@ -1349,9 +1330,9 @@ enum class WeatherCondition(val imageResourceId: Int) {
     SUNNY(R.drawable.ic_sun),
     RAINY(R.drawable.rainyday),
     CLOUDY(R.drawable.ic_clouds),
-    PARTLYCLOUDY(R.drawable.ic_sun_cloudy),
+    PARTLY_CLOUDY(R.drawable.ic_sun_cloudy),
     SNOWY(R.drawable.myicon),
-    CLEARNIGHT(R.drawable.baseline_nights_stay_24),
+    CLEAR_NIGHT(R.drawable.baseline_nights_stay_24),
     THUNDERSTORM(R.drawable.baseline_thunderstorm_24)
 }
 
@@ -1423,7 +1404,7 @@ fun WeeklyForeCastView(
             val forecastMax = temp.daily.temperature_2m_max[days].toInt()
             val weatherCondition = when (temp.daily.weathercode[days]) {
                 0, 1 -> WeatherCondition.SUNNY
-                2 -> WeatherCondition.PARTLYCLOUDY
+                2 -> WeatherCondition.PARTLY_CLOUDY
                 3, 4 -> WeatherCondition.CLOUDY
                 in listOf(
                     51,

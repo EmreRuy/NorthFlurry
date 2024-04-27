@@ -43,7 +43,7 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
             if (isDaytime) {
                 val hourlyWeatherCondition = when (temp.hourly.weathercode[index]) {
                     0, 1 -> WeatherCondition.SUNNY
-                    2 -> WeatherCondition.PARTLYCLOUDY
+                    2 -> WeatherCondition.PARTLY_CLOUDY
                     3 -> WeatherCondition.CLOUDY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
@@ -54,13 +54,13 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
             }
             if (!isDaytime) {
                 val hourlyWeatherConditionNight = when (temp.hourly.weathercode[index]) {
-                    0, 1 -> WeatherCondition.CLEARNIGHT
+                    0, 1 -> WeatherCondition.CLEAR_NIGHT
                     2, 3 -> WeatherCondition.CLOUDY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
                     95, 96, 99 -> WeatherCondition.THUNDERSTORM
                     else -> {
-                        WeatherCondition.CLEARNIGHT
+                        WeatherCondition.CLEAR_NIGHT
                     }
                 }
                 GetSixHours(time, temperature, hourlyWeatherConditionNight)

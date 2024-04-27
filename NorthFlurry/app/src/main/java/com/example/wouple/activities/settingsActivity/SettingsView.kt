@@ -80,7 +80,6 @@ import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
-import com.example.wouple.ui.theme.getSecondaryGradients
 import com.example.wouple.ui.theme.mocassin
 import kotlinx.coroutines.delay
 import nl.dionsegijn.konfetti.compose.KonfettiView
@@ -88,12 +87,6 @@ import nl.dionsegijn.konfetti.core.Party
 import nl.dionsegijn.konfetti.core.Position
 import nl.dionsegijn.konfetti.core.emitter.Emitter
 import java.util.concurrent.TimeUnit
-
-/*@Preview
-@Composable
-fun SettingsPreview() {
-    TemperatureUnitSettings()
-}*/
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -238,7 +231,7 @@ fun SettingsView(
                             .padding(bottom = 16.dp),
                         contentAlignment = BottomCenter
                     ) {
-                       Image(
+                        Image(
                             painter = painterResource(id = R.drawable.ic_man),
                             contentDescription = null,
                             modifier = Modifier
@@ -280,75 +273,10 @@ fun SettingsView(
 }
 
 @Composable
-private fun LanguageSettings() {
-    Spacer(modifier = Modifier.padding(top = 12.dp))
-    Text(
-        text = stringResource(id = R.string.GeneralSettings),
-        modifier = Modifier.padding(8.dp),
-        fontWeight = FontWeight.Medium,
-        color = beige.copy(alpha = 0.8f),
-        fontSize = 28.sp
-    )
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 12.dp),
-        shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
-    ) {
-        val backgroundColor = getSecondaryGradients()
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(backgroundColor))
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .align(Alignment.CenterStart),
-            ) {
-                Spacer(modifier = Modifier.weight(1f))
-                Icon(
-                    painter = painterResource(id = R.drawable.menuicon),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(18.dp)
-                        .align(CenterVertically)
-                )
-                Text(
-                    modifier = Modifier.padding(start = 8.dp),
-                    text = "Languages",
-                    fontWeight = FontWeight.Medium,
-                    color = Dark20,
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = Modifier.weight(8f))
-                Text(
-                    modifier = Modifier.padding(start = 8.dp),
-                    text = "English",
-                    fontWeight = FontWeight.Medium,
-                    color = Dark20,
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.End
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Icon(
-                    painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(18.dp)
-                        .align(CenterVertically)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun ConfettiView(explodeConfetti: Boolean , content: @Composable () -> Unit, ) {
+private fun ConfettiView(explodeConfetti: Boolean, content: @Composable () -> Unit) {
     Box {
         content()
-        if (explodeConfetti){
+        if (explodeConfetti) {
             val party = Party(
                 speed = 0f,
                 maxSpeed = 30f,
@@ -594,7 +522,11 @@ fun RateUsSettings() {
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Icon(painter = painterResource(id = R.drawable.ic_hand_heart), contentDescription = null, Modifier.padding(top = 4.dp, start = 4.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.ic_hand_heart),
+                contentDescription = null,
+                Modifier.padding(top = 4.dp, start = 4.dp)
+            )
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.RateUs),
@@ -637,7 +569,11 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center
         ) {
-            Icon(painter = painterResource(id = R.drawable.ic_warning_triangle), contentDescription = null, Modifier.padding(start = 4.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.ic_warning_triangle),
+                contentDescription = null,
+                Modifier.padding(start = 4.dp)
+            )
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.TroubleWithTheApp),
@@ -678,7 +614,11 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
                 .background(White)
                 .padding(12.dp)
         ) {
-            Icon(painter = painterResource(id = R.drawable.ic_lightbulb), contentDescription = null, Modifier.padding(start = 4.dp))
+            Icon(
+                painter = painterResource(id = R.drawable.ic_lightbulb),
+                contentDescription = null,
+                Modifier.padding(start = 4.dp)
+            )
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.AnyGoodIdeas),

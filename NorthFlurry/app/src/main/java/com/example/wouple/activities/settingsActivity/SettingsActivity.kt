@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import com.example.wouple.model.api.TemperatureResponse
 
 class SettingsActivity : ComponentActivity() {
@@ -30,13 +27,17 @@ class SettingsActivity : ComponentActivity() {
             )
         }
     }
+
     private fun sendEmail(isProblem: Boolean) {
         val selectorIntent = Intent(Intent.ACTION_SENDTO)
         selectorIntent.data = Uri.parse("mailto:")
 
         val emailIntent = Intent(Intent.ACTION_SEND).apply {
             putExtra(Intent.EXTRA_EMAIL, arrayOf("uyar.em.eu@gmail.com"))
-            putExtra(Intent.EXTRA_SUBJECT, if (isProblem) "Trouble with the app" else "have an idea")
+            putExtra(
+                Intent.EXTRA_SUBJECT,
+                if (isProblem) "Trouble with the app" else "have an idea"
+            )
             putExtra(
                 Intent.EXTRA_TEXT, """
                 
