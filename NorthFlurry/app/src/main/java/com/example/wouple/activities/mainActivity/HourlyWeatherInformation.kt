@@ -21,6 +21,7 @@ import com.example.wouple.activities.detailActivity.WeatherCondition
 import com.example.wouple.formatter.DateFormatterForMain
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.Spiro
+import com.example.wouple.ui.theme.orgn
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -78,12 +79,12 @@ fun GetSixHours(
     Column(
         modifier = Modifier.padding(top = 18.dp, start = 10.dp, end = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         Text(
             modifier = Modifier.padding(top = 4.dp),
             text = time,
-            color = Spiro,
+            color = orgn,
             fontSize = 15.sp
         )
         Image(

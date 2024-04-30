@@ -99,7 +99,8 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         if (weatherCode in listOf(
                 51, 53, 55, 56, 57,
                 61, 63, 65, 66, 67,
-                80, 81, 82, 71, 73, 75, 77
+                80, 81, 82, 71, 73, 75, 77,
+                95, 96, 99
             )
         ) {
             precipitationDays.add(dayOfWeek)
