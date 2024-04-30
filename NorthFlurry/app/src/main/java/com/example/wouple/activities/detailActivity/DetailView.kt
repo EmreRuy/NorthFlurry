@@ -1033,9 +1033,9 @@ fun GetSunRise(temp: TemperatureResponse) {
         Text(
             modifier = Modifier,
             text = formattedSunrise,
-            fontWeight = FontWeight.Thin,
+            fontWeight = FontWeight.ExtraLight,
             fontSize = 30.sp,
-            color = Corn,
+            color = Corn.copy(alpha = 0.7f),
         )
     }
 }
@@ -1060,9 +1060,9 @@ fun GetSunSet(temp: TemperatureResponse) {
         Text(
             modifier = Modifier,
             text = formattedSunset,
-            fontWeight = FontWeight.Thin,
+            fontWeight = FontWeight.ExtraLight,
             fontSize = 30.sp,
-            color = Corn,
+            color = Corn.copy(alpha = 0.7f),
         )
     }
 }

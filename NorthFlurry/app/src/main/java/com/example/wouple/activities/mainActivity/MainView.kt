@@ -58,8 +58,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -67,6 +65,7 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
 import com.example.wouple.activities.lightningMap.LightningMapActivity
+import com.example.wouple.adds.BannerAdd
 import com.example.wouple.elements.GetWeeklyForecast
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SevenHoursCardNotification
@@ -75,8 +74,10 @@ import com.example.wouple.elements.SevenDaysCardNotification
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
+import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.delay
 
 @Composable
@@ -143,6 +144,14 @@ fun MainView(
         }
         //Bottom view
         GetBottomView(searchedLocation = searchedLocation, temp = temp)
+        val context = LocalContext.current
+        MobileAds.initialize(context)
+        BannerAdd(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Dark20),
+            adId = "ca-app-pub-3940256099942544/9214589741"
+        )
     }
 }
 
@@ -324,15 +333,20 @@ private fun GetBottomView(
     searchedLocation: MutableState<SearchedLocation?>,
     temp: TemperatureResponse
 ) {
+    val context = LocalContext.current
+    MobileAds.initialize(context)
     Column(
         modifier = Modifier
             .background(White)
             .padding(top = 8.dp),
         verticalArrangement = Arrangement.Center
     ) {
+        BannerAdd(
+            modifier = Modifier.fillMaxWidth(),
+            adId = "ca-app-pub-3940256099942544/9214589741"
+        )
         searchedLocation.value?.let { GetSevenHoursForecast(it, temp) }
         GetSevenDaysForecast(temp)
-
     }
 }
 
@@ -452,7 +466,6 @@ fun LottieAnimationCloud() {
 fun DetailButton(onDetailsButtonClicked: () -> Unit) {
     var isPressed by remember { mutableStateOf(false) }
     val infiniteTransition = rememberInfiniteTransition(label = "")
-
     val colorTransition by infiniteTransition.animateColor(
         initialValue = vintage,
         targetValue = mocassin,
@@ -514,7 +527,6 @@ private fun getProperDisplayName(displayName: String?) = displayName?.split(",")
 
 @Composable
 private fun GetSevenDaysForecast(temp: TemperatureResponse) {
-    var showDialog by remember { mutableStateOf(false) }
     var visible by remember {
         mutableStateOf(false)
     }
@@ -526,25 +538,18 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 18.dp)
-            .padding(bottom = 18.dp)
-            .clickable {
-                showDialog = true
-            },
+            .padding(bottom = 18.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = 4.dp,
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
             val baseColor = Color(0xFF494CC6) //Color(0xFF3F54BE)
-
-
-            // Generate lighter shades
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
                 baseColor.copy(alpha = 0.8f),
             )
-
             lighterShades
         } else {
             listOf(
@@ -568,19 +573,6 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
             }
         }
         SevenDaysCardNotification(temp)
-    }
-    if (showDialog) {
-        Dialog(
-            onDismissRequest = { showDialog = false },
-            properties = DialogProperties(usePlatformDefaultWidth = false)
-        ) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Center
-            ) {
-                //WeatherRadarWebView(url = "https://map.worldweatheronline.com/temperature?lat=36.884804&lng=30.704044")
-            }
-        }
     }
 }
 
