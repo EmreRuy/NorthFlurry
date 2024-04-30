@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.WeatherCondition
-import com.example.wouple.formatter.DateFormatter
+import com.example.wouple.formatter.DateFormatterForMain
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.Spiro
 import java.time.ZoneId
@@ -37,7 +37,7 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
         val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
         val currentHour = currentDateTime.hour
         for (index in currentHour..(currentHour + 6)) {
-            val time = DateFormatter.formatDate(temp.hourly.time[index])
+            val time = DateFormatterForMain.formatDateMain(temp.hourly.time[index])
             val temperature = temp.hourly.temperature_2m[index].toInt().toString()
             val isDaytime = temp.hourly.is_day.getOrNull(index) == 1
             if (isDaytime) {
@@ -69,7 +69,6 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
 
     }
 }
-
 @Composable
 fun GetSixHours(
     time: String,
