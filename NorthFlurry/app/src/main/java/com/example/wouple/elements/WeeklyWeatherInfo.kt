@@ -76,7 +76,8 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
             text = dayOfWeek.lowercase()
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() },
             color = vintage,
-            fontSize = 15.sp
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Light
         )
         Image(
             painter = painterResource(id = imageResourceId),
@@ -86,7 +87,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
         Text(
             text = "$temperature°",
             color = Color.White,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Medium,
             fontSize = 15.sp
         )
     }

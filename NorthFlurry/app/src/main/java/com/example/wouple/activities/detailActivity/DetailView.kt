@@ -1270,7 +1270,8 @@ fun Hours(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = time,
             color = vintage,
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Light
         )
         Image(
             painter = painterResource(id = hourlyWeatherCondition.imageResourceId),
@@ -1281,7 +1282,7 @@ fun Hours(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = "$temperature°",
             color = Whitehis,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Medium,
             fontSize = 17.sp
         )
     }
@@ -1301,7 +1302,8 @@ fun PrecipitationHours(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = time,
             color = vintage,
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Light
         )
         if (hourlyWeatherCondition == WeatherCondition.SNOWY) {
             Image(
@@ -1321,7 +1323,7 @@ fun PrecipitationHours(
             text = "%$precipitationPr",
             color = Spiro,
             fontSize = 17.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Medium
         )
     }
 }
@@ -1458,7 +1460,7 @@ fun WeeklyForeCastView(
                     text = "$forecastMin°",
                     textAlign = TextAlign.Right,
                     color = Whitehis,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                 )
                 Spacer(
@@ -1473,7 +1475,7 @@ fun WeeklyForeCastView(
                     text = "$forecastMax°",
                     textAlign = TextAlign.Right,
                     color = Whitehis,
-                    fontWeight = FontWeight.Bold,
+                    fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                 )
             }

@@ -49,6 +49,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
@@ -74,7 +75,6 @@ import com.example.wouple.elements.SevenDaysCardNotification
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import com.google.android.gms.ads.MobileAds
@@ -149,7 +149,7 @@ fun MainView(
         BannerAdd(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Dark20),
+                .background(Transparent),
             adId = "ca-app-pub-3940256099942544/9214589741"
         )
     }

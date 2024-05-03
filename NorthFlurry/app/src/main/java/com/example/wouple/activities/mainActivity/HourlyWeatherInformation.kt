@@ -85,7 +85,8 @@ fun GetSixHours(
             modifier = Modifier.padding(top = 4.dp),
             text = time,
             color = orgn,
-            fontSize = 15.sp
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Light
         )
         Image(
             painter = painterResource(id = hourlyWeatherCondition.imageResourceId),
@@ -96,7 +97,7 @@ fun GetSixHours(
             modifier = Modifier.padding(top = 4.dp),
             text = "$temperature°",
             color = Color.White,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Medium,
             fontSize = 15.sp
         )
     }

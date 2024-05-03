@@ -70,7 +70,7 @@ fun SearchBar(
                 shape = RoundedCornerShape(28.dp)
             ),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         AnimatedVisibility(
             visible = isSearchExpanded.value,
@@ -82,7 +82,7 @@ fun SearchBar(
                 maxLines = 1,
                 onValueChange = {
                     query = it
-                    if (query.length >= 3) {
+                    if (query.length >= 2) {
                         onSearch(query)
                     }
                 },
@@ -102,7 +102,7 @@ fun SearchBar(
                 },
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Search,
-                    capitalization = KeyboardCapitalization.Characters,
+                   // capitalization = KeyboardCapitalization.Characters,
                     keyboardType = KeyboardType.Text
                 ),
                 keyboardActions = KeyboardActions(

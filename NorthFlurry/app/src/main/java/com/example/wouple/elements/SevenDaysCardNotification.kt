@@ -185,7 +185,7 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
             ) {
                 Text(
                     text = currentText,
-                    fontWeight = FontWeight.Medium,
+                    fontWeight = FontWeight.Light,
                     color = Color.White,
                     fontSize = 15.sp
                 )
