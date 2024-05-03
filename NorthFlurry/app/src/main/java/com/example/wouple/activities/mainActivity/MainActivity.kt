@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.activities.detailActivity.SecondActivity
 import com.example.wouple.activities.settingsActivity.SettingsActivity
-import com.example.wouple.adds.loadInterstitial
 import com.example.wouple.manager.WeatherManager
 import com.example.wouple.manager.WeatherManager.getCurrentWeather
 import com.example.wouple.model.api.AirQuality
