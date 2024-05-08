@@ -31,11 +31,10 @@ Let's Begin!"</string>
     <string name="No_Precipitation_expected_for_the_week">"No precipitation expected for the week"</string>
     <string name="UV_Index_For_Upcoming_Days">"UV Index For Upcoming Days"</string>
     <string name="The_Ultraviolet_Index">"The Ultraviolet Index"</string>
-    <string name="Explainer_Of_Uv_Index">"The UV index is a measure of the strength of ultraviolet radiation from the sun.\n"
-                    "The UV index is primarily used to help people understand the level of UV radiation present in their environment and take appropriate precautions to protect their skin and eyes.\n"
-                     "0-2 means You can safely enjoy being outside!\n"
-                     "3-7 means Seek shade during midday hours! slop on sunscreen and wear a hat!\n"
-                     "8 and above means Avoid being outside during midday hours!"</string>
+    <string name="Explainer_Of_Uv_Index">"The UV index illuminates solar intensity, guiding smart sun protection choices.\n"
+                    "0-2: Enjoy gentle rays outdoors with peace of mind.\n"
+                     "3-7: Embrace sun-kissed moments wisely, seeking shade and sunscreen during midday.\n"
+                     "8 and above: Retreat from high noon intensity, prioritizing safety in shaded retreats."</string>
     <string name="Weekly_precipitation_chart">"Weekly Precipitation"</string>
     <string name="Explainer_For_Precipitation">"Precipitation is defined as any liquid or solid water particle that falls from clouds and reaches the ground. Drizzle,rain, snow, snow pellets, ice crystals, and hail are some examples of these particles. Essentially, precipitation encompasses all forms of moisture that fall from the sky. This chart demonstrates total precipitation for a week."</string>
     <string name="air_quality_index">"air quality index"</string>
@@ -48,8 +47,8 @@ Let's Begin!"</string>
     <string name="Upcoming_Days">"Upcoming Days"</string>
     <string name="Expected_Today">"Expected Today"</string>
     <string name="Forecast_Details">"Forecast Details"</string>
-    <string name= "No_Internet_Connection" >"No Internet Connection"</string>
-    <string name= "Ops_No_Internet" >"Oops! It seems like you're not connected to the internet."</string>
-    <string name= "Check_Your_Internet" >"Please check your internet connection and try again."</string>
-    <string name= "OK" >"OK"</string>
+    <string name="No_Internet_Connection">"No Internet Connection"</string>
+    <string name="Ops_No_Internet">"Oops! It seems like you're not connected to the internet."</string>
+    <string name="Check_Your_Internet">"Please check your internet connection and try again."</string>
+    <string name="OK">"OK"</string>
 </resources>

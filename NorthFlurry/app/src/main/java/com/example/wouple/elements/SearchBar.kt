@@ -82,9 +82,7 @@ fun SearchBar(
                 maxLines = 1,
                 onValueChange = {
                     query = it
-                    if (query.length >= 2) {
-                        onSearch(query)
-                    }
+                   onSearch(query)
                 },
                 modifier = Modifier
                     .weight(1f)

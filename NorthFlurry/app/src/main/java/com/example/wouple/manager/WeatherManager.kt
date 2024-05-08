@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object WeatherManager {
 
-    private const val OPEN_METEO_BASE_URL = "https://api.open-meteo.com"
+    private const val OPEN_MET_BASE_URL = "https://api.open-meteo.com"
     private const val GEOCODE_BASE_URL = "https://geocode.maps.co"
     private const val AIR_QUALITY_BASE_URL = "https://air-quality-api.open-meteo.com"
     fun getSearchedLocations(
@@ -48,19 +48,21 @@ object WeatherManager {
         onSuccessCall: (AirQuality) -> Unit
     ) {
         val api = getApiBuilder(AIR_QUALITY_BASE_URL)
-        api.getAirQuality(longitude = longitude, latitude = latitude).enqueue(object : Callback<AirQuality> {
-            override fun onFailure(call: Call<AirQuality>, t: Throwable) {
-                Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
-            }
+        api.getAirQuality(longitude = longitude, latitude = latitude)
+            .enqueue(object : Callback<AirQuality> {
+                override fun onFailure(call: Call<AirQuality>, t: Throwable) {
+                    Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+                }
 
-            override fun onResponse(
-                call: Call<AirQuality>,
-                response: Response<AirQuality>
-            ) {
-                response.body()?.let { onSuccessCall(it) }
-            }
-        })
+                override fun onResponse(
+                    call: Call<AirQuality>,
+                    response: Response<AirQuality>
+                ) {
+                    response.body()?.let { onSuccessCall(it) }
+                }
+            })
     }
+
     fun getCurrentWeather(
         context: Context,
         location: SearchedLocation?,
@@ -68,7 +70,7 @@ object WeatherManager {
         temperaUnit: TemperatureUnit,
         windUnit: WindUnit,
         precipitationUnit: PrecipitationUnit,
-        ) {
+    ) {
         if (location == null) {
             onSuccessCall(null)
             return
@@ -99,7 +101,7 @@ object WeatherManager {
         windUnit: WindUnit,
         precipitationUnit: PrecipitationUnit,
     ) {
-        val api = getApiBuilder(OPEN_METEO_BASE_URL)
+        val api = getApiBuilder(OPEN_MET_BASE_URL)
 
         api.getTemperature(
             location.lat,
@@ -117,7 +119,7 @@ object WeatherManager {
                 response: Response<TemperatureResponse>
             ) {
                 response.body()?.let { onSuccessCall(it) }
-                println("Temperature Response on the work" + response)
+                println("Temperature Response on the work$response")
             }
         })
     }

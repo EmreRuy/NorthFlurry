@@ -50,13 +50,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -259,6 +260,7 @@ fun GetIconOfMan() {
 fun SimpleSearchBar(
     onSearch: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
     var query by remember { mutableStateOf("") }
     val gradient = Brush.horizontalGradient(
         colors = listOf(White, Color(0xFF4067DD)) //Color(0xFF56CCF2))
@@ -292,11 +294,12 @@ fun SimpleSearchBar(
             },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Search,
-                capitalization = KeyboardCapitalization.Characters,
+                keyboardType = KeyboardType.Text
             ),
             keyboardActions = KeyboardActions(
                 onSearch = {
                     onSearch(query)
+                    focusManager.clearFocus(true)
                 }
             ),
             colors = TextFieldDefaults.textFieldColors(
