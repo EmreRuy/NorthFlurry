@@ -25,6 +25,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -72,6 +73,7 @@ import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SevenHoursCardNotification
 import com.example.wouple.elements.SearchBar
 import com.example.wouple.elements.SevenDaysCardNotification
+import com.example.wouple.elements.isInternetConnected
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
@@ -91,6 +93,7 @@ fun MainView(
     onClose: () -> Unit,
     onSettingsClicked: (TemperatureResponse) -> Unit,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -144,7 +147,7 @@ fun MainView(
         }
         //Bottom view
         GetBottomView(searchedLocation = searchedLocation, temp = temp)
-        val context = LocalContext.current
+       // val context = LocalContext.current
         MobileAds.initialize(context)
         BannerAdd(
             modifier = Modifier

@@ -1035,7 +1035,7 @@ fun GetSunRise(temp: TemperatureResponse) {
             text = formattedSunrise,
             fontWeight = FontWeight.ExtraLight,
             fontSize = 30.sp,
-            color = Corn.copy(alpha = 0.7f),
+            color = White.copy(alpha = 0.8f),
         )
     }
 }
@@ -1062,7 +1062,7 @@ fun GetSunSet(temp: TemperatureResponse) {
             text = formattedSunset,
             fontWeight = FontWeight.ExtraLight,
             fontSize = 30.sp,
-            color = Corn.copy(alpha = 0.7f),
+            color = White.copy(alpha = 0.8f),
         )
     }
 }
@@ -1534,7 +1534,7 @@ fun ExtraCards(
                 text = numbers,
                 color = Whitehis,
                 fontSize = 22.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Medium
             )
 
         }

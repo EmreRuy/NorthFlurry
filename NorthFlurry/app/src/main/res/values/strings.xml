@@ -48,4 +48,8 @@ Let's Begin!"</string>
     <string name="Upcoming_Days">"Upcoming Days"</string>
     <string name="Expected_Today">"Expected Today"</string>
     <string name="Forecast_Details">"Forecast Details"</string>
+    <string name= "No_Internet_Connection" >"No Internet Connection"</string>
+    <string name= "Ops_No_Internet" >"Oops! It seems like you're not connected to the internet."</string>
+    <string name= "Check_Your_Internet" >"Please check your internet connection and try again."</string>
+    <string name= "OK" >"OK"</string>
 </resources>

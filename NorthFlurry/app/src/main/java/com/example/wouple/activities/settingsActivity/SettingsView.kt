@@ -10,7 +10,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -80,13 +79,9 @@ import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
+import com.example.wouple.ui.theme.kmns
 import com.example.wouple.ui.theme.mocassin
 import kotlinx.coroutines.delay
-import nl.dionsegijn.konfetti.compose.KonfettiView
-import nl.dionsegijn.konfetti.core.Party
-import nl.dionsegijn.konfetti.core.Position
-import nl.dionsegijn.konfetti.core.emitter.Emitter
-import java.util.concurrent.TimeUnit
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -103,7 +98,6 @@ fun SettingsView(
         delay(600)
         cardsVisible = true
     }
-    var explodeConfetti by remember { mutableStateOf(false) }
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
         listOf(
@@ -118,7 +112,6 @@ fun SettingsView(
             //Color(0xFF2E3A59)
         )
     }
-    ConfettiView(explodeConfetti) {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -186,7 +179,8 @@ fun SettingsView(
                             items = listOf("General", "Units"),
                             onClick = {
                                 setSelected(it)
-                            }
+                            },
+                            temp = temp
                         )
                         when (selected) {
                             0 -> {
@@ -231,37 +225,24 @@ fun SettingsView(
                             .padding(bottom = 16.dp),
                         contentAlignment = BottomCenter
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_man),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(200.dp)
-                                .align(Alignment.BottomEnd)
-                                .clickable(
-                                    interactionSource = MutableInteractionSource(),
-                                    indication = null,
-                                    onClick = {
-                                        explodeConfetti = true
-                                    })
-                        )
                         HorizontalWave(
                             phase = rememberPhaseState(startPosition = 0f),
                             alpha = 0.5f,
-                            amplitude = 40f,
+                            amplitude = 60f,
                             frequency = 0.5f,
                             gradientColors = listOf(White, White)
                         )
                         HorizontalWave(
                             phase = rememberPhaseState(startPosition = 15f),
                             alpha = 0.5f,
-                            amplitude = 80f,
+                            amplitude = 90f,
                             frequency = 0.4f,
                             gradientColors = listOf(White, White)
                         )
                         HorizontalWave(
                             phase = rememberPhaseState(10f),
                             alpha = 0.2f,
-                            amplitude = 60f,
+                            amplitude = 80f,
                             frequency = 0.4f,
                             gradientColors = listOf(White, White)
                         )
@@ -269,41 +250,7 @@ fun SettingsView(
                 }
             }
         )
-    }
 }
-
-@Composable
-private fun ConfettiView(explodeConfetti: Boolean, content: @Composable () -> Unit) {
-    Box {
-        content()
-        if (explodeConfetti) {
-            val party = Party(
-                speed = 0f,
-                maxSpeed = 30f,
-                damping = 0.9f,
-                spread = 360,
-                colors = listOf(
-                    0xFF4CAF50.toInt(),
-                    0xFF2196F3.toInt(),
-                    0xFFFFC107.toInt(),
-                    0xFF9C27B0.toInt(),
-                    0xFFFF5722.toInt(),
-                    0xFFFCD00,
-                    0xF1D71F2,
-                    0xF1D244D,
-                    0xF3F5066
-                ),
-                emitter = Emitter(duration = 100, TimeUnit.MILLISECONDS).max(100),
-                position = Position.Relative(0.5, 0.3)
-            )
-            KonfettiView(
-                modifier = Modifier.fillMaxSize(),
-                parties = listOf(party),
-            )
-        }
-    }
-}
-
 @Composable
 private fun SettingsCardOne() {
     Spacer(modifier = Modifier.padding(top = 12.dp))
@@ -471,7 +418,7 @@ private fun ShareTheAppSettings() {
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.ShareTheApp),
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Medium,
                 color = Dark20,
                 fontSize = 18.sp
             )
@@ -530,7 +477,7 @@ fun RateUsSettings() {
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.RateUs),
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Medium,
                 color = Dark20,
                 fontSize = 18.sp
             )
@@ -577,7 +524,7 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
             Spacer(modifier = Modifier.width(26.dp))
             Text(
                 text = stringResource(id = R.string.TroubleWithTheApp),
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Medium,
                 color = Dark20,
                 fontSize = 18.sp
             )
@@ -704,11 +651,13 @@ fun CustomTab(
     tabWidth: Dp = 120.dp,
     //tabHeight: Dp = 50.dp,
     onClick: (index: Int) -> Unit,
+    temp: TemperatureResponse
 ) {
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
     )
+    val isDay = temp.current_weather.is_day == 1
     Box(
         modifier = modifier
             .clip(CircleShape)
@@ -718,7 +667,7 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = Color(0xFF324BBA)//Color(0xFF536AD5)//MaterialTheme.colorScheme.primary,
+            indicatorColor = if (isDay) kmns else Color(0xFF536AD5)//MaterialTheme.colorScheme.primary,
         )
         Row(
             horizontalArrangement = Arrangement.Center,
