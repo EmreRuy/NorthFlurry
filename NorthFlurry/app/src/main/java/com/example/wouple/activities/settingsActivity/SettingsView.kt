@@ -79,7 +79,6 @@ import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.beige
-import com.example.wouple.ui.theme.kmns
 import com.example.wouple.ui.theme.mocassin
 import kotlinx.coroutines.delay
 
@@ -107,150 +106,149 @@ fun SettingsView(
     } else {
         listOf(
             Color(0xFF1C2249),
-            Color(0xFF1C2249),
-            //Color(0xFF1D244D),
-            //Color(0xFF2E3A59)
+            Color(0xFF1C2249)
         )
     }
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            modifier = Modifier.padding(start = 4.dp),
-                            text = stringResource(id = R.string.Settings),
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Light,
-                            color = Whitehis,
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        modifier = Modifier.padding(start = 4.dp),
+                        text = stringResource(id = R.string.Settings),
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Light,
+                        color = Whitehis,
+                    )
+                },
+                navigationIcon = {
+                    IconButton(
+                        onClick = onBackPressed
+                    ) {
+                        Icon(
+                            Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            modifier = Modifier.size(28.dp)
                         )
-                    },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = onBackPressed
-                        ) {
-                            Icon(
-                                Icons.Default.ArrowBack,
-                                contentDescription = "Back",
-                                modifier = Modifier.size(28.dp)
-                            )
-                        }
-                    },
-                    contentColor = Whitehis,
-                    backgroundColor = Transparent,
-                    elevation = 0.dp,
+                    }
+                },
+                contentColor = Whitehis,
+                backgroundColor = Transparent,
+                elevation = 0.dp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(brush = Brush.verticalGradient(background))
+            )
+        },
+        content = {
+            Surface(
+                modifier = Modifier
+                    .fillMaxSize()
+            ) {
+                val isDayLight = temp.current_weather.is_day == 1
+                val backgroundColors: List<Color> = if (isDayLight) {
+                    val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
+                    val lighterShades = listOf(
+                        baseColor,
+                        baseColor.copy(alpha = 0.9f),
+                        baseColor.copy(alpha = 0.8f),
+                        baseColor.copy(alpha = 0.5f),
+                    )
+
+                    lighterShades
+                } else {
+                    listOf(
+                        Color(0xFF1D244D),
+                        Color(0xFF2E3A59),
+                        Color(0xFF3F5066),
+                    )
+                }
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(brush = Brush.verticalGradient(background))
-                )
-            },
-            content = {
-                Surface(
-                    modifier = Modifier
-                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                        .background(brush = Brush.verticalGradient(backgroundColors)),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    val isDayLight = temp.current_weather.is_day == 1
-                    val backgroundColors: List<Color> = if (isDayLight) {
-                        val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
-                        val lighterShades = listOf(
-                            baseColor,
-                            baseColor.copy(alpha = 0.9f),
-                            baseColor.copy(alpha = 0.8f),
-                            baseColor.copy(alpha = 0.5f),
-                        )
-
-                        lighterShades
-                    } else {
-                        listOf(
-                            Color(0xFF1D244D),
-                            Color(0xFF2E3A59),
-                            Color(0xFF3F5066),
-                        )
-                    }
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .verticalScroll(rememberScrollState())
-                            .background(brush = Brush.verticalGradient(backgroundColors)),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Spacer(modifier = Modifier.padding(top = 32.dp))
-                        CustomTab(
-                            selectedItemIndex = selected,
-                            items = listOf("General", "Units"),
-                            onClick = {
-                                setSelected(it)
-                            },
-                            temp = temp
-                        )
-                        when (selected) {
-                            0 -> {
-                                AnimatedVisibility(
-                                    visible = cardsVisible,
-                                    enter = fadeIn(
-                                        animationSpec = tween(
-                                            durationMillis = 2000,
-                                            easing = LinearEasing
-                                        )
+                    Spacer(modifier = Modifier.padding(top = 32.dp))
+                    CustomTab(
+                        selectedItemIndex = selected,
+                        items = listOf("General", "Units"),
+                        onClick = {
+                            setSelected(it)
+                        },
+                        temp = temp
+                    )
+                    when (selected) {
+                        0 -> {
+                            AnimatedVisibility(
+                                visible = cardsVisible,
+                                enter = fadeIn(
+                                    animationSpec = tween(
+                                        durationMillis = 2000,
+                                        easing = LinearEasing
                                     )
+                                )
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .padding(vertical = 8.dp)
+                                        .fillMaxWidth()
+                                        .wrapContentHeight(),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
-                                    Column(
-                                        modifier = Modifier
-                                            .padding(vertical = 8.dp)
-                                            .fillMaxWidth()
-                                            .wrapContentHeight(),
-                                        verticalArrangement = Arrangement.Center,
-                                        horizontalAlignment = Alignment.CenterHorizontally
-                                    ) {
-                                        //LanguageSettings()
-                                        SettingsCardOne()
-                                        TroubleOnAppSettings { onFeedbackClicked(true) }
-                                        IdeasSettings { onFeedbackClicked(false) }
-                                        ShareTheAppSettings()
-                                        RateUsSettings()
-                                    }
+                                    //LanguageSettings()
+                                    SettingsCardOne()
+                                    TroubleOnAppSettings { onFeedbackClicked(true) }
+                                    IdeasSettings { onFeedbackClicked(false) }
+                                    ShareTheAppSettings()
+                                    RateUsSettings()
                                 }
                             }
+                        }
 
-                            1 -> {
-                                SettingsCardTwo()
-                                TemperatureUnitSettings(temp)
-                                PrecipitationUnitSettings(temp)
-                                WindUnitSettings(temp)
-                            }
+                        1 -> {
+                            SettingsCardTwo()
+                            TemperatureUnitSettings(temp)
+                            PrecipitationUnitSettings(temp)
+                            WindUnitSettings(temp)
                         }
                     }
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 16.dp),
-                        contentAlignment = BottomCenter
-                    ) {
-                        HorizontalWave(
-                            phase = rememberPhaseState(startPosition = 0f),
-                            alpha = 0.5f,
-                            amplitude = 60f,
-                            frequency = 0.5f,
-                            gradientColors = listOf(White, White)
-                        )
-                        HorizontalWave(
-                            phase = rememberPhaseState(startPosition = 15f),
-                            alpha = 0.5f,
-                            amplitude = 90f,
-                            frequency = 0.4f,
-                            gradientColors = listOf(White, White)
-                        )
-                        HorizontalWave(
-                            phase = rememberPhaseState(10f),
-                            alpha = 0.2f,
-                            amplitude = 80f,
-                            frequency = 0.4f,
-                            gradientColors = listOf(White, White)
-                        )
-                    }
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    contentAlignment = BottomCenter
+                ) {
+                    HorizontalWave(
+                        phase = rememberPhaseState(startPosition = 0f),
+                        alpha = 0.5f,
+                        amplitude = 60f,
+                        frequency = 0.5f,
+                        gradientColors = listOf(White, White)
+                    )
+                    HorizontalWave(
+                        phase = rememberPhaseState(startPosition = 15f),
+                        alpha = 0.5f,
+                        amplitude = 90f,
+                        frequency = 0.4f,
+                        gradientColors = listOf(White, White)
+                    )
+                    HorizontalWave(
+                        phase = rememberPhaseState(10f),
+                        alpha = 0.2f,
+                        amplitude = 80f,
+                        frequency = 0.4f,
+                        gradientColors = listOf(White, White)
+                    )
                 }
             }
-        )
+        }
+    )
 }
+
 @Composable
 private fun SettingsCardOne() {
     Spacer(modifier = Modifier.padding(top = 12.dp))
@@ -392,7 +390,7 @@ private fun ShareTheAppSettings() {
                     putExtra(
                         Intent.EXTRA_TEXT,
                         "https://northFlurry.com/Emre"
-                    ) //actual URL of my app will be added after publishing
+                    ) //!!! actual URL of my app will be added after publishing
                     type = "text/plain"
                 }
                 val shareIntent = Intent.createChooser(sendIntent, null)
@@ -402,7 +400,6 @@ private fun ShareTheAppSettings() {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-        //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -446,7 +443,7 @@ fun RateUsSettings() {
                 indication = null
             ) {
                 val appURL =
-                    "https://play.google.com/store/apps" // actual URL of my app will be added after publishing
+                    "https://play.google.com/store/apps" //!!! actual URL of my app will be added after publishing
                 val playIntent: Intent = Intent().apply {
                     action = Intent.ACTION_VIEW
                     data = Uri.parse(appURL)
@@ -461,7 +458,6 @@ fun RateUsSettings() {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-        //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -554,7 +550,6 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
         shape = RoundedCornerShape(28.dp),
         elevation = 4.dp,
     ) {
-        //  val backgroundColor = getSecondaryGradients()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -649,7 +644,6 @@ fun CustomTab(
     items: List<String>,
     modifier: Modifier = Modifier,
     tabWidth: Dp = 120.dp,
-    //tabHeight: Dp = 50.dp,
     onClick: (index: Int) -> Unit,
     temp: TemperatureResponse
 ) {
@@ -667,7 +661,7 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) kmns else Color(0xFF536AD5)//MaterialTheme.colorScheme.primary,
+            indicatorColor = if (isDay) Color(0xFF1C2249) else Color(0xFF536AD5)
         )
         Row(
             horizontalArrangement = Arrangement.Center,

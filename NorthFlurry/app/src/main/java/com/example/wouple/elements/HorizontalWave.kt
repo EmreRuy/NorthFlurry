@@ -34,9 +34,7 @@ fun HorizontalWave(
             val wavePath = Path()
             val centerY = size.height / 2f
             var x = 0
-
             wavePath.moveTo(0f, centerY + amplitude)
-
             while (x < size.width.toInt()) {
                 val y =
                     centerY + amplitude * cos(2 * PI * frequency * x / size.width + phase.value)
@@ -44,7 +42,6 @@ fun HorizontalWave(
                 x++
             }
             wavePath.lineTo(x.toFloat(), centerY + amplitude)
-
             drawPath(
                 path = wavePath,
                 brush = Brush.horizontalGradient(colors = gradientColors),

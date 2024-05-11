@@ -1,4 +1,4 @@
-package com.example.wouple.activities.mainActivity
+package com.example.wouple.activities.firstScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,7 +31,7 @@ import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.vintage
 
 @Composable
-fun NoTemperatureView(
+fun FirstScreenView(
     onStartButtonClicked: () -> Unit
 ) {
     val background =

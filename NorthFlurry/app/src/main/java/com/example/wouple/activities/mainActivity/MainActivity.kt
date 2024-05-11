@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import com.example.wouple.activities.firstScreen.FirstScreenView
 import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.activities.detailActivity.SecondActivity
 import com.example.wouple.activities.settingsActivity.SettingsActivity
@@ -50,27 +51,27 @@ class MainActivity : ComponentActivity() {
                 isConnected = isInternetConnected(context)
             }
             if (!isConnected) {
-                // Shows dialog if no internet connection
+                // Shows dialog if there is no internet connection
                 NoInternetDialog(activity = this)
             } else {
-            WoupleTheme {
-                if (isFirstLaunch == null)
-                    NoTemperatureView(
-                        onStartButtonClicked = {
-                            Log.d("NoTemperatureView", "Start button clicked")
-                            val intent = Intent(this@MainActivity, StartActivity::class.java)
-                            startActivity(intent)
-                            val secondIntent = Intent(this, StartActivity::class.java)
-                            intent.putExtra("searchVisible", true)
-                            startActivity(secondIntent)
-                            finish()
-                        }
-                    )
-                else {
-                    displayFirstCardView(activity = this)
+                WoupleTheme {
+                    if (isFirstLaunch == null)
+                        FirstScreenView(
+                            onStartButtonClicked = {
+                                Log.d("NoTemperatureView", "Start button clicked")
+                                val intent = Intent(this@MainActivity, StartActivity::class.java)
+                                startActivity(intent)
+                                val secondIntent = Intent(this, StartActivity::class.java)
+                                intent.putExtra("searchVisible", true)
+                                startActivity(secondIntent)
+                                finish()
+                            }
+                        )
+                    else {
+                        displayFirstCardView(activity = this)
+                    }
                 }
             }
-        }
         }
     }
 
@@ -125,6 +126,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     private fun getAirQuality(location: SearchedLocation) {
         WeatherManager.getAirQuality(
             longitude = location.lon,
@@ -134,6 +136,7 @@ class MainActivity : ComponentActivity() {
             airQuality.value = it
         }
     }
+
     private fun onLocationButtonClicked(location: SearchedLocation) {
         LocationPref.setSearchedLocation(this, location)
         getCurrentWeather(

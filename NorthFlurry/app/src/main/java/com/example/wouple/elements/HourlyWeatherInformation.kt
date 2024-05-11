@@ -1,4 +1,4 @@
-package com.example.wouple.activities.mainActivity
+package com.example.wouple.elements
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.WeatherCondition
 import com.example.wouple.formatter.DateFormatterForMain
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.orgn
 import java.time.ZoneId
 import java.time.ZonedDateTime

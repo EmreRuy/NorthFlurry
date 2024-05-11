@@ -263,7 +263,7 @@ fun SimpleSearchBar(
     val focusManager = LocalFocusManager.current
     var query by remember { mutableStateOf("") }
     val gradient = Brush.horizontalGradient(
-        colors = listOf(White, Color(0xFF4067DD)) //Color(0xFF56CCF2))
+        colors = listOf(White, Color(0xFF4067DD))
     )
     Row(
         modifier = Modifier

@@ -16,12 +16,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.ui.theme.Dark20
 
 @Composable
 fun NoInternetDialog(activity: ComponentActivity) {
     AlertDialog(
-        onDismissRequest = {  },
+        onDismissRequest = { },
         title = {
             Text(
                 text = stringResource(id = R.string.No_Internet_Connection),
@@ -56,7 +55,7 @@ fun NoInternetDialog(activity: ComponentActivity) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 16.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Dark20)
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF3D52BB))
             ) {
                 Text(
                     text = stringResource(id = R.string.OK),

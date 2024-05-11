@@ -39,7 +39,7 @@ import java.util.Locale
 fun SevenDaysCardNotification(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF4C49C6) // Color(0xFF7D8AE1) //#7D8AE1
+        val baseColor = Color(0xFF4C49C6)
         // Generate lighter shades
         val lighterShades = listOf(
             baseColor.copy(alpha = 0.7f),
@@ -91,7 +91,7 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
     for (dayIndex in 0 until temp.daily.time.size.coerceAtMost(7)) {
         val dayOfWeek = LocalDate.parse(temp.daily.time[dayIndex]).dayOfWeek.toString().take(3)
         val weatherCode = temp.daily.weathercode[dayIndex]
-        // Check for thunderstorm weather code
+        // Checks for thunderstorm weather code
         if (weatherCode in listOf(95, 96, 99)) {
             thunderstormDays.add(dayOfWeek)
         }

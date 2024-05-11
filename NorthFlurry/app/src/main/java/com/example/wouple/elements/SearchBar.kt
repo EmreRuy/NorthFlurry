@@ -35,7 +35,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,7 +52,7 @@ fun SearchBar(
         colors = if (isSearchExpanded.value) listOf(
             Color.White,
             Color(0xFF4067DD)
-        )//Color(0xFF56CCF2))
+        )
         else listOf(Color.Transparent, Color.Transparent)
     )
 
@@ -82,7 +81,7 @@ fun SearchBar(
                 maxLines = 1,
                 onValueChange = {
                     query = it
-                   onSearch(query)
+                    onSearch(query)
                 },
                 modifier = Modifier
                     .weight(1f)
@@ -100,7 +99,6 @@ fun SearchBar(
                 },
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Search,
-                   // capitalization = KeyboardCapitalization.Characters,
                     keyboardType = KeyboardType.Text
                 ),
                 keyboardActions = KeyboardActions(

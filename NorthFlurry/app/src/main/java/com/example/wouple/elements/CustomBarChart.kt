@@ -56,6 +56,7 @@ fun RowScope.CustomBarChart(
                     else -> {
                         "Unknown"
                     }
+
                 }
                 Toast
                     .makeText(

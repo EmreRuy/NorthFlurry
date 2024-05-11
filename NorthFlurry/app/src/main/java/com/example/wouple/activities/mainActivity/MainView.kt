@@ -25,7 +25,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -66,14 +65,13 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
-import com.example.wouple.activities.lightningMap.LightningMapActivity
 import com.example.wouple.adds.BannerAdd
+import com.example.wouple.elements.GetHourlyWeatherInfo
 import com.example.wouple.elements.GetWeeklyForecast
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SevenHoursCardNotification
 import com.example.wouple.elements.SearchBar
 import com.example.wouple.elements.SevenDaysCardNotification
-import com.example.wouple.elements.isInternetConnected
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
@@ -101,7 +99,7 @@ fun MainView(
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF3F54BE) // Color(0xFF494CC6)
+            val baseColor = Color(0xFF3F54BE)
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
@@ -285,7 +283,7 @@ private fun GetLocationAndDegree(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             //For Settings Button
-            DropDownMenu { onSettingsClicked(temp) }
+            SettingsButton { onSettingsClicked(temp) }
             // For Forecast Detail Button
             DetailButton {
                 onDetailsButtonClicked(temp)
@@ -347,7 +345,7 @@ private fun GetBottomView(
             modifier = Modifier.fillMaxWidth(),
             adId = "ca-app-pub-3940256099942544/9214589741"
         )
-        searchedLocation.value?.let { GetSevenHoursForecast(it, temp) }
+        searchedLocation.value?.let { GetSevenHoursForecast(temp) }
         GetSevenDaysForecast(temp)
     }
 }
@@ -359,7 +357,7 @@ fun LottieAnimationClear() {
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
-        iterations = LottieConstants.IterateForever // makes the animation keeps playing constantly
+        iterations = LottieConstants.IterateForever
     )
     LottieAnimation(
         composition = composition,
@@ -375,7 +373,7 @@ fun LottieAnimationSun() {
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
-        iterations = LottieConstants.IterateForever // makes the animation keeps playing constantly
+        iterations = LottieConstants.IterateForever
     )
     LottieAnimation(
         composition = composition,
@@ -391,7 +389,7 @@ fun LottieAnimationSnow() {
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
-        iterations = LottieConstants.IterateForever // makes the animation keeps playing constantly
+        iterations = LottieConstants.IterateForever
     )
     LottieAnimation(
         composition = composition,
@@ -407,7 +405,7 @@ fun LottieAnimationPartlyCloudyNight() {
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
-        iterations = LottieConstants.IterateForever // makes the animation keeps playing constantly
+        iterations = LottieConstants.IterateForever
     )
     LottieAnimation(
         composition = composition,
@@ -423,7 +421,7 @@ fun LottieAnimationPartlyCloudy() {
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
-        iterations = LottieConstants.IterateForever // makes the animation keeps playing constantly
+        iterations = LottieConstants.IterateForever
     )
     LottieAnimation(
         composition = composition,
@@ -439,7 +437,7 @@ fun LottieAnimationRain() {
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
-        iterations = LottieConstants.IterateForever // makes the animation keeps playing constantly
+        iterations = LottieConstants.IterateForever
     )
     LottieAnimation(
         composition = composition,
@@ -455,7 +453,7 @@ fun LottieAnimationCloud() {
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
-        iterations = LottieConstants.IterateForever // makes the animation keeps playing constantly
+        iterations = LottieConstants.IterateForever
     )
     LottieAnimation(
         composition = composition,
@@ -498,7 +496,7 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
 }
 
 @Composable
-fun DropDownMenu(
+fun SettingsButton(
     onSettingsClicked: () -> Unit,
 ) {
     var isPressed by remember { mutableStateOf(false) }
@@ -546,7 +544,7 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF494CC6) //Color(0xFF3F54BE)
+            val baseColor = Color(0xFF494CC6)
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),
@@ -579,24 +577,17 @@ private fun GetSevenDaysForecast(temp: TemperatureResponse) {
 }
 
 @Composable
-private fun GetSevenHoursForecast(searchedLocation: SearchedLocation, temp: TemperatureResponse) {
-    val context = LocalContext.current
+private fun GetSevenHoursForecast(temp: TemperatureResponse) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(18.dp)
-            .clickable {
-                context.startActivity(LightningMapActivity.newIntent(context, searchedLocation))
-            },
+            .padding(18.dp),
         shape = RoundedCornerShape(20.dp),
         elevation = 4.dp,
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF494CC6)  //Color(0xFF3F54BE)
-
-
-            // Generate lighter shades
+            val baseColor = Color(0xFF494CC6)
             val lighterShades = listOf(
                 baseColor,
                 baseColor.copy(alpha = 0.9f),

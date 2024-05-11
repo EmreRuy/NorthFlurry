@@ -39,10 +39,7 @@ import java.time.ZonedDateTime
 fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF4C49C6) // Color(0xFF7D8AE1) //#7D8AE1
-
-
-        // Generate lighter shades
+        val baseColor = Color(0xFF4C49C6)
         val lighterShades = listOf(
             baseColor.copy(alpha = 0.7f),
             baseColor.copy(alpha = 0.8f),

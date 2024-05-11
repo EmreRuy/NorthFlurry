@@ -36,7 +36,7 @@ class SettingsActivity : ComponentActivity() {
             putExtra(Intent.EXTRA_EMAIL, arrayOf("uyar.em.eu@gmail.com"))
             putExtra(
                 Intent.EXTRA_SUBJECT,
-                if (isProblem) "Trouble with the app" else "have an idea"
+                if (isProblem) "Trouble with the app" else " I have an idea"
             )
             putExtra(
                 Intent.EXTRA_TEXT, """

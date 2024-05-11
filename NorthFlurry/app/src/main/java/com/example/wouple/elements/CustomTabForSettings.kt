@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.beige
-import com.example.wouple.ui.theme.kmns
 import java.util.Locale
 
 @Composable
@@ -47,18 +46,10 @@ private fun MyTabIndicator(
     Box(
         modifier = Modifier
             .fillMaxHeight()
-            .width(
-                width = indicatorWidth,
-            )
-            .offset(
-                x = indicatorOffset,
-            )
-            .clip(
-                shape = CircleShape,
-            )
-            .background(
-                color = indicatorColor,
-            ),
+            .width(width = indicatorWidth)
+            .offset(x = indicatorOffset)
+            .clip(shape = CircleShape)
+            .background(color = indicatorColor)
     )
 }
 
@@ -92,6 +83,7 @@ private fun RowScope.MyTabItem(
         fontWeight = FontWeight.Medium
     )
 }
+
 @Composable
 fun CustomTabForSettings(
     selectedItemIndex: Int,
@@ -108,7 +100,6 @@ fun CustomTabForSettings(
     )
     val isDay = temp.current_weather.is_day == 1
     val density = LocalDensity.current
-
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -124,7 +115,7 @@ fun CustomTabForSettings(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) kmns else Color(0xFF536AD5)//Color(0xFF5E6F80)//Color(0xFF324BBA) else Color(0xFF324BBA) // Color(0xFF3A4377),
+            indicatorColor = if (isDay) Color(0xFF1C2249) else Color(0xFF536AD5)
         )
         Row(
             horizontalArrangement = Arrangement.Center,
