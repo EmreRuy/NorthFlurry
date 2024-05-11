@@ -82,7 +82,6 @@ class MainActivity : ComponentActivity() {
                 isConnected = isInternetConnected(context)
             }
             if (!isConnected) {
-                // Shows dialog if no internet connection
                 NoInternetDialog(activity)
             } else {
                 val focusManager = LocalFocusManager.current

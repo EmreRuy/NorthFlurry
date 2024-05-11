@@ -147,7 +147,6 @@ fun MainView(
         }
         //Bottom view
         GetBottomView(searchedLocation = searchedLocation, temp = temp)
-       // val context = LocalContext.current
         MobileAds.initialize(context)
         BannerAdd(
             modifier = Modifier

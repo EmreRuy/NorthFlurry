@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,11 +37,6 @@ fun NoTemperatureView(
 ) {
     val background =
         listOf(
-            // Color(0xFF4067DD),
-            // Color(0xFF4067DD),
-            /*  Color(0xFF3D52BB),
-              Color(0xFF3D52BB),
-             */
             Color(0xFF3D52BB),
             Color(0xFF3D52BB)
         )
@@ -54,39 +50,37 @@ fun NoTemperatureView(
             ),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
-
     ) {
         Spacer(modifier = Modifier.weight(1f))
         Image(
             painter = painterResource(id = R.drawable.logo2),
-            contentDescription = "cloud",
+            contentDescription = "logo",
             alignment = Center,
             modifier = Modifier.size(150.dp)
         )
         Text(
-            modifier = Modifier
-                .align(CenterHorizontally),
+            modifier = Modifier,
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.app_name),
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.Default,
             fontSize = 32.sp,
+            lineHeight = 32.sp,
             color = vintage,
         )
         Text(
-            modifier = Modifier
-                .align(CenterHorizontally),
+            modifier = Modifier,
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.WeatherForecast),
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.SansSerif,
             fontSize = 32.sp,
+            lineHeight = 32.sp,
             color = Corn,
         )
         Text(
             modifier = Modifier
-                .align(CenterHorizontally)
-                .padding(horizontal = 8.dp),
+                .align(CenterHorizontally),
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.AppExplainer),
             fontWeight = FontWeight.Light,
@@ -106,6 +100,6 @@ fun NoTemperatureView(
                 text = stringResource(id = R.string.GetStartButton)
             )
         }
-        Spacer(modifier = Modifier.weight(2f))
+        Spacer(modifier = Modifier.weight(1.5f))
     }
 }
