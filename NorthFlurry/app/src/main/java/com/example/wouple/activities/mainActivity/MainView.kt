@@ -1,5 +1,6 @@
 package com.example.wouple.activities.mainActivity
 
+import android.content.Context
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
@@ -65,6 +66,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
+import com.example.wouple.adds.AdManager
 import com.example.wouple.adds.BannerAdd
 import com.example.wouple.elements.GetHourlyWeatherInfo
 import com.example.wouple.elements.GetWeeklyForecast
@@ -79,6 +81,7 @@ import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.vintage
 import com.google.android.gms.ads.MobileAds
 import kotlinx.coroutines.delay
+
 
 @Composable
 fun MainView(
@@ -219,7 +222,7 @@ private fun GetLocationAndDegree(
     temp: TemperatureResponse,
     searchedLocation: MutableState<SearchedLocation?>,
     onDetailsButtonClicked: (TemperatureResponse) -> Unit,
-    onSettingsClicked: (TemperatureResponse) -> Unit,
+    onSettingsClicked: (TemperatureResponse) -> Unit
 ) {
     val isDay = temp.current_weather.is_day == 1
     Column(
@@ -463,7 +466,9 @@ fun LottieAnimationCloud() {
 }
 
 @Composable
-fun DetailButton(onDetailsButtonClicked: () -> Unit) {
+fun DetailButton(
+    onDetailsButtonClicked: () -> Unit
+) {
     var isPressed by remember { mutableStateOf(false) }
     val infiniteTransition = rememberInfiniteTransition(label = "")
     val colorTransition by infiniteTransition.animateColor(
@@ -474,12 +479,15 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
             repeatMode = RepeatMode.Reverse
         ), label = ""
     )
+    val context = LocalContext.current
     Button(
         modifier = Modifier.padding(bottom = 16.dp),
         shape = CircleShape,
         onClick = {
             isPressed = !isPressed
-            onDetailsButtonClicked()
+            showInterstitialAdAndNavigateToDetail(context) {
+                onDetailsButtonClicked()
+            }
         },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = if (isPressed) {
@@ -495,6 +503,23 @@ fun DetailButton(onDetailsButtonClicked: () -> Unit) {
     }
 }
 
+fun showInterstitialAdAndNavigateToDetail(
+    context: Context,
+    navigateToDetailView: () -> Unit
+) {
+    // Loads the interstitial ad
+    AdManager.loadInterstitialAd(context) { adLoaded ->
+        if (adLoaded) {
+            AdManager.showInterstitialAd(context) {
+                // After the ad is dismissed, navigates to the detail view
+                navigateToDetailView()
+            }
+        } else {
+            // If ad fails to load,  it navigates to detail view directly
+            navigateToDetailView()
+        }
+    }
+}
 @Composable
 fun SettingsButton(
     onSettingsClicked: () -> Unit,
