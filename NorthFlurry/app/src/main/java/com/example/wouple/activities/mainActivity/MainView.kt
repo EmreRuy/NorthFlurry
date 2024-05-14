@@ -249,33 +249,12 @@ private fun GetLocationAndDegree(
         )
         Spacer(modifier = Modifier.padding(horizontal = 8.dp))
         when {
-            (temp.current_weather.weathercode in listOf(
-                0,
-                1
-            ) && !isDay) -> LottieAnimationClear()
-
-            (temp.current_weather.weathercode in listOf(
-                0,
-                1
-            ) && isDay) -> LottieAnimationSun()
-
+            (temp.current_weather.weathercode in listOf(0, 1) && !isDay) -> LottieAnimationClear()
+            (temp.current_weather.weathercode in listOf(0, 1) && isDay) -> LottieAnimationSun()
             (temp.current_weather.weathercode == 2 && isDay) -> LottieAnimationPartlyCloudy()
             (temp.current_weather.weathercode == 2 && !isDay) -> LottieAnimationPartlyCloudyNight()
             (temp.current_weather.weathercode == 3) -> LottieAnimationCloud()
-            (temp.current_weather.weathercode in listOf(
-                51,
-                53,
-                55,
-                61,
-                63,
-                65,
-                66,
-                67,
-                80,
-                81,
-                82
-            )) -> LottieAnimationRain()
-
+            (temp.current_weather.weathercode in listOf(51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82)) -> LottieAnimationRain()
             (temp.current_weather.weathercode in listOf(85, 86)) -> LottieAnimationSnow()
             else -> LottieAnimationSun()
         }
