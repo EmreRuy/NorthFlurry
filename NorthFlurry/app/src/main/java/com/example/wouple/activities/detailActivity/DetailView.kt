@@ -244,9 +244,9 @@ private fun ConfettiView(
                     0xFFFFC107.toInt(),
                     0xFF9C27B0.toInt(),
                     0xFFFF5722.toInt(),
-                    0xFF8BC34A.toInt(),  // Light Green
-                    0xFF9C27B0.toInt(),  // Deep Purple
-                    0xFFCDDC39.toInt(),  // Lime
+                    0xFF8BC34A.toInt(),
+                    0xFF9C27B0.toInt(),
+                    0xFFCDDC39.toInt(),
                     0xFFFCD00,
                     0xF1D71F2,
                     0xF1D244D,
@@ -567,8 +567,8 @@ fun UvChartViewCard(temp: TemperatureResponse) {
 @Composable
 fun UvChartView(temp: TemperatureResponse) {
     val dailyUv =
-        temp.daily.uv_index_max.take(7) // Assuming temp.daily.uv_index_max contains the UV index data as List<Double>
-    val maxUv = dailyUv.maxOrNull()?.toFloat() ?: 0f // Compute the maximum UV index value
+        temp.daily.uv_index_max.take(7)
+    val maxUv = dailyUv.maxOrNull()?.toFloat() ?: 0f
     val daysOfWeek = (0 until 7).map {
         LocalDate.now().plusDays(it.toLong()).dayOfWeek.name.substring(0, 3)
     }
@@ -776,8 +776,6 @@ fun CurrentUvIndex(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-            // Color(0xFF4067DD),
-            // Color(0xFF4067DD),
             Color(0xFF3D52BB),
             Color(0xFF3954C4),
 
