@@ -431,7 +431,7 @@ fun LottieAnimationRain() {
 @Composable
 fun LottieAnimationCloud() {
     val isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cloudlottie))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cloudy))
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,

@@ -18,6 +18,7 @@ Let's Begin!"</string>
     <string name="ShareTheApp">"Share the App"</string>
     <string name="RateUs">"Rate Us"</string>
     <string name="TroubleWithTheApp">"Trouble with the app?"</string>
+    <string name="LottieFilesAndTerms">"LottieFiles Licence and terms"</string>
     <string name="AnyGoodIdeas">"Any good ideas?"</string>
     <string name="FeelsLike">"Feels Like"</string>
     <string name="Rainfall">"Rainfall"</string>
@@ -49,4 +50,21 @@ Let's Begin!"</string>
     <string name="Ops_No_Internet">"Oops! It seems like you're not connected to the internet."</string>
     <string name="Check_Your_Internet">"Please check your internet connection and try again."</string>
     <string name="OK">"OK"</string>
+    <string name="LottieFilesCopyright">"Animations in this app are provided by LottieFiles and are subject to the Lottie Simple License (FL 9.13.21). Copyright © 2021 Design Barn Inc. All rights reserved.
+
+Attribution for individual animations:
+
+1. "Cloud"
+   - Creator: NorthSea
+
+2. Animation Name 2
+   - Creator: Creator Name 2
+
+3. Animation Name 3
+   - Creator: Creator Name 3
+
+…
+
+For more information, visit https://lottiefiles.com/page/license
+"</string>
 </resources>

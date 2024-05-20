@@ -87,7 +87,8 @@ import kotlinx.coroutines.delay
 fun SettingsView(
     onBackPressed: () -> Unit,
     onFeedbackClicked: (Boolean) -> Unit,
-    temp: TemperatureResponse
+    temp: TemperatureResponse,
+    onLottieClicked: () -> Unit
 ) {
     val (selected, setSelected) = remember {
         mutableStateOf(0)
@@ -203,6 +204,7 @@ fun SettingsView(
                                     IdeasSettings { onFeedbackClicked(false) }
                                     ShareTheAppSettings()
                                     RateUsSettings()
+                                    LottieFilesAndTerms(onLottieClicked = onLottieClicked)
                                 }
                             }
                         }
@@ -411,7 +413,7 @@ private fun ShareTheAppSettings() {
                 painter = painterResource(id = R.drawable.ic_world),
                 contentDescription = null
             )
-            Spacer(modifier = Modifier.width(26.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Text(
                 text = stringResource(id = R.string.ShareTheApp),
                 fontWeight = FontWeight.Medium,
@@ -469,7 +471,7 @@ fun RateUsSettings() {
                 contentDescription = null,
                 Modifier.padding(top = 4.dp, start = 4.dp)
             )
-            Spacer(modifier = Modifier.width(26.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Text(
                 text = stringResource(id = R.string.RateUs),
                 fontWeight = FontWeight.Medium,
@@ -488,6 +490,52 @@ fun RateUsSettings() {
     }
 }
 
+@Composable
+private fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
+    val interactionSource = remember { MutableInteractionSource() }
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                onLottieClicked()
+            }
+            .padding(horizontal = 24.dp, vertical = 12.dp),
+        shape = RoundedCornerShape(28.dp),
+        elevation = 4.dp,
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(White)
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_attribution_24),
+                contentDescription = null,
+                Modifier.padding(start = 4.dp)
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            Text(
+                text = stringResource(id = R.string.LottieFilesAndTerms),
+                fontWeight = FontWeight.Medium,
+                color = Dark20,
+                fontSize = 18.sp
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(18.dp)
+                    .align(CenterVertically)
+            )
+        }
+    }
+}
 @Composable
 private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -516,7 +564,7 @@ private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier.padding(start = 4.dp)
             )
-            Spacer(modifier = Modifier.width(26.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Text(
                 text = stringResource(id = R.string.TroubleWithTheApp),
                 fontWeight = FontWeight.Medium,
@@ -560,7 +608,7 @@ private fun IdeasSettings(onIdeaClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier.padding(start = 4.dp)
             )
-            Spacer(modifier = Modifier.width(26.dp))
+            Spacer(modifier = Modifier.width(24.dp))
             Text(
                 text = stringResource(id = R.string.AnyGoodIdeas),
                 fontWeight = FontWeight.Medium,

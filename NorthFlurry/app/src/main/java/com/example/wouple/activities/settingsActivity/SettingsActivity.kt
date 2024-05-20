@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.wouple.activities.lottieActivity.LottieActivity
+import com.example.wouple.activities.startScreen.StartActivity
+import com.example.wouple.extensions.parcelable
 import com.example.wouple.model.api.TemperatureResponse
 
 class SettingsActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val temp = intent.getParcelableExtra<TemperatureResponse>("temp")
+            val temp = intent.parcelable<TemperatureResponse>("temp")
             Log.d("SecondActivity", "Temperature: $temp")
 
             if (temp == null) {
@@ -23,7 +26,12 @@ class SettingsActivity : ComponentActivity() {
                 onFeedbackClicked = { trouble ->
                     sendEmail(trouble)
                 },
-                temp = temp
+                temp = temp,
+                onLottieClicked = {
+                    val intent = Intent(this, LottieActivity::class.java )
+                    intent.putExtra("temp", temp)
+                    startActivity(intent)
+                }
             )
         }
     }
