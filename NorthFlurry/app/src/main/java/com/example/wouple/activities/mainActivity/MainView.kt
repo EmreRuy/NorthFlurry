@@ -254,8 +254,11 @@ private fun GetLocationAndDegree(
             (temp.current_weather.weathercode == 2 && isDay) -> LottieAnimationPartlyCloudy()
             (temp.current_weather.weathercode == 2 && !isDay) -> LottieAnimationPartlyCloudyNight()
             (temp.current_weather.weathercode == 3) -> LottieAnimationCloud()
-            (temp.current_weather.weathercode in listOf(51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82)) -> LottieAnimationRain()
-            (temp.current_weather.weathercode in listOf(85, 86)) -> LottieAnimationSnow()
+            (temp.current_weather.weathercode in listOf(51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82)) && isDay-> LottieAnimationRainDayLight()
+            (temp.current_weather.weathercode in listOf(51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82)) && !isDay-> LottieAnimationRainNight()
+            (temp.current_weather.weathercode in listOf(85, 86)) && isDay -> LottieAnimationSnowDaylight()
+            (temp.current_weather.weathercode in listOf(85, 86)) && !isDay -> LottieAnimationSnowNight()
+            (temp.current_weather.weathercode in listOf(95,96, 96)) -> LottieAnimationThunderStorm()
             else -> LottieAnimationSun()
         }
         Row(
@@ -335,7 +338,7 @@ private fun GetBottomView(
 @Composable
 fun LottieAnimationClear() {
     val isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.moonlottie))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.moony))
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
@@ -351,7 +354,7 @@ fun LottieAnimationClear() {
 @Composable
 fun LottieAnimationSun() {
     val isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.sunlottieanimation))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.sun))
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
@@ -360,14 +363,14 @@ fun LottieAnimationSun() {
     LottieAnimation(
         composition = composition,
         progress = progress,
-        modifier = Modifier.size(50.dp)
+        modifier = Modifier.size(70.dp)
     )
 }
 
 @Composable
-fun LottieAnimationSnow() {
+fun LottieAnimationSnowDaylight() {
     val isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottiesnowanimation))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.snowdaylight))
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
@@ -376,14 +379,28 @@ fun LottieAnimationSnow() {
     LottieAnimation(
         composition = composition,
         progress = progress,
-        modifier = Modifier.size(50.dp)
+        modifier = Modifier.size(85.dp)
     )
 }
-
+@Composable
+fun LottieAnimationSnowNight() {
+    val isPlaying by remember { mutableStateOf(true) }
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.snownight))
+    val progress by animateLottieCompositionAsState(
+        composition,
+        isPlaying = isPlaying,
+        iterations = LottieConstants.IterateForever
+    )
+    LottieAnimation(
+        composition = composition,
+        progress = progress,
+        modifier = Modifier.size(85.dp)
+    )
+}
 @Composable
 fun LottieAnimationPartlyCloudyNight() {
     val isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cloudynightlottie))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.partlycloudynight))
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
@@ -392,14 +409,14 @@ fun LottieAnimationPartlyCloudyNight() {
     LottieAnimation(
         composition = composition,
         progress = progress,
-        modifier = Modifier.size(50.dp)
+        modifier = Modifier.size(70.dp)
     )
 }
 
 @Composable
 fun LottieAnimationPartlyCloudy() {
     val isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.partlycloudylottie))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.partlycloudy))
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
@@ -408,14 +425,14 @@ fun LottieAnimationPartlyCloudy() {
     LottieAnimation(
         composition = composition,
         progress = progress,
-        modifier = Modifier.size(50.dp)
+        modifier = Modifier.size(75.dp)
     )
 }
 
 @Composable
-fun LottieAnimationRain() {
+fun LottieAnimationRainDayLight() {
     val isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottierain))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.rainydaylight))
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
@@ -424,7 +441,22 @@ fun LottieAnimationRain() {
     LottieAnimation(
         composition = composition,
         progress = progress,
-        modifier = Modifier.size(55.dp)
+        modifier = Modifier.size(80.dp)
+    )
+}
+@Composable
+fun LottieAnimationRainNight() {
+    val isPlaying by remember { mutableStateOf(true) }
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.rainynight))
+    val progress by animateLottieCompositionAsState(
+        composition,
+        isPlaying = isPlaying,
+        iterations = LottieConstants.IterateForever
+    )
+    LottieAnimation(
+        composition = composition,
+        progress = progress,
+        modifier = Modifier.size(80.dp)
     )
 }
 
@@ -440,10 +472,24 @@ fun LottieAnimationCloud() {
     LottieAnimation(
         composition = composition,
         progress = progress,
-        modifier = Modifier.size(60.dp)
+        modifier = Modifier.size(85.dp)
     )
 }
-
+@Composable
+fun LottieAnimationThunderStorm() {
+    val isPlaying by remember { mutableStateOf(true) }
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.thunderstorm))
+    val progress by animateLottieCompositionAsState(
+        composition,
+        isPlaying = isPlaying,
+        iterations = LottieConstants.IterateForever
+    )
+    LottieAnimation(
+        composition = composition,
+        progress = progress,
+        modifier = Modifier.size(85.dp)
+    )
+}
 @Composable
 fun DetailButton(
     onDetailsButtonClicked: () -> Unit

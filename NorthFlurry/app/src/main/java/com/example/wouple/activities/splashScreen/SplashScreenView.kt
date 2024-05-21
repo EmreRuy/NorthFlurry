@@ -76,7 +76,7 @@ fun SplashScreen(navController: NavController){
 @Composable
 fun LottieAnimationSun() {
     var isPlaying by remember { mutableStateOf(true) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.daynightsun))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.sun))
     val progress by animateLottieCompositionAsState(
         composition,
         isPlaying = isPlaying,
