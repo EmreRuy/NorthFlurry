@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.WeatherCondition
 import com.example.wouple.formatter.DateFormatterForMain
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.ui.theme.Spiro
+import com.example.wouple.ui.theme.mocassin
 import com.example.wouple.ui.theme.orgn
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -83,7 +85,7 @@ fun GetSixHours(
         Text(
             modifier = Modifier.padding(top = 4.dp),
             text = time,
-            color = orgn,
+            color = mocassin,
             fontSize = 15.sp,
             fontWeight = FontWeight.Light
         )
@@ -95,7 +97,7 @@ fun GetSixHours(
         Text(
             modifier = Modifier.padding(top = 4.dp),
             text = "$temperature°",
-            color = Color.White,
+            color = Color.White.copy(alpha = 0.8f),
             fontWeight = FontWeight.Medium,
             fontSize = 15.sp
         )

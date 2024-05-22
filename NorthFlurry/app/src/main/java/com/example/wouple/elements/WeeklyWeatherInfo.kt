@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.WeatherCondition
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.vintage
 import java.time.LocalDate
 import java.util.Locale
@@ -75,7 +76,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
         Text(
             text = dayOfWeek.lowercase()
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() },
-            color = vintage,
+            color = Spiro,
             fontSize = 15.sp,
             fontWeight = FontWeight.Light
         )
@@ -86,7 +87,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
         )
         Text(
             text = "$temperature°",
-            color = Color.White,
+            color = Color.White.copy(alpha = 0.8f),
             fontWeight = FontWeight.Medium,
             fontSize = 15.sp
         )

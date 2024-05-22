@@ -116,7 +116,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
                 Text(
                     text = currentText,
                     fontWeight = FontWeight.Light,
-                    color = Color.White,
+                    color = Color.White.copy(alpha = 0.9f),
                     fontSize = 15.sp
                 )
             }

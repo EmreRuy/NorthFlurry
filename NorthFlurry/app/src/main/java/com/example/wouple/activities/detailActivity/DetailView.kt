@@ -101,14 +101,13 @@ fun DetailView(
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF3F54BE) // Color(0xFF494CC6)
+        val baseColor = Color(0xFF3F54BE)
         val lighterShades = listOf(
             baseColor,
             baseColor.copy(alpha = 0.9f),
             baseColor.copy(alpha = 0.8f),
             baseColor.copy(alpha = 0.5f),
         )
-
         lighterShades
     } else {
         listOf(
@@ -175,42 +174,36 @@ fun DetailView(
                         numbers = temp.hourly.apparent_temperature.getOrNull(feelsLike)?.let {
                             it.toInt().toString() + temp.hourly_units.apparent_temperature
                         } ?: "N/D",
-                        //  icon = painterResource(id = R.drawable.ic_term),
                         temp = temp
                     )
 
                     1 -> ExtraCards(
                         text = stringResource(id = R.string.Rainfall),
                         numbers = rainFall.toString() + temp.daily_units.precipitation_sum,
-                        //  icon = painterResource(id = R.drawable.ic_drop),
                         temp = temp
                     )
 
                     2 -> ExtraCards(
                         text = stringResource(id = R.string.WindSpeed),
                         numbers = windSpeed.toString() + temp.hourly_units.windspeed_10m,
-                        //  icon = painterResource(id = R.drawable.ic_wind),
                         temp = temp
                     )
 
                     3 -> ExtraCards(
                         text = stringResource(id = R.string.Visibility),
                         numbers = visibilityInMeters.toString() + temp.hourly_units.visibility,
-                        //  icon = painterResource(id = R.drawable.ic_visibility),
                         temp = temp
                     )
 
                     4 -> ExtraCards(
                         text = stringResource(id = R.string.Humidity),
                         numbers = temp.hourly_units.relativehumidity_2m + humidity.toString(),
-                        //   icon = painterResource(id = R.drawable.ic_humidity),
                         temp = temp
                     )
 
                     5 -> ExtraCards(
                         text = stringResource(id = R.string.DewPoint),
                         numbers = dewPoint.toString() + temp.hourly_units.temperature_2m,
-                        //  icon = painterResource(id = R.drawable.ic_drop),
                         temp = temp
                     )
                 }
@@ -415,8 +408,6 @@ private fun WeeklyChart(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-            // Color(0xFF4067DD),
-            // Color(0xFF4067DD),
             Color(0xFF3F54BE),
             Color(0xFF3F54BE)
         )
@@ -458,7 +449,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
             text = stringResource(id = R.string.Precipitation_For_Upcoming_Days),
             fontWeight = FontWeight.Light,
             fontSize = 18.sp,
-            color = White
+            color = Whitehis
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpViewForPrecipitation(temp)
@@ -506,7 +497,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
                     ) {
                         Text(
                             text = label,
-                            color = White,
+                            color = White.copy(alpha = 0.7f),
                             fontSize = 12.sp
                         )
                     }
@@ -541,8 +532,6 @@ fun UvChartViewCard(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-            // Color(0xFF4067DD),
-            // Color(0xFF4067DD),
             Color(0xFF3D52BB),
             Color(0xFF3D52BB)
         )
@@ -583,7 +572,7 @@ fun UvChartView(temp: TemperatureResponse) {
             text = stringResource(id = R.string.UV_Index_For_Upcoming_Days),
             fontWeight = FontWeight.Light,
             fontSize = 18.sp,
-            color = White
+            color = Whitehis
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpView(temp)
@@ -591,7 +580,7 @@ fun UvChartView(temp: TemperatureResponse) {
             modifier = Modifier
                 .height(170.dp)
                 .drawBehind {
-                    // draw X-Axis
+                    // draws X-Axis
                     drawLine(
                         color = White,
                         start = Offset(0f, size.height),
@@ -620,7 +609,7 @@ fun UvChartView(temp: TemperatureResponse) {
                 ) {
                     Text(
                         text = label,
-                        color = White,
+                        color = White.copy(alpha = 0.7f),
                         fontSize = 12.sp
                     )
                 }
@@ -895,7 +884,7 @@ fun HourlyForecastView(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(12.dp),
             text = stringResource(id = R.string.Next_24_Hours),
-            color = White,
+            color = Whitehis,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center
@@ -1279,7 +1268,7 @@ fun Hours(
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = "$temperature°",
-            color = Whitehis,
+            color = Whitehis.copy(alpha = 0.7f),
             fontWeight = FontWeight.Medium,
             fontSize = 17.sp
         )
@@ -1343,8 +1332,6 @@ fun WeeklyForeCastView(
     val isDay = temp.current_weather.is_day == 1
     val background = if (isDay) {
         listOf(
-            //  Color(0xFF4067DD),
-            //  Color(0xFF4067DD),
             Color(0xFF3F54BE),
             Color(0xFF3F54BE)
         )
@@ -1353,7 +1340,6 @@ fun WeeklyForeCastView(
             Color(0xFF1D244D),
             Color(0xFF2E3A59),
             Color(0xFF3F5066),
-            // Color(0xFF50767D),
         )
     }
     Column(
@@ -1374,7 +1360,7 @@ fun WeeklyForeCastView(
                     .align(CenterVertically)
                     .padding(start = 3.dp),
                 text = stringResource(id = R.string.Upcoming_Days),
-                color = Corn,
+                color = Whitehis,
                 fontWeight = FontWeight.Light,
                 fontSize = 18.sp
             )
@@ -1406,7 +1392,22 @@ fun WeeklyForeCastView(
                 0, 1 -> WeatherCondition.SUNNY
                 2 -> WeatherCondition.PARTLY_CLOUDY
                 3, 4 -> WeatherCondition.CLOUDY
-                in listOf(51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82) -> WeatherCondition.RAINY
+                in listOf(
+                    51,
+                    53,
+                    55,
+                    56,
+                    57,
+                    61,
+                    63,
+                    65,
+                    66,
+                    67,
+                    80,
+                    81,
+                    82
+                ) -> WeatherCondition.RAINY
+
                 in listOf(71, 73, 75, 77) -> WeatherCondition.SNOWY
                 in listOf(95, 96, 99) -> WeatherCondition.THUNDERSTORM
                 else -> WeatherCondition.SUNNY // default weather condition in case of an unknown code
@@ -1427,7 +1428,7 @@ fun WeeklyForeCastView(
                             if (it.isLowerCase()) it.titlecase(locale = Locale.ENGLISH) else it.toString()
                         },
                     fontSize = 16.sp,
-                    color = Whitehis
+                    color = Whitehis.copy(alpha = 0.7f)
                 )
                 Spacer(modifier = Modifier.padding(horizontal = 10.dp))
                 Image(
@@ -1442,7 +1443,7 @@ fun WeeklyForeCastView(
                         .width(35.dp),
                     text = "$forecastMin°",
                     textAlign = TextAlign.Right,
-                    color = Whitehis,
+                    color = Whitehis.copy(alpha = 0.7f),
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                 )
@@ -1457,7 +1458,7 @@ fun WeeklyForeCastView(
                         .width(35.dp),
                     text = "$forecastMax°",
                     textAlign = TextAlign.Right,
-                    color = Whitehis,
+                    color = Whitehis.copy(alpha = 0.7f),
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                 )
@@ -1521,7 +1522,6 @@ fun ExtraCards(
             )
 
         }
-
         Text(
             modifier = Modifier,
             text = stringResource(id = R.string.Expected_Today),

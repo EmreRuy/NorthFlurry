@@ -1,6 +1,5 @@
 package com.example.wouple.activities.mainActivity
 
-import android.content.Context
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
@@ -66,7 +65,6 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
-import com.example.wouple.adds.AdManager
 import com.example.wouple.adds.BannerAdd
 import com.example.wouple.elements.GetHourlyWeatherInfo
 import com.example.wouple.elements.GetWeeklyForecast
@@ -152,6 +150,7 @@ fun MainView(
         BannerAdd(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(8.dp)
                 .background(Transparent),
             adId = "ca-app-pub-3940256099942544/9214589741"
         )
@@ -318,18 +317,12 @@ private fun GetBottomView(
     searchedLocation: MutableState<SearchedLocation?>,
     temp: TemperatureResponse
 ) {
-    val context = LocalContext.current
-    MobileAds.initialize(context)
     Column(
         modifier = Modifier
             .background(White)
             .padding(top = 8.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        BannerAdd(
-            modifier = Modifier.fillMaxWidth(),
-            adId = "ca-app-pub-3940256099942544/9214589741"
-        )
         searchedLocation.value?.let { GetSevenHoursForecast(temp) }
         GetSevenDaysForecast(temp)
     }
@@ -504,15 +497,12 @@ fun DetailButton(
             repeatMode = RepeatMode.Reverse
         ), label = ""
     )
-    val context = LocalContext.current
     Button(
         modifier = Modifier.padding(bottom = 16.dp),
         shape = CircleShape,
         onClick = {
             isPressed = !isPressed
-            showInterstitialAdAndNavigateToDetail(context) {
-                onDetailsButtonClicked()
-            }
+            onDetailsButtonClicked()
         },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = if (isPressed) {
@@ -525,24 +515,6 @@ fun DetailButton(
         Text(
             text = stringResource(id = R.string.Forecast_Details)
         )
-    }
-}
-
-fun showInterstitialAdAndNavigateToDetail(
-    context: Context,
-    navigateToDetailView: () -> Unit
-) {
-    // Loads the interstitial ad
-    AdManager.loadInterstitialAd(context) { adLoaded ->
-        if (adLoaded) {
-            AdManager.showInterstitialAd(context) {
-                // After the ad is dismissed, navigates to the detail view
-                navigateToDetailView()
-            }
-        } else {
-            // If ad fails to load,  it navigates to detail view directly
-            navigateToDetailView()
-        }
     }
 }
 @Composable
