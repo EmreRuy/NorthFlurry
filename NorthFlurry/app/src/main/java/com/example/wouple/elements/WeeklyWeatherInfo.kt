@@ -15,10 +15,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wouple.activities.detailActivity.WeatherCondition
+import com.example.wouple.activities.detailActivity.components.WeatherCondition
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.vintage
 import java.time.LocalDate
 import java.util.Locale
 

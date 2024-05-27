@@ -6,7 +6,8 @@ import com.google.gson.Gson
 
 object LocationPref {
     fun getSearchedLocation(context: Context): SearchedLocation? {
-        val sharedPref = context.getSharedPreferences("preferences", Context.MODE_PRIVATE) ?: return null
+        val sharedPref =
+            context.getSharedPreferences("preferences", Context.MODE_PRIVATE) ?: return null
         val gson = Gson()
         val json = sharedPref.getString("locationKey", "")
         return gson.fromJson(json, SearchedLocation::class.java)

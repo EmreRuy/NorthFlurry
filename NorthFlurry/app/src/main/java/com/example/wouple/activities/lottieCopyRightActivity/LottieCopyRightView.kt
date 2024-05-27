@@ -1,4 +1,4 @@
-package com.example.wouple.activities.lottieActivity
+package com.example.wouple.activities.lottieCopyRightActivity
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

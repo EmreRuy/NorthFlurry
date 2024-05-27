@@ -1,38 +1,22 @@
 package com.example.wouple.activities.settingsActivity
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -49,37 +33,32 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.activities.mainActivity.components.LottieAnimationShootingStar
+import com.example.wouple.activities.settingsActivity.components.CustomTab
+import com.example.wouple.activities.settingsActivity.components.IdeasSettings
+import com.example.wouple.activities.settingsActivity.components.LottieFilesAndTerms
+import com.example.wouple.activities.settingsActivity.components.PrecipitationUnitSettings
+import com.example.wouple.activities.settingsActivity.components.RateUsSettings
+import com.example.wouple.activities.settingsActivity.components.SettingsCardOne
+import com.example.wouple.activities.settingsActivity.components.SettingsCardTwo
+import com.example.wouple.activities.settingsActivity.components.ShareTheAppSettings
+import com.example.wouple.activities.settingsActivity.components.TemperatureUnitSettings
+import com.example.wouple.activities.settingsActivity.components.TroubleOnAppSettings
+import com.example.wouple.activities.settingsActivity.components.WindUnitSettings
 import com.example.wouple.elements.HorizontalWave
-import com.example.wouple.elements.UnitSettings
 import com.example.wouple.elements.rememberPhaseState
-import com.example.wouple.model.api.PrecipitationUnit
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.model.api.TemperatureUnit
-import com.example.wouple.model.api.WindUnit
-import com.example.wouple.preferences.PrecipitationUnitPref
-import com.example.wouple.preferences.TemperatureUnitPref
-import com.example.wouple.preferences.WindUnitPref
-import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.Whitehis
-import com.example.wouple.ui.theme.beige
-import com.example.wouple.ui.theme.mocassin
 import kotlinx.coroutines.delay
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -216,6 +195,7 @@ fun SettingsView(
                             WindUnitSettings(temp)
                         }
                     }
+                    LottieAnimationShootingStar()
                 }
                 Box(
                     modifier = Modifier
@@ -248,483 +228,4 @@ fun SettingsView(
             }
         }
     )
-}
-
-@Composable
-private fun SettingsCardOne() {
-    Spacer(modifier = Modifier.padding(top = 12.dp))
-    Text(
-        text = stringResource(id = R.string.GeneralSettings),
-        modifier = Modifier.padding(8.dp),
-        fontWeight = FontWeight.Medium,
-        color = beige.copy(alpha = 0.8f),
-        fontSize = 28.sp
-    )
-}
-
-@Composable
-private fun SettingsCardTwo() {
-    Spacer(modifier = Modifier.padding(top = 12.dp))
-    Text(
-        text = stringResource(id = R.string.UnitSettings),
-        modifier = Modifier.padding(8.dp),
-        fontWeight = FontWeight.Medium,
-        color = beige.copy(alpha = 0.8f),
-        fontSize = 28.sp
-    )
-}
-
-@Composable
-fun TemperatureUnitSettings(temp: TemperatureResponse) {
-    val context = LocalContext.current
-    Column(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-    ) {
-        Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
-            text = stringResource(id = R.string.TemperatureUnits),
-            color = mocassin,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
-            textAlign = TextAlign.Start
-        )
-        val temperatureUnits = TemperatureUnit.values()
-        var selectedUnitIndex by remember {
-            mutableStateOf(
-                temperatureUnits.indexOf(
-                    TemperatureUnitPref.getTemperatureUnit(context)
-                )
-            )
-        }
-        UnitSettings(
-            selectedUnitIndex = selectedUnitIndex,
-            onUnitSelected = { index ->
-                TemperatureUnitPref.setTemperatureUnit(context, temperatureUnits[index])
-                selectedUnitIndex = index
-            },
-            units = temperatureUnits.map { it.toString() },
-            temp = temp
-        )
-    }
-}
-
-@Composable
-fun WindUnitSettings(temp: TemperatureResponse) {
-    val context = LocalContext.current
-    Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 2.dp)) {
-        Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
-            text = stringResource(id = R.string.WindSpeedUnits),
-            color = mocassin,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
-            textAlign = TextAlign.Start
-        )
-        val units = WindUnit.values()
-        var selectedUnitIndex by remember {
-            mutableStateOf(
-                units.indexOf(
-                    WindUnitPref.getWindUnit(
-                        context
-                    )
-                )
-            )
-        }
-        UnitSettings(
-            selectedUnitIndex = selectedUnitIndex,
-            onUnitSelected = { index ->
-                WindUnitPref.setWindUnit(context, units[index])
-                selectedUnitIndex = index
-            },
-            units = units.map { it.toString() },
-            temp = temp
-        )
-    }
-}
-
-@Composable
-fun PrecipitationUnitSettings(temp: TemperatureResponse) {
-    val context = LocalContext.current
-    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-        Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
-            text = stringResource(id = R.string.PrecipitationUnits),
-            color = mocassin,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
-            textAlign = TextAlign.Start
-        )
-        val units = PrecipitationUnit.values()
-        var selectedUnitIndex by remember {
-            mutableStateOf(
-                units.indexOf(
-                    PrecipitationUnitPref.getPrecipitationUnit(
-                        context
-                    )
-                )
-            )
-        }
-        UnitSettings(
-            selectedUnitIndex = selectedUnitIndex,
-            onUnitSelected = { index ->
-                PrecipitationUnitPref.setPrecipitationUnit(context, units[index])
-                selectedUnitIndex = index
-            },
-            units = units.map { it.toString() },
-            temp = temp
-        )
-    }
-}
-
-@Composable
-private fun ShareTheAppSettings() {
-    val context = LocalContext.current
-    val interactionSource = remember { MutableInteractionSource() }
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) {
-                val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                    putExtra(
-                        Intent.EXTRA_TEXT,
-                        "https://northFlurry.com/Emre"
-                    ) //!!! actual URL of my app will be added after publishing
-                    type = "text/plain"
-                }
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                context.startActivity(shareIntent)
-            }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
-        shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(White)
-                .padding(12.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                modifier = Modifier.padding(start = 4.dp),
-                painter = painterResource(id = R.drawable.ic_world),
-                contentDescription = null
-            )
-            Spacer(modifier = Modifier.width(20.dp))
-            Text(
-                text = stringResource(id = R.string.ShareTheApp),
-                fontWeight = FontWeight.Medium,
-                color = Dark20,
-                fontSize = 18.sp
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(18.dp)
-                    .align(CenterVertically)
-            )
-        }
-    }
-}
-
-@Composable
-fun RateUsSettings() {
-    val interactionSource = remember { MutableInteractionSource() }
-    val context = LocalContext.current
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) {
-                val appURL =
-                    "https://play.google.com/store/apps" //!!! actual URL of my app will be added after publishing
-                val playIntent: Intent = Intent().apply {
-                    action = Intent.ACTION_VIEW
-                    data = Uri.parse(appURL)
-                }
-                try {
-                    context.startActivity(playIntent)
-                } catch (e: Exception) {
-                    Log.e("TAG", "Error opening URL: ${e.message}")
-                }
-            }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
-        shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(White)
-                .padding(12.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_hand_heart),
-                contentDescription = null,
-                Modifier.padding(top = 4.dp, start = 4.dp)
-            )
-            Spacer(modifier = Modifier.width(20.dp))
-            Text(
-                text = stringResource(id = R.string.RateUs),
-                fontWeight = FontWeight.Medium,
-                color = Dark20,
-                fontSize = 18.sp
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(18.dp)
-                    .align(CenterVertically)
-            )
-        }
-    }
-}
-
-@Composable
-private fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
-    val interactionSource = remember { MutableInteractionSource() }
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) {
-                onLottieClicked()
-            }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
-        shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(White)
-                .padding(12.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_attribution_24),
-                contentDescription = null,
-                Modifier.padding(start = 4.dp)
-            )
-            Spacer(modifier = Modifier.width(20.dp))
-            Text(
-                text = stringResource(id = R.string.LottieFilesAndTerms),
-                fontWeight = FontWeight.Medium,
-                color = Dark20,
-                fontSize = 18.sp
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(18.dp)
-                    .align(CenterVertically)
-            )
-        }
-    }
-}
-@Composable
-private fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
-    val interactionSource = remember { MutableInteractionSource() }
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) {
-                onTroubleWithAppClicked()
-            }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
-        shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(White)
-                .padding(12.dp),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_warning_triangle),
-                contentDescription = null,
-                Modifier.padding(start = 4.dp)
-            )
-            Spacer(modifier = Modifier.width(20.dp))
-            Text(
-                text = stringResource(id = R.string.TroubleWithTheApp),
-                fontWeight = FontWeight.Medium,
-                color = Dark20,
-                fontSize = 18.sp
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(18.dp)
-                    .align(CenterVertically)
-            )
-        }
-    }
-}
-
-@Composable
-private fun IdeasSettings(onIdeaClicked: () -> Unit) {
-    val interactionSource = remember { MutableInteractionSource() }
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null
-            ) { onIdeaClicked() }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
-        shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(White)
-                .padding(12.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_lightbulb),
-                contentDescription = null,
-                Modifier.padding(start = 4.dp)
-            )
-            Spacer(modifier = Modifier.width(24.dp))
-            Text(
-                text = stringResource(id = R.string.AnyGoodIdeas),
-                fontWeight = FontWeight.Medium,
-                color = Dark20,
-                fontSize = 18.sp
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Icon(
-                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(18.dp)
-                    .align(CenterVertically)
-            )
-        }
-    }
-}
-
-@Composable
-private fun MyTabIndicator(
-    indicatorWidth: Dp,
-    indicatorOffset: Dp,
-    indicatorColor: Color,
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxHeight()
-            .width(
-                width = indicatorWidth,
-            )
-            .offset(
-                x = indicatorOffset,
-            )
-            .clip(
-                shape = CircleShape,
-            )
-            .background(
-                color = indicatorColor,
-            ),
-    )
-}
-
-@Composable
-private fun MyTabItem(
-    isSelected: Boolean,
-    onClick: () -> Unit,
-    tabWidth: Dp,
-    text: String,
-) {
-    val tabTextColor: Color by animateColorAsState(
-        targetValue = if (isSelected) {
-            beige
-        } else {
-            Black
-        },
-        animationSpec = tween(easing = LinearEasing), label = "",
-    )
-    Text(
-        modifier = Modifier
-            .clip(CircleShape)
-            .clickable {
-                onClick()
-            }
-            .width(tabWidth)
-            .padding(
-                vertical = 8.dp,
-                horizontal = 12.dp,
-            ),
-        text = text,
-        color = tabTextColor,
-        textAlign = TextAlign.Center,
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Medium
-    )
-}
-
-@Composable
-fun CustomTab(
-    selectedItemIndex: Int,
-    items: List<String>,
-    modifier: Modifier = Modifier,
-    tabWidth: Dp = 120.dp,
-    onClick: (index: Int) -> Unit,
-    temp: TemperatureResponse
-) {
-    val indicatorOffset: Dp by animateDpAsState(
-        targetValue = tabWidth * selectedItemIndex,
-        animationSpec = tween(easing = LinearEasing), label = "",
-    )
-    val isDay = temp.current_weather.is_day == 1
-    Box(
-        modifier = modifier
-            .clip(CircleShape)
-            .background(White)
-            .height(intrinsicSize = IntrinsicSize.Min),
-    ) {
-        MyTabIndicator(
-            indicatorWidth = tabWidth,
-            indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) Color( 0xFF3C4269) else Color(0xFF536AD5)
-        )
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.clip(CircleShape),
-        ) {
-            items.forEachIndexed { index, text ->
-                val isSelected = index == selectedItemIndex
-                MyTabItem(
-                    isSelected = isSelected,
-                    onClick = {
-                        onClick(index)
-                    },
-                    tabWidth = tabWidth,
-                    text = text,
-                )
-            }
-        }
-    }
 }

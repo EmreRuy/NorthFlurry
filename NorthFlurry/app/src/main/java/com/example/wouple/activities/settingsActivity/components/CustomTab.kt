@@ -1,4 +1,4 @@
-package com.example.wouple.elements
+package com.example.wouple.activities.settingsActivity.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -8,10 +8,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -20,22 +19,16 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.beige
-import java.util.Locale
 
 @Composable
 private fun MyTabIndicator(
@@ -46,17 +39,26 @@ private fun MyTabIndicator(
     Box(
         modifier = Modifier
             .fillMaxHeight()
-            .width(width = indicatorWidth)
-            .offset(x = indicatorOffset)
-            .clip(shape = CircleShape)
-            .background(color = indicatorColor)
+            .width(
+                width = indicatorWidth,
+            )
+            .offset(
+                x = indicatorOffset,
+            )
+            .clip(
+                shape = CircleShape,
+            )
+            .background(
+                color = indicatorColor,
+            ),
     )
 }
 
 @Composable
-private fun RowScope.MyTabItem(
+private fun MyTabItem(
     isSelected: Boolean,
     onClick: () -> Unit,
+    tabWidth: Dp,
     text: String,
 ) {
     val tabTextColor: Color by animateColorAsState(
@@ -73,44 +75,38 @@ private fun RowScope.MyTabItem(
             .clickable {
                 onClick()
             }
-            .padding(top = 8.dp)
-            .weight(1f),
-        text = text.lowercase().replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-        },
+            .width(tabWidth)
+            .padding(
+                vertical = 8.dp,
+                horizontal = 12.dp,
+            ),
+        text = text,
         color = tabTextColor,
         textAlign = TextAlign.Center,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Medium
     )
 }
 
 @Composable
-fun CustomTabForSettings(
+fun CustomTab(
     selectedItemIndex: Int,
     items: List<String>,
     modifier: Modifier = Modifier,
+    tabWidth: Dp = 120.dp,
     onClick: (index: Int) -> Unit,
-    tabHeight: Dp = 40.dp,
     temp: TemperatureResponse
 ) {
-    var tabWidth by remember { mutableStateOf(377.8.dp / items.size) }
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
     )
     val isDay = temp.current_weather.is_day == 1
-    val density = LocalDensity.current
     Box(
         modifier = modifier
-            .fillMaxWidth()
             .clip(CircleShape)
             .background(Color.White)
-            .onGloballyPositioned {
-                tabWidth = with(density) {
-                    it.size.width.toDp() / items.size
-                }
-            }
-            .height(tabHeight),
+            .height(intrinsicSize = IntrinsicSize.Min),
     ) {
         MyTabIndicator(
             indicatorWidth = tabWidth,
@@ -119,10 +115,7 @@ fun CustomTabForSettings(
         )
         Row(
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .clip(CircleShape)
-                .padding(top = 2.dp),
+            modifier = Modifier.clip(CircleShape),
         ) {
             items.forEachIndexed { index, text ->
                 val isSelected = index == selectedItemIndex
@@ -131,11 +124,8 @@ fun CustomTabForSettings(
                     onClick = {
                         onClick(index)
                     },
-                    text = text.lowercase().replaceFirstChar {
-                        if (it.isLowerCase()) it.titlecase(
-                            Locale.getDefault()
-                        ) else it.toString()
-                    },
+                    tabWidth = tabWidth,
+                    text = text,
                 )
             }
         }

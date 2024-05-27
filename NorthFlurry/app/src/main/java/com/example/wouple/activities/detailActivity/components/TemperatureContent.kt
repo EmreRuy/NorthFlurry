@@ -1,8 +1,7 @@
-package com.example.wouple.elements
+package com.example.wouple.activities.detailActivity.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -12,32 +11,30 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wouple.activities.detailActivity.components.WeatherCondition
-import com.example.wouple.formatter.DateFormatterForMain
+import com.example.wouple.formatter.DateFormatter
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.mocassin
+import com.example.wouple.ui.theme.Whitehis
+import com.example.wouple.ui.theme.vintage
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Composable
-fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
+fun TemperatureContent(temp: TemperatureResponse) {
     val scrollState = rememberScrollState()
     Row(
         modifier = Modifier
-            .padding(top = 8.dp)
+            .padding(start = 8.dp, end = 8.dp, bottom = 8.dp, top = 0.dp)
             .horizontalScroll(scrollState),
-        horizontalArrangement = Arrangement.Center
     ) {
         val timeZone = temp.timezone
         val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
         val currentHour = currentDateTime.hour
-        for (index in currentHour..(currentHour + 6)) {
-            val time = DateFormatterForMain.formatDateMain(temp.hourly.time[index])
+        for (index in currentHour..(currentHour + 23)) {
+            val time = DateFormatter.formatDate(temp.hourly.time[index])
             val temperature = temp.hourly.temperature_2m[index].toInt().toString()
             val isDaytime = temp.hourly.is_day.getOrNull(index) == 1
             if (isDaytime) {
@@ -50,7 +47,7 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
                     95, 96, 99 -> WeatherCondition.THUNDERSTORM
                     else -> WeatherCondition.SUNNY
                 }
-                GetSixHours(time, temperature, hourlyWeatherCondition)
+                Hours(time, temperature, hourlyWeatherCondition)
             }
             if (!isDaytime) {
                 val hourlyWeatherConditionNight = when (temp.hourly.weathercode[index]) {
@@ -63,7 +60,7 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
                         WeatherCondition.CLEAR_NIGHT
                     }
                 }
-                GetSixHours(time, temperature, hourlyWeatherConditionNight)
+                Hours(time, temperature, hourlyWeatherConditionNight)
             }
         }
 
@@ -71,34 +68,33 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
 }
 
 @Composable
-fun GetSixHours(
+fun Hours(
     time: String,
     temperature: String,
     hourlyWeatherCondition: WeatherCondition
 ) {
     Column(
-        modifier = Modifier.padding(top = 18.dp, start = 4.dp, end = 4.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        modifier = Modifier.padding(5.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(top = 4.dp),
+            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = time,
-            color = mocassin,
-            fontSize = 15.sp,
+            color = vintage,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Light
         )
         Image(
             painter = painterResource(id = hourlyWeatherCondition.imageResourceId),
             contentDescription = null,
-            modifier = Modifier.size(26.dp)
+            modifier = Modifier.size(28.dp)
         )
         Text(
-            modifier = Modifier.padding(top = 4.dp),
+            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = "$temperature°",
-            color = Color.White.copy(alpha = 0.8f),
+            color = Whitehis.copy(alpha = 0.7f),
             fontWeight = FontWeight.Medium,
-            fontSize = 15.sp
+            fontSize = 17.sp
         )
     }
 }

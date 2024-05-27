@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.wouple.activities.lottieActivity.LottieActivity
-import com.example.wouple.activities.startScreen.StartActivity
+import com.example.wouple.activities.lottieCopyRightActivity.LottieCopyRightActivity
 import com.example.wouple.extensions.parcelable
 import com.example.wouple.model.api.TemperatureResponse
 
@@ -28,7 +27,7 @@ class SettingsActivity : ComponentActivity() {
                 },
                 temp = temp,
                 onLottieClicked = {
-                    val intent = Intent(this, LottieActivity::class.java )
+                    val intent = Intent(this, LottieCopyRightActivity::class.java )
                     intent.putExtra("temp", temp)
                     startActivity(intent)
                 }

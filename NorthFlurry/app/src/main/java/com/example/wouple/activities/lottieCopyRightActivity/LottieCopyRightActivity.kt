@@ -1,4 +1,4 @@
-package com.example.wouple.activities.lottieActivity
+package com.example.wouple.activities.lottieCopyRightActivity
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import com.example.wouple.extensions.parcelable
 import com.example.wouple.model.api.TemperatureResponse
 
-class LottieActivity : ComponentActivity() {
+class LottieCopyRightActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -18,5 +18,5 @@ class LottieActivity : ComponentActivity() {
             }
             LottieView(temp = temp)
         }
-}
+    }
 }
