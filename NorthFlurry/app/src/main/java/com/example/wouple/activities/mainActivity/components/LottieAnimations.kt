@@ -43,7 +43,7 @@ fun LottieAnimationShootingStar() {
     )
 
     LaunchedEffect(Unit) {
-        delay(3000)
+        delay(2000)
         isPlaying = true
     }
 

@@ -58,6 +58,7 @@ fun SearchBar(
 
     LaunchedEffect(isSearchExpanded.value) {
         query = ""
+        onSearch("")
     }
 
     Row(
@@ -81,7 +82,7 @@ fun SearchBar(
                 maxLines = 1,
                 onValueChange = {
                     query = it
-                    onSearch(query)
+                    onSearch(it)
                 },
                 modifier = Modifier
                     .weight(1f)

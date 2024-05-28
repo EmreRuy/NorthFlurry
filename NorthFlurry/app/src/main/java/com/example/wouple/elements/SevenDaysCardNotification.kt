@@ -41,13 +41,11 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
         val baseColor = Color(0xFF4C49C6)
-        // Generate lighter shades
         val lighterShades = listOf(
             baseColor.copy(alpha = 0.7f),
             baseColor.copy(alpha = 0.8f),
             baseColor.copy(alpha = 0.9f),
         )
-
         lighterShades
     } else {
         listOf(
