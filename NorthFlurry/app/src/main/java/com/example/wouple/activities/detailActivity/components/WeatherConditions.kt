@@ -1,6 +1,6 @@
 package com.example.wouple.activities.detailActivity.components
 
-import com.weather.wouple.R
+import com.example.wouple.R
 
 enum class WeatherCondition(val imageResourceId: Int) {
     SUNNY(R.drawable.ic_sun),

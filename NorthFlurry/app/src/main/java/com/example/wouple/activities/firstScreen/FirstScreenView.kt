@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.weather.wouple.R
+import com.example.wouple.R
 import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.vintage

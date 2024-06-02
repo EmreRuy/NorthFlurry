@@ -30,7 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.weather.wouple.R
+import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
 import java.time.LocalDate
