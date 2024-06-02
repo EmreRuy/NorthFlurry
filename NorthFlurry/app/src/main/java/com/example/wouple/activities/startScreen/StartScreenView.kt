@@ -61,7 +61,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wouple.R
+import com.weather.wouple.R
 import com.example.wouple.elements.GetPulsatingEffect
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SnowfallEffect

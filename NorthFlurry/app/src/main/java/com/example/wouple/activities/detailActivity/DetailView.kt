@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -37,6 +36,7 @@ import com.example.wouple.activities.detailActivity.components.WeeklyForecast
 import com.example.wouple.activities.detailActivity.components.WeeklyPrecipitationChart
 import com.example.wouple.activities.detailActivity.components.getWeatherDetails
 import com.example.wouple.model.api.AirQuality
+import com.weather.wouple.R
 
 
 @OptIn(ExperimentalPagerApi::class)

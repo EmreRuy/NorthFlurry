@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace 'com.example.wouple'
+    namespace 'com.weather.wouple'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.wouple"
+        applicationId "com.weather.wouple"
         minSdk 28
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wouple.R
+import com.weather.wouple.R
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.Whitehis
