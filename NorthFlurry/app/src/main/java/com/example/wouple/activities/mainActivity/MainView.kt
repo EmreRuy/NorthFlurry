@@ -92,9 +92,6 @@ fun MainView(
         //Bottom view
         GetBottomView(searchedLocation = searchedLocation, temp = temp)
         MobileAds.initialize(context)
-        // For the test it is the adId : ca-app-pub-3940256099942544/9214589741
-// this one is for the production : ca-app-pub-4891264100733274/3799972498
-// with the production one I can not run the app otherwise they block me!!!
         BannerAdd(
             modifier = Modifier
                 .fillMaxSize()

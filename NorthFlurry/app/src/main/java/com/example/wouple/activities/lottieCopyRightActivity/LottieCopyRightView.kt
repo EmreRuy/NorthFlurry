@@ -50,7 +50,7 @@ fun LottieView(temp: TemperatureResponse) {
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .padding(16.dp),
-            text = stringResource(id = com.weather.wouple.R.string.LottieFilesCopyright),
+            text = stringResource(id = com.example.wouple.R.string.LottieFilesCopyright),
             fontWeight = FontWeight.Light,
             color = Color.White,
             fontSize = 14.sp
