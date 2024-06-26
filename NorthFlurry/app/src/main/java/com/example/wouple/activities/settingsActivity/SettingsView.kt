@@ -153,7 +153,7 @@ fun SettingsView(
                     Spacer(modifier = Modifier.padding(top = 32.dp))
                     CustomTab(
                         selectedItemIndex = selected,
-                        items = listOf("General", "Units"),
+                        items = listOf(stringResource(id = R.string.General), stringResource(id = R.string.Units)),
                         onClick = {
                             setSelected(it)
                         },

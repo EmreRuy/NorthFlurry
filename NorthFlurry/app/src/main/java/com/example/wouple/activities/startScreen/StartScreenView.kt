@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -122,7 +123,7 @@ private fun AnimationOfSearchScreen() {
             enter = fadeIn(animationSpec = tween(durationMillis = 1000, easing = LinearEasing))
         ) {
             Text(
-                modifier = Modifier.padding(start = 40.dp),
+                modifier = Modifier.padding(start = 38.dp),
                 textAlign = TextAlign.Center,
                 text = stringResource(id = R.string.app_name),
                 fontWeight = FontWeight.Light,
@@ -131,7 +132,7 @@ private fun AnimationOfSearchScreen() {
                 color = vintage,
             )
             Text(
-                modifier = Modifier.padding(vertical = 28.dp),
+                modifier = Modifier.padding(vertical = 36.dp),
                 text = stringResource(id = R.string.WeatherForecast),
                 fontWeight = FontWeight.Light,
                 fontFamily = FontFamily.SansSerif,

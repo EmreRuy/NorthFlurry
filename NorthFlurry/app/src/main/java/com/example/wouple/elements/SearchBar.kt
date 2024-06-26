@@ -33,12 +33,14 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.ui.theme.Spiro
+import com.example.wouple.R
 
 @Composable
 fun SearchBar(
@@ -94,7 +96,7 @@ fun SearchBar(
                 placeholder = {
                     Text(
                         modifier = Modifier.padding(start = 16.dp),
-                        text = "Search a city or airport",
+                        text = stringResource(id = R.string.SearchBar),
                         color = Color.Black.copy(alpha = 0.7f)
                     )
                 },

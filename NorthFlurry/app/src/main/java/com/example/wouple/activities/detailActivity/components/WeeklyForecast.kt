@@ -93,7 +93,8 @@ fun WeeklyForecast(
         }
         for (days in 0 until temp.daily.time.size) {
             val daysOfWeek = temp.daily.time[days]
-            val localDay = LocalDate.parse(daysOfWeek).dayOfWeek.toString()
+            val localDay = LocalDate.parse(daysOfWeek).dayOfWeek
+            val localizedDayName = getLocalizedDayName(localDay)
             val forecastMin = temp.daily.temperature_2m_min[days].toInt()
             val forecastMax = temp.daily.temperature_2m_max[days].toInt()
             val weatherCondition = when (temp.daily.weathercode[days]) {
@@ -131,7 +132,7 @@ fun WeeklyForecast(
                 Text(
                     modifier = Modifier
                         .weight(1f),
-                    text = localDay.lowercase()
+                    text = localizedDayName.lowercase()
                         .replaceFirstChar {
                             if (it.isLowerCase()) it.titlecase(locale = Locale.ENGLISH) else it.toString()
                         },

@@ -75,7 +75,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
     val precipitationSum = temp.daily.precipitation_sum.take(7)
     val maxRainSum = precipitationSum.maxOrNull()?.toFloat() ?: return
     val daysOfWeek = (0 until 7).map {
-        LocalDate.now().plusDays(it.toLong()).dayOfWeek.name.substring(0, 3)
+        getLocalizedDayName(LocalDate.now().plusDays(it.toLong()).dayOfWeek).substring(0,3)
     }
     Column(
         modifier = Modifier

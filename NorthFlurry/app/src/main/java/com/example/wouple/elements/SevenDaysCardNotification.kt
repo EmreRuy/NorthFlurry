@@ -7,6 +7,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,10 +24,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterStart
+import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -54,30 +59,23 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
             Color(0xFF3F5066),
         )
     }
+    val currentContext = LocalContext.current
     // this code finds the warmest day in a list of daily temperatures
     val warmestDayIndex = temp.daily.temperature_2m_max
         .mapIndexed { index, temperature -> index to temperature.toInt() }
         .maxByOrNull { it.second }
         ?.first ?: 0
     val warmestDate = LocalDate.parse(temp.daily.time[warmestDayIndex])
-    val warmestDayOfWeek = warmestDate.dayOfWeek.toString().lowercase()
-        .replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.getDefault()
-            ) else it.toString()
-        }
+    val warmestDayOfWeek = getLocalizedDayNames(warmestDate.dayOfWeek, context = currentContext)
+
+
     // this code finds the coolest day in the list of daily temperatures
     val coolestDayIndex = temp.daily.temperature_2m_max
         .mapIndexed { index, temperature -> index to temperature.toInt() }
         .minByOrNull { it.second }
         ?.first ?: 0
     val coolestDate = LocalDate.parse(temp.daily.time[coolestDayIndex])
-    val coldestDayOfWeek = coolestDate.dayOfWeek.toString().lowercase()
-        .replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(
-                Locale.getDefault()
-            ) else it.toString()
-        }
+    val coldestDayOfWeek = getLocalizedDayNames(coolestDate.dayOfWeek, currentContext)
     //
     val sunIndex =
         temp.daily.time.map { LocalDate.parse(it).dayOfWeek }.indexOf(LocalDate.now().dayOfWeek)
@@ -88,13 +86,16 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
     val precipitationDays = mutableListOf<String>()
     // this code retrieves the thunderstorm days
     for (dayIndex in 0 until temp.daily.time.size.coerceAtMost(7)) {
-        val dayOfWeek = LocalDate.parse(temp.daily.time[dayIndex]).dayOfWeek.toString().take(3)
+        val localDayOfWeek = LocalDate.parse(temp.daily.time[dayIndex]).dayOfWeek
+        val localizedDayName = getLocalizedDayNames(localDayOfWeek, currentContext)
         val weatherCode = temp.daily.weathercode[dayIndex]
+
         // Checks for thunderstorm weather code
         if (weatherCode in listOf(95, 96, 99)) {
-            thunderstormDays.add(dayOfWeek)
+            thunderstormDays.add(localizedDayName.take(3))
         }
-        //gives the precipitation days
+
+        // Checks for precipitation weather code
         if (weatherCode in listOf(
                 51, 53, 55, 56, 57,
                 61, 63, 65, 66, 67,
@@ -102,45 +103,45 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
                 95, 96, 99
             )
         ) {
-            precipitationDays.add(dayOfWeek)
+            precipitationDays.add(localizedDayName.take(3))
         }
     }
-    //
 
+    val context = LocalContext.current
     val texts = mutableListOf(
-        "Warmest Day expected: $warmestDayOfWeek",
-        "Coldest Day expected: $coldestDayOfWeek",
-        "Sunshine Duration: $sunDurationAsHours hours today"
+        context.getString(R.string.warmest_day, warmestDayOfWeek),
+        context.getString(R.string.coldest_day, coldestDayOfWeek),
+        context.getString(R.string.sunshine_duration, sunDurationAsHours)
     )
     // adds thunderstorm information to notification if location has thunderstorm in the week
     if (thunderstormDays.isNotEmpty()) {
         val thunderstormInfo = if (thunderstormDays.size >= 4) {
-            "Thunderstorms expected during the week"
+            context.getString(R.string.thunderstorms_week)
         } else {
-            "Thunderstorms expected on: ${
+            context.getString(R.string.thunderstorms_days,
                 thunderstormDays.joinToString(", ") { day ->
                     day.lowercase(Locale.getDefault()).replaceFirstChar { char ->
                         if (char.isLowerCase()) char.titlecase(Locale.getDefault()) else char.toString()
                     }
                 }
-            }"
+            )
         }
         texts += thunderstormInfo
     }
     //adds precipitation to notification if location has precipitation in the week
     if (precipitationDays.isNotEmpty()) {
-        val thunderstormInfo = if (precipitationDays.size >= 4) {
-            "Precipitation expected during the week"
+        val precipitationInfo = if (precipitationDays.size >= 4) {
+            context.getString(R.string.precipitation_week)
         } else {
-            "Precipitation expected on: ${
+            context.getString(R.string.precipitation_days,
                 precipitationDays.joinToString(", ") { day ->
                     day.lowercase(Locale.getDefault()).replaceFirstChar { char ->
                         if (char.isLowerCase()) char.titlecase(Locale.getDefault()) else char.toString()
                     }
                 }
-            }"
+            )
         }
-        texts += thunderstormInfo
+        texts += precipitationInfo
     }
     var apparent by remember { mutableStateOf(true) }
     val currentTextIndex = remember { mutableStateOf(0) }
@@ -165,14 +166,19 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
             .background(brush = Brush.verticalGradient(background)),
         contentAlignment = CenterStart
     ) {
-        Row(modifier = Modifier.padding(start = 12.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             Icon(
                 modifier = Modifier.size(20.dp),
                 painter = painterResource(id = R.drawable.thebell),
                 contentDescription = "notification",
                 tint = Color.White
             )
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.width(10.dp))
             AnimatedVisibility(
                 visible = apparent,
                 enter = slideInVertically(initialOffsetY = { -it }),

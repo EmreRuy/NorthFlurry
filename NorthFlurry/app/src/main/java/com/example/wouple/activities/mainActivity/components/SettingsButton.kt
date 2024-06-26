@@ -28,7 +28,7 @@ fun SettingsButton(
     isExpanded = rememberUpdatedState(isExpanded).value
     Box(
         modifier = Modifier
-            .padding(start = 16.dp)
+            .padding(start = 20.dp)
             .clip(CircleShape)
     ) {
         IconButton(
@@ -40,7 +40,7 @@ fun SettingsButton(
             Icon(
                 painter = painterResource(id = R.drawable.menuicon),
                 contentDescription = null,
-                modifier = Modifier.size(30.dp),
+                modifier = Modifier.size(36.dp),
                 tint = Color.White
             )
         }

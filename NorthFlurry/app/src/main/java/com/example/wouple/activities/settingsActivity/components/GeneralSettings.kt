@@ -72,7 +72,7 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier.padding(start = 4.dp)
             )
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.TroubleWithTheApp),
                 fontWeight = FontWeight.Medium,
@@ -230,7 +230,7 @@ fun RateUsSettings() {
                 contentDescription = null,
                 Modifier.padding(top = 4.dp, start = 4.dp)
             )
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.width(10.dp))
             Text(
                 text = stringResource(id = R.string.RateUs),
                 fontWeight = FontWeight.Medium,

@@ -6,7 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiRequest {
-    //temperature_unit&windspeed_unit&precipitation_unit
     @GET("https://api.open-meteo.com/v1/forecast/")
     fun getTemperature(
         @Query("latitude") latitude: String,

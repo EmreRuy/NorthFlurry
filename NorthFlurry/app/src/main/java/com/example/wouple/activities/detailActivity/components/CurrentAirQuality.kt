@@ -91,17 +91,9 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                 fontWeight = FontWeight.Light,
                 color = textColor
             )
-            val airQualityDescriptions = mapOf(
-                0..20 to "Good",
-                20..40 to "Fair",
-                40..60 to "Moderate",
-                60..80 to "Poor",
-                80..100 to "Very Poor",
-                100..Int.MAX_VALUE to "Hazardous"
-            )
-            val airCode = air?.current?.european_aqi ?: 0
-            val airQualityDescription = airQualityDescriptions.entries.find { airCode in it.key }
-            val descriptionText = airQualityDescription?.value ?: "Unknown"
+            val airCodex = air?.current?.european_aqi ?: 0
+            val airQualityDescriptionResId = getAirQualityDescriptionResId(airCodex)
+            val descriptionText = stringResource(id = airQualityDescriptionResId)
             Text(
                 modifier = Modifier.padding(start = 4.dp),
                 text = descriptionText,

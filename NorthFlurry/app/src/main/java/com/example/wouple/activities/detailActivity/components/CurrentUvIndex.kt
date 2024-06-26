@@ -96,17 +96,7 @@ fun UvIndex(temp: TemperatureResponse) {
                 fontWeight = FontWeight.Light,
                 color = textColor
             )
-            val uvIndexDescriptions = when (temp.hourly.uv_index[currentHour].toInt()) {
-                in 0..2 -> "Low"
-                in 3..5 -> "Moderate"
-                in 6..7 -> "High"
-                in 8..10 -> "Very High"
-                in 11..Int.MAX_VALUE -> "Extreme"
-
-                else -> {
-                    "Unknown"
-                }
-            }
+            val uvIndexDescriptions = getUvIndexDescription(uvIndex = temp.hourly.uv_index[currentHour].toInt())
             Text(
                 modifier = Modifier.padding(start = 4.dp),
                 text = uvIndexDescriptions,

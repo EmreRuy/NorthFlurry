@@ -1,5 +1,6 @@
 package com.example.wouple.elements
 
+import android.content.Context
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.tween
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,10 +24,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -38,6 +42,7 @@ import java.time.ZonedDateTime
 
 @Composable
 fun SevenHoursCardNotification(temp: TemperatureResponse) {
+    val context = LocalContext.current
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
         val baseColor = Color(0xFF4C49C6)
@@ -66,19 +71,20 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val surfacePressure = temp.hourly.surface_pressure[currentHour].toInt()
     val totalCloudCover = temp.hourly.cloud_cover[currentHour].toInt()
     val windDegreesCurrent = temp.current_weather.winddirection.toInt()
-    val windDirection = getWindDirection(windDegreesCurrent.toDouble())
+    val windDirection = getLocalizedWindDirection(windDegreesCurrent.toDouble(), context)
     val tempUnit = temp.hourly_units.apparent_temperature
     val feelsLike = temp.hourly.apparent_temperature[currentHour].toInt()
     val texts = listOf(
-        "Precipitation % $precipitationPr in the next hour",
-        "Feels like $feelsLike $tempUnit now",
-        "Total Cloud Cover % $totalCloudCover",
-        "Surface Pressure $surfacePressure hPa currently",
-        "Wind Direction is from the $windDirection",
-        "Wind Speed: $currentWindSpeed $currentWindSpeedUnit at the moment"
+        context.getString(R.string.precipitation_probability, precipitationPr),
+        context.getString(R.string.feels_like, feelsLike, tempUnit),
+        context.getString(R.string.total_cloud_cover, totalCloudCover),
+        context.getString(R.string.surface_pressure, surfacePressure),
+        context.getString(R.string.wind_direction, windDirection),
+        context.getString(R.string.wind_speed, currentWindSpeed, currentWindSpeedUnit)
     )
     var visible by remember { mutableStateOf(true) }
     val currentTextIndex = remember { mutableStateOf(0) }
+
 
     LaunchedEffect(Unit) {
         while (true) {
@@ -97,14 +103,19 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
             .background(brush = Brush.verticalGradient(background)),
         contentAlignment = CenterStart,
     ) {
-        Row(modifier = Modifier.padding(start = 12.dp)) {
+        Row(
+            modifier = Modifier
+                .padding(start = 12.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Icon(
                 modifier = Modifier.size(20.dp),
                 painter = painterResource(id = R.drawable.thebell),
                 contentDescription = "notification",
                 tint = Color.White
             )
-            Spacer(modifier = Modifier.padding(4.dp))
+            Spacer(modifier = Modifier.width(10.dp))
             AnimatedVisibility(
                 visible = visible,
                 enter = slideInVertically(initialOffsetY = { -it }),
@@ -127,16 +138,17 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
 }
 
 @Composable
-private fun getWindDirection(degrees: Double): String {
-    when (degrees) {
-        in 0.0..22.5, in 337.5..360.0 -> return "North"
-        in 22.5..67.5 -> return "North East"
-        in 67.5..112.5 -> return "East"
-        in 112.5..157.5 -> return "South East"
-        in 157.5..202.5 -> return "South"
-        in 202.5..247.5 -> return "South West"
-        in 247.5..292.5 -> return "West"
-        in 292.5..337.5 -> return "North West"
+private fun getLocalizedWindDirection(degrees: Double, context: Context): String {
+    val directions = context.resources.getStringArray(R.array.wind_directions)
+    return when (degrees) {
+        in 0.0..22.5, in 337.5..360.0 -> directions[0]
+        in 22.5..67.5 -> directions[1]
+        in 67.5..112.5 -> directions[2]
+        in 112.5..157.5 -> directions[3]
+        in 157.5..202.5 -> directions[4]
+        in 202.5..247.5 -> directions[5]
+        in 247.5..292.5 -> directions[6]
+        in 292.5..337.5 -> directions[7]
+        else -> directions[8]
     }
-    return "N/D"
 }

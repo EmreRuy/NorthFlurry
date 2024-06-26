@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">NorthFlurry</string>
+    <string name="english">English</string>
+    <string name="norwegian">Norwegian</string>
+    <string name="Language">Language Settings</string>
     <string name="title_activity_second">SecondActivity</string>
     <string name="title_activity_start">StartActivity</string>
     <string name="WeatherForecast">"Weather Forecast"</string>
@@ -50,6 +53,10 @@ Let's Begin!"</string>
     <string name="Ops_No_Internet">"Oops! It seems like you're not connected to the internet."</string>
     <string name="Check_Your_Internet">"Please check your internet connection and try again."</string>
     <string name="OK">"OK"</string>
+    <string name="SearchBar">"Search a city or airport"</string>
+    <string name="General">General</string>
+    <string name="Units">Units</string>
+    <string name="ND">N/D</string>
     <string name="LottieFilesCopyright">"Animations in this app are provided by LottieFiles and are subject to the Lottie Simple License (FL 9.13.21). Copyright © 2021 Design Barn Inc. All rights reserved.
 
 Attribution for individual animations:
@@ -89,4 +96,88 @@ Attribution for individual animations:
 
 For more information, visit https://lottiefiles.com/page/license
 "</string>
+    <string name="Clear_Sky">Clear Sky</string>
+    <string name="Mainly_Clear">Mainly Clear</string>
+    <string name="Partly_Cloudy">Partly Cloudy</string>
+    <string name="Overcast">Overcast</string>
+    <string name="Foggy">Foggy</string>
+    <string name="Rime_Fog">Rime Fog</string>
+    <string name="Light_Drizzle">Light Drizzle</string>
+    <string name="Moderate_Drizzle">Moderate Drizzle</string>
+    <string name="Heavy_Drizzle">Heavy Drizzle</string>
+    <string name="Light_Freezing_Drizzle">Light Freezing Drizzle</string>
+    <string name="Heavy_Freezing_Drizzle">Heavy Freezing Drizzle</string>
+    <string name="Slight_Rain">Slight Rain</string>
+    <string name="Moderate_Rain">Moderate Rain</string>
+    <string name="Heavy_Rain">Heavy Rain</string>
+    <string name="Light_Freezing_Rain">Light Freezing Rain</string>
+    <string name="Heavy_Freezing_Rain">Heavy Freezing Rain</string>
+    <string name="Light_Snowfall">Light Snowfall</string>
+    <string name="Moderate_Snowfall">Moderate Snowfall</string>
+    <string name="Heavy_Snowfall">Heavy Snowfall</string>
+    <string name="Snow_Grains">Snow Grains</string>
+    <string name="Slight_Rain_Showers">Slight Rain Showers</string>
+    <string name="Moderate_Rain_Showers">Moderate Rain Showers</string>
+    <string name="Heavy_Rain_Showers">Heavy Rain Showers</string>
+    <string name="Slight_Snow_Showers">Slight Snow Showers</string>
+    <string name="Heavy_Snow_Showers">Heavy Snow Showers</string>
+    <string name="Thunderstorm">Thunderstorm</string>
+
+    // For the air quality
+
+    <string name="good">Good</string>
+    <string name="fair">Fair</string>
+    <string name="moderate">Moderate</string>
+    <string name="poor">Poor</string>
+    <string name="very_poor">Very Poor</string>
+    <string name="hazardous">Hazardous</string>
+    <string name="unknown">Unknown</string>
+
+    // for the uv index
+
+    <string name="uv_index_low">Low</string>
+    <string name="uv_index_moderate">Moderate</string>
+    <string name="uv_index_high">High</string>
+    <string name="uv_index_very_high">Very High</string>
+    <string name="uv_index_extreme">Extreme</string>
+
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    // For weekly card notifications
+
+    <string name="warmest_day">Warmest Day expected: %1$s</string>
+    <string name="coldest_day">Coldest Day expected: %1$s</string>
+    <string name="sunshine_duration">Sunshine Duration: %1$d hours today</string>
+    <string name="thunderstorms_week">Thunderstorms expected during the week</string>
+    <string name="thunderstorms_days">Thunderstorms expected on: %1$s</string>
+    <string name="precipitation_week">Precipitation expected during the week</string>
+    <string name="precipitation_days">Precipitation expected on: %1$s</string>
+
+    //For the Hourly card notifications
+
+    <string name="precipitation_probability">Precipitation %1$d%% in the next hour</string>
+    <string name="feels_like">Feels like %1$d %2$s now</string>
+    <string name="total_cloud_cover">Total Cloud Cover %1$d%%</string>
+    <string name="surface_pressure">Surface Pressure %1$d hPa currently</string>
+    <string name="wind_direction">Wind Direction is from the %1$s</string>
+    <string name="wind_speed">Wind Speed: %1$.1f %2$s at the moment</string>
+    <string-array name="wind_directions">
+        <item>North</item>
+        <item>North East</item>
+        <item>East</item>
+        <item>South East</item>
+        <item>South</item>
+        <item>South West</item>
+        <item>West</item>
+        <item>North West</item>
+        <item>N/D</item>
+    </string-array>
+
 </resources>

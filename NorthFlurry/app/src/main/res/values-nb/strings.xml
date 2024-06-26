@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NorthFlurry</string>
+    <string name="english">Engelsk</string>
+    <string name="norwegian">Norsk</string>
+    <string name="Language">Language Settings</string>
+    <string name="title_activity_second">AndreAktivitet</string>
+    <string name="title_activity_start">StartAktivitet</string>
+    <string name="WeatherForecast">Weather Forecast</string>
+    <string name="AppExplainer">Den ultimate værkompisen designet for å gjøre hverdagen din enklere.\nAppen vår gir nøyaktige, sanntids værmeldinger, slik at du er forberedt på \nhva enn Moder Natur har i vente.</string>
+    <string name="GetStartButton">Kom i gang</string>
+    <string name="SearchBeforeYouGo">Sol, regn eller snø – vit før du går!</string>
+    <string name="ThankYouForDownloading">Takk for at du lastet ned. La oss begynne!</string>
+    <string name="SearchACity">Søk etter en by eller flyplass</string>
+    <string name="Settings">Innstillinger</string>
+    <string name="GeneralSettings">Generelle Innstillinger</string>
+    <string name="UnitSettings">Enhetsinnstillinger</string>
+    <string name="TemperatureUnits">Temperaturenheter</string>
+    <string name="WindSpeedUnits">Vindhastighetsenheter</string>
+    <string name="PrecipitationUnits">Nedbørsenheter</string>
+    <string name="ShareTheApp">Del appen</string>
+    <string name="RateUs">Vurder oss</string>
+    <string name="TroubleWithTheApp">Problemer med appen?</string>
+    <string name="LottieFilesAndTerms">LottieFiles-lisens og vilkår</string>
+    <string name="AnyGoodIdeas">Noen gode ideer?</string>
+    <string name="FeelsLike">Føles som</string>
+    <string name="Rainfall">Nedbør</string>
+    <string name="WindSpeed">Vindhastighet</string>
+    <string name="Visibility">Sikt</string>
+    <string name="Humidity">Luftfuktighet</string>
+    <string name="DewPoint">Duggpunkt</string>
+    <string name="Precipitation_For_Upcoming_Days">Nedbør for kommende dager</string>
+    <string name="No_Precipitation_expected_for_the_week">Ingen nedbør forventet for uken</string>
+    <string name="UV_Index_For_Upcoming_Days">UV-indeks for kommende dager</string>
+    <string name="The_Ultraviolet_Index">Den ultrafiolette indeksen</string>
+    <string name="Explainer_Of_Uv_Index">UV–indeksen belyser solintensiteten, og veileder smarte solbeskyttelsesvalg.\n0–2: Nyt milde stråler utendørs med sinnsro.\n3-7: Nyt solfylte øyeblikk klokt, søk skygge og bruk solkrem midt på dagen.\n8 og høyere: Trekk deg tilbake fra intensiteten midt på dagen, prioriter sikkerhet i skyggefulle områder.</string>
+    <string name="Weekly_precipitation_chart">Ukentlig nedbør</string>
+    <string name="Explainer_For_Precipitation">Nedbør defineres som enhver flytende eller fast vannpartikkel som faller fra skyer og når bakken. Yr, regn, snø, snøpellets, iskrystaller og hagl er noen eksempler på disse partiklene. I hovedsak omfatter nedbør alle former for fuktighet som faller fra himmelen. Dette diagrammet viser total nedbør for en uke.</string>
+    <string name="air_quality_index">Luftkvalitet</string>
+    <string name="current_uv_index">UV-indeks nå</string>
+    <string name="Temperature">Temperatur</string>
+    <string name="Precipitation">Nedbør</string>
+    <string name="Next_24_Hours">Neste 24 timer</string>
+    <string name="Day_Length">Daglengde</string>
+    <string name="Daylight_Duration">Dagslysvarighet</string>
+    <string name="Upcoming_Days">Kommende dager</string>
+    <string name="Expected_Today">Forventet i dag</string>
+    <string name="Forecast_Details">Vær detaljer</string>
+    <string name="No_Internet_Connection">Ingen internettforbindelse</string>
+    <string name="Ops_No_Internet">Oops! Det ser ut til at du ikke er koblet til internett.</string>
+    <string name="Check_Your_Internet">Vennligst sjekk internettforbindelsen og prøv igjen.</string>
+    <string name="OK">OK</string>
+    <string name="SearchBar">Søk etter en by eller flyplass</string>
+    <string name="General">Generelt</string>
+    <string name="Units">Enheter</string>
+    <string name="ND">N/D</string>
+    <string name="LottieFilesCopyright">"Animasjonene i denne appen er levert av LottieFiles og er underlagt Lottie Simple License (FL 9.13.21). Opphavsrett © 2021 Design Barn Inc. Alle rettigheter reservert.
+
+Tilskrivning for individuelle animasjoner:
+
+1. "Cloud"
+   - Skaper: NorthSea
+
+2. "Light mode"
+   - Skaper: Rachel Anyi
+
+3. "Clear Day"
+   - Skaper: Bas Milius
+
+4. "Shooting star"
+   - Skaper: Mariana Valdez
+
+5. " Weather-rainy(night)"
+   - Skaper: jochang
+
+6. "Weather-partly shower"
+   - Skaper: jochang
+
+7. "Weather-snow(night)"
+   - Skaper: jochang
+
+8. "Weather-snow sunny"
+   - Skaper: jochang
+
+9. "Weather-thunder"
+   - Skaper: jochang
+
+10. "Weather-night"
+    - Skaper: jochang
+
+11. "Weather-cloudy(night)"
+    - Skaper: jochang
+
+For mer informasjon, besøk https://lottiefiles.com/page/license
+"</string>
+
+    // For the weather descriptions
+    <string name="Clear_Sky">Klart vær</string>
+    <string name="Mainly_Clear">Hovedsakelig klart</string>
+    <string name="Partly_Cloudy">Delvis skyet</string>
+    <string name="Overcast">Overskyet</string>
+    <string name="Foggy">Tåkete</string>
+    <string name="Rime_Fog">Rimtåke</string>
+    <string name="Light_Drizzle">Lett yr</string>
+    <string name="Moderate_Drizzle">Moderat yr</string>
+    <string name="Heavy_Drizzle">Kraftig yr</string>
+    <string name="Light_Freezing_Drizzle">Lett isregn</string>
+    <string name="Heavy_Freezing_Drizzle">Kraftig isregn</string>
+    <string name="Slight_Rain">Lett regn</string>
+    <string name="Moderate_Rain">Moderat regn</string>
+    <string name="Heavy_Rain">Kraftig regn</string>
+    <string name="Light_Freezing_Rain">Lett isregn</string>
+    <string name="Heavy_Freezing_Rain">Kraftig isregn</string>
+    <string name="Light_Snowfall">Lett snøfall</string>
+    <string name="Moderate_Snowfall">Moderat snøfall</string>
+    <string name="Heavy_Snowfall">Kraftig snøfall</string>
+    <string name="Snow_Grains">Snøkorn</string>
+    <string name="Slight_Rain_Showers">Lett regnbyger</string>
+    <string name="Moderate_Rain_Showers">Moderat regnbyger</string>
+    <string name="Heavy_Rain_Showers">Kraftig regnbyger</string>
+    <string name="Slight_Snow_Showers">Lette snøbyger</string>
+    <string name="Heavy_Snow_Showers">Kraftige snøbyger</string>
+    <string name="Thunderstorm">Tordenvær</string>
+// for Air quality
+    <string name="good">God</string>
+    <string name="fair">Rettferdig</string>
+    <string name="moderate">Moderat</string>
+    <string name="poor">Dårlig</string>
+    <string name="very_poor">Svært dårlig</string>
+    <string name="hazardous">Farlig</string>
+    <string name="unknown">Ukjent</string>
+    // For the Uv index
+    <string name="uv_index_low">Lav</string>
+    <string name="uv_index_moderate">Moderat</string>
+    <string name="uv_index_high">Høy</string>
+    <string name="uv_index_very_high">Svært høy</string>
+    <string name="uv_index_extreme">Ekstrem</string>
+
+    <string name="monday">Mandag</string>
+    <string name="tuesday">Tirsdag</string>
+    <string name="wednesday">Onsdag</string>
+    <string name="thursday">Torsdag</string>
+    <string name="friday">Fredag</string>
+    <string name="saturday">Lørdag</string>
+    <string name="sunday">Søndag</string>
+
+    // For weekly card notifications
+    <string name="warmest_day">Varmeste dag forventet: %1$s</string>
+    <string name="coldest_day">Kaldeste dag forventet: %1$s</string>
+    <string name="sunshine_duration">Solskinnsvarighet: %1$d timer i dag</string>
+    <string name="thunderstorms_week">Tordenvær forventet i løpet av uken</string>
+    <string name="thunderstorms_days">Tordenvær forventet på: %1$s</string>
+    <string name="precipitation_week">Nedbør forventet i løpet av uken</string>
+    <string name="precipitation_days">Nedbør forventet på: %1$s</string>
+
+    //For the Hourly card notifications
+
+    <string name="precipitation_probability">Nedbør %1$d%% i neste time</string>
+    <string name="feels_like">Føles som %1$d %2$s nå</string>
+    <string name="total_cloud_cover">Total skydekning %1$d%%</string>
+    <string name="surface_pressure">Lufttrykk %1$d hPa for øyeblikket</string>
+    <string name="wind_direction">Vindretning fra %1$s</string>
+    <string name="wind_speed">Vindhastighet: %1$.1f %2$s for øyeblikket</string>
+    <string-array name="wind_directions">
+        <item>Nord</item>
+        <item>Nordøst</item>
+        <item>Øst</item>
+        <item>Sørøst</item>
+        <item>Sør</item>
+        <item>Sørvest</item>
+        <item>Vest</item>
+        <item>Nordvest</item>
+        <item>N/D</item>
+    </string-array>
+</resources>

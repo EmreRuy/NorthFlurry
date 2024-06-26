@@ -1,5 +1,6 @@
 package com.example.wouple.elements
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -18,18 +20,22 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.components.WeatherCondition
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.ui.theme.Spiro
+import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
 fun GetWeeklyForecast(temp: TemperatureResponse) {
+    val context = LocalContext.current
     Row(
         modifier = Modifier.padding(horizontal = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         for (dayIndex in 0 until temp.daily.time.size.coerceAtMost(7)) {
-            val dayOfWeek = LocalDate.parse(temp.daily.time[dayIndex]).dayOfWeek.toString().take(3)
+            val dayOfWeek = LocalDate.parse(temp.daily.time[dayIndex]).dayOfWeek
+            val localizedDayName = getLocalizedDayNames(dayOfWeek, context)
             val temperature = temp.daily.temperature_2m_max[dayIndex].toInt().toString()
             val weatherCondition = when (temp.daily.weathercode[dayIndex]) {
                 0, 1 -> WeatherCondition.SUNNY
@@ -50,15 +56,14 @@ fun GetWeeklyForecast(temp: TemperatureResponse) {
                     81,
                     82
                 ) -> WeatherCondition.RAINY
-
-                in listOf(71, 73, 75, 77, 85, 86) -> WeatherCondition.SNOWY
+                in listOf(71, 73, 75, 77) -> WeatherCondition.SNOWY
                 in listOf(95, 96, 99) -> WeatherCondition.THUNDERSTORM
                 else -> WeatherCondition.SUNNY
             }
             val imageResourceId = weatherCondition.imageResourceId
 
             WeeklyForecastItem(
-                dayOfWeek = dayOfWeek,
+                dayOfWeek = localizedDayName,
                 temperature = temperature,
                 imageResourceId = imageResourceId
             )
@@ -90,5 +95,14 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
             fontWeight = FontWeight.Medium,
             fontSize = 15.sp
         )
+    }
+}
+@Composable
+fun getLocalizedDayNames(dayOfWeek: DayOfWeek, context: Context): String {
+    val currentLocale = context.resources.configuration.locales[0] // Get current locale
+    val defaultLocale = if (currentLocale.language == "nb") currentLocale else Locale.ENGLISH // if it is not Norwegian, then Local English
+    val dayName = dayOfWeek.getDisplayName(TextStyle.SHORT, defaultLocale)
+    return dayName.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(currentLocale) else it.toString()
     }
 }
