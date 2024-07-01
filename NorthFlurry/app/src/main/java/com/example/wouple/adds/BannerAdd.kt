@@ -1,6 +1,6 @@
 package com.example.wouple.adds
 
-import androidx.compose.foundation.layout.Column
+import android.content.Context
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,17 +10,23 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 
 @Composable
-fun BannerAdd(modifier: Modifier, adId: String) {
-    Column(modifier = Modifier) {
-        AndroidView(
-            modifier = modifier.fillMaxWidth(),
-            factory = { context ->
-                AdView(context).apply {
-                    setAdSize(AdSize.BANNER)
-                    adUnitId = adId
-                    loadAd(AdRequest.Builder().build())
-                }
+fun BannerAdd(modifier: Modifier = Modifier, adId: String) {
+    AndroidView(
+        modifier = modifier.fillMaxWidth(),
+        factory = { context ->
+            AdView(context).apply {
+                setAdSize(getAdaptiveBannerAdSize(context))
+                adUnitId = adId
+                loadAd(AdRequest.Builder().build())
             }
-        )
-    }
+        }
+    )
+}
+
+fun getAdaptiveBannerAdSize(context: Context): AdSize {
+    val display = context.resources.displayMetrics
+    val adWidth = display.widthPixels.toFloat()
+    return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+        context, (adWidth / display.density).toInt()
+    )
 }

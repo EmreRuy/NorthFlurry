@@ -149,8 +149,8 @@ fun ShareTheAppSettings() {
                 val sendIntent = Intent(Intent.ACTION_SEND).apply {
                     putExtra(
                         Intent.EXTRA_TEXT,
-                        "https://northFlurry.com/Emre"
-                    ) //!!! actual URL of my app will be added after publishing
+                        "https://play.google.com/store/apps/details?id=com.weather.wouple&hl=en_US"
+                    )
                     type = "text/plain"
                 }
                 val shareIntent = Intent.createChooser(sendIntent, null)
@@ -203,7 +203,7 @@ fun RateUsSettings() {
                 indication = null
             ) {
                 val appURL =
-                    "https://play.google.com/store/apps" //!!! actual URL of my app will be added after publishing
+                    "https://play.google.com/store/apps/details?id=com.weather.wouple&hl=en_US"
                 val playIntent: Intent = Intent().apply {
                     action = Intent.ACTION_VIEW
                     data = Uri.parse(appURL)

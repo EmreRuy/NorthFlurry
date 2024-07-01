@@ -94,10 +94,11 @@ fun MainView(
         MobileAds.initialize(context)
         BannerAdd(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp)
                 .background(Transparent),
-            adId = "ca-app-pub-3940256099942544/9214589741"
+            //test ID:  "ca-app-pub-3940256099942544/9214589741"
+            adId = "ca-app-pub-4891264100733274/3799972498"
         )
     }
 }
