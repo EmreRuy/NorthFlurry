@@ -59,7 +59,7 @@ fun LoadingScreen() {
             LottieAnimation(
                 composition = composition,
                 modifier = Modifier.size(200.dp),
-                speed = 0.7f
+                speed = 2f
             )
             Spacer(modifier = Modifier.height(20.dp))
             Text(

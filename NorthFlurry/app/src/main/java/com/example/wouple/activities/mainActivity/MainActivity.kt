@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -54,7 +57,7 @@ class MainActivity : ComponentActivity() {
             var isLoading by remember { mutableStateOf(true) }
             LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
-                delay(2_000) // 2 seconds
+                delay(1_000) // 2 seconds
                 isLoading = false
             }
             if (!isConnected) {
@@ -75,9 +78,10 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     else {
-                        if (temp.value == null || isLoading) {
+                        AnimatedVisibility(visible = temp.value == null || isLoading, enter = fadeIn(), exit = fadeOut()) {
                             LoadingScreen()
-                        } else {
+                        }
+                        AnimatedVisibility(visible = temp.value != null && !isLoading, enter = fadeIn(), exit = fadeOut()) {
                             DisplayFirstCardView()
                         }
                     }
