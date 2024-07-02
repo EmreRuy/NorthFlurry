@@ -78,10 +78,9 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     else {
-                        AnimatedVisibility(visible = temp.value == null || isLoading, enter = fadeIn(), exit = fadeOut()) {
+                        if(temp.value == null || isLoading){
                             LoadingScreen()
-                        }
-                        AnimatedVisibility(visible = temp.value != null && !isLoading, enter = fadeIn(), exit = fadeOut()) {
+                        }else{
                             DisplayFirstCardView()
                         }
                     }
