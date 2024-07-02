@@ -51,8 +51,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
+            var isLoading by remember { mutableStateOf(true) }
             LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
+                delay(2_000) // 2 seconds
+                isLoading = false
             }
             if (!isConnected) {
                 // Shows dialog if there is no internet connection
@@ -72,7 +75,7 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     else {
-                        if (temp.value == null) {
+                        if (temp.value == null || isLoading) {
                             LoadingScreen()
                         } else {
                             DisplayFirstCardView()
