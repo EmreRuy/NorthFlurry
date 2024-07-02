@@ -86,22 +86,21 @@ class MainActivity : ComponentActivity() {
 
     private fun displayFirstCardView(activity: ComponentActivity) {
         setContent {
-            val context = LocalContext.current
-            var isConnected by remember { mutableStateOf(true) }
-            var isLoading by remember{ mutableStateOf(true) }
+            val isConnected by remember { mutableStateOf(true) }
+            var isLoading by remember { mutableStateOf(true) }
             LaunchedEffect(true) {
-                isConnected = isInternetConnected(context)
-                delay(2000)
+                delay(2500)
                 isLoading = false
             }
+            // Ensure that both isConnected and isLoading are false before rendering content
             if (!isConnected) {
                 NoInternetDialog(activity)
+            } else if (isLoading) {
+                LoadingScreen()
             } else {
-                if (temp.value == null) {
-                    LoadingScreen()
-                }
-                val focusManager = LocalFocusManager.current
-                if (temp.value !== null) {
+                // Render content only when loading is complete and isConnected
+                if (temp.value != null) {
+                    val focusManager = LocalFocusManager.current
                     MainView(
                         temp = temp.value!!,
                         locations = searchedLocations.value,
@@ -141,6 +140,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 
     private fun getAirQuality(location: SearchedLocation) {
         WeatherManager.getAirQuality(

@@ -114,7 +114,7 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_lightbulb),
                 contentDescription = null,
-                Modifier.padding(start = 4.dp)
+                Modifier.padding(top = 2.dp, start = 4.dp)
             )
             Spacer(modifier = Modifier.width(24.dp))
             Text(
@@ -168,7 +168,7 @@ fun ShareTheAppSettings() {
             horizontalArrangement = Arrangement.Center
         ) {
             Icon(
-                modifier = Modifier.padding(start = 4.dp),
+                modifier = Modifier.padding(top = 2.dp, start = 4.dp),
                 painter = painterResource(id = R.drawable.ic_world),
                 contentDescription = null
             )
@@ -275,9 +275,9 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_attribution_24),
                 contentDescription = null,
-                Modifier.padding(start = 4.dp)
+                Modifier.padding(top = 2.dp, start = 4.dp).size(26.dp)
             )
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = stringResource(id = R.string.LottieFilesAndTerms),
                 fontWeight = FontWeight.Medium,

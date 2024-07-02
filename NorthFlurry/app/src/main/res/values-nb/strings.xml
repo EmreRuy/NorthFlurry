@@ -9,6 +9,7 @@
     <string name="WeatherForecast">Weather Forecast</string>
     <string name="AppExplainer">Den ultimate værkompisen designet for å gjøre hverdagen din enklere.\nAppen vår gir nøyaktige, sanntids værmeldinger, slik at du er forberedt på \nhva enn Moder Natur har i vente.</string>
     <string name="GetStartButton">Kom i gang</string>
+    <string name="Loading">Laster inn…</string>
     <string name="SearchBeforeYouGo">Sol, regn eller snø – vit før du går!</string>
     <string name="ThankYouForDownloading">Takk for at du lastet ned. La oss begynne!</string>
     <string name="SearchACity">Søk etter en by eller flyplass</string>

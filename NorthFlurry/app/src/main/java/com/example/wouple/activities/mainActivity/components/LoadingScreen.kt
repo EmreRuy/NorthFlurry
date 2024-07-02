@@ -1,5 +1,6 @@
 package com.example.wouple.activities.mainActivity.components
 
+import androidx.activity.ComponentActivity
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -16,46 +17,61 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.wouple.R
+import com.example.wouple.elements.NoInternetDialog
+import com.example.wouple.elements.isInternetConnected
 import com.example.wouple.ui.theme.Dark20
+import kotlinx.coroutines.delay
 
 @Composable
 fun LoadingScreen() {
-    // Animation for the fading text
-    val infiniteTransition = rememberInfiniteTransition(label = "")
-    val alpha by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = ""
+    val composition by rememberLottieComposition(
+        LottieCompositionSpec.RawRes(R.raw.loading)
     )
-
-    // UI elements
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(brush = Brush.verticalGradient(
+               listOf(
+                   Color(0xFF3F54BE),
+                   Color(0xFF5566C2)
+               ) )
+            ),
         contentAlignment = Alignment.Center
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            CircularProgressIndicator(
-                modifier = Modifier.size(60.dp),
-                strokeWidth = 6.dp
+            LottieAnimation(
+                composition = composition,
+                iterations = LottieConstants.IterateForever,
+                modifier = Modifier.size(200.dp),
+                speed = 0.7f
             )
             Spacer(modifier = Modifier.height(20.dp))
             Text(
-                text = "Loading...",
+                text = stringResource(id = R.string.Loading),
                 fontSize = 20.sp,
-                modifier = Modifier.alpha(alpha)
+                fontWeight = FontWeight.Bold,
+                color = Color.Gray
             )
         }
     }

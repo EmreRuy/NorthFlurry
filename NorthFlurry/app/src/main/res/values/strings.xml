@@ -11,6 +11,7 @@
     <string name="SearchBeforeYouGo">"Sun, Rain, or Snow – Know Before You Go!"</string>
     <string name="ThankYouForDownloading">"Thank you for downloading
 Let's Begin!"</string>
+    <string name="Loading">"Loading…"</string>
     <string name="SearchACity">"Search a city or airport"</string>
     <string name="Settings">"Settings"</string>
     <string name="GeneralSettings">"General Settings"</string>
