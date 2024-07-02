@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import com.example.wouple.activities.firstScreen.FirstScreenView
 import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.activities.detailActivity.SecondActivity
+import com.example.wouple.activities.mainActivity.components.LoadingScreen
 import com.example.wouple.activities.settingsActivity.SettingsActivity
 import com.example.wouple.elements.NoInternetDialog
 import com.example.wouple.elements.isInternetConnected
@@ -31,6 +32,7 @@ import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.WoupleTheme
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     private val temp: MutableState<TemperatureResponse?> = mutableStateOf(null)
@@ -47,8 +49,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
+            var isLoading by remember { mutableStateOf(true) }
             LaunchedEffect(true) {
                 isConnected = isInternetConnected(context)
+                delay(2000)
+                isLoading = false
             }
             if (!isConnected) {
                 // Shows dialog if there is no internet connection
@@ -68,7 +73,11 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     else {
-                        displayFirstCardView(activity = this)
+                        if (isLoading) {
+                            LoadingScreen()
+                        } else {
+                            displayFirstCardView(activity = this)
+                        }
                     }
                 }
             }
@@ -79,12 +88,18 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
+            var isLoading by remember{ mutableStateOf(true) }
             LaunchedEffect(true) {
                 isConnected = isInternetConnected(context)
+                delay(2000)
+                isLoading = false
             }
             if (!isConnected) {
                 NoInternetDialog(activity)
             } else {
+                if (temp.value == null) {
+                    LoadingScreen()
+                }
                 val focusManager = LocalFocusManager.current
                 if (temp.value !== null) {
                     MainView(
