@@ -44,13 +44,14 @@ class MainActivity : ComponentActivity() {
     //The current location the user is having
     private val searchedLocation: MutableState<SearchedLocation?> = mutableStateOf(null)
     private val airQuality: MutableState<AirQuality?> = mutableStateOf(null)
+    private var isLoading by mutableStateOf(true)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val isFirstLaunch = LocationPref.getSearchedLocation(this)
         setContent {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
-            LaunchedEffect(true) {
+            LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
             }
             if (!isConnected) {
@@ -74,6 +75,10 @@ class MainActivity : ComponentActivity() {
                         if(temp.value == null){
                             LoadingScreen()
                         }else{
+                            LaunchedEffect(Unit) {
+                                delay(2500)
+                                isLoading = false
+                            }
                             DisplayFirstCardView(activity = this)
                         }
                     }
@@ -85,8 +90,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun DisplayFirstCardView(activity: ComponentActivity) {
             val isConnected by remember { mutableStateOf(true) }
-            var isLoading by remember { mutableStateOf(true) }
-            LaunchedEffect(true) {
+            LaunchedEffect(Unit) {
                 delay(2500)
                 isLoading = false
             }
@@ -96,7 +100,7 @@ class MainActivity : ComponentActivity() {
             } else if (isLoading) {
                 LoadingScreen()
             } else {
-                // Render content only when loading is complete and isConnected
+                // Renders only when loading is complete and isConnected
                 if (temp.value != null) {
                     val focusManager = LocalFocusManager.current
                     MainView(

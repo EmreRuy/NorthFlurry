@@ -33,13 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
-import com.example.wouple.elements.NoInternetDialog
-import com.example.wouple.elements.isInternetConnected
-import com.example.wouple.ui.theme.Dark20
-import kotlinx.coroutines.delay
+
 
 @Composable
 fun LoadingScreen() {
@@ -62,7 +58,6 @@ fun LoadingScreen() {
         ) {
             LottieAnimation(
                 composition = composition,
-                iterations = LottieConstants.IterateForever,
                 modifier = Modifier.size(200.dp),
                 speed = 0.7f
             )
