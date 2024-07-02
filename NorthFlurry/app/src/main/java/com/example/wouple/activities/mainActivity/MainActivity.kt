@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
     //The current location the user is having
     private val searchedLocation: MutableState<SearchedLocation?> = mutableStateOf(null)
     private val airQuality: MutableState<AirQuality?> = mutableStateOf(null)
-    private var isLoading by mutableStateOf(true)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val isFirstLaunch = LocationPref.getSearchedLocation(this)
@@ -72,13 +72,9 @@ class MainActivity : ComponentActivity() {
                             }
                         )
                     else {
-                        if(temp.value == null){
+                        if (temp.value == null) {
                             LoadingScreen()
-                        }else{
-                            LaunchedEffect(Unit) {
-                                delay(2500)
-                                isLoading = false
-                            }
+                        } else {
                             DisplayFirstCardView(activity = this)
                         }
                     }
@@ -89,56 +85,52 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun DisplayFirstCardView(activity: ComponentActivity) {
-            val isConnected by remember { mutableStateOf(true) }
-            LaunchedEffect(Unit) {
-                delay(2500)
-                isLoading = false
+        val isConnected by remember { mutableStateOf(true) }
+        // Ensure that both isConnected and isLoading are false before rendering content
+        if (!isConnected) {
+            NoInternetDialog(activity)
+        } else if (temp.value == null) {
+            LoadingScreen()
+        } else {
+            // Renders only when loading is complete and isConnected
+            if (temp.value != null) {
+                val focusManager = LocalFocusManager.current
+                MainView(
+                    temp = temp.value!!,
+                    locations = searchedLocations.value,
+                    onLocationButtonClicked = { location ->
+                        focusManager.clearFocus()
+                        onLocationButtonClicked(location)
+                    },
+                    searchedLocation = searchedLocation,
+                    onClose = { searchedLocations.value = null },
+                    onSearch = { query ->
+                        WeatherManager.getSearchedLocations(
+                            context = this,
+                            address = query,
+                            onSuccessCall = { location ->
+                                searchedLocations.value = location
+                            })
+                    },
+                    onDetailsButtonClicked = { temp ->
+                        val intent = Intent(this, SecondActivity::class.java)
+                        intent.putExtra("temp", temp)
+                        intent.putExtra("air", airQuality.value)
+                        intent.putExtra("location", searchedLocation.value)
+                        intent.putExtra(
+                            "precipitationUnit",
+                            PrecipitationUnitPref.getPrecipitationUnit(this)
+                        )
+                        intent.putExtra("wind_unit", WindUnitPref.getWindUnit(this))
+                        this.startActivity(intent)
+                    },
+                    onSettingsClicked = { temp ->
+                        val intent = Intent(this, SettingsActivity::class.java)
+                        intent.putExtra("temp", temp)
+                        this.startActivity(intent)
+                    }
+                )
             }
-            // Ensure that both isConnected and isLoading are false before rendering content
-            if (!isConnected) {
-                NoInternetDialog(activity)
-            } else if (isLoading) {
-                LoadingScreen()
-            } else {
-                // Renders only when loading is complete and isConnected
-                if (temp.value != null) {
-                    val focusManager = LocalFocusManager.current
-                    MainView(
-                        temp = temp.value!!,
-                        locations = searchedLocations.value,
-                        onLocationButtonClicked = { location ->
-                            focusManager.clearFocus()
-                            onLocationButtonClicked(location)
-                        },
-                        searchedLocation = searchedLocation,
-                        onClose = { searchedLocations.value = null },
-                        onSearch = { query ->
-                            WeatherManager.getSearchedLocations(
-                                context = this,
-                                address = query,
-                                onSuccessCall = { location ->
-                                    searchedLocations.value = location
-                                })
-                        },
-                        onDetailsButtonClicked = { temp ->
-                            val intent = Intent(this, SecondActivity::class.java)
-                            intent.putExtra("temp", temp)
-                            intent.putExtra("air", airQuality.value)
-                            intent.putExtra("location", searchedLocation.value)
-                            intent.putExtra(
-                                "precipitationUnit",
-                                PrecipitationUnitPref.getPrecipitationUnit(this)
-                            )
-                            intent.putExtra("wind_unit", WindUnitPref.getWindUnit(this))
-                            this.startActivity(intent)
-                        },
-                        onSettingsClicked = { temp ->
-                            val intent = Intent(this, SettingsActivity::class.java)
-                            intent.putExtra("temp", temp)
-                            this.startActivity(intent)
-                        }
-                    )
-                }
 
         }
     }
