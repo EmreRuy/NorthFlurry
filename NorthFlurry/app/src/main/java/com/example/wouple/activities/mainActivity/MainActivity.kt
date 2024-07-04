@@ -40,11 +40,7 @@ import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     private val temp: MutableState<TemperatureResponse?> = mutableStateOf(null)
-
-    // The list of all locations when searching
     private val searchedLocations: MutableState<List<SearchedLocation>?> = mutableStateOf(null)
-
-    //The current location the user is having
     private val searchedLocation: MutableState<SearchedLocation?> = mutableStateOf(null)
     private val airQuality: MutableState<AirQuality?> = mutableStateOf(null)
 
@@ -57,44 +53,39 @@ class MainActivity : ComponentActivity() {
             var isLoading by remember { mutableStateOf(true) }
             LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
-                delay(1_000) // 2 seconds
+                delay(1_000) // Simulating network delay for loading
                 isLoading = false
             }
             if (!isConnected) {
                 // Shows dialog if there is no internet connection
                 NoInternetDialog(activity = this)
             } else {
-                WoupleTheme {
-                    if (isFirstLaunch == null)
+                    if (isFirstLaunch == null) {
                         FirstScreenView(
                             onStartButtonClicked = {
-                                Log.d("NoTemperatureView", "Start button clicked")
+                                Log.d("MainActivity", "Start button clicked")
                                 val intent = Intent(this@MainActivity, StartActivity::class.java)
                                 startActivity(intent)
-                                val secondIntent = Intent(this, StartActivity::class.java)
-                                intent.putExtra("searchVisible", true)
-                                startActivity(secondIntent)
                                 finish()
                             }
                         )
-                    else {
-                        if(temp.value == null || isLoading){
+                    } else {
+                        if (temp.value == null || isLoading) {
                             LoadingScreen()
-                        }else{
+                        } else {
                             DisplayFirstCardView()
                         }
                     }
-                }
             }
         }
     }
 
     @Composable
     private fun DisplayFirstCardView() {
-        if (temp.value != null) {
+        temp.value?.let {
             val focusManager = LocalFocusManager.current
             MainView(
-                temp = temp.value!!,
+                temp = it,
                 locations = searchedLocations.value,
                 onLocationButtonClicked = { location ->
                     focusManager.clearFocus()
@@ -108,29 +99,28 @@ class MainActivity : ComponentActivity() {
                         address = query,
                         onSuccessCall = { location ->
                             searchedLocations.value = location
-                        })
+                        }
+                    )
                 },
                 onDetailsButtonClicked = { temp ->
-                    val intent = Intent(this, SecondActivity::class.java)
-                    intent.putExtra("temp", temp)
-                    intent.putExtra("air", airQuality.value)
-                    intent.putExtra("location", searchedLocation.value)
-                    intent.putExtra(
-                        "precipitationUnit",
-                        PrecipitationUnitPref.getPrecipitationUnit(this)
-                    )
-                    intent.putExtra("wind_unit", WindUnitPref.getWindUnit(this))
-                    this.startActivity(intent)
+                    val intent = Intent(this, SecondActivity::class.java).apply {
+                        putExtra("temp", temp)
+                        putExtra("air", airQuality.value)
+                        putExtra("location", searchedLocation.value)
+                        putExtra("precipitationUnit", PrecipitationUnitPref.getPrecipitationUnit(this@MainActivity))
+                        putExtra("wind_unit", WindUnitPref.getWindUnit(this@MainActivity))
+                    }
+                    startActivity(intent)
                 },
                 onSettingsClicked = { temp ->
-                    val intent = Intent(this, SettingsActivity::class.java)
-                    intent.putExtra("temp", temp)
-                    this.startActivity(intent)
+                    val intent = Intent(this, SettingsActivity::class.java).apply {
+                        putExtra("temp", temp)
+                    }
+                    startActivity(intent)
                 }
             )
         }
     }
-
 
     private fun getAirQuality(location: SearchedLocation) {
         WeatherManager.getAirQuality(
@@ -158,23 +148,23 @@ class MainActivity : ComponentActivity() {
         searchedLocations.value = null
     }
 
-    @SuppressLint("SuspiciousIndentation")
     override fun onResume() {
         super.onResume()
         searchedLocation.value = LocationPref.getSearchedLocation(this)
-        getCurrentWeather(
-            context = this,
-            location = searchedLocation.value,
-            temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            windUnit = WindUnitPref.getWindUnit(this),
-            precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
-            onSuccessCall = { temperature ->
-                temp.value = temperature
-            },
-        )
-        searchedLocation.value?.let {
-            getAirQuality(it)
+        searchedLocation.value?.let { location ->
+            getCurrentWeather(
+                context = this,
+                location = location,
+                temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
+                windUnit = WindUnitPref.getWindUnit(this),
+                precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
+                onSuccessCall = { temperature ->
+                    temp.value = temperature
+                }
+            )
+            getAirQuality(location)
         }
     }
 }
+
 

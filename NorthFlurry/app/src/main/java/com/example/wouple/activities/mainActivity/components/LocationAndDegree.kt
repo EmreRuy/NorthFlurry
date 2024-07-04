@@ -98,26 +98,27 @@ private fun GetHorizontalWaveView() {
             .padding(top = 32.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
+        val gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
         HorizontalWave(
             phase = rememberPhaseState(0f),
             alpha = 1f,
             amplitude = 50f,
             frequency = 0.5f,
-            gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+            gradientColors = gradientColors
         )
         HorizontalWave(
             phase = rememberPhaseState(15f),
             alpha = 0.5f,
             amplitude = 80f,
             frequency = 0.3f,
-            gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+            gradientColors = gradientColors
         )
         HorizontalWave(
             phase = rememberPhaseState(10f),
             alpha = 0.2f,
             amplitude = 40f,
             frequency = 0.6f,
-            gradientColors = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+            gradientColors = gradientColors
         )
     }
 }

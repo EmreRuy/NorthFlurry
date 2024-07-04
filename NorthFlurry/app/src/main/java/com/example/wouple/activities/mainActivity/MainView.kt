@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.mainActivity.components.GetBottomView
 import com.example.wouple.activities.mainActivity.components.GetLocationAndDegree
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
-import com.example.wouple.adds.BannerAdd
+import com.example.wouple.adds.AdaptiveBannerAd
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import com.google.android.gms.ads.MobileAds
@@ -92,9 +92,8 @@ fun MainView(
         //Bottom view
         GetBottomView(searchedLocation = searchedLocation, temp = temp)
         MobileAds.initialize(context)
-        BannerAdd(
+        AdaptiveBannerAd(
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(horizontal = 4.dp)
                 .background(Transparent),
             //test ID:  "ca-app-pub-3940256099942544/9214589741"

@@ -28,7 +28,7 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
         elevation = 4.dp,
     ) {
         val isDay = temp.current_weather.is_day == 1
-        val background: List<Color> = if (isDay) {
+        val backgroundColor: List<Color> = if (isDay) {
             val baseColor = Color(0xFF494CC6)
             val lighterShades = listOf(
                 baseColor,
@@ -48,7 +48,7 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(brush = Brush.verticalGradient(background))
+                .background(brush = Brush.verticalGradient(backgroundColor))
         ) {
             Column(
                 modifier = Modifier

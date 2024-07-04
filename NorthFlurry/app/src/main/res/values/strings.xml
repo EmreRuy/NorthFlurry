@@ -17,7 +17,7 @@ Let's Begin!"</string>
     <string name="GeneralSettings">"General Settings"</string>
     <string name="UnitSettings">"Unit Settings"</string>
     <string name="TemperatureUnits">"Temperature Units"</string>
-    <string name="WindSpeedUnits">"WindSpeed Units"</string>
+    <string name="WindSpeedUnits">"Wind Speed Units"</string>
     <string name="PrecipitationUnits">"Precipitation Units"</string>
     <string name="ShareTheApp">"Share the app"</string>
     <string name="RateUs">"Rate us"</string>
@@ -94,6 +94,9 @@ Attribution for individual animations:
 
 11. "Weather-cloudy(night)"
    - Creator: jochang
+
+12. "Loading"
+   - Creator: Luisa Fernanda Bolaños Beltrán
 
 For more information, visit https://lottiefiles.com/page/license
 "</string>

@@ -58,7 +58,7 @@ fun rememberPhaseState(startPosition: Float): MutableState<Float> {
     val phase = remember { mutableStateOf(startPosition) }
     LaunchedEffect(phase, step) {
         while (NonCancellable.isActive) {
-            phase.value = phase.value + 0.02f
+            phase.value += 0.02f
             delay(step)
         }
     }

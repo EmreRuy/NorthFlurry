@@ -77,15 +77,15 @@ fun GetSixHours(
     hourlyWeatherCondition: WeatherCondition
 ) {
     Column(
-        modifier = Modifier.padding(top = 18.dp, start = 4.dp, end = 4.dp),
+        modifier = Modifier.padding(top = 18.dp, start = 5.dp, end = 5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         Text(
             modifier = Modifier.padding(top = 4.dp),
             text = time,
             color = mocassin,
-            fontSize = 15.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Light
         )
         Image(
@@ -98,7 +98,7 @@ fun GetSixHours(
             text = "$temperature°",
             color = Color.White.copy(alpha = 0.8f),
             fontWeight = FontWeight.Medium,
-            fontSize = 15.sp
+            fontSize = 14.sp
         )
     }
 }
