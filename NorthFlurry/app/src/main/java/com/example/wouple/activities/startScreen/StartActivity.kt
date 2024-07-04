@@ -7,6 +7,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalFocusManager
+import com.example.wouple.R
 import com.example.wouple.activities.mainActivity.MainActivity
 import com.example.wouple.manager.WeatherManager
 import com.example.wouple.model.api.SearchedLocation
@@ -24,6 +26,7 @@ class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val focusManager = LocalFocusManager.current
             StartScreenView(
                 locations = searchedLocations.value,
                 onSearch = { query ->
@@ -41,10 +44,11 @@ class StartActivity : ComponentActivity() {
                     }
                 },
                 onButtonClicked = { location ->
-                    onLocationButtonClicked(location)
+                    focusManager.clearFocus()
+                    LocationPref.setSearchedLocation(this, location)
                     val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("location", searchedLocation.value)
                     this.startActivity(intent)
+                    finish()
                 },
                 searchedLocation = searchedLocation
             )
