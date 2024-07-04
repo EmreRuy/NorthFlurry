@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Fill
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.delay
@@ -25,8 +26,7 @@ fun HorizontalWave(
     phase: MutableState<Float>,
     alpha: Float,
     amplitude: Float,
-    frequency: Float,
-    gradientColors: List<Color>
+    frequency: Float
 ) {
     Canvas(
         modifier = Modifier.fillMaxWidth(),
@@ -44,7 +44,7 @@ fun HorizontalWave(
             wavePath.lineTo(x.toFloat(), centerY + amplitude)
             drawPath(
                 path = wavePath,
-                brush = Brush.horizontalGradient(colors = gradientColors),
+                brush = SolidColor(Color.White),// Brush.horizontalGradient(colors = gradientColors),
                 alpha = alpha,
                 style = Fill
             )

@@ -91,15 +91,13 @@ fun ExtraCards(
             phase = rememberPhaseState(10f),
             alpha = 0.3f,
             amplitude = 80f,
-            frequency = 0.6f,
-            gradientColors = listOf(Whitehis, Whitehis)
+            frequency = 0.6f
         )
         HorizontalWave(
             phase = rememberPhaseState(startPosition = 15f),
             alpha = 0.2f,
             amplitude = 60f,
-            frequency = 0.4f,
-            gradientColors = listOf(Whitehis, Whitehis)
+            frequency = 0.4f
         )
 
     }

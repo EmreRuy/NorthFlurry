@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_cal_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wouple"
-        tools:targetApi="33" >
+        tools:targetApi="34" >
         <activity
             android:name=".activities.startScreen.StartActivity">
         </activity>

@@ -65,7 +65,8 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 .fillMaxWidth()
                 .background(Color.White)
                 .padding(12.dp),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_warning_triangle),
@@ -109,7 +110,9 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.White)
-                .padding(12.dp)
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_lightbulb),
@@ -165,7 +168,8 @@ fun ShareTheAppSettings() {
                 .fillMaxWidth()
                 .background(Color.White)
                 .padding(12.dp),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 modifier = Modifier.padding(top = 2.dp, start = 4.dp),
@@ -223,7 +227,8 @@ fun RateUsSettings() {
                 .fillMaxWidth()
                 .background(Color.White)
                 .padding(12.dp),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_hand_heart),
@@ -270,7 +275,8 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
                 .fillMaxWidth()
                 .background(Color.White)
                 .padding(12.dp),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_attribution_24),
