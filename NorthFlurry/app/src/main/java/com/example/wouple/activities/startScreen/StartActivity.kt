@@ -8,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalFocusManager
-import com.example.wouple.R
 import com.example.wouple.activities.mainActivity.MainActivity
 import com.example.wouple.manager.WeatherManager
 import com.example.wouple.model.api.SearchedLocation
@@ -54,21 +53,6 @@ class StartActivity : ComponentActivity() {
             )
 
         }
-    }
-
-    private fun onLocationButtonClicked(location: SearchedLocation) {
-        LocationPref.setSearchedLocation(this, location)
-        WeatherManager.getCurrentWeather(
-            context = this,
-            location = location,
-            onSuccessCall = { temperature ->
-                temp.value = temperature
-            },
-            temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
-            windUnit = WindUnitPref.getWindUnit(this),
-            precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this)
-        )
-        searchedLocations.value = null
     }
 
     @SuppressLint("SuspiciousIndentation")

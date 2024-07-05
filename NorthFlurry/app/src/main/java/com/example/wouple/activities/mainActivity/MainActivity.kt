@@ -1,15 +1,11 @@
 package com.example.wouple.activities.mainActivity
 
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -35,7 +31,6 @@ import com.example.wouple.preferences.LocationPref
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
-import com.example.wouple.ui.theme.WoupleTheme
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
