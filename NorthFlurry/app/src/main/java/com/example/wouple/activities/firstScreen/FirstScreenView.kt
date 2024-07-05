@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -30,6 +31,13 @@ import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Whitehis
 import com.example.wouple.ui.theme.vintage
 
+@Preview(showBackground = true)
+@Composable
+fun PreviewFirstScreenView() {
+    FirstScreenView(
+        onStartButtonClicked = { /* No action for preview */ }
+    )
+}
 @Composable
 fun FirstScreenView(
     onStartButtonClicked: () -> Unit
@@ -84,11 +92,11 @@ fun FirstScreenView(
             text = stringResource(id = R.string.AppExplainer),
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.Default,
-            fontSize = 16.sp,
+            fontSize = 15.sp,
             color = Whitehis.copy(alpha = 0.8f),
         )
         Button(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(8.dp),
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(vintage),
             onClick = {

@@ -7,7 +7,7 @@
     <string name="title_activity_second">AndreAktivitet</string>
     <string name="title_activity_start">StartAktivitet</string>
     <string name="WeatherForecast">Weather Forecast</string>
-    <string name="AppExplainer">Den ultimate værkompisen designet for å gjøre hverdagen din enklere.\nAppen vår gir nøyaktige, sanntids værmeldinger, slik at du er forberedt på \nhva enn Moder Natur har i vente.</string>
+    <string name="AppExplainer">"Den ultimate værkompisen designet for å gjøre hverdagen din enklere. Appen vår leverer nøyaktige, sanntids værmeldinger, slik at du er forberedt på hva enn \nmoder natur har i vente."</string>
     <string name="GetStartButton">Kom i gang</string>
     <string name="Loading">Laster inn…</string>
     <string name="SearchBeforeYouGo">Sol, regn eller snø – vit før du går!</string>

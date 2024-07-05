@@ -6,7 +6,7 @@
     <string name="title_activity_second">SecondActivity</string>
     <string name="title_activity_start">StartActivity</string>
     <string name="WeatherForecast">"Weather Forecast"</string>
-    <string name="AppExplainer">"The ultimate weather companion designed to make your daily life easier.\nOur app delivers accurate, real-time weather forecasts, ensuring you're prepared for \nwhatever Mother Nature has in store."</string>
+    <string name="AppExplainer">"The ultimate weather companion designed to make your daily life easier. Our app delivers accurate, real-time weather forecasts, ensuring you're prepared for whatever \nMother Nature has in store."</string>
     <string name="GetStartButton">"Get Started"</string>
     <string name="SearchBeforeYouGo">"Sun, Rain, or Snow – Know Before You Go!"</string>
     <string name="ThankYouForDownloading">"Thank you for downloading
