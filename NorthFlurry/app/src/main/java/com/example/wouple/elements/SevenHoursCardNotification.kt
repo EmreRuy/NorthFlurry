@@ -12,15 +12,15 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -83,29 +83,29 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
         context.getString(R.string.wind_speed, currentWindSpeed, currentWindSpeedUnit)
     )
     var visible by remember { mutableStateOf(true) }
-    val currentTextIndex = remember { mutableStateOf(0) }
+    val currentTextIndex = remember { mutableIntStateOf(0) }
 
 
     LaunchedEffect(Unit) {
         while (true) {
             delay(400)
-            currentTextIndex.value = (currentTextIndex.value + 1) % texts.size
+            currentTextIndex.intValue = (currentTextIndex.intValue + 1) % texts.size
             visible = true
             delay(8000)
             visible = false
         }
     }
-    val currentText = texts[currentTextIndex.value]
+    val currentText = texts[currentTextIndex.intValue]
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(52.dp)
             .background(brush = Brush.verticalGradient(background)),
         contentAlignment = CenterStart,
     ) {
         Row(
             modifier = Modifier
                 .padding(start = 12.dp)
+                .padding(vertical = 16.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {

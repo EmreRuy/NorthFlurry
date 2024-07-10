@@ -7,10 +7,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.SolidColor
@@ -55,10 +54,10 @@ fun HorizontalWave(
 @Composable
 fun rememberPhaseState(startPosition: Float): MutableState<Float> {
     val step: Long = 100 //countdown seconds
-    val phase = remember { mutableStateOf(startPosition) }
+    val phase = remember { mutableFloatStateOf(startPosition) }
     LaunchedEffect(phase, step) {
         while (NonCancellable.isActive) {
-            phase.value += 0.02f
+            phase.floatValue += 0.02f
             delay(step)
         }
     }

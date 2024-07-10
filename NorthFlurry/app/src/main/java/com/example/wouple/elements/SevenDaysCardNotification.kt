@@ -7,26 +7,24 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterStart
-import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -144,32 +142,31 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         texts += precipitationInfo
     }
     var apparent by remember { mutableStateOf(true) }
-    val currentTextIndex = remember { mutableStateOf(0) }
+    val currentTextIndex = remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) {
         while (true) {
             delay(1000)
-            currentTextIndex.value = (currentTextIndex.value + 1) % texts.size
+            currentTextIndex.intValue = (currentTextIndex.intValue + 1) % texts.size
             apparent = true
             delay(6000)
             apparent = false
         }
     }
-    val currentText = if (currentTextIndex.value < texts.size) {
-        texts[currentTextIndex.value]
+    val currentText = if (currentTextIndex.intValue < texts.size) {
+        texts[currentTextIndex.intValue]
     } else {
         ""
     }
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(52.dp)
             .background(brush = Brush.verticalGradient(background)),
         contentAlignment = CenterStart
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp),
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(

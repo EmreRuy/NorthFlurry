@@ -24,8 +24,6 @@ import com.example.wouple.adds.AdaptiveBannerAd
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import com.google.android.gms.ads.MobileAds
-
-
 @Composable
 fun MainView(
     temp: TemperatureResponse,

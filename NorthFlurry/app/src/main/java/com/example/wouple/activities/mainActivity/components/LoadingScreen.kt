@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -22,7 +22,7 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
-
+import com.example.wouple.ui.theme.Whitehis
 
 @Composable
 fun LoadingScreen() {
@@ -48,12 +48,11 @@ fun LoadingScreen() {
                 modifier = Modifier.size(200.dp),
                 speed = 2f
             )
-            Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = stringResource(id = R.string.Loading),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Gray
+                color = Whitehis.copy(alpha = 0.7f)
             )
         }
     }

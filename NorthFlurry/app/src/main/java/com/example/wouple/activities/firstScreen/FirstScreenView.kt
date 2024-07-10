@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -87,6 +87,7 @@ fun FirstScreenView(
         )
         Text(
             modifier = Modifier
+                .padding(horizontal = 4.dp)
                 .align(CenterHorizontally),
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.AppExplainer),
@@ -98,7 +99,10 @@ fun FirstScreenView(
         Button(
             modifier = Modifier.padding(8.dp),
             shape = RoundedCornerShape(20.dp),
-            colors = ButtonDefaults.buttonColors(vintage),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = vintage,
+                contentColor = Color.Black
+            ),
             onClick = {
                 onStartButtonClicked()
             }

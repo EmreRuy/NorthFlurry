@@ -4,10 +4,10 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -55,7 +55,7 @@ fun NoInternetDialog(activity: ComponentActivity) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 16.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF3D52BB))
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3D52BB))
             ) {
                 Text(
                     text = stringResource(id = R.string.OK),

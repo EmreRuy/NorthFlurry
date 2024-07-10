@@ -14,9 +14,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -58,7 +59,7 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
             }
             .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Row(
             modifier = Modifier
@@ -71,7 +72,7 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_warning_triangle),
                 contentDescription = null,
-                Modifier.padding(start = 4.dp)
+                Modifier.padding(start = 4.dp).size(24.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -104,7 +105,7 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
             ) { onIdeaClicked() }
             .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Row(
             modifier = Modifier
@@ -117,7 +118,7 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_lightbulb),
                 contentDescription = null,
-                Modifier.padding(top = 2.dp, start = 4.dp)
+                Modifier.padding(top = 2.dp, start = 4.dp).size(24.dp)
             )
             Spacer(modifier = Modifier.width(24.dp))
             Text(
@@ -161,7 +162,7 @@ fun ShareTheAppSettings() {
             }
             .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Row(
             modifier = Modifier
@@ -172,7 +173,7 @@ fun ShareTheAppSettings() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                modifier = Modifier.padding(top = 2.dp, start = 4.dp),
+                modifier = Modifier.padding(top = 2.dp, start = 4.dp).size(24.dp),
                 painter = painterResource(id = R.drawable.ic_world),
                 contentDescription = null
             )
@@ -220,7 +221,7 @@ fun RateUsSettings() {
             }
             .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Row(
             modifier = Modifier
@@ -268,7 +269,7 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
             }
             .padding(horizontal = 24.dp, vertical = 12.dp),
         shape = RoundedCornerShape(28.dp),
-        elevation = 4.dp,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Row(
             modifier = Modifier
@@ -281,7 +282,9 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
             Icon(
                 painter = painterResource(id = R.drawable.baseline_attribution_24),
                 contentDescription = null,
-                Modifier.padding(top = 2.dp, start = 4.dp).size(26.dp)
+                Modifier
+                    .padding(top = 2.dp, start = 4.dp)
+                    .size(24.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(

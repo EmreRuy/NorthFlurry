@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +29,6 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
     val scrollState = rememberScrollState()
     Row(
         modifier = Modifier
-            .padding(top = 8.dp)
             .horizontalScroll(scrollState),
         horizontalArrangement = Arrangement.Center
     ) {
@@ -77,7 +76,7 @@ fun GetSixHours(
     hourlyWeatherCondition: WeatherCondition
 ) {
     Column(
-        modifier = Modifier.padding(top = 18.dp, start = 5.dp, end = 5.dp),
+        modifier = Modifier.padding(start = 4.dp, end = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
@@ -85,7 +84,7 @@ fun GetSixHours(
             modifier = Modifier.padding(top = 4.dp),
             text = time,
             color = mocassin,
-            fontSize = 14.sp,
+            fontSize = 15.sp,
             fontWeight = FontWeight.Light
         )
         Image(
@@ -98,7 +97,7 @@ fun GetSixHours(
             text = "$temperature°",
             color = Color.White.copy(alpha = 0.8f),
             fontWeight = FontWeight.Medium,
-            fontSize = 14.sp
+            fontSize = 15.sp
         )
     }
 }

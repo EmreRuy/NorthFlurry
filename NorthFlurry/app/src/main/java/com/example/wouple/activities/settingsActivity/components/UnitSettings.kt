@@ -3,10 +3,10 @@ package com.example.wouple.activities.settingsActivity.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -56,7 +56,7 @@ fun TemperatureUnitSettings(temp: TemperatureResponse) {
         )
         val temperatureUnits = TemperatureUnit.values()
         var selectedUnitIndex by remember {
-            mutableStateOf(
+            mutableIntStateOf(
                 temperatureUnits.indexOf(
                     TemperatureUnitPref.getTemperatureUnit(context)
                 )
@@ -88,7 +88,7 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse) {
         )
         val units = PrecipitationUnit.values()
         var selectedUnitIndex by remember {
-            mutableStateOf(
+            mutableIntStateOf(
                 units.indexOf(
                     PrecipitationUnitPref.getPrecipitationUnit(
                         context
@@ -122,7 +122,7 @@ fun WindUnitSettings(temp: TemperatureResponse) {
         )
         val units = WindUnit.values()
         var selectedUnitIndex by remember {
-            mutableStateOf(
+            mutableIntStateOf(
                 units.indexOf(
                     WindUnitPref.getWindUnit(
                         context

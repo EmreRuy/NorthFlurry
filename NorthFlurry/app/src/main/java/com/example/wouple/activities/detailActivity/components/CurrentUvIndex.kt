@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -68,7 +68,7 @@ fun UvIndex(temp: TemperatureResponse) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             val isDay = temp.current_weather.is_day == 1
-            val textColor = if (isDay) Whitehis else Color.White
+            val textColor = if (isDay) Whitehis.copy(alpha = 0.8f) else Color.White.copy(alpha = 0.8f)
             Icon(
                 modifier = Modifier
                     .padding(end = 4.dp)

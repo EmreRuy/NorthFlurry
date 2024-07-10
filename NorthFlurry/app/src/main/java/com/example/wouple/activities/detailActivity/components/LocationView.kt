@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,14 +31,14 @@ fun LocationView(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth(1f)
-            .padding(horizontal = 16.dp),
+            .padding(top = 8.dp)
+            .fillMaxWidth(1f),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         val isDay = temp.current_weather.is_day == 1
         val color = if (isDay) Whitehis else Color.White
-        Spacer(modifier = Modifier.padding(top = 8.dp))
+       // Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(
             text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
             fontWeight = FontWeight.Thin,
@@ -46,7 +46,7 @@ fun LocationView(
             color = color,
             textAlign = TextAlign.Center,
         )
-        Spacer(modifier = Modifier.padding(4.dp))
+        Spacer(modifier = Modifier.padding(top = 18.dp))
         Text(
             text = "${temp.current_weather.temperature.toInt()}°",
             color = color,
@@ -55,6 +55,7 @@ fun LocationView(
             fontSize = 64.sp,
             textAlign = TextAlign.Center
         )
+        Spacer(modifier = Modifier.padding(top =24.dp))
         val weatherCode = temp.current_weather.weathercode
         val weatherDescriptionResId = getWeatherDescriptionResId(weatherCode)
         val weatherDescription = stringResource(id = weatherDescriptionResId)
@@ -82,9 +83,10 @@ fun LocationView(
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = weatherDescription,
-                color = color,
+                color = color.copy(alpha = 0.8f),
                 fontSize = 20.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Light
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(

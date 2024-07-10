@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
@@ -43,11 +43,10 @@ fun GetLocationAndDegree(
             fontWeight = FontWeight.Thin,
             textAlign = TextAlign.Center,
             fontSize = 50.sp,
-            color = Color.White,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            color = Color.White
         )
+        Spacer(modifier = Modifier.padding(top = 12.dp))
         Text(
-            modifier = Modifier.padding(start = 12.dp),
             text = temp.current_weather.temperature.toInt()
                 .toString() + temp.hourly_units.temperature_2m[0],
             textAlign = TextAlign.Center,
@@ -55,7 +54,7 @@ fun GetLocationAndDegree(
             fontSize = 50.sp,
             color = Color.White,
         )
-        Spacer(modifier = Modifier.padding(horizontal = 8.dp))
+        Spacer(modifier = Modifier.padding(top = 12.dp))
         when {
             (temp.current_weather.weathercode in listOf(0, 1) && !isDay) -> LottieAnimationClear()
             (temp.current_weather.weathercode in listOf(0, 1) && isDay) -> LottieAnimationSun()
@@ -71,7 +70,7 @@ fun GetLocationAndDegree(
         }
         Row(
             modifier = Modifier
-                .padding(bottom = 4.dp)
+                .padding(bottom = 4.dp, top = 12.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {

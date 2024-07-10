@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -93,13 +93,17 @@ fun CustomTab(
     selectedItemIndex: Int,
     items: List<String>,
     modifier: Modifier = Modifier,
-    tabWidth: Dp = 120.dp,
+    tabWidth: Dp = 140.dp,
     onClick: (index: Int) -> Unit,
     temp: TemperatureResponse
 ) {
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
-        animationSpec = tween(easing = LinearEasing), label = "",
+        animationSpec = tween(
+            easing = LinearEasing,
+            durationMillis = 300
+        ),
+        label = "",
     )
     val isDay = temp.current_weather.is_day == 1
     Box(

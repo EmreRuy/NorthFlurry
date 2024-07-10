@@ -1,13 +1,10 @@
 package com.example.wouple.activities.detailActivity
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import androidx.compose.ui.graphics.Brush
@@ -39,7 +35,6 @@ import com.example.wouple.activities.detailActivity.components.getWeatherDetails
 import com.example.wouple.model.api.AirQuality
 
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun DetailView(
     temp: TemperatureResponse,
@@ -65,78 +60,99 @@ fun DetailView(
         )
     }
     val (explodeConfetti, setExplodeConfetti) = remember { mutableStateOf(false) }
-    val scrollState = rememberScrollState()
+    val pagerState = rememberPagerState()
+    val weatherDetails = getWeatherDetails(temp)
+
     ConfettiView(
         explodeConfetti = explodeConfetti,
         explodeConfettiCallback = { setExplodeConfetti(true) }
     ) {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(colors = background))
-                .verticalScroll(scrollState),
-            verticalArrangement = Arrangement.Center,
+                .background(brush = Brush.verticalGradient(colors = background)),
             horizontalAlignment = CenterHorizontally
         ) {
-            TopBar { onBackPressed() }
-            LocationView(temp, searchedLocation)
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
-            CurrentAirQualityCard(temp, air)
-            CurrentUvIndex(temp)
-            UvIndexChart(temp)
-            HourlyForecast(temp)
-            WeeklyForecast(temp)
-            WeeklyPrecipitationChart(temp)
-            DayLightDuration(temp = temp, explodeConfettiCallback = { setExplodeConfetti(true) })
-            val pagerState = rememberPagerState()
-            val weatherDetails = getWeatherDetails(temp)
-            HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
-            { page ->
-                when (page) {
-                    0 -> ExtraCards(
-                        text = stringResource(id = R.string.FeelsLike),
-                        numbers = temp.hourly.apparent_temperature.getOrNull(weatherDetails.feelsLike)
-                            ?.let {
-                                it.toInt().toString() + temp.hourly_units.apparent_temperature
-                            } ?: "N/D",
-                        temp = temp
-                    )
+            item {
+                TopBar { onBackPressed() }
 
-                    1 -> ExtraCards(
-                        text = stringResource(id = R.string.Rainfall),
-                        numbers = weatherDetails.rainFall.toString() + temp.daily_units.precipitation_sum,
-                        temp = temp
-                    )
-
-                    2 -> ExtraCards(
-                        text = stringResource(id = R.string.WindSpeed),
-                        numbers = weatherDetails.windSpeed.toString() + temp.hourly_units.windspeed_10m,
-                        temp = temp
-                    )
-
-                    3 -> ExtraCards(
-                        text = stringResource(id = R.string.Visibility),
-                        numbers = weatherDetails.visibilityInMeters.toString() + temp.hourly_units.visibility,
-                        temp = temp
-                    )
-
-                    4 -> ExtraCards(
-                        text = stringResource(id = R.string.Humidity),
-                        numbers = temp.hourly_units.relativehumidity_2m + weatherDetails.humidity.toString(),
-                        temp = temp
-                    )
-
-                    5 -> ExtraCards(
-                        text = stringResource(id = R.string.DewPoint),
-                        numbers = weatherDetails.dewPoint.toString() + temp.hourly_units.temperature_2m,
-                        temp = temp
-                    )
-                }
             }
-            PagerIndicator(
-                step = pagerState.currentPage,
-                totalSteps = pagerState.pageCount
-            )
+            item {
+                LocationView(temp = temp, searchedLocation = searchedLocation)
+            }
+            item {
+                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            }
+            item {
+                CurrentAirQualityCard(temp = temp, air = air)
+            }
+            item {
+                CurrentUvIndex(temp = temp)
+            }
+            item {
+                UvIndexChart(temp = temp)
+            }
+            item {
+                HourlyForecast(temp = temp)
+            }
+            item {
+                WeeklyForecast(temp = temp)
+            }
+            item {
+                WeeklyPrecipitationChart(temp = temp)
+            }
+            item {
+                DayLightDuration(temp = temp, explodeConfettiCallback = { setExplodeConfetti(true) })
+            }
+            item {
+                HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
+                { page ->
+                    when (page) {
+                        0 -> ExtraCards(
+                            text = stringResource(id = R.string.FeelsLike),
+                            numbers = temp.hourly.apparent_temperature.getOrNull(weatherDetails.feelsLike)
+                                ?.let {
+                                    it.toInt().toString() + temp.hourly_units.apparent_temperature
+                                } ?: "N/D",
+                            temp = temp
+                        )
+
+                        1 -> ExtraCards(
+                            text = stringResource(id = R.string.Rainfall),
+                            numbers = weatherDetails.rainFall.toString() + temp.daily_units.precipitation_sum,
+                            temp = temp
+                        )
+
+                        2 -> ExtraCards(
+                            text = stringResource(id = R.string.WindSpeed),
+                            numbers = weatherDetails.windSpeed.toString() + temp.hourly_units.windspeed_10m,
+                            temp = temp
+                        )
+
+                        3 -> ExtraCards(
+                            text = stringResource(id = R.string.Visibility),
+                            numbers = weatherDetails.visibilityInMeters.toString() + temp.hourly_units.visibility,
+                            temp = temp
+                        )
+
+                        4 -> ExtraCards(
+                            text = stringResource(id = R.string.Humidity),
+                            numbers = temp.hourly_units.relativehumidity_2m + weatherDetails.humidity.toString(),
+                            temp = temp
+                        )
+
+                        5 -> ExtraCards(
+                            text = stringResource(id = R.string.DewPoint),
+                            numbers = weatherDetails.dewPoint.toString() + temp.hourly_units.temperature_2m,
+                            temp = temp
+                        )
+                    }
+                }
+                PagerIndicator(
+                    step = pagerState.currentPage,
+                    totalSteps = pagerState.pageCount
+                )
+            }
         }
     }
 }

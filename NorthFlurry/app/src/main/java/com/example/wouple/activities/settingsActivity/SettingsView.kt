@@ -9,39 +9,40 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.activities.mainActivity.components.LottieAnimationShootingStar
 import com.example.wouple.activities.settingsActivity.components.CustomTab
@@ -58,10 +59,10 @@ import com.example.wouple.activities.settingsActivity.components.WindUnitSetting
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Whitehis
 import kotlinx.coroutines.delay
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SettingsView(
     onBackPressed: () -> Unit,
@@ -69,14 +70,6 @@ fun SettingsView(
     temp: TemperatureResponse,
     onLottieClicked: () -> Unit
 ) {
-    val (selected, setSelected) = remember {
-        mutableStateOf(0)
-    }
-    var cardsVisible by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        delay(600)
-        cardsVisible = true
-    }
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
         listOf(
@@ -94,11 +87,9 @@ fun SettingsView(
             TopAppBar(
                 title = {
                     Text(
-                        modifier = Modifier.padding(start = 4.dp),
+                        modifier = Modifier.padding(start = 4.dp, top = 2.dp),
                         text = stringResource(id = R.string.Settings),
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Light,
-                        color = Whitehis,
+                        fontWeight = FontWeight.Light
                     )
                 },
                 navigationIcon = {
@@ -106,123 +97,156 @@ fun SettingsView(
                         onClick = onBackPressed
                     ) {
                         Icon(
-                            Icons.Default.ArrowBack,
+                            Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
                             modifier = Modifier.size(28.dp)
                         )
                     }
                 },
-                contentColor = Whitehis,
-                backgroundColor = Transparent,
-                elevation = 0.dp,
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Transparent,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
+                ),
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(brush = Brush.verticalGradient(background))
             )
         },
         content = {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-            ) {
-                val isDayLight = temp.current_weather.is_day == 1
-                val backgroundColors: List<Color> = if (isDayLight) {
-                    val baseColor = Color(0xFF3F54BE)//Color(0xFF4067DD)
-                    val lighterShades = listOf(
-                        baseColor,
-                        baseColor.copy(alpha = 0.9f),
-                        baseColor.copy(alpha = 0.8f),
-                        baseColor.copy(alpha = 0.5f),
-                    )
-
-                    lighterShades
-                } else {
-                    listOf(
-                        Color(0xFF1D244D),
-                        Color(0xFF2E3A59),
-                        Color(0xFF3F5066),
-                    )
-                }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .verticalScroll(rememberScrollState())
-                        .background(brush = Brush.verticalGradient(backgroundColors)),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Spacer(modifier = Modifier.padding(top = 32.dp))
-                    CustomTab(
-                        selectedItemIndex = selected,
-                        items = listOf(stringResource(id = R.string.General), stringResource(id = R.string.Units)),
-                        onClick = {
-                            setSelected(it)
-                        },
-                        temp = temp
-                    )
-                    when (selected) {
-                        0 -> {
-                            AnimatedVisibility(
-                                visible = cardsVisible,
-                                enter = fadeIn(
-                                    animationSpec = tween(
-                                        durationMillis = 2000,
-                                        easing = LinearEasing
-                                    )
-                                )
-                            ) {
-                                Column(
-                                    modifier = Modifier
-                                        .padding(vertical = 8.dp)
-                                        .fillMaxWidth()
-                                        .wrapContentHeight(),
-                                    verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.CenterHorizontally
-                                ) {
-                                    SettingsCardOne()
-                                    TroubleOnAppSettings { onFeedbackClicked(true) }
-                                    IdeasSettings { onFeedbackClicked(false) }
-                                    ShareTheAppSettings()
-                                    RateUsSettings()
-                                    LottieFilesAndTerms(onLottieClicked = onLottieClicked)
-                                }
-                            }
-                        }
-
-                        1 -> {
-                            SettingsCardTwo()
-                            TemperatureUnitSettings(temp)
-                            PrecipitationUnitSettings(temp)
-                            WindUnitSettings(temp)
-                        }
-                    }
-                    LottieAnimationShootingStar()
-                }
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 16.dp),
-                    contentAlignment = BottomCenter
-                ) {
-                    HorizontalWave(
-                        phase = rememberPhaseState(startPosition = 0f),
-                        alpha = 0.5f,
-                        amplitude = 60f,
-                        frequency = 0.5f
-                    )
-                    HorizontalWave(
-                        phase = rememberPhaseState(startPosition = 15f),
-                        alpha = 0.5f,
-                        amplitude = 90f,
-                        frequency = 0.4f
-                    )
-                    HorizontalWave(
-                        phase = rememberPhaseState(10f),
-                        alpha = 0.2f,
-                        amplitude = 80f,
-                        frequency = 0.4f
-                    )
-                }
-            }
+            GetSurface(
+                onFeedbackClicked = onFeedbackClicked,
+                onLottieClicked = { onLottieClicked() },
+                temp = temp,
+                paddingValues = it
+            )
         }
     )
+}
+@Composable
+fun GetSurface(
+    onFeedbackClicked: (Boolean) -> Unit,
+    onLottieClicked: () -> Unit,
+    temp: TemperatureResponse,
+    paddingValues: PaddingValues
+) {
+    val (selected, setSelected) = remember {
+        mutableIntStateOf(0)
+    }
+    var cardsVisible by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        delay(600)
+        cardsVisible = true
+    }
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = paddingValues.calculateTopPadding())
+    ) {
+        val isDayLight = temp.current_weather.is_day == 1
+        val backgroundColors: List<Color> = if (isDayLight) {
+            val baseColor = Color(0xFF3F54BE)
+            val lighterShades = listOf(
+                baseColor,
+                baseColor.copy(alpha = 0.9f),
+                baseColor.copy(alpha = 0.8f),
+                baseColor.copy(alpha = 0.5f),
+            )
+
+            lighterShades
+        } else {
+            listOf(
+                Color(0xFF1D244D),
+                Color(0xFF2E3A59),
+                Color(0xFF3F5066),
+            )
+        }
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(brush = Brush.verticalGradient(backgroundColors)),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            item {
+                Spacer(modifier = Modifier.padding(top = 32.dp))
+            }
+
+            item {
+                CustomTab(
+                    selectedItemIndex = selected,
+                    items = listOf(
+                        stringResource(id = R.string.General),
+                        stringResource(id = R.string.Units)
+                    ),
+                    onClick = { setSelected(it) },
+                    temp = temp
+                )
+            }
+
+            if (selected == 0) {
+                item {
+                    AnimatedVisibility(
+                        visible = cardsVisible,
+                        enter = fadeIn(
+                            animationSpec = tween(
+                                durationMillis = 1000,
+                                easing = LinearEasing
+                            )
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            SettingsCardOne()
+                            TroubleOnAppSettings { onFeedbackClicked(true) }
+                            IdeasSettings { onFeedbackClicked(false) }
+                            ShareTheAppSettings()
+                            RateUsSettings()
+                            LottieFilesAndTerms(onLottieClicked = onLottieClicked)
+                        }
+                    }
+                }
+            } else {
+                item {
+                    SettingsCardTwo()
+                    TemperatureUnitSettings(temp)
+                    PrecipitationUnitSettings(temp)
+                    WindUnitSettings(temp)
+                }
+            }
+
+            item {
+                LottieAnimationShootingStar()
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            HorizontalWave(
+                phase = rememberPhaseState(startPosition = 0f),
+                alpha = 0.5f,
+                amplitude = 60f,
+                frequency = 0.5f
+            )
+            HorizontalWave(
+                phase = rememberPhaseState(startPosition = 15f),
+                alpha = 0.5f,
+                amplitude = 90f,
+                frequency = 0.4f
+            )
+            HorizontalWave(
+                phase = rememberPhaseState(10f),
+                alpha = 0.2f,
+                amplitude = 80f,
+                frequency = 0.4f
+            )
+        }
+    }
 }

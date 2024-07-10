@@ -5,11 +5,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
@@ -56,7 +56,7 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: Tempe
             Surface(
                 modifier = Modifier
                     .padding(24.dp),
-                elevation = 8.dp,
+                shadowElevation = 8.dp,
                 shape = RoundedCornerShape(16.dp),
                 color = if (isDay) Color(0xFF586FCE) else Color(0xFF3F5066) //Color(0xFF2E3A59)
             ) {
@@ -66,13 +66,13 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: Tempe
                 ) {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.h6,
+                        style = MaterialTheme.typography.headlineMedium,
                         color = mocassin
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = text,
-                        style = MaterialTheme.typography.body1,
+                        style = MaterialTheme.typography.bodyMedium,
                         fontSize = 16.sp,
                         color = Color(0xFFE0E0E0)
                     )

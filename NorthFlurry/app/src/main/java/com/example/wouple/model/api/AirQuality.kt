@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AirQuality(
     val current: Current,
-    val current_units: CurrentUnits,
+    val current_units: CurrentUnits
 ): Parcelable

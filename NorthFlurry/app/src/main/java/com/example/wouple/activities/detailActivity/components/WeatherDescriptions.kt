@@ -32,6 +32,8 @@ fun getWeatherDescriptionResId(code: Int): Int {
         85 -> R.string.Slight_Snow_Showers
         86 -> R.string.Heavy_Snow_Showers
         95 -> R.string.Thunderstorm
+        96 -> R.string.Thunderstorm
+        99 -> R.string.Thunderstorm
         else -> R.string.ND
     }
 }

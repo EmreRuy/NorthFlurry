@@ -1,13 +1,12 @@
 package com.example.wouple.activities.mainActivity.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,7 +38,7 @@ fun GetSevenDaysForecast(temp: TemperatureResponse) {
             .padding(horizontal = 18.dp)
             .padding(bottom = 18.dp),
         shape = RoundedCornerShape(16.dp),
-        elevation = 4.dp,
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
@@ -57,20 +56,19 @@ fun GetSevenDaysForecast(temp: TemperatureResponse) {
                 Color(0xFF3F5066),
             )
         }
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
                 .background(brush = Brush.verticalGradient(background))
         ) {
+            SevenDaysCardNotification(temp)
             Column(
                 modifier = Modifier
-                    .padding(top = 32.dp, end = 4.dp, start = 4.dp)
-                    .align(Alignment.Center)
+                    .padding(top = 16.dp, bottom = 32.dp, end = 4.dp, start = 4.dp).fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 GetWeeklyForecast(temp)
             }
         }
-        SevenDaysCardNotification(temp)
     }
 }

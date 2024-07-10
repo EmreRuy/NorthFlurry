@@ -7,7 +7,7 @@
     <string name="title_activity_second">AndreAktivitet</string>
     <string name="title_activity_start">StartAktivitet</string>
     <string name="WeatherForecast">Weather Forecast</string>
-    <string name="AppExplainer">"Den ultimate værkompisen designet for å gjøre hverdagen din enklere. Appen vår leverer nøyaktige, sanntids værmeldinger, slik at du er forberedt på hva enn \nmoder natur har i vente."</string>
+    <string name="AppExplainer">"Den ultimate værkompisen designet for å gjøre hverdagen din enklere. Appen vår leverer nøyaktige, sanntids værmeldinger, slik at du er forberedt på \nhva enn moder natur har i vente."</string>
     <string name="GetStartButton">Kom i gang</string>
     <string name="Loading">Laster inn…</string>
     <string name="SearchBeforeYouGo">Sol, regn eller snø – vit før du går!</string>
@@ -30,9 +30,9 @@
     <string name="Visibility">Sikt</string>
     <string name="Humidity">Luftfuktighet</string>
     <string name="DewPoint">Duggpunkt</string>
-    <string name="Precipitation_For_Upcoming_Days">Nedbør for kommende dager</string>
+    <string name="Precipitation_For_Upcoming_Days">Ukentlig nedbør</string>
     <string name="No_Precipitation_expected_for_the_week">Ingen nedbør forventet for uken</string>
-    <string name="UV_Index_For_Upcoming_Days">UV-indeks for kommende dager</string>
+    <string name="UV_Index_For_Upcoming_Days">Ukentlig UV-indeks</string>
     <string name="The_Ultraviolet_Index">Den ultrafiolette indeksen</string>
     <string name="Explainer_Of_Uv_Index">UV–indeksen belyser solintensiteten, og veileder smarte solbeskyttelsesvalg.\n0–2: Nyt milde stråler utendørs med sinnsro.\n3-7: Nyt solfylte øyeblikk klokt, søk skygge og bruk solkrem midt på dagen.\n8 og høyere: Trekk deg tilbake fra intensiteten midt på dagen, prioriter sikkerhet i skyggefulle områder.</string>
     <string name="Weekly_precipitation_chart">Ukentlig nedbør</string>
@@ -55,6 +55,7 @@
     <string name="General">Generelt</string>
     <string name="Units">Enheter</string>
     <string name="ND">N/D</string>
+    <string name="NoData">Ingen data tilgjengelig for visning</string>
     <string name="LottieFilesCopyright">"Animasjonene i denne appen er levert av LottieFiles og er underlagt Lottie Simple License (FL 9.13.21). Opphavsrett © 2021 Design Barn Inc. Alle rettigheter reservert.
 
 Tilskrivning for individuelle animasjoner:

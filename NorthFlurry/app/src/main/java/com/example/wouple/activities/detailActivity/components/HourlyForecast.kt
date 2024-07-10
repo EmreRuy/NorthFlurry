@@ -4,12 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.Text
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -66,15 +69,24 @@ fun HourlyForecast(temp: TemperatureResponse) {
             textAlign = TextAlign.Center
         )
         var selectedTabIndex by remember {
-            mutableStateOf(0)
+            mutableIntStateOf(0)
         }
+     //   val orangeColor = Color(255, 152, 0, 255)
+      //  val spiroColor = Color(0, 191, 255, 255) // Ex
         Column {
             TabRow(
+                modifier = Modifier.background(Color.Transparent),
                 selectedTabIndex = selectedTabIndex,
-                backgroundColor = Color.Transparent,
-                contentColor = Whitehis,
-
-                ) {
+                contentColor = Color.White,
+                containerColor = Color.Transparent,
+                indicator = { tabPositions ->
+                    SecondaryIndicator(
+                        modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
+                        color = Whitehis
+                        //color = if (selectedTabIndex == 0) orangeColor else spiroColor
+                    )
+                },
+            )  {
                 tabItem.forEachIndexed { index, item ->
                     Tab(
                         selected = index == selectedTabIndex,
@@ -83,7 +95,8 @@ fun HourlyForecast(temp: TemperatureResponse) {
                             Text(
                                 text = item.title,
                                 fontWeight = FontWeight.W600,
-                                fontSize = 14.sp
+                                fontSize = 14.sp,
+                                color = Whitehis.copy(alpha = 0.7f)
                             )
                         }
                     )

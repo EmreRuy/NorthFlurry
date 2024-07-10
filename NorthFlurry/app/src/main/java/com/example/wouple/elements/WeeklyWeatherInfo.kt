@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,7 +81,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
             text = dayOfWeek.lowercase()
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() },
             color = Spiro,
-            fontSize = 14.sp,
+            fontSize = 15.sp,
             fontWeight = FontWeight.Light
         )
         Image(
@@ -93,7 +93,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
             text = "$temperature°",
             color = Color.White.copy(alpha = 0.8f),
             fontWeight = FontWeight.Medium,
-            fontSize = 14.sp
+            fontSize = 15.sp
         )
     }
 }
