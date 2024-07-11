@@ -71,8 +71,6 @@ fun HourlyForecast(temp: TemperatureResponse) {
         var selectedTabIndex by remember {
             mutableIntStateOf(0)
         }
-     //   val orangeColor = Color(255, 152, 0, 255)
-      //  val spiroColor = Color(0, 191, 255, 255) // Ex
         Column {
             TabRow(
                 modifier = Modifier.background(Color.Transparent),
@@ -83,7 +81,6 @@ fun HourlyForecast(temp: TemperatureResponse) {
                     SecondaryIndicator(
                         modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
                         color = Whitehis
-                        //color = if (selectedTabIndex == 0) orangeColor else spiroColor
                     )
                 },
             )  {

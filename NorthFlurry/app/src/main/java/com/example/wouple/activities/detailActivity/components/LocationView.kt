@@ -38,7 +38,6 @@ fun LocationView(
     ) {
         val isDay = temp.current_weather.is_day == 1
         val color = if (isDay) Whitehis else Color.White
-       // Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(
             text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
             fontWeight = FontWeight.Thin,
@@ -80,7 +79,7 @@ fun LocationView(
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.weight(0.9f))
             Text(
                 text = weatherDescription,
                 color = color.copy(alpha = 0.8f),

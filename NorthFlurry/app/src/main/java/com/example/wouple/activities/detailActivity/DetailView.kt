@@ -75,12 +75,9 @@ fun DetailView(
         ) {
             item {
                 TopBar { onBackPressed() }
-
             }
             item {
                 LocationView(temp = temp, searchedLocation = searchedLocation)
-            }
-            item {
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
             }
             item {

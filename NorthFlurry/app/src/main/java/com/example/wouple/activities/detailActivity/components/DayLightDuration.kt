@@ -75,7 +75,8 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
             textAlign = TextAlign.Center
         )
         val formattedSunset = getFormattedSunset(temp)
-        if (formattedSunset.isNotEmpty()) {
+        val formattedSunrise = getFormattedSunrise(temp)
+        if (formattedSunset.isNotEmpty() && formattedSunrise.isNotEmpty()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
