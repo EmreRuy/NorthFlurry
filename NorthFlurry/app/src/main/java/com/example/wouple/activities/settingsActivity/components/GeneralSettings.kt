@@ -120,7 +120,7 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier.padding(top = 2.dp, start = 4.dp).size(24.dp)
             )
-            Spacer(modifier = Modifier.width(24.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.AnyGoodIdeas),
                 fontWeight = FontWeight.Medium,
@@ -177,7 +177,7 @@ fun ShareTheAppSettings() {
                 painter = painterResource(id = R.drawable.ic_world),
                 contentDescription = null
             )
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.ShareTheApp),
                 fontWeight = FontWeight.Medium,
@@ -232,11 +232,11 @@ fun RateUsSettings() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_hand_heart),
+                painter = painterResource(id = R.drawable.heartone),
                 contentDescription = null,
-                Modifier.padding(top = 4.dp, start = 4.dp)
+                Modifier.padding(top = 2.dp, start = 4.dp).size(24.dp)
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.RateUs),
                 fontWeight = FontWeight.Medium,
@@ -286,9 +286,58 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
                     .padding(top = 2.dp, start = 4.dp)
                     .size(24.dp)
             )
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.LottieFilesAndTerms),
+                fontWeight = FontWeight.Medium,
+                color = Dark20,
+                fontSize = 18.sp
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(18.dp)
+                    .align(Alignment.CenterVertically)
+            )
+        }
+    }
+}
+@Composable
+fun OpenMeteoAttribution(onMeteoClicked: () -> Unit) {
+    val interactionSource = remember { MutableInteractionSource() }
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null
+            ) {
+                onMeteoClicked()
+            }
+            .padding(horizontal = 24.dp, vertical = 12.dp),
+        shape = RoundedCornerShape(28.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_attribution_24),
+                contentDescription = null,
+                Modifier
+                    .padding(top = 2.dp, start = 4.dp)
+                    .size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(
+                text = stringResource(id = R.string.OpenMeteoLicence),
                 fontWeight = FontWeight.Medium,
                 color = Dark20,
                 fontSize = 18.sp

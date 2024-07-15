@@ -64,7 +64,8 @@ fun GetSevenDaysForecast(temp: TemperatureResponse) {
             SevenDaysCardNotification(temp)
             Column(
                 modifier = Modifier
-                    .padding(top = 16.dp, bottom = 32.dp, end = 4.dp, start = 4.dp).fillMaxWidth(),
+                    .padding(top = 16.dp, bottom = 32.dp, end = 4.dp, start = 4.dp)
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 GetWeeklyForecast(temp)

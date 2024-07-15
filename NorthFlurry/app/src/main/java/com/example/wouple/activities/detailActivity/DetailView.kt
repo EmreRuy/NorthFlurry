@@ -32,6 +32,7 @@ import com.example.wouple.activities.detailActivity.components.UvIndexChart
 import com.example.wouple.activities.detailActivity.components.WeeklyForecast
 import com.example.wouple.activities.detailActivity.components.WeeklyPrecipitationChart
 import com.example.wouple.activities.detailActivity.components.getWeatherDetails
+import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMeteo
 import com.example.wouple.model.api.AirQuality
 
 
@@ -149,6 +150,7 @@ fun DetailView(
                     step = pagerState.currentPage,
                     totalSteps = pagerState.pageCount
                 )
+                GetAttributionForOpenMeteo()
             }
         }
     }

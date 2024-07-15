@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterStart
@@ -37,6 +38,8 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -64,7 +67,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
     val currentHour = currentDateTime.hour
     val nextHourIndex = (currentHour + 1) % 24
-    //
+
     val precipitationPr = temp.hourly.precipitation_probability[nextHourIndex]
     val currentWindSpeed = temp.current_weather.windspeed
     val currentWindSpeedUnit = temp.hourly_units.windspeed_10m
@@ -82,20 +85,25 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
         context.getString(R.string.wind_direction, windDirection),
         context.getString(R.string.wind_speed, currentWindSpeed, currentWindSpeedUnit)
     )
+
     var visible by remember { mutableStateOf(true) }
     val currentTextIndex = remember { mutableIntStateOf(0) }
-
+    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
-        while (true) {
-            delay(400)
-            currentTextIndex.intValue = (currentTextIndex.intValue + 1) % texts.size
-            visible = true
-            delay(8000)
-            visible = false
+        coroutineScope.launch {
+            while (isActive) {
+                delay(400)
+                currentTextIndex.intValue = (currentTextIndex.intValue + 1) % texts.size
+                visible = true
+                delay(8000)
+                visible = false
+            }
         }
     }
+
     val currentText = texts[currentTextIndex.intValue]
+
     Box(
         modifier = Modifier
             .fillMaxWidth()

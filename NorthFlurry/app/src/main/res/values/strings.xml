@@ -23,6 +23,8 @@ Let's Begin!"</string>
     <string name="RateUs">"Rate us"</string>
     <string name="TroubleWithTheApp">"Trouble with the app?"</string>
     <string name="LottieFilesAndTerms">"LottieFiles licence and terms"</string>
+    <string name="OpenMeteoLicence">"OpenMeteo Licence"</string>
+    <string name="open_meteo_attribution">Weather data by <a href="https://open-meteo.com/">Open-Meteo.com</a>. Open-Meteo is open-source. Source code is available on GitHub under the GNU Affero General Public License Version 3 AGPLv3 or any later version. You can find the license here.</string>
     <string name="AnyGoodIdeas">"Any good ideas?"</string>
     <string name="FeelsLike">"Feels Like"</string>
     <string name="Rainfall">"Rainfall"</string>

@@ -18,6 +18,8 @@
         <activity
             android:name=".activities.lottieCopyRightActivity.LottieCopyRightActivity">
         </activity>
+      <activity android:name=".activities.detailActivity.components.openMetActivity.OpenMetAttributionActivity">
+      </activity>
         <activity
             android:name=".activities.settingsActivity.SettingsActivity">
         </activity>

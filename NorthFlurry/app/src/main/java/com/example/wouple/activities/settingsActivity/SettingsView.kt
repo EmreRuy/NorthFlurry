@@ -48,6 +48,7 @@ import com.example.wouple.activities.mainActivity.components.LottieAnimationShoo
 import com.example.wouple.activities.settingsActivity.components.CustomTab
 import com.example.wouple.activities.settingsActivity.components.IdeasSettings
 import com.example.wouple.activities.settingsActivity.components.LottieFilesAndTerms
+import com.example.wouple.activities.settingsActivity.components.OpenMeteoAttribution
 import com.example.wouple.activities.settingsActivity.components.PrecipitationUnitSettings
 import com.example.wouple.activities.settingsActivity.components.RateUsSettings
 import com.example.wouple.activities.settingsActivity.components.SettingsCardOne
@@ -68,7 +69,8 @@ fun SettingsView(
     onBackPressed: () -> Unit,
     onFeedbackClicked: (Boolean) -> Unit,
     temp: TemperatureResponse,
-    onLottieClicked: () -> Unit
+    onLottieClicked: () -> Unit,
+    onMeteoClicked: () -> Unit
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
@@ -117,6 +119,7 @@ fun SettingsView(
             GetSurface(
                 onFeedbackClicked = onFeedbackClicked,
                 onLottieClicked = { onLottieClicked() },
+                onMeteoClicked = { onMeteoClicked() },
                 temp = temp,
                 paddingValues = it
             )
@@ -127,6 +130,7 @@ fun SettingsView(
 fun GetSurface(
     onFeedbackClicked: (Boolean) -> Unit,
     onLottieClicked: () -> Unit,
+    onMeteoClicked: () -> Unit,
     temp: TemperatureResponse,
     paddingValues: PaddingValues
 ) {
@@ -207,6 +211,7 @@ fun GetSurface(
                             ShareTheAppSettings()
                             RateUsSettings()
                             LottieFilesAndTerms(onLottieClicked = onLottieClicked)
+                            OpenMeteoAttribution (onMeteoClicked = onMeteoClicked)
                         }
                     }
                 }

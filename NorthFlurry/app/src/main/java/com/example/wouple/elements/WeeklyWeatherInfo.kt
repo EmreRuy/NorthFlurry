@@ -100,8 +100,12 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
 @Composable
 fun getLocalizedDayNames(dayOfWeek: DayOfWeek, context: Context): String {
     val currentLocale = context.resources.configuration.locales[0] // Get current locale
-    val defaultLocale = if (currentLocale.language == "nb") currentLocale else Locale.ENGLISH // if it is not Norwegian, then Local English
-    val dayName = dayOfWeek.getDisplayName(TextStyle.SHORT, defaultLocale)
+    val language = currentLocale.language
+    val dayName = when (language) {
+        "nb" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("nb", "NO"))
+        "es" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("es", "ES"))
+        else -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) // Default to English
+    }
     return dayName.replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(currentLocale) else it.toString()
     }

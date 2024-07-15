@@ -1,12 +1,12 @@
 package com.example.wouple.activities.settingsActivity
 
-import android.app.LocaleManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.wouple.activities.detailActivity.components.openMetActivity.OpenMetAttributionActivity
 import com.example.wouple.activities.lottieCopyRightActivity.LottieCopyRightActivity
 import com.example.wouple.extensions.parcelable
 import com.example.wouple.model.api.TemperatureResponse
@@ -29,6 +29,11 @@ class SettingsActivity : ComponentActivity() {
                 temp = temp,
                 onLottieClicked = {
                     val intent = Intent(this, LottieCopyRightActivity::class.java )
+                    intent.putExtra("temp", temp)
+                    startActivity(intent)
+                },
+                onMeteoClicked = {
+                    val intent = Intent(this, OpenMetAttributionActivity::class.java )
                     intent.putExtra("temp", temp)
                     startActivity(intent)
                 }

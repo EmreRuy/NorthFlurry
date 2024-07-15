@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterStart
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.Locale
 
@@ -143,13 +145,17 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
     }
     var apparent by remember { mutableStateOf(true) }
     val currentTextIndex = remember { mutableIntStateOf(0) }
+    val coroutineScope = rememberCoroutineScope()
+
     LaunchedEffect(Unit) {
-        while (true) {
-            delay(1000)
-            currentTextIndex.intValue = (currentTextIndex.intValue + 1) % texts.size
-            apparent = true
-            delay(6000)
-            apparent = false
+        coroutineScope.launch {
+            while (true) {
+                delay(1000)
+                currentTextIndex.intValue = (currentTextIndex.intValue + 1) % texts.size
+                apparent = true
+                delay(6000)
+                apparent = false
+            }
         }
     }
     val currentText = if (currentTextIndex.intValue < texts.size) {

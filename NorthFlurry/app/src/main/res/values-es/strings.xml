@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NorthFlurry</string>
+    <string name="english">Inglés</string>
+    <string name="norwegian">Noruego</string>
+    <string name="Language">Configuración de idioma</string>
+    <string name="title_activity_second">SecondActivity</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="WeatherForecast">"Weather Forecast"</string>
+    <string name="AppExplainer">"El compañero meteorológico definitivo diseñado para hacer tu vida diaria más fácil. Nuestra aplicación ofrece pronósticos del tiempo precisos y en tiempo real, asegurándote de que estés preparado para cualquier cosa que la \nMadre Naturaleza tenga reservada."</string>
+    <string name="GetStartButton">"Empezar"</string>
+    <string name="SearchBeforeYouGo">"Sol, Lluvia o Nieve – ¡Sabe antes de ir!"</string>
+    <string name="ThankYouForDownloading">"Gracias por descargar\n¡Empecemos!"</string>
+    <string name="Loading">"Cargando…"</string>
+    <string name="SearchACity">"Buscar una ciudad o aeropuerto"</string>
+    <string name="Settings">"Configuración"</string>
+    <string name="GeneralSettings">"Configuración general"</string>
+    <string name="UnitSettings">"Configuración de unidades"</string>
+    <string name="TemperatureUnits">"Temperatura"</string>
+    <string name="WindSpeedUnits">"Viento"</string>
+    <string name="PrecipitationUnits">"Precipitación"</string>
+    <string name="ShareTheApp">"Compartir la aplicación"</string>
+    <string name="RateUs">"Califícanos"</string>
+    <string name="TroubleWithTheApp">"¿Problemas con la aplicación?"</string>
+    <string name="LottieFilesAndTerms">"Licencia de LottieFiles"</string>
+    <string name="OpenMeteoLicence">"Licencia de LottieFiles"</string>
+    <string name="open_meteo_attribution">Weather data by <a href="https://open-meteo.com/">Open-Meteo.com</a>. Open-Meteo is open-source. Source code is available on GitHub under the GNU Affero General Public License Version 3 AGPLv3 or any later version. You can find the license here.</string>
+    <string name="AnyGoodIdeas">"¿Alguna buena idea?"</string>
+    <string name="FeelsLike">"Sensación térmica"</string>
+    <string name="Rainfall">"Lluvia"</string>
+    <string name="WindSpeed">"Viento"</string>
+    <string name="Visibility">"Visibilidad"</string>
+    <string name="Humidity">"Humedad"</string>
+    <string name="DewPoint">"Punto de rocío"</string>
+    <string name="Precipitation_For_Upcoming_Days">"Precipitación semanal"</string>
+    <string name="No_Precipitation_expected_for_the_week">"No se espera precipitación para la semana"</string>
+    <string name="UV_Index_For_Upcoming_Days">"Índice UV semanal"</string>
+    <string name="The_Ultraviolet_Index">"El índice ultravioleta"</string>
+    <string name="Explainer_Of_Uv_Index">"El índice UV ilumina la intensidad solar, guiando elecciones inteligentes de protección solar.\n0-2: Disfruta de los suaves rayos al aire libre con tranquilidad.\n3-7: Disfruta de los momentos soleados con precaución, buscando sombra y protector solar durante el mediodía.\n8 y más: Aléjate de la alta intensidad del mediodía, priorizando la seguridad en lugares sombreados."</string>
+    <string name="Weekly_precipitation_chart">"Precipitación semanal"</string>
+    <string name="Explainer_For_Precipitation">"La precipitación se define como cualquier partícula de agua líquida o sólida que cae de las nubes y llega al suelo. La llovizna, la lluvia, la nieve, los gránulos de nieve, los cristales de hielo y el granizo son algunos ejemplos de estas partículas. Esencialmente, la precipitación abarca todas las formas de humedad que caen del cielo. Este gráfico muestra la precipitación total de una semana."</string>
+    <string name="air_quality_index">"Índice de aire"</string>
+    <string name="current_uv_index">"Índice UV ahora"</string>
+    <string name="Temperature">"Temperatura"</string>
+    <string name="Precipitation">"Precipitación"</string>
+    <string name="Next_24_Hours">"Próximas 24 horas"</string>
+    <string name="Day_Length">"Luz del día"</string>
+    <string name="Daylight_Duration">"Duración del día"</string>
+    <string name="Upcoming_Days">"Próximos días"</string>
+    <string name="Expected_Today">"Esperado hoy"</string>
+    <string name="Forecast_Details">"Detalles"</string>
+    <string name="No_Internet_Connection">"Sin conexión a Internet"</string>
+    <string name="Ops_No_Internet">"¡Vaya! Parece que no estás conectado a Internet."</string>
+    <string name="Check_Your_Internet">"Por favor, revisa tu conexión a Internet e intenta nuevamente."</string>
+    <string name="OK">"OK"</string>
+    <string name="SearchBar">"Buscar una ciudad o aeropuerto"</string>
+    <string name="General">General</string>
+    <string name="Units">Unidades</string>
+    <string name="ND">N/D</string>
+    <string name="NoData">"No hay datos disponibles para mostrar"</string>
+    <string name="LottieFilesCopyright">"Las animaciones en esta aplicación son proporcionadas por LottieFiles y están sujetas a la Lottie Simple License (FL 9.13.21). Copyright © 2021 Design Barn Inc. Todos los derechos reservados.
+
+    Atribución para animaciones individuales:
+    1. "Cloud"
+    - Creator: NorthSea
+
+    2. "Light mode"
+    - Creator: Rachel Anyi
+
+    3. "Clear Day"
+    - Creator: Bas Milius
+
+    4. "Shooting star"
+    - Creator: Mariana Valdez
+
+    5. " Weather-rainy(night)"
+    - Creator: jochang
+
+    6. "Weather-partly shower"
+    - Creator: jochang
+
+    7. "Weather-snow(night)"
+    - Creator: jochang
+
+    8. "Weather-snow sunny"
+    - Creator: jochang
+
+    9. "Weather-thunder"
+    - Creator: jochang
+
+    10. "Weather-night"
+    - Creator: jochang
+
+    11. "Weather-cloudy(night)"
+    - Creator: jochang
+
+    12. "Loading"
+    - Creator: Luisa Fernanda Bolaños Beltrán
+    Para más información, visita https://lottiefiles.com/page/license
+    "</string>
+    <string name="Clear_Sky">Cielo despejado</string>
+    <string name="Mainly_Clear">Principalmente despejado</string>
+    <string name="Partly_Cloudy">Parcialmente nublado</string>
+    <string name="Overcast">Nublado</string>
+    <string name="Foggy">Neblinoso</string>
+    <string name="Rime_Fog">Neblina escarchada</string>
+    <string name="Light_Drizzle">Llovizna ligera</string>
+    <string name="Moderate_Drizzle">Llovizna moderada</string>
+    <string name="Heavy_Drizzle">Llovizna intensa</string>
+    <string name="Light_Freezing_Drizzle">Llovizna helada</string>
+    <string name="Heavy_Freezing_Drizzle">Llovizna helada</string>
+    <string name="Slight_Rain">Lluvia ligera</string>
+    <string name="Moderate_Rain">Lluvia moderada</string>
+    <string name="Heavy_Rain">Lluvia intensa</string>
+    <string name="Light_Freezing_Rain">Lluvia helada</string>
+    <string name="Heavy_Freezing_Rain">Lluvia helada</string>
+    <string name="Light_Snowfall">Nevada ligera</string>
+    <string name="Moderate_Snowfall">Nevada moderada</string>
+    <string name="Heavy_Snowfall">Nevada intensa</string>
+    <string name="Snow_Grains">Granos de nieve</string>
+    <string name="Slight_Rain_Showers">Chubascos ligeros</string>
+    <string name="Moderate_Rain_Showers">Chubascos moderados</string>
+    <string name="Heavy_Rain_Showers">Chubascos intensos</string>
+    <string name="Slight_Snow_Showers">Chubascos de nieve</string>
+    <string name="Heavy_Snow_Showers">Chubascos de nieve</string>
+    <string name="Thunderstorm">Tormenta</string>
+
+    // Para la calidad del aire
+
+    <string name="good">Buena</string>
+    <string name="fair">Regular</string>
+    <string name="moderate">Moderada</string>
+    <string name="poor">Pobre</string>
+    <string name="very_poor">Muy Pobre</string>
+    <string name="hazardous">Peligrosa</string>
+    <string name="unknown">Desconocida</string>
+
+    // para el índice UV
+
+    <string name="uv_index_low">Bajo</string>
+    <string name="uv_index_moderate">Moderado</string>
+    <string name="uv_index_high">Alto</string>
+    <string name="uv_index_very_high">Muy Alto</string>
+    <string name="uv_index_extreme">Extremo</string>
+
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miércoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
+    <string name="saturday">Sábado</string>
+    <string name="sunday">Domingo</string>
+
+    // Para notificaciones semanales de la tarjeta
+
+    <string name="warmest_day">Día más cálido esperado: %1$s</string>
+    <string name="coldest_day">Día más frío esperado: %1$s</string>
+    <string name="sunshine_duration">Duración del sol: %1$d horas hoy</string>
+    <string name="thunderstorms_week">Se esperan tormentas eléctricas durante la semana</string>
+    <string name="thunderstorms_days">Se esperan tormentas eléctricas el: %1$s</string>
+    <string name="precipitation_week">Precipitación esperada durante la semana</string>
+    <string name="precipitation_days">Precipitación esperada el: %1$s</string>
+
+    //Para las notificaciones de la tarjeta horaria
+
+    <string name="precipitation_probability">Precipitación %1$d%% en la próxima hora</string>
+    <string name="feels_like">Sensación térmica %1$d %2$s ahora</string>
+    <string name="total_cloud_cover">Cobertura total de nubes %1$d%%</string>
+    <string name="surface_pressure">Presión superficial %1$d hPa actualmente</string>
+    <string name="wind_direction">La dirección del viento es desde el %1$s</string>
+    <string name="wind_speed">Viento: %1$.1f %2$s en este momento</string>
+    <string-array name="wind_directions">
+        <item>Norte</item>
+        <item>Noreste</item>
+        <item>Este</item>
+        <item>Sureste</item>
+        <item>Sur</item>
+        <item>Suroeste</item>
+        <item>Oeste</item>
+        <item>Noroeste</item>
+        <item>N/D</item>
+    </string-array>
+
+</resources>

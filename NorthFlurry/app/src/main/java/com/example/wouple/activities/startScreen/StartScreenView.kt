@@ -1,6 +1,7 @@
 package com.example.wouple.activities.startScreen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -24,6 +25,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -39,6 +41,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.BottomEnd
@@ -72,6 +75,7 @@ import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.ui.theme.vintage
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun StartScreenView(
@@ -206,6 +210,8 @@ fun LocationItem(
     onButtonClicked: (SearchedLocation) -> Unit,
     searchedLocation: MutableState<SearchedLocation?>
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -214,6 +220,9 @@ fun LocationItem(
             .clickable {
                 searchedLocation.value = location
                 onButtonClicked(location)
+                coroutineScope.launch {
+                    listState.animateScrollToItem(0)
+                }
             },
         colors = CardDefaults.cardColors(
             contentColor = White
@@ -228,7 +237,7 @@ fun LocationItem(
         ) {
             Icon(
                 modifier = Modifier.size(32.dp),
-                painter = painterResource(id = R.drawable.ic_pin),
+                painter = painterResource(id = R.drawable.locationpin),
                 contentDescription = null,
                 tint = Unspecified
             )
@@ -236,7 +245,8 @@ fun LocationItem(
                 text = location.display_name,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
-                color = Color.Black
+                color = Color.Black,
+                modifier = Modifier.animateContentSize()
             )
         }
     }

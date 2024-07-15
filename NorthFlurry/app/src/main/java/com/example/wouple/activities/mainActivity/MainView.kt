@@ -14,16 +14,14 @@ import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Transparent
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMeteo
 import com.example.wouple.activities.mainActivity.components.GetBottomView
 import com.example.wouple.activities.mainActivity.components.GetLocationAndDegree
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
-import com.example.wouple.adds.AdaptiveBannerAd
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.google.android.gms.ads.MobileAds
+
 @Composable
 fun MainView(
     temp: TemperatureResponse,
@@ -35,7 +33,6 @@ fun MainView(
     onClose: () -> Unit,
     onSettingsClicked: (TemperatureResponse) -> Unit,
 ) {
-    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,13 +86,6 @@ fun MainView(
         }
         //Bottom view
         GetBottomView(searchedLocation = searchedLocation, temp = temp)
-        MobileAds.initialize(context)
-        AdaptiveBannerAd(
-            modifier = Modifier
-                .padding(horizontal = 4.dp)
-                .background(Transparent),
-            //test ID:  "ca-app-pub-3940256099942544/9214589741"
-            adId = "ca-app-pub-4891264100733274/3799972498"
-        )
+        GetAttributionForOpenMeteo()
     }
 }
