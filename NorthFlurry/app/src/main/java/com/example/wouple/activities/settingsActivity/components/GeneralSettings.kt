@@ -39,7 +39,7 @@ fun SettingsCardOne() {
     Text(
         text = stringResource(id = R.string.GeneralSettings),
         modifier = Modifier.padding(8.dp),
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
         color = beige.copy(alpha = 0.8f),
         fontSize = 28.sp
     )
@@ -57,7 +57,7 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
             ) {
                 onTroubleWithAppClicked()
             }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = 24.dp, vertical = 10.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
@@ -72,14 +72,16 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_warning_triangle),
                 contentDescription = null,
-                Modifier.padding(start = 4.dp).size(24.dp)
+                Modifier
+                    .padding(start = 4.dp)
+                    .size(24.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.TroubleWithTheApp),
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Normal,
                 color = Dark20,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
@@ -103,7 +105,7 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
                 interactionSource = interactionSource,
                 indication = null
             ) { onIdeaClicked() }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = 24.dp, vertical = 10.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
@@ -118,14 +120,16 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_lightbulb),
                 contentDescription = null,
-                Modifier.padding(top = 2.dp, start = 4.dp).size(24.dp)
+                Modifier
+                    .padding(top = 2.dp, start = 4.dp)
+                    .size(24.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.AnyGoodIdeas),
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Normal,
                 color = Dark20,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
@@ -160,7 +164,7 @@ fun ShareTheAppSettings() {
                 val shareIntent = Intent.createChooser(sendIntent, null)
                 context.startActivity(shareIntent)
             }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = 24.dp, vertical = 10.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
@@ -173,16 +177,18 @@ fun ShareTheAppSettings() {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                modifier = Modifier.padding(top = 2.dp, start = 4.dp).size(24.dp),
+                modifier = Modifier
+                    .padding(top = 2.dp, start = 4.dp)
+                    .size(24.dp),
                 painter = painterResource(id = R.drawable.ic_world),
                 contentDescription = null
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.ShareTheApp),
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Normal,
                 color = Dark20,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
@@ -219,7 +225,7 @@ fun RateUsSettings() {
                     Log.e("TAG", "Error opening URL: ${e.message}")
                 }
             }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = 24.dp, vertical = 10.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
@@ -234,14 +240,16 @@ fun RateUsSettings() {
             Icon(
                 painter = painterResource(id = R.drawable.heartone),
                 contentDescription = null,
-                Modifier.padding(top = 2.dp, start = 4.dp).size(24.dp)
+                Modifier
+                    .padding(top = 2.dp, start = 4.dp)
+                    .size(24.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.RateUs),
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Normal,
                 color = Dark20,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
@@ -267,7 +275,7 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
             ) {
                 onLottieClicked()
             }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = 24.dp, vertical = 10.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
@@ -280,7 +288,7 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_attribution_24),
+                painter = painterResource(id = R.drawable.lottieicon),
                 contentDescription = null,
                 Modifier
                     .padding(top = 2.dp, start = 4.dp)
@@ -289,9 +297,9 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.LottieFilesAndTerms),
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Normal,
                 color = Dark20,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(
@@ -304,8 +312,9 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
         }
     }
 }
+
 @Composable
-fun OpenMeteoAttribution(onMeteoClicked: () -> Unit) {
+fun OpenMetAttribution(onMetClicked: () -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
     Card(
         modifier = Modifier
@@ -314,9 +323,9 @@ fun OpenMeteoAttribution(onMeteoClicked: () -> Unit) {
                 interactionSource = interactionSource,
                 indication = null
             ) {
-                onMeteoClicked()
+                onMetClicked()
             }
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .padding(horizontal = 24.dp, vertical = 10.dp),
         shape = RoundedCornerShape(28.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
@@ -329,7 +338,7 @@ fun OpenMeteoAttribution(onMeteoClicked: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.baseline_attribution_24),
+                painter = painterResource(id = R.drawable.cc),
                 contentDescription = null,
                 Modifier
                     .padding(top = 2.dp, start = 4.dp)
@@ -337,10 +346,10 @@ fun OpenMeteoAttribution(onMeteoClicked: () -> Unit) {
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
-                text = stringResource(id = R.string.OpenMeteoLicence),
-                fontWeight = FontWeight.Medium,
+                text = stringResource(id = R.string.CCLicence),
+                fontWeight = FontWeight.Normal,
                 color = Dark20,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             Icon(

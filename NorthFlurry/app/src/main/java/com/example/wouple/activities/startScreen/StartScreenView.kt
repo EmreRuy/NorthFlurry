@@ -300,7 +300,7 @@ fun SimpleSearchBar(
             placeholder = {
                 Text(
                     modifier = Modifier.padding(start = 24.dp),
-                    text = stringResource(id = R.string.SearchACity),
+                    text = stringResource(id = R.string.SearchBar),
                     color = Color.Black.copy(alpha = 0.7f)
                 )
             },

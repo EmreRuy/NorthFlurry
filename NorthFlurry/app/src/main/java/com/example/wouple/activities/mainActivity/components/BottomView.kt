@@ -16,7 +16,7 @@ import com.example.wouple.model.api.TemperatureResponse
 @Composable
 fun GetBottomView(
     searchedLocation: MutableState<SearchedLocation?>,
-    temp: TemperatureResponse
+    temp: TemperatureResponse,
 ) {
     Column(
         modifier = Modifier

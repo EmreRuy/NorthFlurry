@@ -89,7 +89,7 @@ fun GetSearchBarAndList(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                painter = painterResource(id = R.drawable.locationpin),
+                                painter = painterResource(id = R.drawable.ic_pin),
                                 contentDescription = null,
                                 tint = Color.Unspecified,
                                 modifier = Modifier.size(24.dp)

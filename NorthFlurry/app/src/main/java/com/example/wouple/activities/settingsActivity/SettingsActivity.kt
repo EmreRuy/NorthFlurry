@@ -32,11 +32,11 @@ class SettingsActivity : ComponentActivity() {
                     intent.putExtra("temp", temp)
                     startActivity(intent)
                 },
-                onMeteoClicked = {
+                onMetClicked = {
                     val intent = Intent(this, OpenMetAttributionActivity::class.java )
                     intent.putExtra("temp", temp)
                     startActivity(intent)
-                }
+                },
             )
         }
     }

@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -27,11 +28,11 @@ import com.example.wouple.ui.theme.Whitehis
 @Composable
 fun LocationView(
     temp: TemperatureResponse,
-    searchedLocation: SearchedLocation,
+    searchedLocation: SearchedLocation
+
 ) {
     Column(
         modifier = Modifier
-            .padding(top = 8.dp)
             .fillMaxWidth(1f),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -44,8 +45,9 @@ fun LocationView(
             fontSize = 50.sp,
             color = color,
             textAlign = TextAlign.Center,
+            overflow = TextOverflow.Ellipsis,
         )
-        Spacer(modifier = Modifier.padding(top = 18.dp))
+        Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(
             text = "${temp.current_weather.temperature.toInt()}°",
             color = color,
@@ -54,12 +56,12 @@ fun LocationView(
             fontSize = 64.sp,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.padding(top =24.dp))
+        Spacer(modifier = Modifier.padding(top = 16.dp))
         val weatherCode = temp.current_weather.weathercode
         val weatherDescriptionResId = getWeatherDescriptionResId(weatherCode)
         val weatherDescription = stringResource(id = weatherDescriptionResId)
         Row(
-            modifier = Modifier.padding(horizontal = 8.dp),
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -82,7 +84,7 @@ fun LocationView(
             Spacer(modifier = Modifier.weight(0.9f))
             Text(
                 text = weatherDescription,
-                color = color.copy(alpha = 0.8f),
+                color = color.copy(alpha = 0.9f),
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light

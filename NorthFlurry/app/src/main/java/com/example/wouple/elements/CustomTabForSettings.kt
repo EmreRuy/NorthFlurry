@@ -34,7 +34,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.beige
 import java.util.Locale
 
 @Composable
@@ -61,7 +60,7 @@ private fun RowScope.MyTabItem(
 ) {
     val tabTextColor: Color by animateColorAsState(
         targetValue = if (isSelected) {
-            beige
+            Color.White
         } else {
             Color.Black
         },

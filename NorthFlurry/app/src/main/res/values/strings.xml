@@ -12,7 +12,7 @@
     <string name="ThankYouForDownloading">"Thank you for downloading
 Let's Begin!"</string>
     <string name="Loading">"Loading…"</string>
-    <string name="SearchACity">"Search a city or airport"</string>
+    <string name="SearchACity">"Search for a location"</string>
     <string name="Settings">"Settings"</string>
     <string name="GeneralSettings">"General Settings"</string>
     <string name="UnitSettings">"Unit Settings"</string>
@@ -22,9 +22,10 @@ Let's Begin!"</string>
     <string name="ShareTheApp">"Share the app"</string>
     <string name="RateUs">"Rate us"</string>
     <string name="TroubleWithTheApp">"Trouble with the app?"</string>
-    <string name="LottieFilesAndTerms">"LottieFiles licence and terms"</string>
-    <string name="OpenMeteoLicence">"OpenMeteo Licence"</string>
-    <string name="open_meteo_attribution">Weather data by <a href="https://open-meteo.com/">Open-Meteo.com</a>. Open-Meteo is open-source. Source code is available on GitHub under the GNU Affero General Public License Version 3 AGPLv3 or any later version. You can find the license here.</string>
+    <string name="LottieFilesAndTerms">"LottieFiles Attribution"</string>
+    <string name="CCLicence">"CC BY 4.0 Attribution"</string>
+    <string name="open_meteo_attribution">Weather data by<a href="https://open-meteo.com/">Open-Meteo.com</a>. Open-Meteo is open-source. Source code is available on GitHub under the GNU Affero General Public License Version 3 AGPLv3 or any later version.</string>
+    <string name="YouCanFindTheLicenceHere">You can find the license here.</string>
     <string name="AnyGoodIdeas">"Any good ideas?"</string>
     <string name="FeelsLike">"Feels Like"</string>
     <string name="Rainfall">"Rainfall"</string>
@@ -56,7 +57,7 @@ Let's Begin!"</string>
     <string name="Ops_No_Internet">"Oops! It seems like you're not connected to the internet."</string>
     <string name="Check_Your_Internet">"Please check your internet connection and try again."</string>
     <string name="OK">"OK"</string>
-    <string name="SearchBar">"Search a city or airport"</string>
+    <string name="SearchBar">"Search for a location"</string>
     <string name="General">General</string>
     <string name="Units">Units</string>
     <string name="ND">N/D</string>
@@ -100,9 +101,7 @@ Attribution for individual animations:
 
 12. "Loading"
    - Creator: Luisa Fernanda Bolaños Beltrán
-
-For more information, visit https://lottiefiles.com/page/license
-"</string>
+</string>
     <string name="Clear_Sky">Clear Sky</string>
     <string name="Mainly_Clear">Mainly Clear</string>
     <string name="Partly_Cloudy">Partly Cloudy</string>
@@ -161,6 +160,7 @@ For more information, visit https://lottiefiles.com/page/license
 
     <string name="warmest_day">Warmest Day expected: %1$s</string>
     <string name="coldest_day">Coldest Day expected: %1$s</string>
+    <string name="uv_index_today">UV Index %1$s today</string>
     <string name="sunshine_duration">Sunshine Duration: %1$d hours today</string>
     <string name="thunderstorms_week">Thunderstorms expected during the week</string>
     <string name="thunderstorms_days">Thunderstorms expected on: %1$s</string>
@@ -187,4 +187,26 @@ For more information, visit https://lottiefiles.com/page/license
         <item>N/D</item>
     </string-array>
 
+    //For attribution of open meteo
+    <string name="WeatherDataBy">Weather data by </string>
+    <string name="OpenMeteoCom">open-meteo.com</string>
+
+    //For OpenMeteoView
+    <string name="open_meteo_attribution_part1">Weather data by open-meteo.com under the CC BY 4.0 license, a leading provider of global weather forecasts.</string>
+    <string name="open_meteo_attribution_part2">open-meteo is open-source. Source code is available on GitHub under the GNU Affero General Public License Version 3 AGPLv3 or any later version.</string>
+    <string name="open_meteo_attribution_part3">This app utilizes the open-meteo API for weather data and forecasts. The data is provided under the CC BY 4.0 license.</string>
+    <string name="open_meteo_visit">For further details, please visit open-meteo.com</string>
+    <string name="open_meteo_licenceInfo">License Information</string>
+
+    //For CC BY 4.0 licence
+    <string name="weather_data_ccBy_licence">The weather data used in this app is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).</string>
+    <string name="cc_by_4_license_details">For further details, please visit the CC BY 4.0 License.</string>
+    <string name="DataAccuracyDisclaimer">Data Accuracy Disclaimer</string>
+    <string name="weather_data_disclaimer">Please note: Weather forecasts provided may vary in accuracy. For the most current conditions and precise updates, consulting local meteorological services or official weather authorities is recommended.</string>
+    <string name="Attribution">Attribution</string>
+    //For Lottie files
+    <string name="LottieMoreInfo">For more information, visit </string>
+    <string name="LottieLicense">Lottie Simple License</string>
+    //DayLight Duration
+    <string name="day_length_format">%1$d hours %2$d minutes</string>
 </resources>

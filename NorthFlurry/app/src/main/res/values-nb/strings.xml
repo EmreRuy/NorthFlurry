@@ -12,7 +12,7 @@
     <string name="Loading">Laster inn…</string>
     <string name="SearchBeforeYouGo">Sol, regn eller snø – vit før du går!</string>
     <string name="ThankYouForDownloading">Takk for at du lastet ned. La oss begynne!</string>
-    <string name="SearchACity">Søk etter en by eller flyplass</string>
+    <string name="SearchACity">Søk etter et sted</string>
     <string name="Settings">Innstillinger</string>
     <string name="GeneralSettings">Generelle Innstillinger</string>
     <string name="UnitSettings">Enhetsinnstillinger</string>
@@ -22,9 +22,10 @@
     <string name="ShareTheApp">Del appen</string>
     <string name="RateUs">Vurder oss</string>
     <string name="TroubleWithTheApp">Problemer med appen?</string>
-    <string name="LottieFilesAndTerms">LottieFiles-lisens og vilkår</string>
-    <string name="OpenMeteoLicence">OpenMeteo-lisens</string>
-    <string name="open_meteo_attribution">Weather data by <a href="https://open-meteo.com/">Open-Meteo.com</a>. Open-Meteo is open-source. Source code is available on GitHub under the GNU Affero General Public License Version 3 AGPLv3 or any later version. You can find the license here.</string>
+    <string name="LottieFilesAndTerms">LottieFiles Attribusjon</string>
+    <string name="CCLicence">"CC BY 4.0 license"</string>
+    <string name="open_meteo_attribution">Weather data by<a href="https://open-meteo.com/">Open-Meteo.com</a>. Open-Meteo is open-source. Source code is available on GitHub under the GNU Affero General Public License Version 3 AGPLv3 or any later version.</string>
+    <string name="YouCanFindTheLicenceHere">You can find the license here.</string>
     <string name="AnyGoodIdeas">Noen gode ideer?</string>
     <string name="FeelsLike">Føles som</string>
     <string name="Rainfall">Nedbør</string>
@@ -53,7 +54,7 @@
     <string name="Ops_No_Internet">Oops! Det ser ut til at du ikke er koblet til internett.</string>
     <string name="Check_Your_Internet">Vennligst sjekk internettforbindelsen og prøv igjen.</string>
     <string name="OK">OK</string>
-    <string name="SearchBar">Søk etter en by eller flyplass</string>
+    <string name="SearchBar">Søk etter et sted</string>
     <string name="General">Generelt</string>
     <string name="Units">Enheter</string>
     <string name="ND">N/D</string>
@@ -98,8 +99,7 @@ Tilskrivning for individuelle animasjoner:
 12. "Loading"
     - Skaper: Luisa Fernanda Bolaños Beltrán
 
-For mer informasjon, besøk https://lottiefiles.com/page/license
-"</string>
+</string>
 
     // For the weather descriptions
     <string name="Clear_Sky">Klart vær</string>
@@ -154,6 +154,7 @@ For mer informasjon, besøk https://lottiefiles.com/page/license
     // For weekly card notifications
     <string name="warmest_day">Varmeste dag forventet: %1$s</string>
     <string name="coldest_day">Kaldeste dag forventet: %1$s</string>
+    <string name="uv_index_today">UV-indeks %1$s i dag</string>
     <string name="sunshine_duration">Solskinnsvarighet: %1$d timer i dag</string>
     <string name="thunderstorms_week">Tordenvær forventet i løpet av uken</string>
     <string name="thunderstorms_days">Tordenvær forventet på: %1$s</string>
@@ -179,4 +180,29 @@ For mer informasjon, besøk https://lottiefiles.com/page/license
         <item>Nordvest</item>
         <item>N/D</item>
     </string-array>
+
+
+    //For attribution of open meteo
+    <string name="WeatherDataBy">Weather data by </string>
+    <string name="OpenMeteoCom">open-meteo.com</string>
+
+    //For OpenMeteoView
+    <string name="open_meteo_attribution_part1">Værdata fra open-meteo.com under CC BY 4.0-lisensen, en ledende leverandør av globale værvarsler.</string>
+    <string name="open_meteo_attribution_part2">open-meteo er åpen kildekode. Kildekoden er tilgjengelig på GitHub under GNU Affero General Public License Version 3 (AGPLv3) eller senere versjon.</string>
+    <string name="open_meteo_attribution_part3">Denne appen bruker open-meteo API for værdata og prognoser. Dataene er tilgjengelige under CC BY 4.0-lisensen.</string>
+    <string name="open_meteo_visit">For ytterligere detaljer, vennligst besøk open-meteo.com</string>
+    <string name="open_meteo_licenceInfo">Lisensinformasjon</string>
+
+
+    //For CC BY 4.0 licence
+    <string name="weather_data_ccBy_licence">Værdataene som brukes i denne appen er lisensiert under Creative Commons Attribution 4.0 International License (CC BY 4.0).</string>
+    <string name="cc_by_4_license_details">For ytterligere detaljer, vennligst besøk CC BY 4.0 License.</string>
+    <string name="DataAccuracyDisclaimer">Ansvarsfraskrivelse om data nøyaktighet</string>
+    <string name="weather_data_disclaimer">Vær oppmerksom på: Værvarsler som tilbys kan variere i nøyaktighet. For de mest aktuelle forholdene og presise oppdateringer, anbefales det å konsultere lokale meteorologiske tjenester eller offisielle værmyndigheter.</string>
+    <string name="Attribution">Tilskrivelse</string>
+    //For lottieFiles
+    <string name="LottieMoreInfo">For mer informasjon, besøk </string>
+    <string name="LottieLicense">Lottie Simple License</string>
+
+    <string name="day_length_format">%1$d timer %2$d minutter</string>
 </resources>

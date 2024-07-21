@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMeteo
+import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
 import com.example.wouple.activities.mainActivity.components.GetBottomView
 import com.example.wouple.activities.mainActivity.components.GetLocationAndDegree
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
@@ -86,6 +86,8 @@ fun MainView(
         }
         //Bottom view
         GetBottomView(searchedLocation = searchedLocation, temp = temp)
-        GetAttributionForOpenMeteo()
+        searchedLocation.value?.let {
+            GetAttributionForOpenMet(searchedLocation = it)
+        }
     }
 }

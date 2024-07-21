@@ -104,9 +104,11 @@ fun getLocalizedDayNames(dayOfWeek: DayOfWeek, context: Context): String {
     val dayName = when (language) {
         "nb" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("nb", "NO"))
         "es" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("es", "ES"))
+        "fr" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("fr", "FR"))
         else -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) // Default to English
     }
-    return dayName.replaceFirstChar {
+    val cleanDayName = dayName.trimEnd { it == '.' }
+    return cleanDayName.replaceFirstChar {
         if (it.isLowerCase()) it.titlecase(currentLocale) else it.toString()
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,7 +27,6 @@ import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.beige
-import com.example.wouple.ui.theme.mocassin
 
 @Composable
 fun SettingsCardTwo() {
@@ -49,7 +49,7 @@ fun TemperatureUnitSettings(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.TemperatureUnits),
-            color = mocassin,
+            color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Start
@@ -81,7 +81,7 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.PrecipitationUnits),
-            color = mocassin,
+            color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Start
@@ -111,11 +111,11 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse) {
 @Composable
 fun WindUnitSettings(temp: TemperatureResponse) {
     val context = LocalContext.current
-    Column(modifier = Modifier.padding(horizontal = 10.dp, vertical = 2.dp)) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp)) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.WindSpeedUnits),
-            color = mocassin,
+            color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Start

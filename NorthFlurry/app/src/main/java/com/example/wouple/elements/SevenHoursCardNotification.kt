@@ -67,7 +67,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
     val currentHour = currentDateTime.hour
     val nextHourIndex = (currentHour + 1) % 24
-
+    //
     val precipitationPr = temp.hourly.precipitation_probability[nextHourIndex]
     val currentWindSpeed = temp.current_weather.windspeed
     val currentWindSpeedUnit = temp.hourly_units.windspeed_10m
@@ -77,13 +77,14 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val windDirection = getLocalizedWindDirection(windDegreesCurrent.toDouble(), context)
     val tempUnit = temp.hourly_units.apparent_temperature
     val feelsLike = temp.hourly.apparent_temperature[currentHour].toInt()
+    //
     val texts = listOf(
         context.getString(R.string.precipitation_probability, precipitationPr),
         context.getString(R.string.feels_like, feelsLike, tempUnit),
         context.getString(R.string.total_cloud_cover, totalCloudCover),
         context.getString(R.string.surface_pressure, surfacePressure),
         context.getString(R.string.wind_direction, windDirection),
-        context.getString(R.string.wind_speed, currentWindSpeed, currentWindSpeedUnit)
+        context.getString(R.string.wind_speed, currentWindSpeed, currentWindSpeedUnit),
     )
 
     var visible by remember { mutableStateOf(true) }

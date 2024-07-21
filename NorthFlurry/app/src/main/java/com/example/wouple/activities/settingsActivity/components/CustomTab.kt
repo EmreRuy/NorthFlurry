@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.beige
 
 @Composable
 private fun MyTabIndicator(
@@ -63,7 +62,7 @@ private fun MyTabItem(
 ) {
     val tabTextColor: Color by animateColorAsState(
         targetValue = if (isSelected) {
-            beige
+            Color.White
         } else {
             Color.Black
         },

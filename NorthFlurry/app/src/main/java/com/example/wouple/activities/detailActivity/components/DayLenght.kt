@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -23,29 +24,27 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun GetDayLength(temp: TemperatureResponse) {
+    val currentContext = LocalContext.current
     val now = LocalDate.now()
     val todaySunrise = temp.daily.sunrise
         .firstOrNull {
             LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalDate() == now
         }
         ?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalTime() }
-
     val todaySunset = temp.daily.sunset
         .firstOrNull {
             LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalDate() == now
         }
         ?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME).toLocalTime() }
-
     val formatter = DateTimeFormatter.ofPattern("HH:mm")
-
     val formattedSunrise = todaySunrise?.format(formatter) ?: ""
     val formattedSunset = todaySunset?.format(formatter) ?: ""
-
     val lengthOfTheDay = if (formattedSunrise.isNotEmpty() && formattedSunset.isNotEmpty()) {
         val length = Duration.between(todaySunrise, todaySunset)
         val hours = length.toHours()
         val minutes = length.minusHours(hours).toMinutes()
-        "$hours hours $minutes minutes"
+        val dayLengthFormat = currentContext.getString(R.string.day_length_format)
+        String.format(dayLengthFormat, hours, minutes)
     } else {
         "N/A"
     }

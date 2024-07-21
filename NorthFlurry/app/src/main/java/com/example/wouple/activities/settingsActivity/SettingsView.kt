@@ -48,7 +48,7 @@ import com.example.wouple.activities.mainActivity.components.LottieAnimationShoo
 import com.example.wouple.activities.settingsActivity.components.CustomTab
 import com.example.wouple.activities.settingsActivity.components.IdeasSettings
 import com.example.wouple.activities.settingsActivity.components.LottieFilesAndTerms
-import com.example.wouple.activities.settingsActivity.components.OpenMeteoAttribution
+import com.example.wouple.activities.settingsActivity.components.OpenMetAttribution
 import com.example.wouple.activities.settingsActivity.components.PrecipitationUnitSettings
 import com.example.wouple.activities.settingsActivity.components.RateUsSettings
 import com.example.wouple.activities.settingsActivity.components.SettingsCardOne
@@ -70,12 +70,13 @@ fun SettingsView(
     onFeedbackClicked: (Boolean) -> Unit,
     temp: TemperatureResponse,
     onLottieClicked: () -> Unit,
-    onMeteoClicked: () -> Unit
+    onMetClicked: () -> Unit,
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
         listOf(
             Color(0xFF3954C4),
+
             Color(0xFF384BB4)
         )
     } else {
@@ -119,7 +120,7 @@ fun SettingsView(
             GetSurface(
                 onFeedbackClicked = onFeedbackClicked,
                 onLottieClicked = { onLottieClicked() },
-                onMeteoClicked = { onMeteoClicked() },
+                onMetClicked = { onMetClicked() },
                 temp = temp,
                 paddingValues = it
             )
@@ -130,9 +131,9 @@ fun SettingsView(
 fun GetSurface(
     onFeedbackClicked: (Boolean) -> Unit,
     onLottieClicked: () -> Unit,
-    onMeteoClicked: () -> Unit,
+    onMetClicked: () -> Unit,
     temp: TemperatureResponse,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
 ) {
     val (selected, setSelected) = remember {
         mutableIntStateOf(0)
@@ -206,12 +207,12 @@ fun GetSurface(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             SettingsCardOne()
+                            OpenMetAttribution (onMetClicked = onMetClicked)
+                            LottieFilesAndTerms(onLottieClicked = onLottieClicked)
                             TroubleOnAppSettings { onFeedbackClicked(true) }
                             IdeasSettings { onFeedbackClicked(false) }
                             ShareTheAppSettings()
                             RateUsSettings()
-                            LottieFilesAndTerms(onLottieClicked = onLottieClicked)
-                            OpenMeteoAttribution (onMeteoClicked = onMeteoClicked)
                         }
                     }
                 }

@@ -68,7 +68,8 @@ fun UvIndex(temp: TemperatureResponse) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             val isDay = temp.current_weather.is_day == 1
-            val textColor = if (isDay) Whitehis.copy(alpha = 0.8f) else Color.White.copy(alpha = 0.8f)
+            val textColor =
+                if (isDay) Whitehis.copy(alpha = 0.8f) else Color.White.copy(alpha = 0.8f)
             Icon(
                 modifier = Modifier
                     .padding(end = 4.dp)
@@ -96,7 +97,8 @@ fun UvIndex(temp: TemperatureResponse) {
                 fontWeight = FontWeight.Light,
                 color = textColor
             )
-            val uvIndexDescriptions = getUvIndexDescription(uvIndex = temp.hourly.uv_index[currentHour].toInt())
+            val uvIndexDescriptions =
+                getUvIndexDescription(uvIndex = temp.hourly.uv_index[currentHour].toInt())
             Text(
                 modifier = Modifier.padding(start = 4.dp),
                 text = uvIndexDescriptions,

@@ -35,6 +35,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.activities.detailActivity.components.getUvIndexDescription
 import com.example.wouple.model.api.TemperatureResponse
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -60,6 +61,9 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         )
     }
     val currentContext = LocalContext.current
+    //this code finds the today's uv index and converts it to description.
+    val uvIndexDescriptions = getUvIndexDescription(uvIndex = temp.daily.uv_index_max[0].toInt())
+    val lowercasedDesc = uvIndexDescriptions.replaceFirstChar { it.lowercase() }
     // this code finds the warmest day in a list of daily temperatures
     val warmestDayIndex = temp.daily.temperature_2m_max
         .mapIndexed { index, temperature -> index to temperature.toInt() }
@@ -67,8 +71,6 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
         ?.first ?: 0
     val warmestDate = LocalDate.parse(temp.daily.time[warmestDayIndex])
     val warmestDayOfWeek = getLocalizedDayNames(warmestDate.dayOfWeek, context = currentContext)
-
-
     // this code finds the coolest day in the list of daily temperatures
     val coolestDayIndex = temp.daily.temperature_2m_max
         .mapIndexed { index, temperature -> index to temperature.toInt() }
@@ -111,7 +113,8 @@ fun SevenDaysCardNotification(temp: TemperatureResponse) {
     val texts = mutableListOf(
         context.getString(R.string.warmest_day, warmestDayOfWeek),
         context.getString(R.string.coldest_day, coldestDayOfWeek),
-        context.getString(R.string.sunshine_duration, sunDurationAsHours)
+        context.getString(R.string.sunshine_duration, sunDurationAsHours),
+        context.getString(R.string.uv_index_today, lowercasedDesc)
     )
     // adds thunderstorm information to notification if location has thunderstorm in the week
     if (thunderstormDays.isNotEmpty()) {
