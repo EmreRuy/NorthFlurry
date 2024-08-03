@@ -1,7 +1,10 @@
 package com.example.wouple.activities.firstScreen
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,11 +21,13 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,6 +47,7 @@ fun PreviewFirstScreenView() {
 fun FirstScreenView(
     onStartButtonClicked: () -> Unit
 ) {
+    val currentContext = LocalContext.current
     val background =
         listOf(
             Color(0xFF3D52BB),
@@ -112,5 +118,20 @@ fun FirstScreenView(
             )
         }
         Spacer(modifier = Modifier.weight(1.5f))
+        Text(
+            modifier = Modifier.padding(16.dp)
+                .clickable {
+                        val url = "https://lottiefiles.com/page/license"
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse(url)
+                        currentContext.startActivity(intent)
+                    },
+            text = "NorthFlurry Privacy & Terms",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Light,
+            textAlign = TextAlign.Center,
+            color = Color.White,
+            textDecoration = TextDecoration.Underline
+        )
     }
 }

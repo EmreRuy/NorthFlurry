@@ -237,7 +237,7 @@ fun LocationItem(
         ) {
             Icon(
                 modifier = Modifier.size(32.dp),
-                painter = painterResource(id = R.drawable.locationpin),
+                painter = painterResource(id = R.drawable.ic_pin),
                 contentDescription = null,
                 tint = Unspecified
             )
