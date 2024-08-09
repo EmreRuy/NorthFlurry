@@ -232,11 +232,11 @@ fun LocationItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(16.dp),
             verticalAlignment = CenterVertically
         ) {
             Icon(
-                modifier = Modifier.size(32.dp),
+                modifier = Modifier.size(28.dp),
                 painter = painterResource(id = R.drawable.ic_pin),
                 contentDescription = null,
                 tint = Unspecified

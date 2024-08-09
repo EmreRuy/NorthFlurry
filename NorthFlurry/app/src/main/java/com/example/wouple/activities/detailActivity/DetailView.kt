@@ -194,7 +194,6 @@ fun CustomTopAppBar(
     val iconCollapsed = 32
     val iconExpanded = 0
     val appBarIconSize =  (iconCollapsed + (iconExpanded - iconCollapsed)*(1-scrollBehavior.state.collapsedFraction)).dp
-
     MediumTopAppBar(
         title = {
             Row{

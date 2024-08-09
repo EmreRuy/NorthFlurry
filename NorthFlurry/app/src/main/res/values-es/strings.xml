@@ -9,6 +9,7 @@
     <string name="WeatherForecast">"Weather Forecast"</string>
     <string name="AppExplainer">"El compañero meteorológico definitivo diseñado para hacer tu vida diaria más fácil. Nuestra aplicación ofrece pronósticos del tiempo precisos y en tiempo real, asegurándote de que estés preparado para cualquier cosa que la \nMadre Naturaleza tenga reservada."</string>
     <string name="GetStartButton">"Empezar"</string>
+    <string name="NorthPrivacy">"NorthFlurry Privacy &amp; Terms"</string>
     <string name="SearchBeforeYouGo">"Sol, Lluvia o Nieve – ¡Sabe antes de ir!"</string>
     <string name="ThankYouForDownloading">"Gracias por descargar\n¡Empecemos!"</string>
     <string name="Loading">"Cargando…"</string>

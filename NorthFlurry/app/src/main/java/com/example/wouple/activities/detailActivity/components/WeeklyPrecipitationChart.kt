@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -95,13 +98,18 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
         val minSumForShowingGraph =
             if (PrecipitationUnitPref.getPrecipitationUnit(context) == PrecipitationUnit.MM) 0.1 else 0.01
         if (maxRainSum <= minSumForShowingGraph) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
             Text(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier,
                 text = stringResource(id = R.string.No_Precipitation_expected_for_the_week),
                 fontWeight = FontWeight.Light,
                 fontSize = 15.sp,
                 color = Spiro
             )
+        }
         } else {
             Row(
                 modifier = Modifier

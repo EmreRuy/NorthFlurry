@@ -121,12 +121,12 @@ fun FirstScreenView(
         Text(
             modifier = Modifier.padding(16.dp)
                 .clickable {
-                        val url = "https://lottiefiles.com/page/license"
+                        val url = "https://sites.google.com/view/northflurry/home"
                         val intent = Intent(Intent.ACTION_VIEW)
                         intent.data = Uri.parse(url)
                         currentContext.startActivity(intent)
                     },
-            text = "NorthFlurry Privacy & Terms",
+            text = stringResource(id = R.string.NorthPrivacy),
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center,

@@ -105,6 +105,7 @@ fun getLocalizedDayNames(dayOfWeek: DayOfWeek, context: Context): String {
         "nb" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("nb", "NO"))
         "es" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("es", "ES"))
         "fr" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("fr", "FR"))
+        "it" -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale("it", "IT"))
         else -> dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH) // Default to English
     }
     val cleanDayName = dayName.trimEnd { it == '.' }
