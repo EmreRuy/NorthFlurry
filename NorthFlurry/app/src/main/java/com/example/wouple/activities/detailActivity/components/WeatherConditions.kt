@@ -10,5 +10,5 @@ enum class WeatherCondition(val imageResourceId: Int) {
     SNOWY(R.drawable.myicon),
     CLEAR_NIGHT(R.drawable.baseline_nights_stay_24),
     THUNDERSTORM(R.drawable.baseline_thunderstorm_24),
-    FOGGY(R.drawable.ic_sun_cloudy)
+    FOGGY(R.drawable.fog)
 }

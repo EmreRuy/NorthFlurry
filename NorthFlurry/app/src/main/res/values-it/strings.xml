@@ -63,7 +63,7 @@ Iniziamo!"</string>
     <string name="General">"Generale"</string>
     <string name="Units">"Unità"</string>
     <string name="ND">"N/D"</string>
-    <string name="NoData">"Nessun Dato Disponibile per la Visualizzazione"</string>
+    <string name="NoData">"Nessun dato disponibile"</string>
     <string name="LottieFilesCopyright">"Le animazioni in questa app sono fornite da LottieFiles e sono soggette alla Lottie Simple License (FL 9.13.21). Copyright © 2021 Design Barn Inc. Tutti i diritti riservati.
 
     Attribuzione per le singole animazioni:
@@ -156,18 +156,18 @@ Iniziamo!"</string>
     <string name="warmest_day">"Giorno più caldo previsto: %1$s"</string>
     <string name="coldest_day">"Giorno più freddo previsto: %1$s"</string>
     <string name="uv_index_today">"Indice UV %1$s oggi"</string>
-    <string name="sunshine_duration">"Durata del Sole: %1$d ore oggi"</string>
+    <string name="sunshine_duration">"Durata del sole: %1$d ore oggi"</string>
     <string name="thunderstorms_week">"Temporali previsti durante la settimana"</string>
     <string name="thunderstorms_days">"Temporali previsti nei giorni: %1$s"</string>
     <string name="precipitation_week">"Precipitazioni previste durante la settimana"</string>
     <string name="precipitation_days">"Precipitazioni previste nei giorni: %1$s"</string>
 // For hourly Card Notification
-    <string name="precipitation_probability">"precipitazione %1$d%% nella prossima ora"</string>
+    <string name="precipitation_probability">"Precipitazione %1$d%% nella prossima ora"</string>
     <string name="feels_like">"Percepito come %1$d %2$s ora"</string>
-    <string name="total_cloud_cover">"Copertura Nuvolosa Totale %1$d%%"</string>
-    <string name="surface_pressure">"Pressione Atmosferica %1$d hPa attualmente"</string>
+    <string name="total_cloud_cover">"Copertura nuvolosa totale %1$d%%"</string>
+    <string name="surface_pressure">Pressione atmosferica %1$d hPa ora</string>
     <string name="wind_direction">"Direzione del Vento da %1$s"</string>
-    <string name="wind_speed">"Velocità del Vento: %1$.1f %2$s al momento"</string>
+    <string name="wind_speed">"Vento: %1$.1f %2$s al momento"</string>
 
     <string-array name="wind_directions">
         <item>Nord</item>

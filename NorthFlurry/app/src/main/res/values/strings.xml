@@ -162,10 +162,10 @@ Attribution for individual animations:
 
     // For weekly card notifications
 
-    <string name="warmest_day">Warmest Day expected: %1$s</string>
-    <string name="coldest_day">Coldest Day expected: %1$s</string>
+    <string name="warmest_day">Warmest day expected: %1$s</string>
+    <string name="coldest_day">Coldest day expected: %1$s</string>
     <string name="uv_index_today">UV Index %1$s today</string>
-    <string name="sunshine_duration">Sunshine Duration: %1$d hours today</string>
+    <string name="sunshine_duration">Sunshine duration: %1$d hours today</string>
     <string name="thunderstorms_week">Thunderstorms expected during the week</string>
     <string name="thunderstorms_days">Thunderstorms expected on: %1$s</string>
     <string name="precipitation_week">Precipitation expected during the week</string>
@@ -175,10 +175,10 @@ Attribution for individual animations:
 
     <string name="precipitation_probability">Precipitation %1$d%% in the next hour</string>
     <string name="feels_like">Feels like %1$d %2$s now</string>
-    <string name="total_cloud_cover">Total Cloud Cover %1$d%%</string>
-    <string name="surface_pressure">Surface Pressure %1$d hPa currently</string>
-    <string name="wind_direction">Wind Direction is from the %1$s</string>
-    <string name="wind_speed">Wind Speed: %1$.1f %2$s at the moment</string>
+    <string name="total_cloud_cover">Total cloud cover %1$d%%</string>
+    <string name="surface_pressure">Surface pressure %1$d hPa currently</string>
+    <string name="wind_direction">Wind direction is from the %1$s</string>
+    <string name="wind_speed">Wind speed: %1$.1f %2$s at the moment</string>
     <string-array name="wind_directions">
         <item>North</item>
         <item>North East</item>
