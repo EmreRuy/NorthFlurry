@@ -41,6 +41,7 @@ fun GetWeeklyForecast(temp: TemperatureResponse) {
                 0, 1 -> WeatherCondition.SUNNY
                 2 -> WeatherCondition.PARTLY_CLOUDY
                 3, 4 -> WeatherCondition.CLOUDY
+                45, 48 -> WeatherCondition.FOGGY
                 in listOf(
                     51,
                     53,
@@ -58,7 +59,7 @@ fun GetWeeklyForecast(temp: TemperatureResponse) {
                 ) -> WeatherCondition.RAINY
                 in listOf(71, 73, 75, 77) -> WeatherCondition.SNOWY
                 in listOf(95, 96, 99) -> WeatherCondition.THUNDERSTORM
-                else -> WeatherCondition.SUNNY
+                else -> WeatherCondition.RAINY
             }
             val imageResourceId = weatherCondition.imageResourceId
 

@@ -34,7 +34,7 @@ fun GetLocationAndDegree(
 ) {
     val isDay = temp.current_weather.is_day == 1
     Column(
-        Modifier.padding(top = 70.dp),
+        Modifier.padding(top = 80.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -48,7 +48,7 @@ fun GetLocationAndDegree(
         Spacer(modifier = Modifier.padding(top = 12.dp))
         Text(
             text = temp.current_weather.temperature.toInt()
-                .toString() + temp.hourly_units.temperature_2m[0],
+                .toString()  + temp.hourly_units.temperature_2m[0],
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Thin,
             fontSize = 50.sp,
@@ -114,12 +114,13 @@ fun WeatherAnimation(weatherCode: Int, isDay: Boolean) {
             weatherCode == 2 && isDay -> LottieAnimationPartlyCloudy()
             weatherCode == 2 && !isDay -> LottieAnimationPartlyCloudyNight()
             weatherCode == 3 -> LottieAnimationCloud()
+            weatherCode in listOf(45,48) -> LottieAnimationFoggy()
             weatherCode in listOf(51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82) && isDay -> LottieAnimationRainDayLight()
             weatherCode in listOf(51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82) && !isDay -> LottieAnimationRainNight()
             weatherCode in listOf(85, 86) && isDay -> LottieAnimationSnowDaylight()
             weatherCode in listOf(85, 86) && !isDay -> LottieAnimationSnowNight()
             weatherCode in listOf(95, 96) -> LottieAnimationThunderStorm()
-            else -> LottieAnimationSun()
+            else -> if (isDay) LottieAnimationRainDayLight() else LottieAnimationRainNight()
         }
     }
 }

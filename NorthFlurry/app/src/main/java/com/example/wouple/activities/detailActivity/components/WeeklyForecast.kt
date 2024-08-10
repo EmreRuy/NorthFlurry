@@ -101,6 +101,7 @@ fun WeeklyForecast(
                 0, 1 -> WeatherCondition.SUNNY
                 2 -> WeatherCondition.PARTLY_CLOUDY
                 3, 4 -> WeatherCondition.CLOUDY
+                45, 48 -> WeatherCondition.FOGGY
                 in listOf(
                     51,
                     53,
@@ -119,7 +120,7 @@ fun WeeklyForecast(
 
                 in listOf(71, 73, 75, 77) -> WeatherCondition.SNOWY
                 in listOf(95, 96, 99) -> WeatherCondition.THUNDERSTORM
-                else -> WeatherCondition.SUNNY // default weather condition in case of an unknown code
+                else -> WeatherCondition.RAINY // default weather condition in case of an unknown code
             }
             val imageResource = weatherCondition.imageResourceId
             Row(

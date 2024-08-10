@@ -100,7 +100,8 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
         if (maxRainSum <= minSumForShowingGraph) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
             Text(
                 modifier = Modifier,

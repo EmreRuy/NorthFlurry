@@ -42,10 +42,11 @@ fun TemperatureContent(temp: TemperatureResponse) {
                     0, 1 -> WeatherCondition.SUNNY
                     2 -> WeatherCondition.PARTLY_CLOUDY
                     3 -> WeatherCondition.CLOUDY
+                    45, 48 -> WeatherCondition.FOGGY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
                     95, 96, 99 -> WeatherCondition.THUNDERSTORM
-                    else -> WeatherCondition.SUNNY
+                    else -> WeatherCondition.RAINY
                 }
                 Hours(time, temperature, hourlyWeatherCondition)
             }
@@ -53,11 +54,12 @@ fun TemperatureContent(temp: TemperatureResponse) {
                 val hourlyWeatherConditionNight = when (temp.hourly.weathercode[index]) {
                     0, 1 -> WeatherCondition.CLEAR_NIGHT
                     2, 3 -> WeatherCondition.CLOUDY
+                    45, 48 -> WeatherCondition.FOGGY
                     51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
                     71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
                     95, 96, 99 -> WeatherCondition.THUNDERSTORM
                     else -> {
-                        WeatherCondition.CLEAR_NIGHT
+                        WeatherCondition.RAINY
                     }
                 }
                 Hours(time, temperature, hourlyWeatherConditionNight)

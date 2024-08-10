@@ -197,3 +197,18 @@ fun LottieAnimationThunderStorm() {
         modifier = Modifier.size(85.dp)
     )
 }
+@Composable
+fun LottieAnimationFoggy() {
+    val isPlaying by remember { mutableStateOf(true) }
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.foggy))
+    val progress by animateLottieCompositionAsState(
+        composition,
+        isPlaying = isPlaying,
+        iterations = LottieConstants.IterateForever
+    )
+    LottieAnimation(
+        composition = composition,
+        progress = {progress },
+        modifier = Modifier.size(85.dp)
+    )
+}

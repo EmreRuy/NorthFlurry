@@ -62,7 +62,7 @@ Let's Begin!"</string>
     <string name="General">General</string>
     <string name="Units">Units</string>
     <string name="ND">N/D</string>
-    <string name="NoData">"No Data Available for Display"</string>
+    <string name="NoData">"No data available for display"</string>
     <string name="LottieFilesCopyright">"Animations in this app are provided by LottieFiles and are subject to the Lottie Simple License (FL 9.13.21). Copyright © 2021 Design Barn Inc. All rights reserved.
 
 Attribution for individual animations:
@@ -100,7 +100,10 @@ Attribution for individual animations:
 11. "Weather-cloudy(night)"
    - Creator: jochang
 
-12. "Loading"
+12. "Free Foggy Animation"
+   - Creator: jochang
+
+13. "Loading"
    - Creator: Luisa Fernanda Bolaños Beltrán
 </string>
     <string name="Clear_Sky">Clear Sky</string>
