@@ -10,12 +10,18 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
+import com.example.wouple.activities.mainActivity.components.BottomNavigationBar
 import com.example.wouple.activities.mainActivity.components.GetBottomView
 import com.example.wouple.activities.mainActivity.components.GetLocationAndDegree
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
@@ -33,6 +39,7 @@ fun MainView(
     onClose: () -> Unit,
     onSettingsClicked: (TemperatureResponse) -> Unit,
 ) {
+    var selectedTab by remember { mutableIntStateOf(0) }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,5 +96,17 @@ fun MainView(
         searchedLocation.value?.let {
             GetAttributionForOpenMet(searchedLocation = it)
         }
+        BottomNavigationBar(
+            selectedTab = selectedTab,
+            onTabSelected = { index ->
+                selectedTab = index
+                when (index) {
+                    0 -> {} // Home action
+                    1 -> onDetailsButtonClicked(temp) // Details action
+                    2 -> onSettingsClicked(temp) // Settings action
+                }
+            },
+            temp = temp
+        )
     }
 }

@@ -65,9 +65,9 @@ fun GetLocationAndDegree(
             //For Settings Button
             SettingsButton { onSettingsClicked(temp) }
             // For Forecast Detail Button
-            DetailButton {
+           /* DetailButton {
                 onDetailsButtonClicked(temp)
-            }
+            } */
             Spacer(modifier = Modifier.width(58.dp))
         }
         // Horizontal waves
