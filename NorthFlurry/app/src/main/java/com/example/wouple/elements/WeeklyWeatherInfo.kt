@@ -77,6 +77,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
         Text(
             text = dayOfWeek.lowercase()
