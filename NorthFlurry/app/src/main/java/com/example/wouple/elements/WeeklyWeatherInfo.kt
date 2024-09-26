@@ -2,11 +2,14 @@ package com.example.wouple.elements
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.components.WeatherCondition
@@ -27,11 +31,12 @@ import java.util.Locale
 
 @Composable
 fun GetWeeklyForecast(temp: TemperatureResponse) {
+    val scrollState = rememberScrollState()
     val context = LocalContext.current
     Row(
-        modifier = Modifier.padding(horizontal = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        modifier = Modifier
+            .horizontalScroll(scrollState),
+        horizontalArrangement = Arrangement.Center,
     ) {
         for (dayIndex in 0 until temp.daily.time.size.coerceAtMost(7)) {
             val dayOfWeek = LocalDate.parse(temp.daily.time[dayIndex]).dayOfWeek
@@ -75,15 +80,21 @@ fun GetWeeklyForecast(temp: TemperatureResponse) {
 @Composable
 fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: Int) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            .wrapContentWidth(align = Alignment.CenterHorizontally),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
 
     ) {
         Text(
+            modifier = Modifier.padding(top = 4.dp),
             text = dayOfWeek.lowercase()
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() },
             color = Spiro,
             fontSize = 15.sp,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Light
         )
         Image(
@@ -92,6 +103,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
             modifier = Modifier.size(26.dp)
         )
         Text(
+            modifier = Modifier.padding(top = 4.dp),
             text = "$temperature°",
             color = Color.White.copy(alpha = 0.8f),
             fontWeight = FontWeight.Medium,
