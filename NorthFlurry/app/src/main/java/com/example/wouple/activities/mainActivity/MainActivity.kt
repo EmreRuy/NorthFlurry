@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import com.example.wouple.activities.firstScreen.FirstScreenView
 import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.activities.detailActivity.SecondActivity
+import com.example.wouple.activities.mainActivity.components.BottomNavigationBar
 import com.example.wouple.activities.mainActivity.components.LoadingScreen
 import com.example.wouple.activities.settingsActivity.SettingsActivity
 import com.example.wouple.elements.NoInternetDialog
@@ -46,84 +47,69 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
             var isLoading by remember { mutableStateOf(true) }
+
             LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
                 delay(1_000) // Simulating network delay for loading
                 isLoading = false
             }
+
             if (!isConnected) {
                 // Shows dialog if there is no internet connection
                 NoInternetDialog(activity = this)
             } else {
-                    if (isFirstLaunch == null) {
-                        FirstScreenView(
-                            onStartButtonClicked = {
-                                Log.d("MainActivity", "Start button clicked")
-                                val intent = Intent(this@MainActivity, StartActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
-                        )
-                    } else {
-                        if (temp.value == null || isLoading) {
-                            LoadingScreen()
-                        } else {
-                            DisplayFirstCardView()
-                        }
-                    }
-            }
-        }
-    }
-
-    @Composable
-    private fun DisplayFirstCardView() {
-        temp.value?.let {
-            val focusManager = LocalFocusManager.current
-            MainView(
-                temp = it,
-                locations = searchedLocations.value,
-                onLocationButtonClicked = { location ->
-                    focusManager.clearFocus()
-                    onLocationButtonClicked(location)
-                },
-                searchedLocation = searchedLocation,
-                onClose = { searchedLocations.value = null },
-                onSearch = { query ->
-                    WeatherManager.getSearchedLocations(
-                        context = this,
-                        address = query,
-                        onSuccessCall = { location ->
-                            searchedLocations.value = location
+                if (isFirstLaunch == null) {
+                    FirstScreenView(
+                        onStartButtonClicked = {
+                            Log.d("MainActivity", "Start button clicked")
+                            val intent = Intent(this@MainActivity, StartActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
                     )
-                },
-                onDetailsButtonClicked = { temp ->
-                    val intent = Intent(this, SecondActivity::class.java).apply {
-                        putExtra("temp", temp)
-                        putExtra("air", airQuality.value)
-                        putExtra("location", searchedLocation.value)
-                        putExtra("precipitationUnit", PrecipitationUnitPref.getPrecipitationUnit(this@MainActivity))
-                        putExtra("wind_unit", WindUnitPref.getWindUnit(this@MainActivity))
+                } else {
+                    if (temp.value == null || isLoading) {
+                        LoadingScreen()
+                    } else {
+                        // Use BottomNavigationBar with MainView
+                        BottomNavigationBar(
+                            temp = temp.value!!,
+                            locations = searchedLocations.value,
+                            onLocationButtonClicked = { location ->
+                                onLocationButtonClicked(location)
+                            },
+                            searchedLocation = searchedLocation,
+                            onClose = { searchedLocations.value = null },
+                            onSearch = { query ->
+                                WeatherManager.getSearchedLocations(
+                                    context = this,
+                                    address = query,
+                                    onSuccessCall = { location ->
+                                        searchedLocations.value = location
+                                    }
+                                )
+                            },
+                            onDetailsButtonClicked = { temp ->
+                                val intent = Intent(this, SecondActivity::class.java).apply {
+                                    putExtra("temp", temp)
+                                    putExtra("air", airQuality.value)
+                                    putExtra("location", searchedLocation.value)
+                                    putExtra("precipitationUnit", PrecipitationUnitPref.getPrecipitationUnit(this@MainActivity))
+                                    putExtra("wind_unit", WindUnitPref.getWindUnit(this@MainActivity))
+                                }
+                                startActivity(intent)
+                            },
+                            onSettingsClicked = { temp ->
+                                val intent = Intent(this, SettingsActivity::class.java).apply {
+                                    putExtra("temp", temp)
+                                }
+                                startActivity(intent)
+                            }
+                            , air = airQuality.value
+                        )
                     }
-                    startActivity(intent)
-                },
-                onSettingsClicked = { temp ->
-                    val intent = Intent(this, SettingsActivity::class.java).apply {
-                        putExtra("temp", temp)
-                    }
-                    startActivity(intent)
                 }
-            )
-        }
-    }
-
-    private fun getAirQuality(location: SearchedLocation) {
-        WeatherManager.getAirQuality(
-            longitude = location.lon,
-            latitude = location.lat,
-            context = this
-        ) {
-            airQuality.value = it
+            }
         }
     }
 
@@ -141,6 +127,16 @@ class MainActivity : ComponentActivity() {
         )
         getAirQuality(location)
         searchedLocations.value = null
+    }
+
+    private fun getAirQuality(location: SearchedLocation) {
+        WeatherManager.getAirQuality(
+            longitude = location.lon,
+            latitude = location.lat,
+            context = this
+        ) {
+            airQuality.value = it
+        }
     }
 
     override fun onResume() {
@@ -161,5 +157,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 
 

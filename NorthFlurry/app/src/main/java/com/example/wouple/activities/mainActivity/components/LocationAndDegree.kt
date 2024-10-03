@@ -34,7 +34,7 @@ fun GetLocationAndDegree(
 ) {
     val isDay = temp.current_weather.is_day == 1
     Column(
-        Modifier.padding(top = 120.dp),
+        Modifier.padding(top = 110.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -51,7 +51,7 @@ fun GetLocationAndDegree(
                 .toString()  + temp.hourly_units.temperature_2m[0],
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Thin,
-            fontSize = 50.sp,
+            fontSize = 64.sp,
             color = Color.White,
         )
         Spacer(modifier = Modifier.padding(top = 12.dp))
