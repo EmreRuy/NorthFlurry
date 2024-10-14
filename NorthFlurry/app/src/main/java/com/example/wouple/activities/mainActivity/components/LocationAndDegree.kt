@@ -45,8 +45,9 @@ fun GetLocationAndDegree(
             fontSize = 50.sp,
             color = Color.White
         )
-        Spacer(modifier = Modifier.padding(top = 12.dp))
+        Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(
+            modifier = Modifier.padding(start = 4.dp),
             text = temp.current_weather.temperature.toInt()
                 .toString()  + temp.hourly_units.temperature_2m[0],
             textAlign = TextAlign.Center,
@@ -56,20 +57,20 @@ fun GetLocationAndDegree(
         )
         Spacer(modifier = Modifier.padding(top = 12.dp))
         WeatherAnimation(temp.current_weather.weathercode, isDay)
-        Row(
+       /* Row(
             modifier = Modifier
                 .padding(bottom = 4.dp, top = 12.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             //For Settings Button
-            SettingsButton { onSettingsClicked(temp) }
+           // SettingsButton { onSettingsClicked(temp) }
             // For Forecast Detail Button
            /* DetailButton {
                 onDetailsButtonClicked(temp)
             } */
             Spacer(modifier = Modifier.width(58.dp))
-        }
+        } */
         // Horizontal waves
         Spacer(modifier = Modifier.height(30.dp))
         GetHorizontalWaveView()
