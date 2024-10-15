@@ -2,6 +2,7 @@ package com.example.wouple.activities.mainActivity.components
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,19 +17,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.wouple.activities.detailActivity.DetailView
+import com.example.wouple.activities.detailActivity.components.openMetActivity.OpenMetAttributionActivity
+import com.example.wouple.activities.lottieCopyRightActivity.LottieCopyRightActivity
 import com.example.wouple.activities.mainActivity.BottomNavigationItem
 import com.example.wouple.activities.mainActivity.MainView
 import com.example.wouple.activities.mainActivity.Screens
 import com.example.wouple.activities.settingsActivity.SettingsView
+import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Dark20
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -43,6 +49,7 @@ fun BottomNavigationBar(
     onSettingsClicked: (TemperatureResponse) -> Unit,
     air: AirQuality?,
 ) {
+    val context = LocalContext.current
     // Initializing the default selected item
     var navigationSelectedItem by remember {
         mutableIntStateOf(0)
@@ -112,7 +119,6 @@ fun BottomNavigationBar(
                 )
             }
             composable(Screens.Settings.route) {
-                // Add your settings screen here
                 SettingsView(
                     temp = temp,
                     onBackPressed = { navController.popBackStack() },
@@ -120,10 +126,16 @@ fun BottomNavigationBar(
                         // Handle feedback logic
                     },
                     onLottieClicked = {
-                        // Handle Lottie animations clicked
+                        val intent = Intent(context, LottieCopyRightActivity::class.java).apply {
+                            putExtra("temp", temp)
+                        }
+                        context.startActivity(intent)
                     },
                     onMetClicked = {
-                        // Handle Met Office attribution clicked
+                        val intent = Intent(context, OpenMetAttributionActivity::class.java).apply {
+                            putExtra("temp", temp)
+                        }
+                        context.startActivity(intent)
                     }
                 )
             }

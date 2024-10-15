@@ -89,21 +89,11 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                             },
-                            onDetailsButtonClicked = { temp ->
-                                val intent = Intent(this, SecondActivity::class.java).apply {
-                                    putExtra("temp", temp)
-                                    putExtra("air", airQuality.value)
-                                    putExtra("location", searchedLocation.value)
-                                    putExtra("precipitationUnit", PrecipitationUnitPref.getPrecipitationUnit(this@MainActivity))
-                                    putExtra("wind_unit", WindUnitPref.getWindUnit(this@MainActivity))
-                                }
-                                startActivity(intent)
+                            onDetailsButtonClicked = {
+
                             },
-                            onSettingsClicked = { temp ->
-                                val intent = Intent(this, SettingsActivity::class.java).apply {
-                                    putExtra("temp", temp)
-                                }
-                                startActivity(intent)
+                            onSettingsClicked = {
+
                             }
                             , air = airQuality.value
                         )
