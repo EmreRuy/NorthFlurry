@@ -130,7 +130,7 @@ fun FirstScreenView(
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = Color.White.copy(alpha = 0.8f),
             textDecoration = TextDecoration.Underline
         )
     }

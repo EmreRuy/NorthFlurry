@@ -2,7 +2,9 @@ package com.example.wouple.activities.mainActivity.components
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -124,6 +126,7 @@ fun BottomNavigationBar(
                     onBackPressed = { navController.popBackStack() },
                     onFeedbackClicked = { feedback ->
                         // Handle feedback logic
+                        sendEmail(context, feedback)
                     },
                     onLottieClicked = {
                         val intent = Intent(context, LottieCopyRightActivity::class.java).apply {
@@ -141,4 +144,25 @@ fun BottomNavigationBar(
             }
         }
     }
+}
+
+fun sendEmail(context: Context, isProblem: Boolean) {
+    val selectorIntent = Intent(Intent.ACTION_SENDTO)
+    selectorIntent.data = Uri.parse("mailto:")
+
+    val emailIntent = Intent(Intent.ACTION_SEND).apply {
+        putExtra(Intent.EXTRA_EMAIL, arrayOf("uyar.em.eu@gmail.com"))
+        putExtra(
+            Intent.EXTRA_SUBJECT,
+            if (isProblem) "Trouble with the app" else " I have an idea"
+        )
+        putExtra(
+            Intent.EXTRA_TEXT, """
+                ––––––––––––––––––
+                Device name: ${android.os.Build.MODEL}
+                OS version: ${android.os.Build.VERSION.RELEASE}""".trimIndent()
+        )
+    }
+    emailIntent.selector = selectorIntent
+    context.startActivity(Intent.createChooser(emailIntent, "Send email..."))
 }

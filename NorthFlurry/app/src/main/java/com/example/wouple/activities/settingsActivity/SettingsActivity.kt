@@ -21,7 +21,7 @@ class SettingsActivity : ComponentActivity() {
             if (temp == null) {
                 throw IllegalStateException("temp is missing or wrong")
             }
-            SettingsView(
+          /*  SettingsView(
                 onBackPressed = { onBackPressedDispatcher.onBackPressed() },
                 onFeedbackClicked = { trouble ->
                     sendEmail(trouble)
@@ -37,7 +37,7 @@ class SettingsActivity : ComponentActivity() {
                     intent.putExtra("temp", temp)
                     startActivity(intent)
                 },
-            )
+            ) */
         }
     }
 
