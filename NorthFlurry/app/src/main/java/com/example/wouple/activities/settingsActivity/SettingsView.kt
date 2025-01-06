@@ -65,6 +65,7 @@ import com.example.wouple.activities.settingsActivity.components.WindUnitSetting
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.model.api.TemperatureUnit
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -137,7 +138,7 @@ fun SettingsView(
                 onLottieClicked = { onLottieClicked() },
                 onMetClicked = { onMetClicked() },
                 temp = temp,
-                paddingValues = it
+                paddingValues = it,
             )
         }
     )

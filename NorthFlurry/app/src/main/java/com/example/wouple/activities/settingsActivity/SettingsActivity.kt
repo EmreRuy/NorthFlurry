@@ -6,8 +6,17 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.example.wouple.activities.detailActivity.components.openMetActivity.OpenMetAttributionActivity
 import com.example.wouple.activities.lottieCopyRightActivity.LottieCopyRightActivity
+import com.example.wouple.activities.settingsActivity.components.PrecipitationUnitSettings
+import com.example.wouple.activities.settingsActivity.components.SettingsCardOne
+import com.example.wouple.activities.settingsActivity.components.TemperatureUnitSettings
+import com.example.wouple.activities.settingsActivity.components.WindUnitSettings
+import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.extensions.parcelable
 import com.example.wouple.model.api.TemperatureResponse
 
@@ -40,7 +49,6 @@ class SettingsActivity : ComponentActivity() {
             ) */
         }
     }
-
     private fun sendEmail(isProblem: Boolean) {
         val selectorIntent = Intent(Intent.ACTION_SENDTO)
         selectorIntent.data = Uri.parse("mailto:")

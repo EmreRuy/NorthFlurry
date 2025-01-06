@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.beige
 
