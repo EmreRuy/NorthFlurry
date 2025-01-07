@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wouple.activities.firstScreen.FirstScreenView
 import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.activities.detailActivity.SecondActivity
@@ -22,6 +23,7 @@ import com.example.wouple.activities.mainActivity.components.BottomNavigationBar
 import com.example.wouple.activities.mainActivity.components.LoadingScreen
 import com.example.wouple.activities.settingsActivity.SettingsActivity
 import com.example.wouple.elements.NoInternetDialog
+import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.elements.isInternetConnected
 import com.example.wouple.manager.WeatherManager
 import com.example.wouple.manager.WeatherManager.getCurrentWeather
@@ -72,6 +74,7 @@ class MainActivity : ComponentActivity() {
                         LoadingScreen()
                     } else {
                         // Use BottomNavigationBar with MainView
+                        val viewModel: SettingsViewModel = viewModel()
                         BottomNavigationBar(
                             temp = temp.value!!,
                             locations = searchedLocations.value,
@@ -96,6 +99,7 @@ class MainActivity : ComponentActivity() {
 
                             }
                             , air = airQuality.value
+                            , viewModel = viewModel
                         )
                     }
                 }

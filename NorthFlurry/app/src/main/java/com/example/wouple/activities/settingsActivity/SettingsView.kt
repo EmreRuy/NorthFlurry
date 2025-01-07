@@ -63,6 +63,7 @@ import com.example.wouple.activities.settingsActivity.components.TemperatureUnit
 import com.example.wouple.activities.settingsActivity.components.TroubleOnAppSettings
 import com.example.wouple.activities.settingsActivity.components.WindUnitSettings
 import com.example.wouple.elements.HorizontalWave
+import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.model.api.TemperatureUnit
@@ -77,6 +78,7 @@ fun SettingsView(
     temp: TemperatureResponse,
     onLottieClicked: () -> Unit,
     onMetClicked: () -> Unit,
+    viewModel: SettingsViewModel
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
@@ -139,6 +141,7 @@ fun SettingsView(
                 onMetClicked = { onMetClicked() },
                 temp = temp,
                 paddingValues = it,
+                viewModel = viewModel
             )
         }
     )
@@ -150,6 +153,7 @@ fun GetSurface(
     onMetClicked: () -> Unit,
     temp: TemperatureResponse,
     paddingValues: PaddingValues,
+    viewModel: SettingsViewModel
 ) {
     val (selected, setSelected) = remember {
         mutableIntStateOf(0)
@@ -235,7 +239,7 @@ fun GetSurface(
             } else {
                 item {
                     SettingsCardTwo()
-                    TemperatureUnitSettings(temp)
+                    TemperatureUnitSettings(temp, viewModel = viewModel)
                     PrecipitationUnitSettings(temp)
                     WindUnitSettings(temp)
                 }

@@ -50,6 +50,7 @@ import com.example.wouple.activities.detailActivity.components.WeeklyForecast
 import com.example.wouple.activities.detailActivity.components.WeeklyPrecipitationChart
 import com.example.wouple.activities.detailActivity.components.getWeatherDetails
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
+import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.model.api.AirQuality
 
 
@@ -59,7 +60,8 @@ fun DetailView(
     temp: TemperatureResponse,
     searchedLocation: SearchedLocation,
     air: AirQuality?,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    viewModel: SettingsViewModel
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {

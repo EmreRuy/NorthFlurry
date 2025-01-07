@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -42,31 +43,30 @@ fun SettingsCardTwo() {
 }
 
 @Composable
-fun TemperatureUnitSettings(temp: TemperatureResponse) {
-    val context = LocalContext.current
+fun TemperatureUnitSettings(temp: TemperatureResponse, viewModel: SettingsViewModel) {
+    val temperatureUnits = TemperatureUnit.values()
+    val currentUnit by viewModel.temperatureUnit.collectAsState()
+
+    var selectedUnitIndex by remember {
+        mutableIntStateOf(temperatureUnits.indexOf(currentUnit))
+    }
+
     Column(
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
     ) {
         Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.TemperatureUnits),
             color = Color.White,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             textAlign = TextAlign.Start
         )
-        val temperatureUnits = TemperatureUnit.values()
-        var selectedUnitIndex by remember {
-            mutableIntStateOf(
-                temperatureUnits.indexOf(
-                    TemperatureUnitPref.getTemperatureUnit(context)
-                )
-            )
-        }
+
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
-                TemperatureUnitPref.setTemperatureUnit(context, temperatureUnits[index])
+                viewModel.updateTemperatureUnit(temperatureUnits[index])
                 selectedUnitIndex = index
             },
             units = temperatureUnits.map { it.toString() },

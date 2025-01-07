@@ -33,6 +33,7 @@ import com.example.wouple.activities.mainActivity.MainView
 import com.example.wouple.activities.mainActivity.Screens
 import com.example.wouple.activities.settingsActivity.SettingsView
 import com.example.wouple.activities.startScreen.StartActivity
+import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
@@ -50,6 +51,7 @@ fun BottomNavigationBar(
     onClose: () -> Unit,
     onSettingsClicked: (TemperatureResponse) -> Unit,
     air: AirQuality?,
+    viewModel: SettingsViewModel
 ) {
     val context = LocalContext.current
     // Initializing the default selected item
@@ -111,6 +113,7 @@ fun BottomNavigationBar(
                 // Display DetailView when the user navigates to the Details screen
                 DetailView(
                     temp = temp,
+                    viewModel = viewModel,
                     searchedLocation = searchedLocation.value ?: SearchedLocation(
                         display_name = "Oslo",
                         lat = "00.00",
@@ -139,7 +142,8 @@ fun BottomNavigationBar(
                             putExtra("temp", temp)
                         }
                         context.startActivity(intent)
-                    }
+                    },
+                    viewModel = viewModel
                 )
             }
         }
