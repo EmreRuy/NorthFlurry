@@ -2,6 +2,8 @@ package com.example.wouple.activities.mainActivity
 
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -34,6 +36,9 @@ import com.example.wouple.preferences.LocationPref
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
+import com.example.wouple.ui.theme.Corn
+import com.example.wouple.ui.theme.Dark20
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
@@ -45,15 +50,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val isFirstLaunch = LocationPref.getSearchedLocation(this)
+
         setContent {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
             var isLoading by remember { mutableStateOf(true) }
+            SetSystemBarColor()
 
             LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
                 delay(1_000) // Simulating network delay for loading
                 isLoading = false
+                getWeatherData()
             }
 
             if (!isConnected) {
@@ -134,11 +142,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getWeatherData()
-    }
-
     private fun getWeatherData() {
         searchedLocation.value = LocationPref.getSearchedLocation(this)
         searchedLocation.value?.let { location ->
@@ -153,6 +156,21 @@ class MainActivity : ComponentActivity() {
                 }
             )
             getAirQuality(location)
+        }
+    }
+
+    @Composable
+    private fun SetSystemBarColor(){
+        val systemUiController = rememberSystemUiController()
+        val isDay = temp.value?.current_weather?.is_day == 1
+        if(isDay){
+            systemUiController.setSystemBarsColor(
+                color = Corn
+            )
+        }else{
+            systemUiController.setSystemBarsColor(
+                color = Dark20
+            )
         }
     }
 }
