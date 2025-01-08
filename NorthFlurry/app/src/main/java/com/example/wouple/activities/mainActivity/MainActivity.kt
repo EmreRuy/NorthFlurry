@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
             var isLoading by remember { mutableStateOf(true) }
-            SetSystemBarColor()
+            SetSystemBarColor(isLoading)
 
             LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
@@ -160,18 +160,16 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    private fun SetSystemBarColor(){
+    private fun SetSystemBarColor(isLoading: Boolean) {
         val systemUiController = rememberSystemUiController()
         val isDay = temp.value?.current_weather?.is_day == 1
-        if(isDay){
-            systemUiController.setSystemBarsColor(
-                color = Corn
-            )
-        }else{
-            systemUiController.setSystemBarsColor(
-                color = Dark20
-            )
-        }
+        systemUiController.setSystemBarsColor(
+            color = when {
+                isLoading -> Corn
+                isDay -> Corn
+                else -> Dark20
+            }
+        )
     }
 }
 
