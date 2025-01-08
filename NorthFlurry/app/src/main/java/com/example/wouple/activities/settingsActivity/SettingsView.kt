@@ -78,7 +78,8 @@ fun SettingsView(
     temp: TemperatureResponse,
     onLottieClicked: () -> Unit,
     onMetClicked: () -> Unit,
-    viewModel: SettingsViewModel
+    viewModel: SettingsViewModel,
+    onUnitSettingsChanged: () -> Unit,
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
@@ -141,7 +142,8 @@ fun SettingsView(
                 onMetClicked = { onMetClicked() },
                 temp = temp,
                 paddingValues = it,
-                viewModel = viewModel
+                viewModel = viewModel,
+                onUnitSettingsChanged = onUnitSettingsChanged
             )
         }
     )
@@ -153,7 +155,8 @@ fun GetSurface(
     onMetClicked: () -> Unit,
     temp: TemperatureResponse,
     paddingValues: PaddingValues,
-    viewModel: SettingsViewModel
+    viewModel: SettingsViewModel,
+    onUnitSettingsChanged: () -> Unit
 ) {
     val (selected, setSelected) = remember {
         mutableIntStateOf(0)
@@ -239,9 +242,9 @@ fun GetSurface(
             } else {
                 item {
                     SettingsCardTwo()
-                    TemperatureUnitSettings(temp, viewModel = viewModel)
-                    PrecipitationUnitSettings(temp)
-                    WindUnitSettings(temp)
+                    TemperatureUnitSettings(temp, viewModel = viewModel, onUnitSettingsChanged)
+                    PrecipitationUnitSettings(temp, onUnitSettingsChanged)
+                    WindUnitSettings(temp, onUnitSettingsChanged)
                 }
             }
 

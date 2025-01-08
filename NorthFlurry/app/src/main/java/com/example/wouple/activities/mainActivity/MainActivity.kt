@@ -97,9 +97,10 @@ class MainActivity : ComponentActivity() {
                             },
                             onSettingsClicked = {
 
-                            }
-                            , air = airQuality.value
-                            , viewModel = viewModel
+                            },
+                            air = airQuality.value,
+                            viewModel = viewModel,
+                            onUnitSettingsChanged = { getWeatherData() }
                         )
                     }
                 }
@@ -135,6 +136,10 @@ class MainActivity : ComponentActivity() {
 
     override fun onResume() {
         super.onResume()
+        getWeatherData()
+    }
+
+    private fun getWeatherData() {
         searchedLocation.value = LocationPref.getSearchedLocation(this)
         searchedLocation.value?.let { location ->
             getCurrentWeather(

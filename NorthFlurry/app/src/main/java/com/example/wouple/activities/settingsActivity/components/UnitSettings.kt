@@ -43,9 +43,14 @@ fun SettingsCardTwo() {
 }
 
 @Composable
-fun TemperatureUnitSettings(temp: TemperatureResponse, viewModel: SettingsViewModel) {
+fun TemperatureUnitSettings(
+    temp: TemperatureResponse,
+    viewModel: SettingsViewModel,
+    onChanged: () -> Unit
+) {
     val temperatureUnits = TemperatureUnit.values()
     val currentUnit by viewModel.temperatureUnit.collectAsState()
+    val context = LocalContext.current
 
     var selectedUnitIndex by remember {
         mutableIntStateOf(temperatureUnits.indexOf(currentUnit))
@@ -66,8 +71,10 @@ fun TemperatureUnitSettings(temp: TemperatureResponse, viewModel: SettingsViewMo
         UnitSettings(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = { index ->
+                TemperatureUnitPref.setTemperatureUnit(context, temperatureUnits[index])
                 viewModel.updateTemperatureUnit(temperatureUnits[index])
                 selectedUnitIndex = index
+                onChanged()
             },
             units = temperatureUnits.map { it.toString() },
             temp = temp
@@ -76,7 +83,7 @@ fun TemperatureUnitSettings(temp: TemperatureResponse, viewModel: SettingsViewMo
 }
 
 @Composable
-fun PrecipitationUnitSettings(temp: TemperatureResponse) {
+fun PrecipitationUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
     val context = LocalContext.current
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Text(
@@ -102,6 +109,7 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse) {
             onUnitSelected = { index ->
                 PrecipitationUnitPref.setPrecipitationUnit(context, units[index])
                 selectedUnitIndex = index
+                onChanged()
             },
             units = units.map { it.toString() },
             temp = temp
@@ -110,7 +118,7 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse) {
 }
 
 @Composable
-fun WindUnitSettings(temp: TemperatureResponse) {
+fun WindUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
     val context = LocalContext.current
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp)) {
         Text(
@@ -136,6 +144,7 @@ fun WindUnitSettings(temp: TemperatureResponse) {
             onUnitSelected = { index ->
                 WindUnitPref.setWindUnit(context, units[index])
                 selectedUnitIndex = index
+                onChanged()
             },
             units = units.map { it.toString() },
             temp = temp

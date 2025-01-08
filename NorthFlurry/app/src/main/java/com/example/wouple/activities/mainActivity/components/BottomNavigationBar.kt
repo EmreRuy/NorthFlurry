@@ -51,7 +51,8 @@ fun BottomNavigationBar(
     onClose: () -> Unit,
     onSettingsClicked: (TemperatureResponse) -> Unit,
     air: AirQuality?,
-    viewModel: SettingsViewModel
+    viewModel: SettingsViewModel,
+    onUnitSettingsChanged: () -> Unit
 ) {
     val context = LocalContext.current
     // Initializing the default selected item
@@ -143,7 +144,8 @@ fun BottomNavigationBar(
                         }
                         context.startActivity(intent)
                     },
-                    viewModel = viewModel
+                    viewModel = viewModel,
+                    onUnitSettingsChanged = onUnitSettingsChanged
                 )
             }
         }
