@@ -101,12 +101,6 @@ class MainActivity : ComponentActivity() {
                                     }
                                 )
                             },
-                            onDetailsButtonClicked = {
-
-                            },
-                            onSettingsClicked = {
-
-                            },
                             air = airQuality.value,
                             viewModel = viewModel,
                             onUnitSettingsChanged = { getWeatherData() }

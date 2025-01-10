@@ -28,12 +28,10 @@ class SecondActivity : ComponentActivity() {
             }
             val viewModel: SettingsViewModel = viewModel()
             DetailView(
-                onBackPressed = { onBackPressedDispatcher.onBackPressed() },
+              //  onBackPressed = { onBackPressedDispatcher.onBackPressed() },
                 temp = temp,
                 searchedLocation = location,
                 air = air,
-                viewModel = viewModel
-
             )
         }
     }

@@ -29,8 +29,6 @@ import com.example.wouple.model.api.TemperatureResponse
 fun GetLocationAndDegree(
     temp: TemperatureResponse,
     searchedLocation: MutableState<SearchedLocation?>,
-    onDetailsButtonClicked: (TemperatureResponse) -> Unit,
-    onSettingsClicked: (TemperatureResponse) -> Unit
 ) {
     val isDay = temp.current_weather.is_day == 1
     Column(

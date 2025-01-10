@@ -29,9 +29,7 @@ fun MainView(
     onSearch: (String) -> Unit,
     searchedLocation: MutableState<SearchedLocation?>,
     onLocationButtonClicked: (SearchedLocation) -> Unit,
-    onDetailsButtonClicked: (TemperatureResponse) -> Unit,
     onClose: () -> Unit,
-    onSettingsClicked: (TemperatureResponse) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -72,8 +70,6 @@ fun MainView(
             GetLocationAndDegree(
                 temp = temp,
                 searchedLocation = searchedLocation,
-                onDetailsButtonClicked = onDetailsButtonClicked,
-                onSettingsClicked = onSettingsClicked
             )
             // locations search
             GetSearchBarAndList(

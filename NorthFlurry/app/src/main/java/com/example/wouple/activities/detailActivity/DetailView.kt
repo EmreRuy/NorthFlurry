@@ -7,11 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -50,7 +47,6 @@ import com.example.wouple.activities.detailActivity.components.WeeklyForecast
 import com.example.wouple.activities.detailActivity.components.WeeklyPrecipitationChart
 import com.example.wouple.activities.detailActivity.components.getWeatherDetails
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
-import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.model.api.AirQuality
 
 
@@ -60,8 +56,6 @@ fun DetailView(
     temp: TemperatureResponse,
     searchedLocation: SearchedLocation,
     air: AirQuality?,
-    onBackPressed: () -> Unit,
-    viewModel: SettingsViewModel
 ) {
     val isDay = temp.current_weather.is_day == 1
     val background: List<Color> = if (isDay) {
@@ -83,11 +77,12 @@ fun DetailView(
     val (explodeConfetti, setExplodeConfetti) = remember { mutableStateOf(false) }
     val pagerState = rememberPagerState()
     val weatherDetails = getWeatherDetails(temp)
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         topBar = {
             CustomTopAppBar(
-                onBackPressed = onBackPressed,
+                // onBackPressed = onBackPressed,
                 scrollBehavior = scrollBehavior,
             )
         },
@@ -104,7 +99,7 @@ fun DetailView(
                     .padding(innerPadding),
                 horizontalAlignment = CenterHorizontally
             ) {
-               item {
+                item {
                     LocationView(temp = temp, searchedLocation = searchedLocation)
                     Spacer(modifier = Modifier.padding(top = 8.dp))
                 }
@@ -127,7 +122,9 @@ fun DetailView(
                     WeeklyPrecipitationChart(temp = temp)
                 }
                 item {
-                    DayLightDuration(temp = temp, explodeConfettiCallback = { setExplodeConfetti(true) })
+                    DayLightDuration(
+                        temp = temp,
+                        explodeConfettiCallback = { setExplodeConfetti(true) })
                 }
                 item {
                     HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
@@ -137,7 +134,8 @@ fun DetailView(
                                 text = stringResource(id = R.string.FeelsLike),
                                 numbers = temp.hourly.apparent_temperature.getOrNull(weatherDetails.feelsLike)
                                     ?.let {
-                                        it.toInt().toString() + temp.hourly_units.apparent_temperature
+                                        it.toInt()
+                                            .toString() + temp.hourly_units.apparent_temperature
                                     } ?: "N/D",
                                 temp = temp
                             )
@@ -187,18 +185,19 @@ fun DetailView(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTopAppBar(
-    onBackPressed: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior
 ) {
     val collapsed = 22
     val expanded = 0
-    val topAppBarTextSize = (collapsed + (expanded - collapsed)*(1-scrollBehavior.state.collapsedFraction)).sp
+    val topAppBarTextSize =
+        (collapsed + (expanded - collapsed) * (1 - scrollBehavior.state.collapsedFraction)).sp
     val iconCollapsed = 32
     val iconExpanded = 0
-    val appBarIconSize =  (iconCollapsed + (iconExpanded - iconCollapsed)*(1-scrollBehavior.state.collapsedFraction)).dp
+    val appBarIconSize =
+        (iconCollapsed + (iconExpanded - iconCollapsed) * (1 - scrollBehavior.state.collapsedFraction)).dp
     MediumTopAppBar(
         title = {
-            Row{
+            Row {
                 Icon(
                     modifier = Modifier
                         .size(appBarIconSize)
@@ -219,16 +218,6 @@ fun CustomTopAppBar(
                 )
             }
 
-        },
-        navigationIcon = {
-            IconButton(onClick = { onBackPressed() }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(28.dp)
-                )
-            }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.Transparent,

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
@@ -18,9 +17,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -32,7 +29,6 @@ import com.example.wouple.activities.mainActivity.BottomNavigationItem
 import com.example.wouple.activities.mainActivity.MainView
 import com.example.wouple.activities.mainActivity.Screens
 import com.example.wouple.activities.settingsActivity.SettingsView
-import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
@@ -47,9 +43,7 @@ fun BottomNavigationBar(
     onSearch: (String) -> Unit,
     searchedLocation: MutableState<SearchedLocation?>,
     onLocationButtonClicked: (SearchedLocation) -> Unit,
-    onDetailsButtonClicked: (TemperatureResponse) -> Unit,
     onClose: () -> Unit,
-    onSettingsClicked: (TemperatureResponse) -> Unit,
     air: AirQuality?,
     viewModel: SettingsViewModel,
     onUnitSettingsChanged: () -> Unit
@@ -73,7 +67,12 @@ fun BottomNavigationBar(
                         NavigationBarItem(
                             selected = index == navigationSelectedItem,
                             label = { Text(navigationItem.label) },
-                            icon = { Icon(navigationItem.icon, contentDescription = navigationItem.label) },
+                            icon = {
+                                Icon(
+                                    navigationItem.icon,
+                                    contentDescription = navigationItem.label
+                                )
+                            },
                             onClick = {
                                 navigationSelectedItem = index
                                 navController.navigate(navigationItem.route) {
@@ -102,26 +101,20 @@ fun BottomNavigationBar(
                     onSearch = onSearch,
                     searchedLocation = searchedLocation,
                     onLocationButtonClicked = onLocationButtonClicked,
-                    onDetailsButtonClicked = {
-                        // Navigate to the Details screen
-                        navController.navigate(Screens.Details.route)
-                    },
-                    onClose = onClose,
-                    onSettingsClicked = onSettingsClicked
+                    onClose = onClose
                 )
             }
             composable(Screens.Details.route) {
                 // Display DetailView when the user navigates to the Details screen
                 DetailView(
                     temp = temp,
-                    viewModel = viewModel,
                     searchedLocation = searchedLocation.value ?: SearchedLocation(
                         display_name = "Oslo",
                         lat = "00.00",
                         lon = "00.00"
                     ),
                     air = air,  // Pass air quality data if available
-                    onBackPressed = { navController.popBackStack() }
+                    //   onBackPressed = { navController.popBackStack() }
                 )
             }
             composable(Screens.Settings.route) {
