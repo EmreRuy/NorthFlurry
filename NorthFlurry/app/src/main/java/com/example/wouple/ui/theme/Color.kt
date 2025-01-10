@@ -14,7 +14,8 @@ val beige = Color(0xFFF5E2BA)
 val tea = Color(0xFF778899)
 val mocassin = Color(0xFFFFE4B5)
 val orgn = Color(0xFFFFC047)
-val kmns = Color(0xFF2F41A7)
+val firstScreenColor =  Color(0xFF3D52BB)
+val mainViewColor = Color(0xFF3F54BE)
 
 
 

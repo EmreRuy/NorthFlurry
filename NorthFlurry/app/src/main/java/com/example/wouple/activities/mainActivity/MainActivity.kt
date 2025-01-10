@@ -2,8 +2,6 @@ package com.example.wouple.activities.mainActivity
 
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -15,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -38,6 +37,8 @@ import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Dark20
+import com.example.wouple.ui.theme.firstScreenColor
+import com.example.wouple.ui.theme.mainViewColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.delay
 
@@ -165,8 +166,8 @@ class MainActivity : ComponentActivity() {
         val isDay = temp.value?.current_weather?.is_day == 1
         systemUiController.setSystemBarsColor(
             color = when {
-                isLoading -> Corn
-                isDay -> Corn
+                isLoading ->  firstScreenColor
+                isDay -> mainViewColor
                 else -> Dark20
             }
         )
