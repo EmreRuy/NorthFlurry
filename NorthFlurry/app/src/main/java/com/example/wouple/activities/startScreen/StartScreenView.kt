@@ -300,7 +300,7 @@ fun SimpleSearchBar(
             placeholder = {
                 Text(
                     modifier = Modifier.padding(start = 24.dp),
-                    text = stringResource(id = R.string.SearchBar),
+                    text = stringResource(id = R.string.StartYourWeatherJourney),
                     color = Color.Black.copy(alpha = 0.7f)
                 )
             },
