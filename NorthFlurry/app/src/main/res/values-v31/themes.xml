@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Wouple" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/dark</item>
+        <item name="android:statusBarColor">@color/black</item>
         <item name="android:windowSplashScreenBackground">#5566C2</item>
     </style>
 </resources>

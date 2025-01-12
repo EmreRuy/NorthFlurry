@@ -53,12 +53,17 @@ fun FirstScreenView(
             Color(0xFF3D52BB),
             Color(0xFF3D52BB)
         )
+    val darkBackground = listOf(
+        Color(0xFF1D244D),
+        Color(0xFF2E3A59),
+        Color(0xFF3F5066),
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
-                    colors = background,
+                    colors = darkBackground,
                 )
             ),
         verticalArrangement = Arrangement.Center,

@@ -38,6 +38,7 @@ import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.firstScreenColor
+import com.example.wouple.ui.theme.mainColor
 import com.example.wouple.ui.theme.mainViewColor
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.delay
@@ -56,7 +57,7 @@ class MainActivity : ComponentActivity() {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
             var isLoading by remember { mutableStateOf(true) }
-            SetSystemBarColor(isLoading)
+         //  SetSystemBarColor(isLoading)
 
             LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
@@ -154,18 +155,18 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Composable
+  /*  @Composable
     private fun SetSystemBarColor(isLoading: Boolean) {
         val systemUiController = rememberSystemUiController()
         val isDay = temp.value?.current_weather?.is_day == 1
         systemUiController.setSystemBarsColor(
             color = when {
                 isLoading ->  firstScreenColor
-                isDay -> mainViewColor
+             //   isDay -> mainViewColor
                 else -> Dark20
             }
         )
-    }
+    } */
 }
 
 

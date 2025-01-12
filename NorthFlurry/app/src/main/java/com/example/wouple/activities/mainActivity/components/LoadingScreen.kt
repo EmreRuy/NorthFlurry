@@ -29,14 +29,16 @@ fun LoadingScreen() {
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.loading)
     )
+    val darkBackground = listOf(
+        Color(0xFF1D244D),
+        Color(0xFF2E3A59),
+        Color(0xFF3F5066),
+    )
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(brush = Brush.verticalGradient(
-               listOf(
-                   Color(0xFF3F54BE),
-                   Color(0xFF5566C2)
-               ) )
+               darkBackground )
             ),
         contentAlignment = Alignment.Center
     ) {

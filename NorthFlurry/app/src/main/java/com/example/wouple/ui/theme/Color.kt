@@ -16,6 +16,7 @@ val mocassin = Color(0xFFFFE4B5)
 val orgn = Color(0xFFFFC047)
 val firstScreenColor =  Color(0xFF3D52BB)
 val mainViewColor = Color(0xFF3F54BE)
+val mainColor =  Color(0xFF1D244D)
 
 
 

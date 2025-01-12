@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -43,6 +44,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
@@ -85,10 +87,16 @@ fun StartScreenView(
     searchedLocation: MutableState<SearchedLocation?>
 ) {
     val searchBarVisible = remember { mutableStateOf(false) }
+    val darkBackground = listOf(
+    Color(0xFF1D244D),
+    Color(0xFF2E3A59),
+    Color(0xFF3F5066),
+    )
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF3D52BB))
+            .background(brush = Brush.verticalGradient(darkBackground))
+              //  Color(0xFF3D52BB)
     ) {
         AnimationOfSearchScreen()
         Spacer(modifier = Modifier.height(if (searchBarVisible.value) 100.dp else 0.dp))
@@ -298,11 +306,23 @@ fun SimpleSearchBar(
                 fontSize = 18.sp,
             ),
             placeholder = {
-                Text(
-                    modifier = Modifier.padding(start = 24.dp),
-                    text = stringResource(id = R.string.StartYourWeatherJourney),
-                    color = Color.Black.copy(alpha = 0.7f)
-                )
+                Row(
+                    modifier = Modifier
+                        .padding(start = 24.dp),
+                    verticalAlignment = Alignment.CenterVertically // Align items vertically at the center
+                ) {
+                    Icon(
+                        modifier = Modifier.size(16.dp),
+                        painter = painterResource(id = R.drawable.locationpin),
+                        contentDescription = null,
+                        tint = Unspecified
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = stringResource(id = R.string.StartYourWeatherJourney),
+                        color = Color.Black.copy(alpha = 0.7f)
+                    )
+                }
             },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Search,
