@@ -100,7 +100,7 @@ fun StartScreenView(
     ) {
         AnimationOfSearchScreen()
         Spacer(modifier = Modifier.height(if (searchBarVisible.value) 100.dp else 0.dp))
-        GetIconOfMan()
+       // GetIconOfMan()
         Column(horizontalAlignment = CenterHorizontally, verticalArrangement = Arrangement.Center) {
             SearchSection(
                 searchBarVisible = searchBarVisible,
