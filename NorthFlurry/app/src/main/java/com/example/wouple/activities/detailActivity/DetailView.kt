@@ -214,9 +214,9 @@ fun CustomTopAppBar(
                 Text(
                     modifier = Modifier.padding(start = 13.dp),
                     text = stringResource(id = R.string.app_name),
-                    fontWeight = FontWeight.Thin,
+                    fontWeight = FontWeight.Light,
                     fontSize = topAppBarTextSize,
-                    color = Color.White,
+                    color = Color.White.copy(alpha = 0.7f),
                     textAlign = TextAlign.Center,
                 )
                 Spacer(modifier = Modifier.weight(1f))
