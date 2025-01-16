@@ -45,6 +45,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.activities.mainActivity.components.LottieAnimationShootingStar
 import com.example.wouple.activities.settingsActivity.components.CustomTab
@@ -93,22 +94,31 @@ fun SettingsView(
         topBar = {
             TopAppBar(
                 title = {
-                    Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-                        Spacer(modifier = Modifier.padding(start = 24.dp))
+                    Box(
+                        modifier = Modifier
+                        .fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
-                            modifier = Modifier.size(32.dp),
+                            modifier = Modifier.size(32.dp).align(Alignment.CenterVertically),
                             painter = painterResource(id = R.drawable.logo2),
                             contentDescription = null,
                             tint = Unspecified
                         )
-                        Spacer(modifier = Modifier.width(24.dp))
+                        Spacer(modifier = Modifier.weight(0.5f))
                         Text(
-                            modifier = Modifier.padding(start = 40.dp, top = 2.dp),
+                            modifier = Modifier.padding(start = 14.dp),
                             text = stringResource(id = R.string.app_name),
-                            fontWeight = FontWeight.SemiBold,
-                            color = White.copy(alpha = 0.7f)
+                            fontWeight = FontWeight.Light,
+                            color = White.copy(alpha = 0.7f),
                         )
+                        Spacer(modifier = Modifier.weight(1f))
                     }
+                }
                 },
               /*  navigationIcon = {
                     IconButton(

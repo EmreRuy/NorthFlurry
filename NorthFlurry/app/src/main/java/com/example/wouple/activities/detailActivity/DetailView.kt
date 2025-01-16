@@ -18,6 +18,7 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -195,35 +196,37 @@ fun CustomTopAppBar(
     val iconExpanded = 0
     val appBarIconSize =
         (iconCollapsed + (iconExpanded - iconCollapsed) * (1 - scrollBehavior.state.collapsedFraction)).dp
+
     MediumTopAppBar(
         title = {
-            Row {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     modifier = Modifier
-                        .size(appBarIconSize)
-                        .padding(top = 8.dp),
+                        .size(appBarIconSize),
                     painter = painterResource(id = R.drawable.logo2),
                     contentDescription = null,
-                    tint = Color.Unspecified,
+                    tint = Color.Unspecified
                 )
+                Spacer(modifier = Modifier.weight(0.5f))
                 Text(
+                    modifier = Modifier.padding(start = 13.dp),
                     text = stringResource(id = R.string.app_name),
                     fontWeight = FontWeight.Thin,
                     fontSize = topAppBarTextSize,
                     color = Color.White,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp, end = 80.dp)
                 )
+                Spacer(modifier = Modifier.weight(1f))
             }
-
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.Transparent,
             scrolledContainerColor = Color.Transparent,
             titleContentColor = Color.White,
-            actionIconContentColor = Color.White,
+            actionIconContentColor = Color.White
         ),
         scrollBehavior = scrollBehavior
     )

@@ -63,7 +63,7 @@ fun TemperatureUnitSettings(
             color = White.copy(alpha = 0.7f),
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             textAlign = TextAlign.Start
         )
 
@@ -84,9 +84,9 @@ fun TemperatureUnitSettings(
 @Composable
 fun PrecipitationUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
     val context = LocalContext.current
-    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) {
         Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.PrecipitationUnits),
             color = White.copy(alpha = 0.7f),
             fontSize = 16.sp,
@@ -119,9 +119,9 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) 
 @Composable
 fun WindUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
     val context = LocalContext.current
-    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp)) {
+    Column(modifier = Modifier.padding(horizontal = 16.dp, vertical =8.dp)) {
         Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.WindSpeedUnits),
             color = White.copy(alpha = 0.7f),
             fontSize = 16.sp,
