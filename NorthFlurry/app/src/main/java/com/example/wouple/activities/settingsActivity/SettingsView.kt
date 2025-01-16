@@ -20,13 +20,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBarDefaults
@@ -43,10 +40,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
 import com.example.wouple.activities.mainActivity.components.LottieAnimationShootingStar
@@ -66,14 +63,12 @@ import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.model.api.TemperatureUnit
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun SettingsView(
-    onBackPressed: () -> Unit,
     onFeedbackClicked: (Boolean) -> Unit,
     temp: TemperatureResponse,
     onLottieClicked: () -> Unit,
@@ -106,11 +101,12 @@ fun SettingsView(
                             contentDescription = null,
                             tint = Unspecified
                         )
-                        Spacer(modifier = Modifier.width(16.dp))
+                        Spacer(modifier = Modifier.width(24.dp))
                         Text(
                             modifier = Modifier.padding(start = 40.dp, top = 2.dp),
                             text = stringResource(id = R.string.app_name),
-                            fontWeight = FontWeight.Thin,
+                            fontWeight = FontWeight.SemiBold,
+                            color = White.copy(alpha = 0.7f)
                         )
                     }
                 },

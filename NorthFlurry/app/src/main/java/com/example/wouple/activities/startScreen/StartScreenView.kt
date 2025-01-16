@@ -9,7 +9,6 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,9 +43,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.BottomCenter
-import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -88,19 +85,19 @@ fun StartScreenView(
 ) {
     val searchBarVisible = remember { mutableStateOf(false) }
     val darkBackground = listOf(
-    Color(0xFF1D244D),
-    Color(0xFF2E3A59),
-    Color(0xFF3F5066),
+        Color(0xFF1D244D),
+        Color(0xFF2E3A59),
+        Color(0xFF3F5066),
     )
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(brush = Brush.verticalGradient(darkBackground))
-              //  Color(0xFF3D52BB)
+        //  Color(0xFF3D52BB)
     ) {
         AnimationOfSearchScreen()
         Spacer(modifier = Modifier.height(if (searchBarVisible.value) 100.dp else 0.dp))
-       // GetIconOfMan()
+        // GetIconOfMan()
         Column(horizontalAlignment = CenterHorizontally, verticalArrangement = Arrangement.Center) {
             SearchSection(
                 searchBarVisible = searchBarVisible,
@@ -259,7 +256,7 @@ fun LocationItem(
         }
     }
 }
-
+/*
 @Composable
 fun GetIconOfMan() {
     Box(
@@ -274,7 +271,7 @@ fun GetIconOfMan() {
             modifier = Modifier.size(150.dp)
         )
     }
-}
+} */
 
 @Composable
 fun SimpleSearchBar(
@@ -309,7 +306,7 @@ fun SimpleSearchBar(
                 Row(
                     modifier = Modifier
                         .padding(start = 24.dp),
-                    verticalAlignment = Alignment.CenterVertically // Align items vertically at the center
+                    verticalAlignment = CenterVertically // Align items vertically at the center
                 ) {
                     Icon(
                         modifier = Modifier.size(16.dp),

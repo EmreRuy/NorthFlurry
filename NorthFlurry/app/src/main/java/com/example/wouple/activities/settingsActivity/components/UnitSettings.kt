@@ -11,7 +11,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,7 +28,6 @@ import com.example.wouple.model.api.WindUnit
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
-import com.example.wouple.ui.theme.beige
 
 @Composable
 fun SettingsCardTwo() {
@@ -36,8 +35,8 @@ fun SettingsCardTwo() {
     Text(
         text = stringResource(id = R.string.UnitSettings),
         modifier = Modifier.padding(8.dp),
-        fontWeight = FontWeight.Medium,
-        color = beige.copy(alpha = 0.8f),
+        fontWeight = FontWeight.Light,
+        color = White.copy(alpha = 0.7f),
         fontSize = 28.sp
     )
 }
@@ -61,10 +60,10 @@ fun TemperatureUnitSettings(
     ) {
         Text(
             text = stringResource(id = R.string.TemperatureUnits),
-            color = Color.White,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
+            color = White.copy(alpha = 0.7f),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal,
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
             textAlign = TextAlign.Start
         )
 
@@ -87,11 +86,11 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) 
     val context = LocalContext.current
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
             text = stringResource(id = R.string.PrecipitationUnits),
-            color = Color.White,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
+            color = White.copy(alpha = 0.7f),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Start
         )
         val units = PrecipitationUnit.values()
@@ -122,11 +121,11 @@ fun WindUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
     val context = LocalContext.current
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp)) {
         Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 2.dp),
             text = stringResource(id = R.string.WindSpeedUnits),
-            color = Color.White,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
+            color = White.copy(alpha = 0.7f),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Start
         )
         val units = WindUnit.values()

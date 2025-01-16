@@ -43,16 +43,12 @@ fun PreviewFirstScreenView() {
         onStartButtonClicked = { /* No action for preview */ }
     )
 }
+
 @Composable
 fun FirstScreenView(
     onStartButtonClicked: () -> Unit
 ) {
     val currentContext = LocalContext.current
-    val background =
-        listOf(
-            Color(0xFF3D52BB),
-            Color(0xFF3D52BB)
-        )
     val darkBackground = listOf(
         Color(0xFF1D244D),
         Color(0xFF2E3A59),
@@ -124,13 +120,14 @@ fun FirstScreenView(
         }
         Spacer(modifier = Modifier.weight(1.5f))
         Text(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .padding(16.dp)
                 .clickable {
-                        val url = "https://sites.google.com/view/northflurry/home"
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = Uri.parse(url)
-                        currentContext.startActivity(intent)
-                    },
+                    val url = "https://sites.google.com/view/northflurry/home"
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse(url)
+                    currentContext.startActivity(intent)
+                },
             text = stringResource(id = R.string.NorthPrivacy),
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,

@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -30,7 +31,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.beige
 
@@ -40,8 +40,8 @@ fun SettingsCardOne() {
     Text(
         text = stringResource(id = R.string.GeneralSettings),
         modifier = Modifier.padding(8.dp),
-        fontWeight = FontWeight.Normal,
-        color = beige.copy(alpha = 0.8f),
+        fontWeight = FontWeight.Light,
+        color = White.copy(alpha = 0.7f),
         fontSize = 28.sp
     )
 }

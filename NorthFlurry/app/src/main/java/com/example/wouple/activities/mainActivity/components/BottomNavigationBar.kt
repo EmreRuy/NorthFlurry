@@ -120,7 +120,6 @@ fun BottomNavigationBar(
             composable(Screens.Settings.route) {
                 SettingsView(
                     temp = temp,
-                    onBackPressed = { navController.popBackStack() },
                     onFeedbackClicked = { feedback ->
                         // Handle feedback logic
                         sendEmail(context, feedback)
