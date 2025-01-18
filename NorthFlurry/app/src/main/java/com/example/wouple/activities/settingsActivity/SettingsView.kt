@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
@@ -45,7 +44,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.activities.mainActivity.components.LottieAnimationShootingStar
 import com.example.wouple.activities.settingsActivity.components.CustomTab
@@ -96,41 +94,43 @@ fun SettingsView(
                 title = {
                     Box(
                         modifier = Modifier
-                        .fillMaxSize(),
+                            .fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(32.dp).align(Alignment.CenterVertically),
-                            painter = painterResource(id = R.drawable.logo2),
-                            contentDescription = null,
-                            tint = Unspecified
-                        )
-                        Spacer(modifier = Modifier.weight(0.5f))
-                        Text(
-                            modifier = Modifier.padding(start = 14.dp),
-                            text = stringResource(id = R.string.app_name),
-                            fontWeight = FontWeight.Light,
-                            color = White.copy(alpha = 0.7f),
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .align(Alignment.CenterVertically),
+                                painter = painterResource(id = R.drawable.logo2),
+                                contentDescription = null,
+                                tint = Unspecified
+                            )
+                            Spacer(modifier = Modifier.weight(0.5f))
+                            Text(
+                                modifier = Modifier.padding(start = 14.dp),
+                                text = stringResource(id = R.string.app_name),
+                                fontWeight = FontWeight.Light,
+                                color = White.copy(alpha = 0.7f),
+                            )
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
                     }
-                }
                 },
-              /*  navigationIcon = {
-                    IconButton(
-                        onClick = onBackPressed
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            modifier = Modifier.size(28.dp)
-                        )
-                    }
-                }, */
+                /*  navigationIcon = {
+                      IconButton(
+                          onClick = onBackPressed
+                      ) {
+                          Icon(
+                              Icons.AutoMirrored.Filled.ArrowBack,
+                              contentDescription = "Back",
+                              modifier = Modifier.size(28.dp)
+                          )
+                      }
+                  }, */
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Transparent,
                     navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
@@ -154,6 +154,7 @@ fun SettingsView(
         }
     )
 }
+
 @Composable
 fun GetSurface(
     onFeedbackClicked: (Boolean) -> Unit,
@@ -236,7 +237,7 @@ fun GetSurface(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             SettingsCardOne()
-                            OpenMetAttribution (onMetClicked = onMetClicked)
+                            OpenMetAttribution(onMetClicked = onMetClicked)
                             LottieFilesAndTerms(onLottieClicked = onLottieClicked)
                             TroubleOnAppSettings { onFeedbackClicked(true) }
                             IdeasSettings { onFeedbackClicked(false) }

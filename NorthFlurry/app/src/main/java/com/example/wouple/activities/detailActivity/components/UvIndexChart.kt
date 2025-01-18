@@ -62,7 +62,7 @@ fun UvChartView(temp: TemperatureResponse) {
         temp.daily.uv_index_max.take(7)
     val maxUv = dailyUv.maxOrNull()?.toFloat() ?: 0f
     val daysOfWeek = (0 until 7).map {
-        getLocalizedDayName(LocalDate.now().plusDays(it.toLong()).dayOfWeek).substring(0,3)
+        getLocalizedDayName(LocalDate.now().plusDays(it.toLong()).dayOfWeek).substring(0, 3)
     }
     Column(
         modifier = Modifier

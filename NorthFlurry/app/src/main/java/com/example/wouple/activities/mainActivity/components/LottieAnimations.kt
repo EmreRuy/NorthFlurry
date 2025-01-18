@@ -28,7 +28,7 @@ fun LottieAnimationClear() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(65.dp)
     )
 }
@@ -49,7 +49,7 @@ fun LottieAnimationShootingStar() {
 
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(150.dp)
     )
 }
@@ -65,7 +65,7 @@ fun LottieAnimationSun() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(70.dp)
     )
 }
@@ -81,7 +81,7 @@ fun LottieAnimationSnowDaylight() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(85.dp)
     )
 }
@@ -97,7 +97,7 @@ fun LottieAnimationSnowNight() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(85.dp)
     )
 }
@@ -113,7 +113,7 @@ fun LottieAnimationPartlyCloudyNight() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(70.dp)
     )
 }
@@ -129,7 +129,7 @@ fun LottieAnimationPartlyCloudy() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(75.dp)
     )
 }
@@ -145,7 +145,7 @@ fun LottieAnimationRainDayLight() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(80.dp)
     )
 }
@@ -161,7 +161,7 @@ fun LottieAnimationRainNight() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(80.dp)
     )
 }
@@ -177,7 +177,7 @@ fun LottieAnimationCloud() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(85.dp)
     )
 }
@@ -193,10 +193,11 @@ fun LottieAnimationThunderStorm() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(85.dp)
     )
 }
+
 @Composable
 fun LottieAnimationFoggy() {
     val isPlaying by remember { mutableStateOf(true) }
@@ -208,7 +209,7 @@ fun LottieAnimationFoggy() {
     )
     LottieAnimation(
         composition = composition,
-        progress = {progress },
+        progress = { progress },
         modifier = Modifier.size(85.dp)
     )
 }

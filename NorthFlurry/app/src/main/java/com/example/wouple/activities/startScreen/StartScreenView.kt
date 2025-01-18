@@ -310,7 +310,7 @@ fun SimpleSearchBar(
                 ) {
                     Icon(
                         modifier = Modifier.size(16.dp),
-                        painter = painterResource(id = R.drawable.locationpin),
+                        painter = painterResource(id = R.drawable.ic_pin),
                         contentDescription = null,
                         tint = Unspecified
                     )
