@@ -256,23 +256,6 @@ fun LocationItem(
         }
     }
 }
-/*
-@Composable
-fun GetIconOfMan() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 20.dp),
-        contentAlignment = BottomEnd
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_man),
-            contentDescription = null,
-            modifier = Modifier.size(150.dp)
-        )
-    }
-} */
-
 @Composable
 fun SimpleSearchBar(
     onSearch: (String) -> Unit
