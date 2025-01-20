@@ -102,12 +102,6 @@ fun SearchBar(
                             .padding(start = 8.dp),
                         verticalAlignment = CenterVertically // Align items vertically at the center
                     ) {
-                    Icon(
-                        modifier = Modifier.size(16.dp),
-                        painter = painterResource(id = R.drawable.ic_pin),
-                        contentDescription = null,
-                        tint = Unspecified
-                    )
                     Text(
                         modifier = Modifier.padding(start = 16.dp),
                         text = stringResource(id = R.string.SearchBar),

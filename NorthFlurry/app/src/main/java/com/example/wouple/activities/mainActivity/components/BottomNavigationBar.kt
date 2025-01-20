@@ -6,7 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -60,17 +63,25 @@ fun BottomNavigationBar(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                modifier = Modifier.height(65.dp)
+            ) {
                 // Iterate through bottom navigation items
                 BottomNavigationItem().bottomNavigationItems()
                     .forEachIndexed { index, navigationItem ->
                         NavigationBarItem(
                             selected = index == navigationSelectedItem,
-                            label = { Text(navigationItem.label) },
+                            label = {
+                                Text(
+                                    navigationItem.label,
+                                    style = MaterialTheme.typography.labelSmall
+                                )
+                            },
                             icon = {
                                 Icon(
                                     navigationItem.icon,
-                                    contentDescription = navigationItem.label
+                                    contentDescription = navigationItem.label,
+                                    modifier = Modifier.size(20.dp)
                                 )
                             },
                             onClick = {
