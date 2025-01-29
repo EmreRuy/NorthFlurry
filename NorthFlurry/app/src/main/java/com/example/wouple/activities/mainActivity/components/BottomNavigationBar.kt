@@ -64,7 +64,7 @@ fun BottomNavigationBar(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar(
-                modifier = Modifier.height(65.dp)
+             //   modifier = Modifier.height(65.dp)
             ) {
                 // Iterate through bottom navigation items
                 BottomNavigationItem().bottomNavigationItems()

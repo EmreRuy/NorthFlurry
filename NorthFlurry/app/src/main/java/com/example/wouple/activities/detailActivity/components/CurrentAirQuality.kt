@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -80,8 +81,10 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                 modifier = Modifier.padding(4.dp),
                 text = stringResource(id = R.string.air_quality_index).uppercase(),
                 textAlign = TextAlign.Start,
-                color = textColor,
-                fontWeight = FontWeight.Light
+                color = textColor.copy(alpha = 0.7f),
+                fontWeight = FontWeight.Medium, // More readable than Light
+                fontFamily = FontFamily.SansSerif, // Change to Inter if imported
+                fontSize = 14.sp // Adjust for better readability
             )
             Spacer(modifier = Modifier.weight(1f))
             val aqiValue = air?.current?.european_aqi.toString()
