@@ -78,7 +78,7 @@ fun UvIndex(temp: TemperatureResponse) {
                     .size(20.dp),
                 painter = painterResource(id = R.drawable.ic_sun),
                 contentDescription = null,
-                tint = textColor
+                tint = Color.Unspecified
             )
             Text(
                 modifier = Modifier.padding(4.dp),

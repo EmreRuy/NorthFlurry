@@ -75,7 +75,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                     .size(20.dp),
                 painter = painterResource(id = R.drawable.ic_airquality),
                 contentDescription = null,
-                tint = textColor
+                tint = Color.Green
             )
             Text(
                 modifier = Modifier.padding(4.dp),
