@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ import com.example.wouple.activities.mainActivity.components.GetLocationAndDegre
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun MainView(
@@ -31,8 +33,10 @@ fun MainView(
     onLocationButtonClicked: (SearchedLocation) -> Unit,
     onClose: () -> Unit,
 ) {
+
     Column(
         modifier = Modifier
+            .padding(top = 0.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {

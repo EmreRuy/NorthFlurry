@@ -52,13 +52,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val isFirstLaunch = LocationPref.getSearchedLocation(this)
-
         setContent {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
             var isLoading by remember { mutableStateOf(true) }
-         //  SetSystemBarColor(isLoading)
-
             LaunchedEffect(Unit) {
                 isConnected = isInternetConnected(context)
                 delay(1_000) // Simulating network delay for loading
@@ -154,19 +151,6 @@ class MainActivity : ComponentActivity() {
             getAirQuality(location)
         }
     }
-
-  /*  @Composable
-    private fun SetSystemBarColor(isLoading: Boolean) {
-        val systemUiController = rememberSystemUiController()
-        val isDay = temp.value?.current_weather?.is_day == 1
-        systemUiController.setSystemBarsColor(
-            color = when {
-                isLoading ->  firstScreenColor
-             //   isDay -> mainViewColor
-                else -> Dark20
-            }
-        )
-    } */
 }
 
 

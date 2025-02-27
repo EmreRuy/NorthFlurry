@@ -85,7 +85,7 @@ fun RowScope.CustomBarChart(
         Text(
             text = size.toString(),
             style = MaterialTheme.typography.bodySmall,
-            color = Color.Black,
+            color = Color.White,
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(top = 4.dp)

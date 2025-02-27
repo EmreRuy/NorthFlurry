@@ -96,6 +96,7 @@ dependencies {
 
     // Window Manager
     implementation 'androidx.window:window:1.3.0'
+    implementation 'com.google.android.gms:play-services-location:21.3.0'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
