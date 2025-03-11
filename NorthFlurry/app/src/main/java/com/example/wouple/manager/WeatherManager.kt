@@ -2,7 +2,6 @@ package com.example.wouple.manager
 
 import android.content.Context
 import android.widget.Toast
-import com.airbnb.lottie.BuildConfig
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.ApiRequest
 import com.example.wouple.model.api.PrecipitationUnit
@@ -75,9 +74,6 @@ object WeatherManager {
             onSuccessCall(null)
             return
         }
-        if (BuildConfig.DEBUG) {
-            getDataFromMock(onSuccessCall)
-        } else {
             fetchDataFromBackend(
                 context,
                 location,
@@ -86,7 +82,7 @@ object WeatherManager {
                 windUnit,
                 precipitationUnit
             )
-        }
+
     }
 
     private fun getDataFromMock(onSuccessCall: (TemperatureResponse) -> Unit) {

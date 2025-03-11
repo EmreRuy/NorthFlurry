@@ -33,7 +33,6 @@ fun MainView(
     onLocationButtonClicked: (SearchedLocation) -> Unit,
     onClose: () -> Unit,
 ) {
-
     Column(
         modifier = Modifier
             .padding(top = 0.dp)
