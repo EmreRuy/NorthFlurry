@@ -35,6 +35,7 @@ import com.example.wouple.preferences.LocationPref
 import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
+import com.example.wouple.ui.theme.AppTheme
 import com.example.wouple.ui.theme.Corn
 import com.example.wouple.ui.theme.Dark20
 import com.example.wouple.ui.theme.firstScreenColor
@@ -53,6 +54,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val isFirstLaunch = LocationPref.getSearchedLocation(this)
         setContent {
+            AppTheme {
             val context = LocalContext.current
             var isConnected by remember { mutableStateOf(true) }
             var isLoading by remember { mutableStateOf(true) }
@@ -105,6 +107,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 }
+            }
             }
         }
     }

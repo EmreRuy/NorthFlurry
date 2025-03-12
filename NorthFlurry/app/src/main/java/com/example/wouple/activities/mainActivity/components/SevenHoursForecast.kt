@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -40,7 +41,7 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
-        val isDay = temp.current_weather.is_day == 1
+     /*   val isDay = temp.current_weather.is_day == 1
         val backgroundColor: List<Color> = if (isDay) {
             val baseColor = Color(0xFF494CC6)
             val lighterShades = listOf(
@@ -55,11 +56,11 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
                 Color(0xFF2E3A59),
                 Color(0xFF3F5066),
             )
-        }
+        } */
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(backgroundColor))
+                .background(MaterialTheme.colorScheme.onPrimary)
         ) {
             SevenHoursCardNotification(temp)
             Column(

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -108,7 +109,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(brush = Brush.verticalGradient(background)),
+            .background(MaterialTheme.colorScheme.onPrimary),
         contentAlignment = CenterStart,
     ) {
         Row(

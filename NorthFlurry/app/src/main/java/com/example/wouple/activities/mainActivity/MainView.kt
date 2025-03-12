@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -35,11 +37,10 @@ fun MainView(
 ) {
     Column(
         modifier = Modifier
-            .padding(top = 0.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        val isDay = temp.current_weather.is_day == 1
+     /*   val isDay = temp.current_weather.is_day == 1
         val background: List<Color> = if (isDay) {
             val baseColor = Color(0xFF3F54BE)
             val lighterShades = listOf(
@@ -56,16 +57,17 @@ fun MainView(
                 Color(0xFF2E3A59),
                 Color(0xFF3F5066),
             )
-        }
+        } */
         //Top view
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(
+                .background(MaterialTheme.colorScheme.onPrimary)
+               /* .background(
                     brush = Brush.verticalGradient(
                         colors = background
                     )
-                )
+                ) */
                 .padding(bottom = 18.dp),
             contentAlignment = TopStart
         ) {
