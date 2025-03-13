@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -38,7 +39,7 @@ fun GetLocationAndDegree(
             fontWeight = FontWeight.Thin,
             textAlign = TextAlign.Center,
             fontSize = 50.sp,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(
@@ -48,7 +49,7 @@ fun GetLocationAndDegree(
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Thin,
             fontSize = 64.sp,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.padding(top = 12.dp))
         WeatherAnimation(temp.current_weather.weathercode, isDay)

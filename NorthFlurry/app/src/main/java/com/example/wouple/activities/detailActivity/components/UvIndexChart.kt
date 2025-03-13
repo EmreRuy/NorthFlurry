@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,7 +50,7 @@ fun UvIndexChart(temp: TemperatureResponse) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(background))
+            .background(MaterialTheme.colorScheme.primary)
             .padding(12.dp),
     ) {
         UvChartView(temp = temp)
@@ -75,7 +76,7 @@ fun UvChartView(temp: TemperatureResponse) {
             text = stringResource(id = R.string.UV_Index_For_Upcoming_Days),
             fontWeight = FontWeight.Light,
             fontSize = 18.sp,
-            color = Whitehis
+            color = MaterialTheme.colorScheme.onPrimaryContainer
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpView(temp)
@@ -112,7 +113,7 @@ fun UvChartView(temp: TemperatureResponse) {
                 ) {
                     Text(
                         text = label,
-                        color = Color.White.copy(alpha = 0.7f),
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                         fontSize = 12.sp
                     )
                 }

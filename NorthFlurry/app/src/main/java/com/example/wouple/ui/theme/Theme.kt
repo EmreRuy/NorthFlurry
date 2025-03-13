@@ -10,41 +10,53 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
 private val LightColorScheme = lightColorScheme(
-    primary = Color(0xFF505B92),
+    primary = Color(0xFF3A6EA5),  // Deep ocean blue
     onPrimary = Color(0xFFFFFFFF),
-    primaryContainer = Color(0xFFDDE1FF),
-    onPrimaryContainer = Color(0xFF384379),
+    primaryContainer = Color(0xFFBFD8EF),  // Soft sky blue
+    onPrimaryContainer = Color(0xFF1C3E63),
 
-    secondary = Color(0xFF5A5D72),
+    secondary = Color(0xFF64748B),  // Neutral blue-gray
     onSecondary = Color(0xFFFFFFFF),
-    secondaryContainer = Color(0xFFDFE1F9),
-    onSecondaryContainer = Color(0xFF424659),
+    secondaryContainer = Color(0xFFD8E0EB),
+    onSecondaryContainer = Color(0xFF2C3A4B),
 
-    tertiary = Color(0xFF76546E),
+    tertiary = Color(0xFF886F6F),  // Elegant muted rose
     onTertiary = Color(0xFFFFFFFF),
-    tertiaryContainer = Color(0xFFFFD7F3),
-    onTertiaryContainer = Color(0xFF5C3C56),
-    background = Color(0xFFF7F9FC),  // Light bluish-gray, soft on the eyes
-    onBackground = Color(0xFF202124)
+    tertiaryContainer = Color(0xFFF4D7D7),
+    onTertiaryContainer = Color(0xFF503636),
+
+    background = Color(0xFFDCE2F9),  // Clean, light slate
+    onBackground = Color(0xFF1F2933),
+    surface = Color(0xFFFFFFFF),
+    onSurface = Color(0xFF202A36),
+
+    outline = Color(0xFFB0BEC5),  // Subtle outlines
 )
+
 val DarkColorScheme = darkColorScheme(
-    primary = Color(0xFFB9C3FF),
-    onPrimary = Color(0xFF202C61),
-    primaryContainer = Color(0xFF384379),
-    onPrimaryContainer = Color(0xFFDDE1FF),
+    primary = Color(0xFF90CAF9),  // Light sky blue
+    onPrimary = Color(0xFF0B2942),
+    primaryContainer = Color(0xFF1E3A5F),
+    onPrimaryContainer = Color(0xFFBFD8EF),
 
-    secondary = Color(0xFFC3C5DD),
-    onSecondary = Color(0xFF2C2F42),
-    secondaryContainer = Color(0xFF424659),
-    onSecondaryContainer = Color(0xFFDFE1F9),
+    secondary = Color(0xFF90A4AE),  // Soft desaturated blue-gray
+    onSecondary = Color(0xFF1B262E),
+    secondaryContainer = Color(0xFF2E3B44),
+    onSecondaryContainer = Color(0xFFD8E0EB),
 
-    tertiary = Color(0xFFE5BAD9),
-    onTertiary = Color(0xFF44263E),
-    tertiaryContainer = Color(0xFF5C3C56),
-    onTertiaryContainer = Color(0xFFFFD7F3),
-    background = Color(0xFF121212),  // Almost black, comfortable in low light
-    onBackground = Color(0xFFE3E3E3)
+    tertiary = Color(0xFFCFAFAF),  // Warm rose tones
+    onTertiary = Color(0xFF382222),
+    tertiaryContainer = Color(0xFF573B3B),
+    onTertiaryContainer = Color(0xFFF4D7D7),
+
+    background = Color(0xFF0F172A),  // Deep navy for reduced eye strain
+    onBackground = Color(0xFFDCE0E6),
+    surface = Color(0xFF1E293B),
+    onSurface = Color(0xFFDCE0E6),
+
+    outline = Color(0xFF78909C),  // Soft borders in dark mode
 )
+
 
 @Composable
 fun AppTheme(

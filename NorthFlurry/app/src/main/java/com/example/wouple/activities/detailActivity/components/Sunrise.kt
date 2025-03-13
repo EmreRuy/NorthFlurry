@@ -2,6 +2,7 @@ package com.example.wouple.activities.detailActivity.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +36,7 @@ fun GetSunRise(temp: TemperatureResponse) {
             text = formattedSunrise,
             fontWeight = FontWeight.ExtraLight,
             fontSize = 30.sp,
-            color = Color.White.copy(alpha = 0.8f),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
         )
     }
 }

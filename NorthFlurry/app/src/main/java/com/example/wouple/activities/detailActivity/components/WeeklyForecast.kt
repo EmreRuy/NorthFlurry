@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -55,7 +56,7 @@ fun WeeklyForecast(
             .padding(vertical = 8.dp, horizontal = 14.dp)
             .fillMaxWidth()
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(brush = Brush.verticalGradient(background))
+            .background(MaterialTheme.colorScheme.primary)
             .padding(16.dp),
     ) {
         Row(
@@ -68,7 +69,7 @@ fun WeeklyForecast(
                     .align(Alignment.CenterVertically)
                     .padding(start = 3.dp),
                 text = stringResource(id = R.string.Upcoming_Days),
-                color = Whitehis,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.Light,
                 fontSize = 18.sp
             )
@@ -138,7 +139,7 @@ fun WeeklyForecast(
                             if (it.isLowerCase()) it.titlecase(locale = Locale.ENGLISH) else it.toString()
                         },
                     fontSize = 16.sp,
-                    color = Whitehis.copy(alpha = 0.7f)
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
                 Spacer(modifier = Modifier.padding(horizontal = 10.dp))
                 Image(
@@ -153,7 +154,7 @@ fun WeeklyForecast(
                         .width(35.dp),
                     text = "$forecastMin°",
                     textAlign = TextAlign.Right,
-                    color = Whitehis.copy(alpha = 0.7f),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                 )
@@ -168,7 +169,7 @@ fun WeeklyForecast(
                         .width(35.dp),
                     text = "$forecastMax°",
                     textAlign = TextAlign.Right,
-                    color = Whitehis.copy(alpha = 0.7f),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
                 )

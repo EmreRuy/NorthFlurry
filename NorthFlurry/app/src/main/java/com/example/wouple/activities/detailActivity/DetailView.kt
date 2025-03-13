@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -59,23 +60,6 @@ fun DetailView(
     searchedLocation: SearchedLocation,
     air: AirQuality?,
 ) {
-    val isDay = temp.current_weather.is_day == 1
-    val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF3F54BE)
-        val lighterShades = listOf(
-            baseColor,
-            baseColor.copy(alpha = 0.9f),
-            baseColor.copy(alpha = 0.8f),
-            baseColor.copy(alpha = 0.5f),
-        )
-        lighterShades
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
-        )
-    }
     val (explodeConfetti, setExplodeConfetti) = remember { mutableStateOf(false) }
     val pagerState = rememberPagerState()
     val weatherDetails = getWeatherDetails(temp)
@@ -225,7 +209,7 @@ fun CustomTopAppBar(
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.Transparent,
-            scrolledContainerColor = Color.Transparent,
+            scrolledContainerColor = MaterialTheme.colorScheme.primaryContainer,
             titleContentColor = Color.White,
             actionIconContentColor = Color.White
         ),

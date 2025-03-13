@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -60,14 +61,14 @@ fun GetDayLength(temp: TemperatureResponse) {
             text = stringResource(id = R.string.Day_Length),
             fontWeight = FontWeight.Thin,
             fontSize = 28.sp,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
         )
         Text(
             modifier = Modifier.padding(top = 2.dp),
             text = lengthOfTheDay,
             fontWeight = FontWeight.Medium,
             fontSize = 16.sp,
-            color = Whitehis,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
         )
     }
 }

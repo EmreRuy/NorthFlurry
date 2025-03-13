@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,14 +44,14 @@ fun LocationView(
             text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
             fontWeight = FontWeight.Thin,
             fontSize = 50.sp,
-            color = color,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
         )
         Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(
             text = "${temp.current_weather.temperature.toInt()}°",
-            color = color,
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(start = 4.dp),
             fontWeight = FontWeight.Thin,
             fontSize = 64.sp,
@@ -76,7 +77,7 @@ fun LocationView(
             )
             Text(
                 text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
-                color = color,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light
@@ -84,7 +85,7 @@ fun LocationView(
             Spacer(modifier = Modifier.weight(0.9f))
             Text(
                 text = weatherDescription,
-                color = color.copy(alpha = 0.9f),
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light
@@ -92,7 +93,7 @@ fun LocationView(
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
-                color = color,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light

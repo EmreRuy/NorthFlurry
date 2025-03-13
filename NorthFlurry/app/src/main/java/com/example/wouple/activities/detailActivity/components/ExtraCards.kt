@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -54,7 +55,7 @@ fun ExtraCards(
             .padding(vertical = 8.dp)
             .padding(horizontal = 16.dp)
             .shadow(1.dp, RoundedCornerShape(21.dp))
-            .background(brush = Brush.verticalGradient(background)),
+            .background(MaterialTheme.colorScheme.primary),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -67,7 +68,7 @@ fun ExtraCards(
             Text(
                 modifier = Modifier.padding(8.dp),
                 text = text,
-                color = Spiro,
+                color = MaterialTheme.colorScheme.primaryContainer,
                 fontSize = 22.sp,
 
                 )
@@ -75,7 +76,7 @@ fun ExtraCards(
             Text(
                 modifier = Modifier.padding(8.dp),
                 text = numbers,
-                color = Whitehis,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -84,7 +85,7 @@ fun ExtraCards(
         Text(
             modifier = Modifier,
             text = stringResource(id = R.string.Expected_Today),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 16.sp
         )
         HorizontalWave(

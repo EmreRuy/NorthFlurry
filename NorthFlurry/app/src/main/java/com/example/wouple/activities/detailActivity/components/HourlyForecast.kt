@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
@@ -55,14 +56,14 @@ fun HourlyForecast(temp: TemperatureResponse) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 12.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(background))
+            .background(MaterialTheme.colorScheme.primary)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             modifier = Modifier.padding(12.dp),
             text = stringResource(id = R.string.Next_24_Hours),
-            color = Whitehis,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center
@@ -74,12 +75,12 @@ fun HourlyForecast(temp: TemperatureResponse) {
             TabRow(
                 modifier = Modifier.background(Color.Transparent),
                 selectedTabIndex = selectedTabIndex,
-                contentColor = Color.White,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 containerColor = Color.Transparent,
                 indicator = { tabPositions ->
                     SecondaryIndicator(
                         modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                        color = Whitehis
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                 },
             ) {
@@ -92,7 +93,7 @@ fun HourlyForecast(temp: TemperatureResponse) {
                                 text = item.title,
                                 fontWeight = FontWeight.W600,
                                 fontSize = 14.sp,
-                                color = Whitehis.copy(alpha = 0.7f)
+                                color = MaterialTheme.colorScheme.onPrimaryContainer
                             )
                         }
                     )

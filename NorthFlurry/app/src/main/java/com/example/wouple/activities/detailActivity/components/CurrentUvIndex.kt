@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -50,7 +51,7 @@ fun CurrentUvIndex(temp: TemperatureResponse) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(background))
+            .background(MaterialTheme.colorScheme.primary)
             .padding(12.dp),
     ) {
         UvIndex(temp)
@@ -78,13 +79,13 @@ fun UvIndex(temp: TemperatureResponse) {
                     .size(20.dp),
                 painter = painterResource(id = R.drawable.ic_sun),
                 contentDescription = null,
-                tint = Color.Unspecified
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Text(
                 modifier = Modifier.padding(4.dp),
                 text = stringResource(id = R.string.current_uv_index).uppercase(),
                 textAlign = TextAlign.Start,
-                color = textColor.copy(alpha = 0.8f),
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.SansSerif
             )
@@ -98,7 +99,7 @@ fun UvIndex(temp: TemperatureResponse) {
                 text = aqiValue,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Light,
-                color = textColor
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
             val uvIndexDescriptions =
                 getUvIndexDescription(uvIndex = temp.hourly.uv_index[currentHour].toInt())
@@ -107,7 +108,7 @@ fun UvIndex(temp: TemperatureResponse) {
                 text = uvIndexDescriptions,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Light,
-                color = textColor
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
     }

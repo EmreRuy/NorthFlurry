@@ -1,12 +1,14 @@
 package com.example.wouple.activities.detailActivity.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -63,7 +65,7 @@ fun PrecipitationHours(
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = time,
-            color = vintage,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 16.sp,
             fontWeight = FontWeight.Light
         )
@@ -83,7 +85,7 @@ fun PrecipitationHours(
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = "%$precipitationPr",
-            color = Spiro,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 17.sp,
             fontWeight = FontWeight.Medium
         )

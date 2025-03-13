@@ -24,6 +24,7 @@ import com.example.wouple.activities.mainActivity.components.GetLocationAndDegre
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.ui.theme.Dark20
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -40,34 +41,11 @@ fun MainView(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-     /*   val isDay = temp.current_weather.is_day == 1
-        val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF3F54BE)
-            val lighterShades = listOf(
-                baseColor,
-                baseColor.copy(alpha = 0.9f),
-                baseColor.copy(alpha = 0.8f),
-                baseColor.copy(alpha = 0.5f),
-            )
-
-            lighterShades
-        } else {
-            listOf(
-                Color(0xFF1D244D),
-                Color(0xFF2E3A59),
-                Color(0xFF3F5066),
-            )
-        } */
         //Top view
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.onPrimary)
-               /* .background(
-                    brush = Brush.verticalGradient(
-                        colors = background
-                    )
-                ) */
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(bottom = 18.dp),
             contentAlignment = TopStart
         ) {

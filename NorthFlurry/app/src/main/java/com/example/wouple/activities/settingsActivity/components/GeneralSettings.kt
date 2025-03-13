@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -41,7 +42,7 @@ fun SettingsCardOne() {
         text = stringResource(id = R.string.GeneralSettings),
         modifier = Modifier.padding(8.dp),
         fontWeight = FontWeight.Light,
-        color = White.copy(alpha = 0.7f),
+        color = MaterialTheme.colorScheme.primary,
         fontSize = 28.sp
     )
 }
@@ -65,7 +66,7 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.primary)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -75,13 +76,14 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier
                     .padding(start = 4.dp)
-                    .size(24.dp)
+                    .size(24.dp),
+                tint = MaterialTheme.colorScheme.onPrimary
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.TroubleWithTheApp),
                 fontWeight = FontWeight.Normal,
-                color = Dark20,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -90,7 +92,8 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(18.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
+                tint = MaterialTheme.colorScheme.onPrimary
             )
         }
     }

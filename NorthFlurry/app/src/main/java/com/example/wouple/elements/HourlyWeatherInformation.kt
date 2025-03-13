@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -85,7 +86,7 @@ fun GetSixHours(
         Text(
             modifier = Modifier.padding(top = 4.dp),
             text = time,
-            color = mocassin,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 15.sp,
             fontWeight = FontWeight.Light
         )
@@ -97,7 +98,7 @@ fun GetSixHours(
         Text(
             modifier = Modifier.padding(top = 4.dp),
             text = "$temperature°",
-            color = Color.White.copy(alpha = 0.8f),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontWeight = FontWeight.Medium,
             fontSize = 15.sp
         )

@@ -109,7 +109,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.onPrimary),
+            .background(MaterialTheme.colorScheme.secondaryContainer),
         contentAlignment = CenterStart,
     ) {
         Row(
@@ -123,7 +123,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
                 modifier = Modifier.size(20.dp),
                 painter = painterResource(id = R.drawable.thebell),
                 contentDescription = "notification",
-                tint = Color.White
+                tint = MaterialTheme.colorScheme.onPrimary
             )
             Spacer(modifier = Modifier.width(10.dp))
             AnimatedVisibility(
@@ -139,7 +139,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
                 Text(
                     text = currentText,
                     fontWeight = FontWeight.Light,
-                    color = Color.White.copy(alpha = 0.9f),
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
                     fontSize = 15.sp
                 )
             }

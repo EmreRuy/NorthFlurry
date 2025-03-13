@@ -138,7 +138,7 @@ fun SettingsView(
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(brush = Brush.verticalGradient(background))
+                    .background(MaterialTheme.colorScheme.background)
             )
         },
         content = {
@@ -199,7 +199,7 @@ fun GetSurface(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(backgroundColors)),
+                .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {

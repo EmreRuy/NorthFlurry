@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -50,7 +51,7 @@ fun DayLightDuration(temp: TemperatureResponse, explodeConfettiCallback: () -> U
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .background(
                 shape = RoundedCornerShape(20.dp),
-                brush = Brush.verticalGradient(background)
+                color = MaterialTheme.colorScheme.primary
             )
             .padding(8.dp)
     ) {
@@ -69,7 +70,7 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
     ) {
         Text(
             text = stringResource(id = R.string.Daylight_Duration),
-            color = Whitehis,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center
@@ -93,14 +94,14 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
                             contentDescription = null,
                             modifier = Modifier
                                 .size(30.dp),
-                            tint = Whitehis.copy(alpha = 0.9f),
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                         )
                         Icon(
                             painter = painterResource(id = R.drawable.arrowdropdown),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(30.dp),
-                            tint = Whitehis.copy(alpha = 0.8f),
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
                         )
                     }
                     GetSunSet(temp)
@@ -146,7 +147,7 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
                     text = stringResource(id = R.string.NoData),
                     fontWeight = FontWeight.Light,
                     fontSize = 15.sp,
-                    color = mocassin,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                     textAlign = TextAlign.Center
                 )
             }

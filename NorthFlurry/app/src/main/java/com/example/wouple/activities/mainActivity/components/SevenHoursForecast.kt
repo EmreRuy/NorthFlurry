@@ -41,26 +41,10 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
-     /*   val isDay = temp.current_weather.is_day == 1
-        val backgroundColor: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF494CC6)
-            val lighterShades = listOf(
-                baseColor,
-                baseColor.copy(alpha = 0.9f),
-                baseColor.copy(alpha = 0.8f),
-            )
-            lighterShades
-        } else {
-            listOf(
-                Color(0xFF1D244D),
-                Color(0xFF2E3A59),
-                Color(0xFF3F5066),
-            )
-        } */
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.onPrimary)
+                .background(MaterialTheme.colorScheme.primaryContainer)
         ) {
             SevenHoursCardNotification(temp)
             Column(

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,7 +48,7 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(Brush.verticalGradient(background))
+            .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(12.dp),
     ) {
         AirQualityIndex(air, temp)
@@ -75,13 +76,13 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                     .size(20.dp),
                 painter = painterResource(id = R.drawable.ic_airquality),
                 contentDescription = null,
-                tint = Color.Green
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Text(
                 modifier = Modifier.padding(4.dp),
                 text = stringResource(id = R.string.air_quality_index).uppercase(),
                 textAlign = TextAlign.Start,
-                color = textColor.copy(alpha = 0.7f),
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontWeight = FontWeight.Medium, // More readable than Light
                 fontFamily = FontFamily.SansSerif, // Change to Inter if imported
                 fontSize = 14.sp // Adjust for better readability
@@ -93,7 +94,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                 text = aqiValue,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Light,
-                color = textColor
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
             val airCodex = air?.current?.european_aqi ?: 0
             val airQualityDescriptionResId = getAirQualityDescriptionResId(airCodex)
@@ -103,7 +104,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                 text = descriptionText,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Light,
-                color = textColor
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
     }
