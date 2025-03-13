@@ -66,7 +66,7 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primary)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically

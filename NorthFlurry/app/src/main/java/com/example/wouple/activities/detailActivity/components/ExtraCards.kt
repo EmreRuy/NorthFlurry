@@ -55,7 +55,7 @@ fun ExtraCards(
             .padding(vertical = 8.dp)
             .padding(horizontal = 16.dp)
             .shadow(1.dp, RoundedCornerShape(21.dp))
-            .background(MaterialTheme.colorScheme.primary),
+            .background(MaterialTheme.colorScheme.primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

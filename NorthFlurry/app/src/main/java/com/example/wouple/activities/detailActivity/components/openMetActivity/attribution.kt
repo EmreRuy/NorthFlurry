@@ -32,7 +32,7 @@ import com.example.wouple.model.api.SearchedLocation
 @Composable
 fun GetAttributionForOpenMet(searchedLocation: SearchedLocation) {
     val attributionContext = LocalContext.current
-    val openMeteoUrl = rememberUpdatedState("https://open-meteo.com/")
+    val openMetUrl = rememberUpdatedState("https://open-meteo.com/")
 
     Box(
         modifier = Modifier
@@ -70,11 +70,11 @@ fun GetAttributionForOpenMet(searchedLocation: SearchedLocation) {
                 Text(
                     text = stringResource(id = R.string.OpenMeteoCom),
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.primary,
+                        color = MaterialTheme.colorScheme.primaryContainer,
                         textDecoration = TextDecoration.Underline
                     ),
                     modifier = Modifier.clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(openMeteoUrl.value))
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(openMetUrl.value))
                         attributionContext.startActivity(intent)
                     }
                 )

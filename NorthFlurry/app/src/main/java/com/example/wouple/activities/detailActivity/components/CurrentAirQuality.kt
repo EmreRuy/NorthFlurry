@@ -31,19 +31,6 @@ import com.example.wouple.ui.theme.Whitehis
 
 @Composable
 fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
-    val isDay = temp.current_weather.is_day == 1
-    val background = if (isDay) {
-        listOf(
-            Color(0xFF3D52BB),
-            Color(0xFF3954C4),
-
-            )
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-        )
-    }
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
