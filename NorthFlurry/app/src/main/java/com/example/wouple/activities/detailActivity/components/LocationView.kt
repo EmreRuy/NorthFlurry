@@ -51,7 +51,7 @@ fun LocationView(
         Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(
             text = "${temp.current_weather.temperature.toInt()}°",
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             modifier = Modifier.padding(start = 4.dp),
             fontWeight = FontWeight.Thin,
             fontSize = 64.sp,
@@ -77,7 +77,7 @@ fun LocationView(
             )
             Text(
                 text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light
@@ -85,7 +85,7 @@ fun LocationView(
             Spacer(modifier = Modifier.weight(0.9f))
             Text(
                 text = weatherDescription,
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light
@@ -93,7 +93,7 @@ fun LocationView(
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
-                color = MaterialTheme.colorScheme.primary,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light
