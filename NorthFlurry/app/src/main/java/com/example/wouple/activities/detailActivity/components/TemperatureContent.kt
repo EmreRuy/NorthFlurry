@@ -18,8 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.formatter.DateFormatter
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Whitehis
-import com.example.wouple.ui.theme.vintage
 import java.time.ZoneId
 import java.time.ZonedDateTime
 

@@ -39,6 +39,7 @@ fun GetLocationAndDegree(
             fontWeight = FontWeight.Thin,
             textAlign = TextAlign.Center,
             fontSize = 50.sp,
+            fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(modifier = Modifier.padding(top = 16.dp))
@@ -48,6 +49,7 @@ fun GetLocationAndDegree(
                 .toString()  + temp.hourly_units.temperature_2m[0],
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Thin,
+            fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
             fontSize = 64.sp,
             color = MaterialTheme.colorScheme.onBackground
         )

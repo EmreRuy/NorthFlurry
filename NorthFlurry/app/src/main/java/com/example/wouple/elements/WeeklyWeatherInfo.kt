@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.components.WeatherCondition
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Spiro
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.TextStyle
@@ -91,7 +91,7 @@ fun WeeklyForecastItem(dayOfWeek: String, temperature: String, imageResourceId: 
             modifier = Modifier.padding(top = 4.dp),
             text = dayOfWeek.lowercase()
                 .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() },
-            color = Spiro,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 15.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,

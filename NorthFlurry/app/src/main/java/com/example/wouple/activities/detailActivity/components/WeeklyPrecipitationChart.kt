@@ -42,8 +42,6 @@ import com.example.wouple.elements.CustomPrecipitationBarChart
 import com.example.wouple.model.api.PrecipitationUnit
 import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.preferences.PrecipitationUnitPref
-import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.Whitehis
 import java.time.LocalDate
 
 @Composable
@@ -109,7 +107,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
                 text = stringResource(id = R.string.No_Precipitation_expected_for_the_week),
                 fontWeight = FontWeight.Light,
                 fontSize = 15.sp,
-                color = Spiro
+                color = MaterialTheme.colorScheme.primary
             )
         }
         } else {

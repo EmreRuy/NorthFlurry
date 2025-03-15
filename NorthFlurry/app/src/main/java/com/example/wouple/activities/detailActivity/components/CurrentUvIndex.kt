@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Whitehis
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -58,7 +57,7 @@ fun UvIndex(temp: TemperatureResponse) {
         ) {
             val isDay = temp.current_weather.is_day == 1
             val textColor =
-                if (isDay) Whitehis.copy(alpha = 0.9f) else Color.White.copy(alpha = 0.9f)
+             //   if (isDay) Whitehis.copy(alpha = 0.9f) else Color.White.copy(alpha = 0.9f)
             Icon(
                 modifier = Modifier
                     .padding(end = 4.dp)

@@ -32,8 +32,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.ui.theme.Dark20
-import com.example.wouple.ui.theme.beige
 
 @Composable
 fun SettingsCardOne() {
@@ -76,8 +74,7 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier
                     .padding(start = 4.dp)
-                    .size(24.dp),
-                tint = MaterialTheme.colorScheme.onPrimary
+                    .size(24.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
@@ -92,8 +89,7 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(18.dp)
-                    .align(Alignment.CenterVertically),
-                tint = MaterialTheme.colorScheme.onPrimary
+                    .align(Alignment.CenterVertically)
             )
         }
     }
@@ -116,7 +112,7 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -132,7 +128,7 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
             Text(
                 text = stringResource(id = R.string.AnyGoodIdeas),
                 fontWeight = FontWeight.Normal,
-                color = Dark20,
+                color = MaterialTheme.colorScheme.background,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -175,7 +171,7 @@ fun ShareTheAppSettings() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -191,7 +187,7 @@ fun ShareTheAppSettings() {
             Text(
                 text = stringResource(id = R.string.ShareTheApp),
                 fontWeight = FontWeight.Normal,
-                color = Dark20,
+                color = MaterialTheme.colorScheme.background,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -236,7 +232,7 @@ fun RateUsSettings() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -252,7 +248,7 @@ fun RateUsSettings() {
             Text(
                 text = stringResource(id = R.string.RateUs),
                 fontWeight = FontWeight.Normal,
-                color = Dark20,
+                color = MaterialTheme.colorScheme.background,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -286,7 +282,7 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -302,7 +298,7 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
             Text(
                 text = stringResource(id = R.string.LottieFilesAndTerms),
                 fontWeight = FontWeight.Normal,
-                color = Dark20,
+                color = MaterialTheme.colorScheme.background,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -336,7 +332,7 @@ fun OpenMetAttribution(onMetClicked: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .padding(12.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -352,7 +348,7 @@ fun OpenMetAttribution(onMetClicked: () -> Unit) {
             Text(
                 text = stringResource(id = R.string.CCLicence),
                 fontWeight = FontWeight.Normal,
-                color = Dark20,
+                color = MaterialTheme.colorScheme.background,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))

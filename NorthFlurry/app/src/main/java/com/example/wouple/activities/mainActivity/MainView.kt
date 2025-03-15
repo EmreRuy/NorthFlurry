@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -22,9 +23,10 @@ import com.example.wouple.activities.detailActivity.components.openMetActivity.G
 import com.example.wouple.activities.mainActivity.components.GetBottomView
 import com.example.wouple.activities.mainActivity.components.GetLocationAndDegree
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
+import com.example.wouple.elements.HorizontalWave
+import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Dark20
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -45,7 +47,7 @@ fun MainView(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primaryContainer)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(bottom = 18.dp),
             contentAlignment = TopStart
         ) {

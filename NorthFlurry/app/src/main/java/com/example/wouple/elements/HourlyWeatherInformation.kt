@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.components.WeatherCondition
 import com.example.wouple.formatter.DateFormatterForMain
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.mocassin
 import java.time.ZoneId
 import java.time.ZonedDateTime
 

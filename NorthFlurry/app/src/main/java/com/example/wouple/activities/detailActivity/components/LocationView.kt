@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Whitehis
 
 @Composable
 fun LocationView(
@@ -39,21 +38,23 @@ fun LocationView(
         verticalArrangement = Arrangement.Center
     ) {
         val isDay = temp.current_weather.is_day == 1
-        val color = if (isDay) Whitehis else Color.White
+      //  val color = if (isDay) Whitehis else Color.White
         Text(
             text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
             fontWeight = FontWeight.Thin,
             fontSize = 50.sp,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
         )
         Spacer(modifier = Modifier.padding(top = 16.dp))
         Text(
             text = "${temp.current_weather.temperature.toInt()}°",
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(start = 4.dp),
             fontWeight = FontWeight.Thin,
+            fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
             fontSize = 64.sp,
             textAlign = TextAlign.Center
         )
@@ -73,7 +74,7 @@ fun LocationView(
                 modifier = Modifier.size(30.dp),
                 painter = painterResource(id = R.drawable.arrowdropdown),
                 contentDescription = null,
-                tint = color
+                tint = MaterialTheme.colorScheme.onPrimary
             )
             Text(
                 text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
@@ -102,7 +103,7 @@ fun LocationView(
                 modifier = Modifier.size(30.dp),
                 painter = painterResource(id = R.drawable.arrowdropup),
                 contentDescription = null,
-                tint = color
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
     }

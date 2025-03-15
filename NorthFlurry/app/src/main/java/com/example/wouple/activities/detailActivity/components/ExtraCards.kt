@@ -24,8 +24,6 @@ import com.example.wouple.R
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.Whitehis
 
 @Composable
 fun ExtraCards(

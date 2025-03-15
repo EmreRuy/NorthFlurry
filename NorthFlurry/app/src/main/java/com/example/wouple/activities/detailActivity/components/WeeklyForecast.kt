@@ -28,8 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Spir
-import com.example.wouple.ui.theme.Whitehis
 import java.time.LocalDate
 import java.util.Locale
 
@@ -77,7 +75,7 @@ fun WeeklyForecast(
             Icon(
                 painter = painterResource(id = R.drawable.arrowdropdown),
                 contentDescription = null,
-                tint = Spir.copy(alpha = 0.9f),
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .size(30.dp)
@@ -86,7 +84,7 @@ fun WeeklyForecast(
             Icon(
                 painter = painterResource(id = R.drawable.arrowdropup),
                 contentDescription = null,
-                tint = Spir,
+                tint = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier
                     .padding(horizontal = 14.dp)
                     .size(30.dp)

@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.elements.CustomBarChart
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Whitehis
 import java.time.LocalDate
 
 @Composable

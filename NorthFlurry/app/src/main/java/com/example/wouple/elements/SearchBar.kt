@@ -20,6 +20,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -42,7 +43,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wouple.ui.theme.Spiro
 import com.example.wouple.R
 
 @Composable
@@ -123,7 +123,7 @@ fun SearchBar(
                     focusedIndicatorColor = Color.Transparent,
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
-                    cursorColor = Spiro,
+                    cursorColor = MaterialTheme.colorScheme.onBackground,
                 )
             )
         }
@@ -146,7 +146,7 @@ fun SearchBar(
             Icon(
                 imageVector = if (isSearchExpanded.value) Icons.Default.Clear else Icons.Default.Search,
                 contentDescription = "Search",
-                tint = if (isSearchExpanded.value) Color.Black else Color.White,
+                tint = if (isSearchExpanded.value) Color.Black else MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.size(32.dp)
             )
         }

@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
@@ -32,9 +33,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.ui.theme.Corn
-import com.example.wouple.ui.theme.Whitehis
-import com.example.wouple.ui.theme.vintage
 
 @Preview(showBackground = true)
 @Composable
@@ -80,7 +78,7 @@ fun FirstScreenView(
             fontFamily = FontFamily.Default,
             fontSize = 32.sp,
             lineHeight = 32.sp,
-            color = vintage,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
         Text(
             modifier = Modifier,
@@ -90,7 +88,7 @@ fun FirstScreenView(
             fontFamily = FontFamily.SansSerif,
             fontSize = 32.sp,
             lineHeight = 32.sp,
-            color = Corn,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
         Text(
             modifier = Modifier
@@ -101,13 +99,13 @@ fun FirstScreenView(
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.Default,
             fontSize = 15.sp,
-            color = Whitehis.copy(alpha = 0.8f),
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
         )
         Button(
             modifier = Modifier.padding(8.dp),
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = vintage,
+                containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
                 contentColor = Color.Black
             ),
             onClick = {

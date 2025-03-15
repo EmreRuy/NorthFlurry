@@ -45,6 +45,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -89,10 +90,6 @@ import com.example.wouple.elements.SnowfallEffect
 import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.preferences.LocationPref
-import com.example.wouple.ui.theme.Corn
-import com.example.wouple.ui.theme.Dark20
-import com.example.wouple.ui.theme.Spiro
-import com.example.wouple.ui.theme.vintage
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.delay
@@ -208,7 +205,7 @@ fun FirstTimeLocationScreen(
                         (context as? Activity)?.finish()
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = Spiro)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onPrimaryContainer)
                 ) {
                     Text("Continue", color = White, fontSize = 18.sp)
                 }

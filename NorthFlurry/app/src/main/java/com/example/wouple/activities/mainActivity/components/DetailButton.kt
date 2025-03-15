@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,7 +21,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
-import com.example.wouple.ui.theme.vintage
 
 @Composable
 fun DetailButton(
@@ -30,7 +30,7 @@ fun DetailButton(
     var isPressed by remember { mutableStateOf(false) }
     val infiniteTransition = rememberInfiniteTransition(label = "")
     val colorTransition by infiniteTransition.animateColor(
-        initialValue = vintage,
+        initialValue = MaterialTheme.colorScheme.onPrimaryContainer,
         targetValue = moccasin,
         animationSpec = infiniteRepeatable(
             animation = tween(2000),
@@ -49,7 +49,7 @@ fun DetailButton(
             containerColor = if (isPressed) {
                 colorTransition
             } else {
-                vintage
+               MaterialTheme.colorScheme.onPrimaryContainer
             },
             contentColor = Color.Black
         )

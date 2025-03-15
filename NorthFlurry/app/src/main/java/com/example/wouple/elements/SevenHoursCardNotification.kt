@@ -109,7 +109,7 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.secondaryContainer),
+            .background(MaterialTheme.colorScheme.onSurfaceVariant),
         contentAlignment = CenterStart,
     ) {
         Row(
@@ -139,7 +139,8 @@ fun SevenHoursCardNotification(temp: TemperatureResponse) {
                 Text(
                     text = currentText,
                     fontWeight = FontWeight.Light,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    fontFamily = MaterialTheme.typography.displayMedium.fontFamily,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 15.sp
                 )
             }

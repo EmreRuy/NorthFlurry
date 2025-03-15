@@ -28,8 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Whitehis
-import com.example.wouple.ui.theme.mocassin
 
 @Composable
 fun DayLightDuration(temp: TemperatureResponse, explodeConfettiCallback: () -> Unit) {
@@ -140,7 +138,7 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
                     modifier = Modifier.size(18.dp),
                     painter = painterResource(id = R.drawable.baseline_error_outline_24),
                     contentDescription = "error",
-                    tint = mocassin
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer
                 )
                 Text(
                     modifier = Modifier.padding(start = 4.dp),

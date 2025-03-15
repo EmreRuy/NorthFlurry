@@ -9,13 +9,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.wouple.ui.theme.PagerColor
 
 @Composable
 fun PagerIndicator(step: Int, totalSteps: Int) {
@@ -33,7 +33,7 @@ fun PagerIndicator(step: Int, totalSteps: Int) {
                         )
                     } else {
                         Brush.horizontalGradient(
-                            colors = listOf(PagerColor, Color.Transparent)
+                            colors = listOf(MaterialTheme.colorScheme.onPrimaryContainer, Color.Transparent)
                         )
                     }
                 )

@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.Whitehis
 
 @Composable
 fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
@@ -56,7 +55,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
         ) {
             val isDay = temp.current_weather.is_day == 1
             val textColor =
-                if (isDay) Whitehis.copy(alpha = 0.9f) else Color.White.copy(alpha = 0.9f)
+              //  if (isDay) Whitehis.copy(alpha = 0.9f) else Color.White.copy(alpha = 0.9f)
             Icon(
                 modifier = Modifier
                     .padding(end = 4.dp)

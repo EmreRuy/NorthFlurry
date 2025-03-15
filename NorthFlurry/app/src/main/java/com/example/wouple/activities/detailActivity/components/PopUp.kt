@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
-import com.example.wouple.ui.theme.mocassin
 
 @Composable
 fun PopUpView(temp: TemperatureResponse) {
@@ -67,7 +66,7 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: Tempe
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineMedium,
-                        color = mocassin
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(

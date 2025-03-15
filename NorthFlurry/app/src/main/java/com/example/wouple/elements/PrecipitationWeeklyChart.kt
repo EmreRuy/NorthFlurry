@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.wouple.preferences.PrecipitationUnitPref
-import com.example.wouple.ui.theme.Spiro
 
 @Composable
 fun RowScope.CustomPrecipitationBarChart(
@@ -46,7 +46,7 @@ fun RowScope.CustomPrecipitationBarChart(
             .size(heightStateAnimate)
             .weight(1f)
             .border(BorderStroke(1.dp, color = Color.Transparent))
-            .background(Spiro, shape = RoundedCornerShape(10.dp))
+            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(10.dp))
             .clickable {
                 val unit = PrecipitationUnitPref.getPrecipitationUnit(context)
                 Toast
