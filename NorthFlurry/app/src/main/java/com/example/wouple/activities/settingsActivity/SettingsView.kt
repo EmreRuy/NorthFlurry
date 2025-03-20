@@ -35,8 +35,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -75,19 +73,6 @@ fun SettingsView(
     viewModel: SettingsViewModel,
     onUnitSettingsChanged: () -> Unit,
 ) {
-    val isDay = temp.current_weather.is_day == 1
-    val background: List<Color> = if (isDay) {
-        listOf(
-            Color(0xFF3954C4),
-
-            Color(0xFF384BB4)
-        )
-    } else {
-        listOf(
-            Color(0xFF1C2249),
-            Color(0xFF1C2249)
-        )
-    }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -178,24 +163,6 @@ fun GetSurface(
             .fillMaxSize()
             .padding(top = paddingValues.calculateTopPadding())
     ) {
-        val isDayLight = temp.current_weather.is_day == 1
-        val backgroundColors: List<Color> = if (isDayLight) {
-            val baseColor = Color(0xFF3F54BE)
-            val lighterShades = listOf(
-                baseColor,
-                baseColor.copy(alpha = 0.9f),
-                baseColor.copy(alpha = 0.8f),
-                baseColor.copy(alpha = 0.5f),
-            )
-
-            lighterShades
-        } else {
-            listOf(
-                Color(0xFF1D244D),
-                Color(0xFF2E3A59),
-                Color(0xFF3F5066),
-            )
-        }
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
