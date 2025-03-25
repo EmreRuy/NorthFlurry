@@ -137,7 +137,7 @@ fun FirstTimeLocationScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = Brush.verticalGradient(darkBackground))
+            .background(MaterialTheme.colorScheme.secondaryContainer)
             .padding(24.dp),
         contentAlignment = Center
     ) {
@@ -205,7 +205,7 @@ fun FirstTimeLocationScreen(
                         (context as? Activity)?.finish()
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.onPrimaryContainer)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
                 ) {
                     Text("Continue", color = White, fontSize = 18.sp)
                 }

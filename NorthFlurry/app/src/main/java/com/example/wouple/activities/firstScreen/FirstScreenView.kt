@@ -55,23 +55,19 @@ fun FirstScreenView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = darkBackground,
-                )
-            ),
+            .background(MaterialTheme.colorScheme.secondaryContainer),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
         Spacer(modifier = Modifier.weight(1f))
         Image(
-            painter = painterResource(id = R.drawable.logo2),
+            painter = painterResource(id = R.drawable.icondrop),
             contentDescription = "logo",
             alignment = Center,
             modifier = Modifier.size(150.dp)
         )
         Text(
-            modifier = Modifier,
+            modifier = Modifier.padding(top = 16.dp),
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.app_name),
             fontWeight = FontWeight.Light,
@@ -99,14 +95,14 @@ fun FirstScreenView(
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.Default,
             fontSize = 15.sp,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
         )
         Button(
             modifier = Modifier.padding(8.dp),
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                contentColor = Color.Black
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.primaryContainer
             ),
             onClick = {
                 onStartButtonClicked()
@@ -130,7 +126,7 @@ fun FirstScreenView(
             fontSize = 14.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center,
-            color = Color.White.copy(alpha = 0.8f),
+            color = MaterialTheme.colorScheme.secondary,
             textDecoration = TextDecoration.Underline
         )
     }
