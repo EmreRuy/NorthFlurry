@@ -17,12 +17,22 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
+import com.example.wouple.ui.theme.AppTheme
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewLoadingScreen() {
+    AppTheme {
+        LoadingScreen()
+    }
+}
 
 @Composable
 fun LoadingScreen() {
@@ -37,9 +47,7 @@ fun LoadingScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = Brush.verticalGradient(
-               darkBackground )
-            ),
+            .background(MaterialTheme.colorScheme.secondaryContainer),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -53,8 +61,9 @@ fun LoadingScreen() {
             Text(
                 text = stringResource(id = R.string.Loading),
                 fontSize = 20.sp,
+                fontStyle = MaterialTheme.typography.displayMedium.fontStyle,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

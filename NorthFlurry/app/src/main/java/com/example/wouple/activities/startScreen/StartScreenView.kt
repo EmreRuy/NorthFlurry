@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Geocoder
 import android.location.Location
 import android.os.Build
@@ -79,6 +80,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
@@ -95,6 +97,14 @@ import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
+@Preview(
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+fun PreviewFirstTimeLocationScreen() {
+    FirstTimeLocationScreen(onLocationDetected = {})
+}
 
 @Composable
 fun FirstTimeLocationScreen(
@@ -129,11 +139,6 @@ fun FirstTimeLocationScreen(
         delay(2000)
         locationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
-    val darkBackground = listOf(
-        Color(0xFF1D244D),
-        Color(0xFF2E3A59),
-        Color(0xFF3F5066),
-    )
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -142,36 +147,40 @@ fun FirstTimeLocationScreen(
         contentAlignment = Center
     ) {
         Column(
+            modifier = Modifier.background(MaterialTheme.colorScheme.secondaryContainer),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = "Welcome to NorthFlurry!",
                 fontSize = 24.sp,
+                fontStyle = MaterialTheme.typography.displayLarge.fontStyle,
                 fontWeight = FontWeight.Bold,
-                color = White
+                color = MaterialTheme.colorScheme.secondary
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             if (isLoading) {
-                CircularProgressIndicator(color = White)
+                CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
             } else {
                 Column(
                     horizontalAlignment = CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
                     Icon(
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.size(92.dp),
                         painter = painterResource(id = R.drawable.baseline_location_on_24),
                         contentDescription = null,
-                        tint = Unspecified
+                        tint = MaterialTheme.colorScheme.primary
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = locationText,
                         fontSize = 18.sp,
-                        color = White
+                        fontFamily = MaterialTheme.typography.labelLarge.fontFamily,
+                        fontStyle = MaterialTheme.typography.bodyLarge.fontStyle,
+                        color = MaterialTheme.colorScheme.secondary
                     )
                 }
             }
@@ -205,9 +214,9 @@ fun FirstTimeLocationScreen(
                         (context as? Activity)?.finish()
                     },
                     modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
-                    Text("Continue", color = White, fontSize = 18.sp)
+                    Text("Continue", color = MaterialTheme.colorScheme.primaryContainer, fontSize = 18.sp)
                 }
 
             }

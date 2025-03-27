@@ -105,17 +105,6 @@ fun SettingsView(
                         }
                     }
                 },
-                /*  navigationIcon = {
-                      IconButton(
-                          onClick = onBackPressed
-                      ) {
-                          Icon(
-                              Icons.AutoMirrored.Filled.ArrowBack,
-                              contentDescription = "Back",
-                              modifier = Modifier.size(28.dp)
-                          )
-                      }
-                  }, */
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Transparent,
                     navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
@@ -166,7 +155,7 @@ fun GetSurface(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background),
+                .background(MaterialTheme.colorScheme.secondaryContainer),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {

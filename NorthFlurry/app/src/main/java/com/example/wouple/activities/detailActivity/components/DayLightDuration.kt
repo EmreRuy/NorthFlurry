@@ -118,7 +118,7 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
                                 onClick = {
                                     explodeConfettiCallback()
                                 }),
-                        painter = painterResource(id = R.drawable.logo2),
+                        painter = painterResource(id = R.drawable.icondrop),
                         contentDescription = null
                     )
                 }
