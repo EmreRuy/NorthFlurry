@@ -1,6 +1,7 @@
 package com.example.wouple.activities.firstScreen
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,8 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -33,14 +34,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.ui.theme.AppTheme
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, name = "Light Mode", uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(showBackground = true, name = "Dark Mode", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PreviewFirstScreenView() {
-    FirstScreenView(
-        onStartButtonClicked = { /* No action for preview */ }
-    )
+    AppTheme(darkTheme = false) {
+        FirstScreenView(onStartButtonClicked = { /* No action for preview */ })
+    }
+    AppTheme(darkTheme = true) {
+        FirstScreenView(onStartButtonClicked = { /* No action for preview */ })
+    }
 }
+
 
 @Composable
 fun FirstScreenView(
@@ -55,7 +62,7 @@ fun FirstScreenView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.secondaryContainer),
+            .background(MaterialTheme.colorScheme.surface),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
@@ -64,7 +71,8 @@ fun FirstScreenView(
             painter = painterResource(id = R.drawable.icondrop),
             contentDescription = "logo",
             alignment = Center,
-            modifier = Modifier.size(150.dp)
+            modifier = Modifier.size(150.dp),
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer)
         )
         Text(
             modifier = Modifier.padding(top = 16.dp),
@@ -74,7 +82,7 @@ fun FirstScreenView(
             fontFamily = FontFamily.Default,
             fontSize = 32.sp,
             lineHeight = 32.sp,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
         )
         Text(
             modifier = Modifier,
@@ -84,7 +92,7 @@ fun FirstScreenView(
             fontFamily = FontFamily.SansSerif,
             fontSize = 32.sp,
             lineHeight = 32.sp,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
         )
         Text(
             modifier = Modifier
@@ -95,21 +103,22 @@ fun FirstScreenView(
             fontWeight = FontWeight.Light,
             fontFamily = FontFamily.Default,
             fontSize = 15.sp,
-            color = MaterialTheme.colorScheme.onSecondaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
         )
         Button(
             modifier = Modifier.padding(8.dp),
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
-                contentColor = MaterialTheme.colorScheme.primaryContainer
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ),
             onClick = {
                 onStartButtonClicked()
             }
         ) {
             Text(
-                text = stringResource(id = R.string.GetStartButton)
+                text = stringResource(id = R.string.GetStartButton),
+                color = MaterialTheme.colorScheme.secondary
             )
         }
         Spacer(modifier = Modifier.weight(1.5f))
