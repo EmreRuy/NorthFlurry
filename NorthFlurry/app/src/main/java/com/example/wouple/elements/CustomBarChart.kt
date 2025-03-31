@@ -38,7 +38,7 @@ fun RowScope.CustomBarChart(
     LaunchedEffect(key1 = size) {
         height = size * 20
     }
-    val color = MaterialTheme.colorScheme.onPrimaryContainer
+    val color = MaterialTheme.colorScheme.secondary
     Box(
         modifier = Modifier
             .padding(start = 6.dp, end = 6.dp, top = 4.dp)

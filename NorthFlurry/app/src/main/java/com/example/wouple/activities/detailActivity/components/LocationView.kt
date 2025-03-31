@@ -37,7 +37,7 @@ fun LocationView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        val isDay = temp.current_weather.is_day == 1
+       // val isDay = temp.current_weather.is_day == 1
       //  val color = if (isDay) Whitehis else Color.White
         Text(
             text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
@@ -74,7 +74,7 @@ fun LocationView(
                 modifier = Modifier.size(30.dp),
                 painter = painterResource(id = R.drawable.arrowdropdown),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimary
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Text(
                 text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
