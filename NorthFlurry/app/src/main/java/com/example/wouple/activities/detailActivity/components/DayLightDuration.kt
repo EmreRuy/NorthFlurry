@@ -49,7 +49,7 @@ fun DayLightDuration(temp: TemperatureResponse, explodeConfettiCallback: () -> U
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .background(
                 shape = RoundedCornerShape(20.dp),
-                color = MaterialTheme.colorScheme.primaryContainer
+                color = MaterialTheme.colorScheme.secondaryContainer
             )
             .padding(8.dp)
     ) {

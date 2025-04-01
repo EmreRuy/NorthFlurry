@@ -82,7 +82,7 @@ fun DetailView(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.secondaryContainer)
+                    .background(MaterialTheme.colorScheme.surface)
                     .padding(innerPadding),
                 horizontalAlignment = CenterHorizontally
             ) {

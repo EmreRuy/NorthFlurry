@@ -55,7 +55,7 @@ fun HourlyForecast(temp: TemperatureResponse) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 12.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.primaryContainer)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -74,12 +74,12 @@ fun HourlyForecast(temp: TemperatureResponse) {
             TabRow(
                 modifier = Modifier.background(Color.Transparent),
                 selectedTabIndex = selectedTabIndex,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 containerColor = Color.Transparent,
                 indicator = { tabPositions ->
                     SecondaryIndicator(
                         modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 },
             ) {

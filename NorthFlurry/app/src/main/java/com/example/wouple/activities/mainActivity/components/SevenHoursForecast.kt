@@ -44,7 +44,7 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primaryContainer)
+                .background(MaterialTheme.colorScheme.secondaryContainer)
         ) {
             SevenHoursCardNotification(temp)
             Column(

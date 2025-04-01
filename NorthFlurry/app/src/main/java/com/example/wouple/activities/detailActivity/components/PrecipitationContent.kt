@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -71,13 +72,15 @@ fun PrecipitationHours(
             Image(
                 painter = painterResource(id = R.drawable.myicon),
                 contentDescription = null,
-                modifier = Modifier.size(28.dp)
+                modifier = Modifier.size(28.dp),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
         } else {
             Image(
                 painter = painterResource(id = R.drawable.ic_drop_hollow),
                 contentDescription = null,
-                modifier = Modifier.size(28.dp)
+                modifier = Modifier.size(28.dp),
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
         }
         Text(

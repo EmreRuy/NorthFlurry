@@ -35,7 +35,7 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.surface)
+            .background(MaterialTheme.colorScheme.secondaryContainer)
             .padding(12.dp),
     ) {
         AirQualityIndex(air, temp)
@@ -46,8 +46,7 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
 fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
     Column(
         modifier = Modifier
-            .padding(horizontal = 20.dp)
-            .background(Color.Transparent),
+            .padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
