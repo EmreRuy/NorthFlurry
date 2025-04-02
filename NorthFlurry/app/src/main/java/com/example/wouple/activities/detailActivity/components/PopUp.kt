@@ -18,37 +18,55 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.wouple.R
-import com.example.wouple.model.api.TemperatureResponse
+
+@Preview(showBackground = true, name = "Popup View")
+@Composable
+fun PreviewPopUpView() {
+    MaterialTheme {
+        PopUpView()
+    }
+}
+
+@Preview(showBackground = true, name = "Popup Content")
+@Composable
+fun PreviewPopUpContent() {
+
+    MaterialTheme {
+        PopUpContent(
+            title = "The Ultraviolet Index",
+            text = "This index represents the intensity of UV radiation from the sun.",
+            onDismiss = {},
+        )
+    }
+}
 
 @Composable
-fun PopUpView(temp: TemperatureResponse) {
+fun PopUpView() {
     var popupVisible by remember { mutableStateOf(false) }
     if (popupVisible) {
         PopUpContent(
             title = stringResource(id = R.string.The_Ultraviolet_Index),
             text = stringResource(id = R.string.Explainer_Of_Uv_Index),
-            onDismiss = { popupVisible = false },
-            temp = temp
+            onDismiss = { popupVisible = false }
         )
     }
     IconButton(onClick = { popupVisible = true }) {
         Icon(
             Icons.Default.Info,
             contentDescription = "Show Popup",
-            tint = Color.White
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }
 
 @Composable
-fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: TemperatureResponse) {
-    val isDay = temp.current_weather.is_day == 1
+fun PopUpContent(title: String, text: String, onDismiss: () -> Unit) {
     Dialog(
         onDismissRequest = { onDismiss() },
         content = {
@@ -57,7 +75,7 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: Tempe
                     .padding(24.dp),
                 shadowElevation = 8.dp,
                 shape = RoundedCornerShape(16.dp),
-                color = if (isDay) Color(0xFF586FCE) else Color(0xFF3F5066) //Color(0xFF2E3A59)
+                color = MaterialTheme.colorScheme.secondaryContainer
             ) {
                 Column(
                     modifier = Modifier
@@ -73,7 +91,7 @@ fun PopUpContent(title: String, text: String, onDismiss: () -> Unit, temp: Tempe
                         text = text,
                         style = MaterialTheme.typography.bodyMedium,
                         fontSize = 16.sp,
-                        color = Color(0xFFE0E0E0)
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

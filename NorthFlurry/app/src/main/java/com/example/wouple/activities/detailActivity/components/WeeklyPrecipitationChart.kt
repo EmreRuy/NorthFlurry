@@ -162,7 +162,6 @@ fun PopUpViewForPrecipitation(temp: TemperatureResponse) {
             title = stringResource(id = R.string.Weekly_precipitation_chart),
             text = stringResource(id = R.string.Explainer_For_Precipitation),
             onDismiss = { popupVisible = false },
-            temp = temp
         )
     }
     IconButton(onClick = { popupVisible = true }) {

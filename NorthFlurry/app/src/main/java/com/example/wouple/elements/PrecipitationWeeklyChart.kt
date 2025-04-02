@@ -46,7 +46,7 @@ fun RowScope.CustomPrecipitationBarChart(
             .size(heightStateAnimate)
             .weight(1f)
             .border(BorderStroke(1.dp, color = Color.Transparent))
-            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(10.dp))
+            .background(MaterialTheme.colorScheme.secondary, shape = RoundedCornerShape(10.dp))
             .clickable {
                 val unit = PrecipitationUnitPref.getPrecipitationUnit(context)
                 Toast

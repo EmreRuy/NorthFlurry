@@ -55,9 +55,6 @@ fun UvIndex(temp: TemperatureResponse) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            val isDay = temp.current_weather.is_day == 1
-            val textColor =
-             //   if (isDay) Whitehis.copy(alpha = 0.9f) else Color.White.copy(alpha = 0.9f)
             Icon(
                 modifier = Modifier
                     .padding(end = 4.dp)

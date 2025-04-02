@@ -1,5 +1,6 @@
 package com.example.wouple.activities.detailActivity.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -30,21 +31,19 @@ import com.example.wouple.elements.CustomBarChart
 import com.example.wouple.model.api.TemperatureResponse
 import java.time.LocalDate
 
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO, name = "Day Mode")
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Night Mode")
+@Composable
+fun PreviewUvIndexChart() {
+
+    MaterialTheme {
+        UvIndexChart(temp = TemperatureResponse.getMockInstance())
+    }
+}
+
+
 @Composable
 fun UvIndexChart(temp: TemperatureResponse) {
-    val isDay = temp.current_weather.is_day == 1
-    val background = if (isDay) {
-        listOf(
-            Color(0xFF3D52BB),
-            Color(0xFF3D52BB)
-        )
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
-        )
-    }
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
@@ -73,12 +72,13 @@ fun UvChartView(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.UV_Index_For_Upcoming_Days),
-            fontWeight = FontWeight.Light,
-            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            fontStyle = MaterialTheme.typography.titleMedium.fontStyle,
+            fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onPrimaryContainer
         )
         Spacer(modifier = Modifier.weight(1f))
-        PopUpView(temp)
+        PopUpView()
         Row(
             modifier = Modifier
                 .height(170.dp)

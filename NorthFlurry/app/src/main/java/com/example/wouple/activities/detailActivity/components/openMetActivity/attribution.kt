@@ -25,9 +25,23 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
+
+@Preview(showBackground = true, name = "Attribution View")
+@Composable
+fun PreviewGetAttributionForOpenMet() {
+    val mockLocation = SearchedLocation(
+        display_name = "Oslo, Norway",
+        lat = 59.9139.toString(),
+        lon = 10.7522.toString()
+    )
+    MaterialTheme {
+        GetAttributionForOpenMet(searchedLocation = mockLocation)
+    }
+}
 
 @Composable
 fun GetAttributionForOpenMet(searchedLocation: SearchedLocation) {
@@ -37,6 +51,7 @@ fun GetAttributionForOpenMet(searchedLocation: SearchedLocation) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surfaceDim)
             .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -70,7 +85,7 @@ fun GetAttributionForOpenMet(searchedLocation: SearchedLocation) {
                 Text(
                     text = stringResource(id = R.string.OpenMeteoCom),
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        color = MaterialTheme.colorScheme.primaryContainer,
+                        color = MaterialTheme.colorScheme.primary,
                         textDecoration = TextDecoration.Underline
                     ),
                     modifier = Modifier.clickable {

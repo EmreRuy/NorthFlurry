@@ -155,7 +155,7 @@ fun GetSurface(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.secondaryContainer),
+                .background(MaterialTheme.colorScheme.surfaceDim),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {

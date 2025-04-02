@@ -39,7 +39,7 @@ fun MainView(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.secondaryContainer)
+                .background(MaterialTheme.colorScheme.surfaceDim)
                 .padding(bottom = 18.dp),
             contentAlignment = TopStart
         ) {

@@ -50,14 +50,14 @@ fun SearchBar(
 ) {
     val focusManager = LocalFocusManager.current
     var query by remember { mutableStateOf("") }
+    val colors = MaterialTheme.colorScheme
+
     val gradient = Brush.horizontalGradient(
         colors = if (isSearchExpanded.value) listOf(
-            Color.White,
-            Color(0xFF4067DD)
-        )
-        else listOf(Color.Transparent, Color.Transparent)
+            colors.inversePrimary, // Background surface color
+            colors.primary // Dynamic primary color
+        ) else listOf(Color.Transparent, Color.Transparent)
     )
-
     LaunchedEffect(isSearchExpanded.value) {
         query = ""
         onSearch("")

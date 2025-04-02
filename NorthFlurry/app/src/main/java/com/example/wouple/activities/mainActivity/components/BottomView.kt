@@ -21,7 +21,7 @@ fun GetBottomView(
 ) {
     Column(
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.surface)
+            .background(MaterialTheme.colorScheme.surfaceDim)
             .padding(top = 24.dp),
        verticalArrangement = Arrangement.Center
     ) {
