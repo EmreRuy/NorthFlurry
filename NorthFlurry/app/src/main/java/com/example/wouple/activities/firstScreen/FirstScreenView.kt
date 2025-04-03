@@ -2,7 +2,6 @@ package com.example.wouple.activities.firstScreen
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.ui.theme.AppTheme
+import androidx.core.net.toUri
 
 @Preview(showBackground = true, name = "Light Mode", uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(showBackground = true, name = "Dark Mode", uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -128,7 +128,7 @@ fun FirstScreenView(
                 .clickable {
                     val url = "https://sites.google.com/view/northflurry/home"
                     val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(url)
+                    intent.data = url.toUri()
                     currentContext.startActivity(intent)
                 },
             text = stringResource(id = R.string.NorthPrivacy),
