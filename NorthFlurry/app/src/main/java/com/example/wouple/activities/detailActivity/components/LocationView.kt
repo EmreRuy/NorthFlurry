@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,8 +36,6 @@ fun LocationView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-       // val isDay = temp.current_weather.is_day == 1
-      //  val color = if (isDay) Whitehis else Color.White
         Text(
             text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
             fontWeight = FontWeight.Thin,

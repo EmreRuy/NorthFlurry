@@ -70,7 +70,7 @@ fun FirstTimeLocationScreen(
     var isLocationDetected by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(true) }
 
-    // Define a list of random cities
+    // Defines a list of random cities
     val randomCities = listOf("New York", "Los Angeles", "Paris", "Tokyo", "London", "Berlin")
 
     val locationPermission = rememberLauncherForActivityResult(

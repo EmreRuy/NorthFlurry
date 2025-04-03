@@ -7,15 +7,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+
 
 @Composable
 fun NoInternetDialog(activity: ComponentActivity) {
@@ -25,7 +27,9 @@ fun NoInternetDialog(activity: ComponentActivity) {
             Text(
                 text = stringResource(id = R.string.No_Internet_Connection),
                 fontSize = 20.sp,
-                color = Color.Black,
+                fontFamily = MaterialTheme.typography.titleMedium.fontFamily,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
@@ -37,14 +41,15 @@ fun NoInternetDialog(activity: ComponentActivity) {
                 Text(
                     text = stringResource(id = R.string.Ops_No_Internet),
                     fontSize = 16.sp,
-                    color = Color.Gray,
+                    fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 Text(
                     text = stringResource(id = R.string.Check_Your_Internet),
                     fontSize = 16.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
             }
@@ -55,12 +60,17 @@ fun NoInternetDialog(activity: ComponentActivity) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 16.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3D52BB))
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                )
             ) {
                 Text(
                     text = stringResource(id = R.string.OK),
                     fontSize = 16.sp,
-                    color = Color.White
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
+                    color = MaterialTheme.colorScheme.onError
                 )
             }
         },
