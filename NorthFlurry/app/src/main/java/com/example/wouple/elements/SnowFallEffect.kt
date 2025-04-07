@@ -68,7 +68,7 @@ fun generateRandomSnowflake(): Snowflake {
 fun DrawScope.drawSnowflake(alpha: Float, snowflake: Snowflake, offsetY: Float) {
     val newY = (snowflake.y + offsetY * snowflake.speed) % size.height
     drawCircle(
-        Color.White,
+        Color.Black,
         alpha = alpha,
         radius = snowflake.radius,
         center = Offset(snowflake.x * size.width, newY)

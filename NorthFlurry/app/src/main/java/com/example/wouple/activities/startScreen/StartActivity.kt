@@ -20,26 +20,30 @@ import com.example.wouple.preferences.PrecipitationUnitPref
 import com.example.wouple.preferences.TemperatureUnitPref
 import com.example.wouple.preferences.WindUnitPref
 import com.example.wouple.ui.theme.AppTheme
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 class StartActivity : ComponentActivity() {
+
     private val temp: MutableState<TemperatureResponse?> = mutableStateOf(null)
     private val searchedLocation: MutableState<SearchedLocation?> = mutableStateOf(null)
 
-    // Create permission launcher
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
     private val locationPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                // Permission granted, proceed to fetch location
                 fetchLocation()
             } else {
-                // Permission denied, fallback to random city
-                fetchLocation(fallback = true)
+                fallbackToRandomCity()
             }
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
         setContent {
             AppTheme {
                 FirstTimeLocationScreen(
@@ -54,69 +58,58 @@ class StartActivity : ComponentActivity() {
     private fun checkLocationPermissions() {
         when {
             ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                this, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED -> {
-                // Permission already granted, fetch location
                 fetchLocation()
             }
             else -> {
-                // Request location permissions
                 locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
             }
         }
     }
 
-    private fun fetchLocation(fallback: Boolean = false) {
-        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
+    private fun fetchLocation() {
+        if (
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
+
         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            if (location != null && !fallback) {
-                // If real location is found
+            if (location != null) {
                 val searchedLocationObj = SearchedLocation(
                     lat = location.latitude.toString(),
                     lon = location.longitude.toString(),
-                    display_name = location.toString() // or use a custom display name
+                    display_name = "Current Location"
                 )
                 LocationPref.setSearchedLocation(this, searchedLocationObj)
+                launchMainActivity()
             } else {
-                // If no real location is found, retry or use a random city
-                handleLocationNotFound()
+                fallbackToRandomCity()
             }
-
-            // Proceed to MainActivity
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+        }.addOnFailureListener {
+            fallbackToRandomCity()
         }
     }
 
-    private fun handleLocationNotFound() {
-        // Retry fetching location or fallback to a random city after a short delay
+    private fun fallbackToRandomCity() {
         val randomCity = listOf("New York", "Los Angeles", "Paris", "Tokyo", "London", "Berlin").random()
-        val searchedLocationObj = SearchedLocation(
-            lat = "0.0", // Default latitude for unknown locations
-            lon = "0.0", // Default longitude for unknown locations
+        val fallbackLocation = SearchedLocation(
+            lat = "0.0",
+            lon = "0.0",
             display_name = randomCity
         )
-        LocationPref.setSearchedLocation(this, searchedLocationObj)
+        LocationPref.setSearchedLocation(this, fallbackLocation)
+        launchMainActivity()
+    }
+
+    private fun launchMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onResume() {
@@ -130,8 +123,9 @@ class StartActivity : ComponentActivity() {
             windUnit = WindUnitPref.getWindUnit(this),
             onSuccessCall = { temperature ->
                 temp.value = temperature
-            },
+            }
         )
     }
 }
+
 

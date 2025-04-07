@@ -2,13 +2,8 @@ package com.example.wouple.activities.startScreen
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.location.Geocoder
-import android.location.Location
-import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -42,15 +37,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat
 import com.example.wouple.R
 import com.example.wouple.activities.mainActivity.MainActivity
+import com.example.wouple.elements.SnowfallEffect
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.preferences.LocationPref
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.delay
-import java.util.Locale
 @Preview(
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES
@@ -70,7 +63,9 @@ fun FirstTimeLocationScreen(
     var isLocationDetected by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(true) }
 
-    // Defines a list of random cities
+    val showSnowfall = remember { mutableStateOf(true) }
+    val searchBarAppear = remember { mutableStateOf(false) }
+
     val randomCities = listOf("New York", "Los Angeles", "Paris", "Tokyo", "London", "Berlin")
 
     val locationPermission = rememberLauncherForActivityResult(
@@ -90,9 +85,13 @@ fun FirstTimeLocationScreen(
     }
 
     LaunchedEffect(Unit) {
-        delay(2000)
-        locationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        delay(1_000)
+        showSnowfall.value = true // Shows snowfall effect when the screen appears
+        delay(6_000) // snowfall effect time
+        showSnowfall.value = false // Hides snowfall effect after 6 seconds
+        locationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION) // triggers location permission check
     }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -105,125 +104,82 @@ fun FirstTimeLocationScreen(
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Welcome to NorthFlurry!",
-                fontSize = 24.sp,
-                fontStyle = MaterialTheme.typography.displayLarge.fontStyle,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.secondary
-            )
+            if (showSnowfall.value) {
+                SnowfallEffect(searchBarAppear)
+            }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            if (!showSnowfall.value) {
+                // Shows content after snowfall effect
+                Text(
+                    text = "Welcome to NorthFlurry!",
+                    fontSize = 24.sp,
+                    fontStyle = MaterialTheme.typography.displayLarge.fontStyle,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary
+                )
 
-            if (isLoading) {
-                CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
-            } else {
-                Column(
-                    horizontalAlignment = CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Icon(
-                        modifier = Modifier.size(92.dp),
-                        painter = painterResource(id = R.drawable.baseline_location_on_24),
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = locationText,
-                        fontSize = 18.sp,
-                        fontFamily = MaterialTheme.typography.labelLarge.fontFamily,
-                        fontStyle = MaterialTheme.typography.bodyLarge.fontStyle,
-                        color = MaterialTheme.colorScheme.secondary
-                    )
+                Spacer(modifier = Modifier.height(16.dp))
+
+                if (isLoading) {
+                    CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
+                } else {
+                    Column(
+                        horizontalAlignment = CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(92.dp),
+                            painter = painterResource(id = R.drawable.baseline_location_on_24),
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = locationText,
+                            fontSize = 18.sp,
+                            fontFamily = MaterialTheme.typography.labelLarge.fontFamily,
+                            fontStyle = MaterialTheme.typography.bodyLarge.fontStyle,
+                            color = MaterialTheme.colorScheme.secondary
+                        )
+                    }
+                }
+                if (isLocationDetected) {
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Button(
+                        onClick = {
+                            val selectedCity = locationText
+                            val cityCoordinates = mapOf(
+                                "New York" to Pair("40.7128", "-74.0060"),
+                                "Los Angeles" to Pair("34.0522", "-118.2437"),
+                                "Paris" to Pair("48.8566", "2.3522"),
+                                "Tokyo" to Pair("35.6895", "139.6917"),
+                                "London" to Pair("51.5074", "-0.1278"),
+                                "Berlin" to Pair("52.5200", "13.4050")
+                            )
+                            val (lat, lon) = cityCoordinates[selectedCity] ?: Pair("0.0", "0.0")
+                            val searchedLocationObj = SearchedLocation(
+                                lat = lat,
+                                lon = lon,
+                                display_name = selectedCity
+                            )
+                            LocationPref.setSearchedLocation(context, searchedLocationObj)
+                            val intent = Intent(context, MainActivity::class.java)
+                            context.startActivity(intent)
+                            (context as? Activity)?.finish()
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                    ) {
+                        Text("Continue", color = MaterialTheme.colorScheme.primaryContainer, fontSize = 18.sp)
+                    }
                 }
             }
-            if (isLocationDetected) {
-                Spacer(modifier = Modifier.height(24.dp))
-                Button(
-                    onClick = {
-                        val selectedCity = locationText
-                        // Assign proper coordinates based on random city (you can expand this list)
-                        val cityCoordinates = mapOf(
-                            "New York" to Pair("40.7128", "-74.0060"),
-                            "Los Angeles" to Pair("34.0522", "-118.2437"),
-                            "Paris" to Pair("48.8566", "2.3522"),
-                            "Tokyo" to Pair("35.6895", "139.6917"),
-                            "London" to Pair("51.5074", "-0.1278"),
-                            "Berlin" to Pair("52.5200", "13.4050")
-                        )
-                        val (lat, lon) = cityCoordinates[selectedCity] ?: Pair("0.0", "0.0")
-
-                        // Save location to preferences
-                        val searchedLocationObj = SearchedLocation(
-                            lat = lat,
-                            lon = lon,
-                            display_name = selectedCity
-                        )
-                        LocationPref.setSearchedLocation(context, searchedLocationObj)
-
-                        // Proceed to MainActivity
-                        val intent = Intent(context, MainActivity::class.java)
-                        context.startActivity(intent)
-                        (context as? Activity)?.finish()
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
-                ) {
-                    Text("Continue", color = MaterialTheme.colorScheme.primaryContainer, fontSize = 18.sp)
-                }
-
-            }
         }
     }
 }
 
-// Updated fetchLocation function
-fun fetchLocation(
-    context: Context,
-    fusedLocationClient: FusedLocationProviderClient,
-    onLocationFetched: (String?) -> Unit
-) {
-    if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-        == PackageManager.PERMISSION_GRANTED
-    ) {
 
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            if (location != null) {
-                getCityName(context, location.latitude, location.longitude, onLocationFetched)
-            } else {
-                onLocationFetched(null)
-            }
-        }
-    } else {
-        onLocationFetched(null)
-    }
-}
 
-// Updated getCityName using async geocoder
-@Suppress("DEPRECATION")
-fun getCityName(
-    context: Context,
-    latitude: Double,
-    longitude: Double,
-    onResult: (String?) -> Unit
-) {
-    val geocoder = Geocoder(context, Locale.getDefault())
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        geocoder.getFromLocation(latitude, longitude, 1) { addresses ->
-            val cityName = addresses.firstOrNull()?.locality
-            onResult(cityName)
-        }
-    } else {
-        try {
-            val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-            val cityName = addresses?.firstOrNull()?.locality
-            onResult(cityName)
-        } catch (e: Exception) {
-            onResult(null)
-        }
-    }
-}
 
 
 
