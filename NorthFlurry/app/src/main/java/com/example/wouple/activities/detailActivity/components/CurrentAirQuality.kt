@@ -35,7 +35,7 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(12.dp),
     ) {
         AirQualityIndex(air, temp)
