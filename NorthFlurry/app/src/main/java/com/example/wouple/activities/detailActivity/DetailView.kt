@@ -79,7 +79,7 @@ fun DetailView(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surfaceDim)
+                    .background(MaterialTheme.colorScheme.surface)
                     .padding(innerPadding),
                 horizontalAlignment = CenterHorizontally
             ) {
@@ -191,7 +191,7 @@ fun CustomTopAppBar(
                         .size(appBarIconSize),
                     painter = painterResource(id = R.drawable.logo2),
                     contentDescription = null,
-                    tint = Color.Unspecified
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
                 Spacer(modifier = Modifier.weight(0.5f))
                 Text(
@@ -199,17 +199,17 @@ fun CustomTopAppBar(
                     text = stringResource(id = R.string.app_name),
                     fontWeight = FontWeight.Light,
                     fontSize = topAppBarTextSize,
-                    color = Color.White.copy(alpha = 0.7f),
+                    color = MaterialTheme.colorScheme.onPrimary,
                     textAlign = TextAlign.Center,
                 )
                 Spacer(modifier = Modifier.weight(1f))
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent,
-            scrolledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            titleContentColor = Color.White,
-            actionIconContentColor = Color.White
+            containerColor = MaterialTheme.colorScheme.primary, // App bar background color
+            scrolledContainerColor = MaterialTheme.colorScheme.secondaryContainer, // When scrolled, change to secondary color
+            titleContentColor = MaterialTheme.colorScheme.onPrimary, // Title text color on app bar
+            actionIconContentColor = MaterialTheme.colorScheme.onPrimary // Icon color on app bar
         ),
         scrollBehavior = scrollBehavior
     )
