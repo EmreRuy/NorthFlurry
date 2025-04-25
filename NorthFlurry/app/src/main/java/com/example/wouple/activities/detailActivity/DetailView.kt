@@ -1,40 +1,25 @@
 package com.example.wouple.activities.detailActivity
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.TopAppBarScrollBehavior
-import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.components.ConfettiView
 import com.example.wouple.activities.detailActivity.components.CurrentAirQualityCard
 import com.example.wouple.activities.detailActivity.components.CurrentUvIndex
@@ -59,19 +44,9 @@ fun DetailView(
     air: AirQuality?,
 ) {
     val (explodeConfetti, setExplodeConfetti) = remember { mutableStateOf(false) }
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState(pageCount = { 6 })
     val weatherDetails = getWeatherDetails(temp)
-    val scrollBehavior =
-        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
-    Scaffold(
-        topBar = {
-            CustomTopAppBar(
-                // onBackPressed = onBackPressed,
-                scrollBehavior = scrollBehavior,
-            )
-        },
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
-    ) { innerPadding ->
+    Scaffold { innerPadding ->
         ConfettiView(
             explodeConfetti = explodeConfetti,
             explodeConfettiCallback = { setExplodeConfetti(true) }
@@ -111,7 +86,7 @@ fun DetailView(
                         explodeConfettiCallback = { setExplodeConfetti(true) })
                 }
                 item {
-                    HorizontalPager(state = pagerState, count = 6, modifier = Modifier)
+                    HorizontalPager(state = pagerState, modifier = Modifier)
                     { page ->
                         when (page) {
                             0 -> ExtraCards(
@@ -164,53 +139,4 @@ fun DetailView(
             }
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomTopAppBar(
-    scrollBehavior: TopAppBarScrollBehavior
-) {
-    val collapsed = 22
-    val expanded = 0
-    val topAppBarTextSize =
-        (collapsed + (expanded - collapsed) * (1 - scrollBehavior.state.collapsedFraction)).sp
-    val iconCollapsed = 32
-    val iconExpanded = 0
-    val appBarIconSize =
-        (iconCollapsed + (iconExpanded - iconCollapsed) * (1 - scrollBehavior.state.collapsedFraction)).dp
-
-    MediumTopAppBar(
-        title = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .size(appBarIconSize),
-                    painter = painterResource(id = R.drawable.logo2),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimary
-                )
-                Spacer(modifier = Modifier.weight(0.5f))
-                Text(
-                    modifier = Modifier.padding(start = 13.dp),
-                    text = stringResource(id = R.string.app_name),
-                    fontWeight = FontWeight.Light,
-                    fontSize = topAppBarTextSize,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    textAlign = TextAlign.Center,
-                )
-                Spacer(modifier = Modifier.weight(1f))
-            }
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary, // App bar background color
-            scrolledContainerColor = MaterialTheme.colorScheme.secondaryContainer, // When scrolled, change to secondary color
-            titleContentColor = MaterialTheme.colorScheme.onPrimary, // Title text color on app bar
-            actionIconContentColor = MaterialTheme.colorScheme.onPrimary // Icon color on app bar
-        ),
-        scrollBehavior = scrollBehavior
-    )
 }

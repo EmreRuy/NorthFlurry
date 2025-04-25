@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +28,6 @@ import com.example.wouple.model.api.TemperatureResponse
 fun ExtraCards(
     text: String,
     numbers: String,
-    // icon: Painter,
     temp: TemperatureResponse
 ) {
     val isDay = temp.current_weather.is_day == 1
@@ -46,30 +44,30 @@ fun ExtraCards(
             Color(0xFF50767D),
         )
     }
+
+    val phase1 = rememberPhaseState(10f)
+    val phase2 = rememberPhaseState(startPosition = 15f)
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .size(120.dp)
-            .padding(vertical = 8.dp)
-            .padding(horizontal = 16.dp)
+            .padding(vertical = 8.dp, horizontal = 16.dp)
             .shadow(1.dp, RoundedCornerShape(21.dp))
             .background(MaterialTheme.colorScheme.secondaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Row(
-            modifier = Modifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-
             Text(
                 modifier = Modifier.padding(8.dp),
                 text = text,
-                color = MaterialTheme.colorScheme.primaryContainer,
-                fontSize = 22.sp,
-
-                )
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 22.sp
+            )
 
             Text(
                 modifier = Modifier.padding(8.dp),
@@ -78,26 +76,26 @@ fun ExtraCards(
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium
             )
-
         }
+
         Text(
-            modifier = Modifier,
             text = stringResource(id = R.string.Expected_Today),
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 16.sp
         )
+
         HorizontalWave(
-            phase = rememberPhaseState(10f),
+            phase = phase1,
             alpha = 0.3f,
             amplitude = 80f,
             frequency = 0.6f
         )
+
         HorizontalWave(
-            phase = rememberPhaseState(startPosition = 15f),
+            phase = phase2,
             alpha = 0.2f,
             amplitude = 60f,
             frequency = 0.4f
         )
-
     }
 }

@@ -40,15 +40,15 @@ fun HourlyForecast(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 12.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+           // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             modifier = Modifier.padding(12.dp),
             text = stringResource(id = R.string.Next_24_Hours),
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center
@@ -78,7 +78,7 @@ fun HourlyForecast(temp: TemperatureResponse) {
                                 text = item.title,
                                 fontWeight = FontWeight.W600,
                                 fontSize = 14.sp,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     )

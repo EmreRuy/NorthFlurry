@@ -41,21 +41,21 @@ fun LocationView(
             fontWeight = FontWeight.Thin,
             fontSize = 50.sp,
             fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
-            color = MaterialTheme.colorScheme.onBackground,
+            color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
         )
-        Spacer(modifier = Modifier.padding(top = 16.dp))
+        Spacer(modifier = Modifier.padding(top = 24.dp))
         Text(
             text = "${temp.current_weather.temperature.toInt()}°",
-            color = MaterialTheme.colorScheme.onBackground,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(start = 4.dp),
             fontWeight = FontWeight.Thin,
             fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
             fontSize = 64.sp,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.padding(top = 16.dp))
+        Spacer(modifier = Modifier.padding(top = 24.dp))
         val weatherCode = temp.current_weather.weathercode
         val weatherDescriptionResId = getWeatherDescriptionResId(weatherCode)
         val weatherDescription = stringResource(id = weatherDescriptionResId)
@@ -75,7 +75,7 @@ fun LocationView(
             )
             Text(
                 text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light
@@ -83,7 +83,7 @@ fun LocationView(
             Spacer(modifier = Modifier.weight(0.9f))
             Text(
                 text = weatherDescription,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light
@@ -91,7 +91,7 @@ fun LocationView(
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 24.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Light

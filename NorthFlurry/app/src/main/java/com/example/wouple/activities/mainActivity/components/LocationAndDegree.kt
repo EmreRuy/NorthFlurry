@@ -46,7 +46,7 @@ fun GetLocationAndDegree(
         Text(
             modifier = Modifier.padding(start = 4.dp),
             text = temp.current_weather.temperature.toInt()
-                .toString()  + temp.hourly_units.temperature_2m[0],
+                .toString() + temp.hourly_units.temperature_2m[0],
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Thin,
             fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
@@ -57,39 +57,12 @@ fun GetLocationAndDegree(
         WeatherAnimation(temp.current_weather.weathercode, isDay)
         // Horizontal waves
         Spacer(modifier = Modifier.height(30.dp))
-        GetHorizontalWaveView()
+      //  GetHorizontalWaveView()
     }
 }
+
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 
-@Composable
-private fun GetHorizontalWaveView() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 32.dp),
-        contentAlignment = Alignment.BottomCenter
-    ) {
-        HorizontalWave(
-            phase = rememberPhaseState(0f),
-            alpha = 1f,
-            amplitude = 50f,
-            frequency = 0.5f
-        )
-        HorizontalWave(
-            phase = rememberPhaseState(15f),
-            alpha = 0.5f,
-            amplitude = 80f,
-            frequency = 0.3f
-        )
-        HorizontalWave(
-            phase = rememberPhaseState(10f),
-            alpha = 0.2f,
-            amplitude = 40f,
-            frequency = 0.6f
-        )
-    }
-}
 @Composable
 fun WeatherAnimation(weatherCode: Int, isDay: Boolean) {
     Box(modifier = Modifier.padding(end = 8.dp)) {
@@ -99,9 +72,35 @@ fun WeatherAnimation(weatherCode: Int, isDay: Boolean) {
             weatherCode == 2 && isDay -> LottieAnimationPartlyCloudy()
             weatherCode == 2 && !isDay -> LottieAnimationPartlyCloudyNight()
             weatherCode == 3 -> LottieAnimationCloud()
-            weatherCode in listOf(45,48) -> LottieAnimationFoggy()
-            weatherCode in listOf(51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82) && isDay -> LottieAnimationRainDayLight()
-            weatherCode in listOf(51, 53, 55, 61, 63, 65, 66, 67, 80, 81, 82) && !isDay -> LottieAnimationRainNight()
+            weatherCode in listOf(45, 48) -> LottieAnimationFoggy()
+            weatherCode in listOf(
+                51,
+                53,
+                55,
+                61,
+                63,
+                65,
+                66,
+                67,
+                80,
+                81,
+                82
+            ) && isDay -> LottieAnimationRainDayLight()
+
+            weatherCode in listOf(
+                51,
+                53,
+                55,
+                61,
+                63,
+                65,
+                66,
+                67,
+                80,
+                81,
+                82
+            ) && !isDay -> LottieAnimationRainNight()
+
             weatherCode in listOf(85, 86) && isDay -> LottieAnimationSnowDaylight()
             weatherCode in listOf(85, 86) && !isDay -> LottieAnimationSnowNight()
             weatherCode in listOf(95, 96) -> LottieAnimationThunderStorm()

@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
 import com.example.wouple.activities.mainActivity.components.GetBottomView
+import com.example.wouple.activities.mainActivity.components.GetHorizontalWaveView
 import com.example.wouple.activities.mainActivity.components.GetLocationAndDegree
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
 import com.example.wouple.model.api.SearchedLocation
@@ -39,7 +40,7 @@ fun MainView(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
                 .padding(bottom = 18.dp),
             contentAlignment = TopStart
         ) {
@@ -62,5 +63,6 @@ fun MainView(
         searchedLocation.value?.let {
             GetAttributionForOpenMet(searchedLocation = it)
         }
+        GetHorizontalWaveView()
     }
 }

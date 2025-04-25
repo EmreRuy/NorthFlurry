@@ -73,20 +73,20 @@ fun PrecipitationHours(
                 painter = painterResource(id = R.drawable.myicon),
                 contentDescription = null,
                 modifier = Modifier.size(28.dp),
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
             )
         } else {
             Image(
                 painter = painterResource(id = R.drawable.ic_drop_hollow),
                 contentDescription = null,
                 modifier = Modifier.size(28.dp),
-                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
             )
         }
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = "%$precipitationPr",
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 17.sp,
             fontWeight = FontWeight.Medium
         )

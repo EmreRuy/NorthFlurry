@@ -47,8 +47,8 @@ fun UvIndexChart(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+          //  .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(20.dp))
             .padding(12.dp),
     ) {
         UvChartView(temp = temp)
@@ -75,7 +75,7 @@ fun UvChartView(temp: TemperatureResponse) {
             fontWeight = FontWeight.SemiBold,
             fontStyle = MaterialTheme.typography.titleMedium.fontStyle,
             fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onPrimaryContainer
+            color = MaterialTheme.colorScheme.onSurface
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpView()

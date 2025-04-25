@@ -34,8 +34,8 @@ fun CurrentAirQualityCard(temp: TemperatureResponse, air: AirQuality?) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+           // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(20.dp))
             .padding(12.dp),
     ) {
         AirQualityIndex(air, temp)
@@ -59,7 +59,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                     .size(20.dp),
                 painter = painterResource(id = R.drawable.ic_airquality),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Text(
                 modifier = Modifier.padding(4.dp),
@@ -68,7 +68,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.SansSerif,
-                fontSize = 14.sp
+              //  fontSize = 14.sp
             )
             Spacer(modifier = Modifier.weight(1f))
             val aqiValue = air?.current?.european_aqi.toString()
@@ -77,7 +77,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                 text = aqiValue,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Light,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
             val airCodex = air?.current?.european_aqi ?: 0
             val airQualityDescriptionResId = getAirQualityDescriptionResId(airCodex)
@@ -87,7 +87,7 @@ fun AirQualityIndex(air: AirQuality?, temp: TemperatureResponse) {
                 text = descriptionText,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Light,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         }
     }

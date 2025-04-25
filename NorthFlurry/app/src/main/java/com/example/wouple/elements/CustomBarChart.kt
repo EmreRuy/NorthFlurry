@@ -41,13 +41,13 @@ fun RowScope.CustomBarChart(
     val color = MaterialTheme.colorScheme.onSurfaceVariant
     Box(
         modifier = Modifier
-            .padding(start = 6.dp, end = 6.dp, top = 4.dp)
+            .padding(start = 10.dp, end = 10.dp, top = 4.dp)
             .size(heightStateAnimate)
             .weight(1f)
             .border(BorderStroke(1.dp, color = Color.Transparent))
             .background(
                 color.copy(alpha = max(size / max, 2f)),
-                shape = RoundedCornerShape(10.dp)
+                shape = RoundedCornerShape(16.dp)
             )
     ){
         if (

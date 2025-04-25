@@ -68,7 +68,7 @@ private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallba
     ) {
         Text(
             text = stringResource(id = R.string.Daylight_Duration),
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 18.sp,
             fontWeight = FontWeight.Light,
             textAlign = TextAlign.Center

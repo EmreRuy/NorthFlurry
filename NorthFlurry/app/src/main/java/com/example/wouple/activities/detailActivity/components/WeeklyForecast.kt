@@ -53,8 +53,8 @@ fun WeeklyForecast(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 14.dp)
             .fillMaxWidth()
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+           // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
     ) {
         Row(
@@ -67,7 +67,7 @@ fun WeeklyForecast(
                     .align(Alignment.CenterVertically)
                     .padding(start = 3.dp),
                 text = stringResource(id = R.string.Upcoming_Days),
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Light,
                 fontSize = 18.sp
             )
@@ -75,7 +75,7 @@ fun WeeklyForecast(
             Icon(
                 painter = painterResource(id = R.drawable.arrowdropdown),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
                     .size(30.dp)
@@ -84,7 +84,7 @@ fun WeeklyForecast(
             Icon(
                 painter = painterResource(id = R.drawable.arrowdropup),
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimary,
+                tint = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .padding(horizontal = 14.dp)
                     .size(30.dp)
@@ -137,7 +137,7 @@ fun WeeklyForecast(
                             if (it.isLowerCase()) it.titlecase(locale = Locale.ENGLISH) else it.toString()
                         },
                     fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 Spacer(modifier = Modifier.padding(horizontal = 10.dp))
                 Image(

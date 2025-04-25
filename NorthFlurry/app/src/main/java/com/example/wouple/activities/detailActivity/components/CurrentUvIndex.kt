@@ -35,8 +35,8 @@ fun CurrentUvIndex(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+           // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(20.dp))
             .padding(12.dp),
     ) {
         UvIndex(temp)
@@ -67,7 +67,7 @@ fun UvIndex(temp: TemperatureResponse) {
                 modifier = Modifier.padding(4.dp),
                 text = stringResource(id = R.string.current_uv_index).uppercase(),
                 textAlign = TextAlign.Start,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily.SansSerif
             )

@@ -63,8 +63,8 @@ fun WeeklyPrecipitationChart(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+           // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(20.dp))
             .padding(16.dp)
     ) {
         WeeklyShowersChartView(temp = temp)
@@ -90,7 +90,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
             text = stringResource(id = R.string.Precipitation_For_Upcoming_Days),
             fontWeight = FontWeight.Light,
             fontSize = 18.sp,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpViewForPrecipitation(temp)
