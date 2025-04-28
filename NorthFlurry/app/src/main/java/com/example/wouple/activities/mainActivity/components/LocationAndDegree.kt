@@ -13,13 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.wouple.elements.HorizontalWave
-import com.example.wouple.elements.rememberPhaseState
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 
@@ -29,37 +26,48 @@ fun GetLocationAndDegree(
     searchedLocation: MutableState<SearchedLocation?>,
 ) {
     val isDay = temp.current_weather.is_day == 1
-    Column(
-        Modifier.padding(top = 110.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize() // Take up the full screen size
+            .padding(top = 100.dp), // Adjust padding to avoid overlap with curve
+        contentAlignment = Alignment.Center // Center the content inside the Box
     ) {
-        Text(
-            text = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D",
-            fontWeight = FontWeight.Thin,
-            textAlign = TextAlign.Center,
-            fontSize = 50.sp,
-            fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-        Spacer(modifier = Modifier.padding(top = 16.dp))
-        Text(
-            modifier = Modifier.padding(start = 4.dp),
-            text = temp.current_weather.temperature.toInt()
-                .toString() + temp.hourly_units.temperature_2m[0],
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Thin,
-            fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
-            fontSize = 64.sp,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-        Spacer(modifier = Modifier.padding(top = 12.dp))
-        WeatherAnimation(temp.current_weather.weathercode, isDay)
-        // Horizontal waves
-        Spacer(modifier = Modifier.height(30.dp))
-      //  GetHorizontalWaveView()
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D",
+                fontWeight = FontWeight.Thin,
+                textAlign = TextAlign.Center,
+                fontSize = 50.sp,
+                fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Spacer(modifier = Modifier.padding(top = 16.dp))
+
+            Text(
+                modifier = Modifier.padding(start = 4.dp),
+                text = temp.current_weather.temperature.toInt()
+                    .toString() + temp.hourly_units.temperature_2m[0],
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Thin,
+                fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
+                fontSize = 64.sp,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Spacer(modifier = Modifier.padding(top = 12.dp))
+
+            WeatherAnimation(temp.current_weather.weathercode, isDay)
+
+            Spacer(modifier = Modifier.height(30.dp)) // Adjust spacing below animation
+        }
     }
 }
+
 
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
 

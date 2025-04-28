@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -45,59 +44,58 @@ class MainActivity : ComponentActivity() {
         val isFirstLaunch = LocationPref.getSearchedLocation(this)
         setContent {
             AppTheme {
-            val context = LocalContext.current
-            var isConnected by remember { mutableStateOf(true) }
-            var isLoading by remember { mutableStateOf(true) }
-            LaunchedEffect(Unit) {
-                isConnected = isInternetConnected(context)
-                delay(1_000) // Simulating network delay for loading
-                isLoading = false
-                getWeatherData()
-            }
+                val context = LocalContext.current
+                var isConnected by remember { mutableStateOf(true) }
+                var isLoading by remember { mutableStateOf(true) }
+                LaunchedEffect(Unit) {
+                    isConnected = isInternetConnected(context)
+                    delay(1_000) // Simulating network delay for loading
+                    isLoading = false
+                    getWeatherData()
+                }
 
-            if (!isConnected) {
-                // Shows dialog if there is no internet connection
-                NoInternetDialog(activity = this)
-            } else {
-                if (isFirstLaunch == null) {
-                    FirstScreenView(
-                        onStartButtonClicked = {
-                            Log.d("MainActivity", "Start button clicked")
-                            val intent = Intent(this@MainActivity, StartActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                    )
+                if (!isConnected) {
+                    // Shows dialog if there is no internet connection
+                    NoInternetDialog(activity = this)
                 } else {
-                    if (temp.value == null || isLoading) {
-                        LoadingScreen()
-                    } else {
-                        // Use BottomNavigationBar with MainView
-                        val viewModel: SettingsViewModel = viewModel()
-                        BottomNavigationBar(
-                            temp = temp.value!!,
-                            locations = searchedLocations.value,
-                            onLocationButtonClicked = { location ->
-                                onLocationButtonClicked(location)
-                            },
-                            searchedLocation = searchedLocation,
-                            onClose = { searchedLocations.value = null },
-                            onSearch = { query ->
-                                WeatherManager.getSearchedLocations(
-                                    context = this,
-                                    address = query,
-                                    onSuccessCall = { location ->
-                                        searchedLocations.value = location
-                                    }
-                                )
-                            },
-                            air = airQuality.value,
-                            viewModel = viewModel,
-                            onUnitSettingsChanged = { getWeatherData() }
+                    if (isFirstLaunch == null) {
+                        FirstScreenView(
+                            onStartButtonClicked = {
+                                Log.d("MainActivity", "Start button clicked")
+                                val intent = Intent(this@MainActivity, StartActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
                         )
+                    } else {
+                        if (temp.value == null || isLoading) {
+                            LoadingScreen()
+                        } else {
+                            val viewModel: SettingsViewModel = viewModel()
+                            BottomNavigationBar(
+                                temp = temp.value!!,
+                                locations = searchedLocations.value,
+                                onLocationButtonClicked = { location ->
+                                    onLocationButtonClicked(location)
+                                },
+                                searchedLocation = searchedLocation,
+                                onClose = { searchedLocations.value = null },
+                                onSearch = { query ->
+                                    WeatherManager.getSearchedLocations(
+                                        context = this,
+                                        address = query,
+                                        onSuccessCall = { location ->
+                                            searchedLocations.value = location
+                                        }
+                                    )
+                                },
+                                air = airQuality.value,
+                                viewModel = viewModel,
+                                onUnitSettingsChanged = { getWeatherData() }
+                            )
+                        }
                     }
                 }
-            }
             }
         }
     }

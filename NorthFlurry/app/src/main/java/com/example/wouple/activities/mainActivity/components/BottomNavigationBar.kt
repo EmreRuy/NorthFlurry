@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -63,9 +62,7 @@ fun BottomNavigationBar(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar(
-             //   modifier = Modifier.height(65.dp)
-            ) {
+            NavigationBar {
                 // Iterate through bottom navigation items
                 BottomNavigationItem().bottomNavigationItems()
                     .forEachIndexed { index, navigationItem ->
@@ -116,7 +113,6 @@ fun BottomNavigationBar(
                 )
             }
             composable(Screens.Details.route) {
-                // Display DetailView when the user navigates to the Details screen
                 DetailView(
                     temp = temp,
                     searchedLocation = searchedLocation.value ?: SearchedLocation(
@@ -124,15 +120,13 @@ fun BottomNavigationBar(
                         lat = "00.00",
                         lon = "00.00"
                     ),
-                    air = air,  // Pass air quality data if available
-                    //   onBackPressed = { navController.popBackStack() }
+                    air = air,
                 )
             }
             composable(Screens.Settings.route) {
                 SettingsView(
                     temp = temp,
                     onFeedbackClicked = { feedback ->
-                        // Handle feedback logic
                         sendEmail(context, feedback)
                     },
                     onLottieClicked = {
