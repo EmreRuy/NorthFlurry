@@ -53,7 +53,7 @@ fun MainView(
             ) {
                 val width = size.width
                 val height = size.height
-                val curveHeight = 180f // Deeper curve for a more pronounced rounded bottom
+                val curveHeight = 150f // Deeper curve for a more pronounced rounded bottom
 
                 // Draw the rounded bottom shape
                 drawPath(

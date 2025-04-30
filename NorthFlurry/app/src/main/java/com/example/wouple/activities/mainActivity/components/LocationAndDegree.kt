@@ -29,9 +29,9 @@ fun GetLocationAndDegree(
 
     Box(
         modifier = Modifier
-            .fillMaxSize() // Take up the full screen size
-            .padding(top = 100.dp), // Adjust padding to avoid overlap with curve
-        contentAlignment = Alignment.Center // Center the content inside the Box
+            .fillMaxSize()
+            .padding(top = 100.dp),
+        contentAlignment = Alignment.Center
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

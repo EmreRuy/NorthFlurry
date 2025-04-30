@@ -4,7 +4,6 @@ package com.example.wouple.activities.mainActivity.components
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -35,6 +34,7 @@ import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import androidx.core.net.toUri
 
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -51,19 +51,14 @@ fun BottomNavigationBar(
     onUnitSettingsChanged: () -> Unit
 ) {
     val context = LocalContext.current
-    // Initializing the default selected item
     var navigationSelectedItem by remember {
         mutableIntStateOf(0)
     }
-
-    // Get an instance of NavController
     val navController = rememberNavController()
-    // Scaffold to hold our bottom navigation bar
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar {
-                // Iterate through bottom navigation items
                 BottomNavigationItem().bottomNavigationItems()
                     .forEachIndexed { index, navigationItem ->
                         NavigationBarItem(
@@ -96,7 +91,6 @@ fun BottomNavigationBar(
             }
         }
     ) { paddingValues ->
-        // Setup the NavHost for navigation
         NavHost(
             navController = navController,
             startDestination = Screens.Home.route,
@@ -151,7 +145,7 @@ fun BottomNavigationBar(
 
 fun sendEmail(context: Context, isProblem: Boolean) {
     val selectorIntent = Intent(Intent.ACTION_SENDTO)
-    selectorIntent.data = Uri.parse("mailto:")
+    selectorIntent.data = "mailto:".toUri()
 
     val emailIntent = Intent(Intent.ACTION_SEND).apply {
         putExtra(Intent.EXTRA_EMAIL, arrayOf("uyar.em.eu@gmail.com"))
