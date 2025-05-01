@@ -1,6 +1,8 @@
 package com.example.wouple.activities.detailActivity
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,7 +23,7 @@ import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import androidx.compose.ui.res.stringResource
 import com.example.wouple.activities.detailActivity.components.ConfettiView
-import com.example.wouple.activities.detailActivity.components.CurrentAirQualityCard
+import com.example.wouple.activities.detailActivity.components.CurrentAirQualityCardCompact
 import com.example.wouple.activities.detailActivity.components.CurrentUvIndex
 import com.example.wouple.activities.detailActivity.components.DayLightDuration
 import com.example.wouple.activities.detailActivity.components.ExtraCards
@@ -63,7 +65,12 @@ fun DetailView(
                     Spacer(modifier = Modifier.padding(top = 8.dp))
                 }
                 item {
-                    CurrentAirQualityCard(temp = temp, air = air)
+                    Row(
+                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        CurrentAirQualityCardCompact(temp = temp, air = air)
+                    }
                 }
                 item {
                     CurrentUvIndex(temp = temp)

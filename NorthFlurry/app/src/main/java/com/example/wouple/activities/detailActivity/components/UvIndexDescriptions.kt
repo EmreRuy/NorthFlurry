@@ -11,7 +11,7 @@ fun getUvIndexDescription(uvIndex: Int): String {
         in 3..5 -> stringResource(id = R.string.uv_index_moderate)
         in 6..7 -> stringResource(id = R.string.uv_index_high)
         in 8..10 -> stringResource(id = R.string.uv_index_very_high)
-        in 10..Int.MAX_VALUE -> stringResource(id = R.string.uv_index_extreme)
+        in 11..Int.MAX_VALUE -> stringResource(id = R.string.uv_index_extreme)
         else -> stringResource(id = R.string.unknown)
     }
 }
