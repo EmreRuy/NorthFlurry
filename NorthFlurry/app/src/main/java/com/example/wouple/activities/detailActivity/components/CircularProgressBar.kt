@@ -1,6 +1,7 @@
 package com.example.wouple.activities.detailActivity.components
 
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -44,11 +45,17 @@ fun CircularProgressBar(
         ),
         label = ""
     )
-
+    val animatedNumber by animateIntAsState(
+        targetValue = if (animationPlayed) number else 0,
+        animationSpec = tween(
+            durationMillis = animDuration,
+            delayMillis = animDelay
+        ),
+        label = ""
+    )
     LaunchedEffect(Unit) {
         animationPlayed = true
     }
-
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.size(radius * 2f)
@@ -56,7 +63,7 @@ fun CircularProgressBar(
         Canvas(
             modifier = Modifier.size(radius * 2f)
         ) {
-            //Background Circle
+            // Background Circle
             drawArc(
                 color = backgroundColor,
                 startAngle = -90f,
@@ -64,8 +71,7 @@ fun CircularProgressBar(
                 useCenter = false,
                 style = Stroke(strokeWidth.toPx(), cap = StrokeCap.Round)
             )
-
-            // Foreground animated
+            // Foreground animated arc
             drawArc(
                 color = color,
                 startAngle = -90f,
@@ -75,10 +81,11 @@ fun CircularProgressBar(
             )
         }
         Text(
-            text = (curPercentage * number).toInt().toString(),
+            text = animatedNumber.toString(),
             color = MaterialTheme.colorScheme.onBackground,
             fontSize = fontSize,
             fontFamily = MaterialTheme.typography.bodyMedium.fontFamily
         )
     }
 }
+
