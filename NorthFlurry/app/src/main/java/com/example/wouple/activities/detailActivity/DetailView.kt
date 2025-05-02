@@ -67,13 +67,11 @@ fun DetailView(
                 item {
                     Row(
                         modifier = Modifier.fillMaxWidth().padding(16.dp),
-                        horizontalArrangement = Arrangement.Start
+                        horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         CurrentAirQualityCardCompact(temp = temp, air = air)
+                        CurrentUvIndex(temp = temp)
                     }
-                }
-                item {
-                    CurrentUvIndex(temp = temp)
                 }
                 item {
                     UvIndexChart(temp = temp)

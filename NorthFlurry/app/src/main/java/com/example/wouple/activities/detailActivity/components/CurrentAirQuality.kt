@@ -35,7 +35,7 @@ fun CurrentAirQualityCardCompact(air: AirQuality?, temp: TemperatureResponse) {
     Box(
         modifier = Modifier
             .size(180.dp)
-            .clip(RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(24.dp))
             .background(MaterialTheme.colorScheme.secondaryContainer)
             .padding(12.dp),
         contentAlignment = Alignment.TopStart
