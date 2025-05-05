@@ -1,24 +1,24 @@
 package com.example.wouple.activities.detailActivity.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -26,53 +26,58 @@ import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.TemperatureResponse
 
 @Composable
-fun CurrentAirQualityCardCompact(air: AirQuality?, temp: TemperatureResponse) {
+fun CurrentAirQualityCardCompact(
+    air: AirQuality?,
+    temp: TemperatureResponse
+) {
     val airQualityValue = air?.current?.european_aqi ?: 0
     val airQualityPercentage = airQualityValue / 100f
     val descriptionResId = getAirQualityDescriptionResId(airQualityValue)
     val description = stringResource(id = descriptionResId)
-
-    Box(
+    Card(
         modifier = Modifier
-            .size(180.dp)
-            .clip(RoundedCornerShape(24.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer)
-            .padding(12.dp),
-        contentAlignment = Alignment.TopStart
+            .padding(horizontal = 16.dp, vertical = 6.dp).wrapContentSize(),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
+        )
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxSize()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+           // horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                modifier = Modifier.padding(4.dp),
-                text = stringResource(id = R.string.air_quality_index)
-                    .replaceFirstChar { it.uppercaseChar() },
-                textAlign = TextAlign.Start,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                fontWeight = MaterialTheme.typography.titleMedium.fontWeight,
-                fontFamily = MaterialTheme.typography.bodyMedium.fontFamily
-            )
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
+                Spacer(modifier = Modifier.width(12.dp))
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_airquality),
+                        contentDescription = stringResource(id = R.string.air_quality_index),
+                        tint = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.size(28.dp)
+                    )
+                    Text(
+                        text = stringResource(id = R.string.air_quality_index)
+                            .replaceFirstChar { it.uppercaseChar() },
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                    Text(
+                        text = description,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
             CircularProgressBar(
                 percentage = airQualityPercentage.coerceIn(0f, 1f),
                 number = airQualityValue,
-                radius = 40.dp,
+                radius = 32.dp,
                 strokeWidth = 6.dp,
-                fontSize = 18.sp
-            )
-            Text(
-                text = description,
-                fontSize = 13.sp,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                fontSize = 14.sp
             )
         }
-        Icon(
-            painter = painterResource(id = R.drawable.ic_airquality),
-            contentDescription = stringResource(id = R.string.air_quality_index),
-            tint = MaterialTheme.colorScheme.onPrimaryContainer,
-            modifier = Modifier.size(16.dp)
-        )
     }
 }

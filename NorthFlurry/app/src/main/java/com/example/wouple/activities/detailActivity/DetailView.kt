@@ -1,8 +1,6 @@
 package com.example.wouple.activities.detailActivity
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -65,13 +63,10 @@ fun DetailView(
                     Spacer(modifier = Modifier.padding(top = 8.dp))
                 }
                 item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceEvenly
-                    ) {
-                        CurrentAirQualityCardCompact(temp = temp, air = air)
+                    CurrentAirQualityCardCompact(temp = temp, air = air)
+                }
+                item {
                         CurrentUvIndex(temp = temp)
-                    }
                 }
                 item {
                     UvIndexChart(temp = temp)
