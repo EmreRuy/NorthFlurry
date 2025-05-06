@@ -22,7 +22,7 @@ import com.example.wouple.model.api.TemperatureResponse
 import androidx.compose.ui.res.stringResource
 import com.example.wouple.activities.detailActivity.components.ConfettiView
 import com.example.wouple.activities.detailActivity.components.CurrentAirQualityCardCompact
-import com.example.wouple.activities.detailActivity.components.CurrentUvIndex
+import com.example.wouple.activities.detailActivity.components.CurrentUvIndexCardCompact
 import com.example.wouple.activities.detailActivity.components.DayLightDuration
 import com.example.wouple.activities.detailActivity.components.ExtraCards
 import com.example.wouple.activities.detailActivity.components.HourlyForecast
@@ -66,7 +66,7 @@ fun DetailView(
                     CurrentAirQualityCardCompact(temp = temp, air = air)
                 }
                 item {
-                        CurrentUvIndex(temp = temp)
+                    CurrentUvIndexCardCompact(temp = temp)
                 }
                 item {
                     UvIndexChart(temp = temp)

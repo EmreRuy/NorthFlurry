@@ -1,5 +1,6 @@
 package com.example.wouple.activities.detailActivity.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -35,8 +37,8 @@ fun CurrentAirQualityCardCompact(
     val descriptionResId = getAirQualityDescriptionResId(airQualityValue)
     val description = stringResource(id = descriptionResId)
     Card(
-        modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 6.dp).wrapContentSize(),
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+            .fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondaryContainer
@@ -44,12 +46,13 @@ fun CurrentAirQualityCardCompact(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-           // horizontalArrangement = Arrangement.SpaceBetween
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(16.dp)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(8.dp)
+            ) {
                 Spacer(modifier = Modifier.width(12.dp))
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Icon(
@@ -64,11 +67,6 @@ fun CurrentAirQualityCardCompact(
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
                 }
             }
             CircularProgressBar(
@@ -77,6 +75,12 @@ fun CurrentAirQualityCardCompact(
                 radius = 32.dp,
                 strokeWidth = 6.dp,
                 fontSize = 14.sp
+            )
+            Spacer(modifier = Modifier.padding(horizontal = 16.dp))
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
