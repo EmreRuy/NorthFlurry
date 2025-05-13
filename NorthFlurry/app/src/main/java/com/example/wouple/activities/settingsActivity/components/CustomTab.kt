@@ -109,13 +109,15 @@ fun CustomTab(
     Box(
         modifier = modifier
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.surfaceDim.copy(alpha = 0.4f))
+            .background(MaterialTheme.colorScheme.secondaryContainer)
             .height(intrinsicSize = IntrinsicSize.Min),
     ) {
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary
+            indicatorColor = if (isDay) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary.copy(
+                alpha = 0.5f
+            )
             // if (isDay) Color(0xFF3C4269) else Color(0xFF536AD5)
         )
         Row(

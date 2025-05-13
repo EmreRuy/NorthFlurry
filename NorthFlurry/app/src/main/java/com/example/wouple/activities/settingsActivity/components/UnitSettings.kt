@@ -1,6 +1,5 @@
 package com.example.wouple.activities.settingsActivity.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -38,7 +37,7 @@ fun SettingsCardTwo() {
         text = stringResource(id = R.string.UnitSettings),
         modifier = Modifier.padding(8.dp),
         fontWeight = FontWeight.Light,
-        color = White.copy(alpha = 0.7f),
+        color = MaterialTheme.colorScheme.primary,
         fontSize = 28.sp
     )
 }
@@ -49,7 +48,7 @@ fun TemperatureUnitSettings(
     viewModel: SettingsViewModel,
     onChanged: () -> Unit
 ) {
-    val temperatureUnits = TemperatureUnit.values()
+    val temperatureUnits = TemperatureUnit.entries.toTypedArray()
     val currentUnit by viewModel.temperatureUnit.collectAsState()
     val context = LocalContext.current
 
@@ -62,7 +61,7 @@ fun TemperatureUnitSettings(
     ) {
         Text(
             text = stringResource(id = R.string.TemperatureUnits),
-            color = White.copy(alpha = 0.7f),
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
@@ -90,12 +89,12 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) 
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.PrecipitationUnits),
-            color = White.copy(alpha = 0.7f),
+            color =MaterialTheme.colorScheme.primary,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Start
         )
-        val units = PrecipitationUnit.values()
+        val units = PrecipitationUnit.entries.toTypedArray()
         var selectedUnitIndex by remember {
             mutableIntStateOf(
                 units.indexOf(
@@ -125,12 +124,12 @@ fun WindUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.WindSpeedUnits),
-            color = White.copy(alpha = 0.7f),
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Start
         )
-        val units = WindUnit.values()
+        val units = WindUnit.entries.toTypedArray()
         var selectedUnitIndex by remember {
             mutableIntStateOf(
                 units.indexOf(

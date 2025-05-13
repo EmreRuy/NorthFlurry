@@ -1,7 +1,6 @@
 package com.example.wouple.activities.settingsActivity.components
 
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,8 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -32,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import androidx.core.net.toUri
 
 @Composable
 fun SettingsCardOne() {
@@ -128,7 +126,7 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
             Text(
                 text = stringResource(id = R.string.AnyGoodIdeas),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -187,7 +185,7 @@ fun ShareTheAppSettings() {
             Text(
                 text = stringResource(id = R.string.ShareTheApp),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -217,7 +215,7 @@ fun RateUsSettings() {
                     "https://play.google.com/store/apps/details?id=com.weather.wouple&hl=en_US"
                 val playIntent: Intent = Intent().apply {
                     action = Intent.ACTION_VIEW
-                    data = Uri.parse(appURL)
+                    data = appURL.toUri()
                 }
                 try {
                     context.startActivity(playIntent)
@@ -248,7 +246,7 @@ fun RateUsSettings() {
             Text(
                 text = stringResource(id = R.string.RateUs),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -298,7 +296,7 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
             Text(
                 text = stringResource(id = R.string.LottieFilesAndTerms),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -348,7 +346,7 @@ fun OpenMetAttribution(onMetClicked: () -> Unit) {
             Text(
                 text = stringResource(id = R.string.CCLicence),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.background,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
