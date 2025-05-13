@@ -67,6 +67,7 @@ fun CurrentAirQualityCardCompact(
                     )
                 }
             }
+            Spacer(modifier = Modifier.padding(horizontal = 16.dp))
             CircularProgressBar(
                 percentage = airQualityPercentage.coerceIn(0f, 1f),
                 number = airQualityValue,
@@ -77,7 +78,7 @@ fun CurrentAirQualityCardCompact(
             Spacer(modifier = Modifier.padding(horizontal = 16.dp))
             Text(
                 text = description,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

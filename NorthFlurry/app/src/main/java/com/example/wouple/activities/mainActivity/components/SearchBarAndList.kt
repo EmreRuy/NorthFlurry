@@ -59,7 +59,7 @@ fun GetSearchBarAndList(
             LazyColumn(
                 state = listState,
                 modifier = Modifier
-                    .height(300.dp)
+                    .height(200.dp)
                     .padding(vertical = 4.dp),
                 contentPadding = PaddingValues(vertical = 4.dp)
             ) {
