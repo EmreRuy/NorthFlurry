@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -89,10 +90,11 @@ fun BottomNavigationBar(
                     }
             }
         }
-    ) {
+    ) { paddingValues ->
         NavHost(
             navController = navController,
             startDestination = Screens.Home.route,
+            modifier = Modifier.padding(paddingValues = paddingValues)
         ) {
             composable(Screens.Home.route) {
                 MainView(

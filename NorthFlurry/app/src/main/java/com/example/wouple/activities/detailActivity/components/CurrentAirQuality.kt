@@ -46,7 +46,8 @@ fun CurrentAirQualityCardCompact(
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
-        )
+        ),
+        elevation = CardDefaults.elevatedCardElevation(4.dp)
     ) {
         Row(
             modifier = Modifier
