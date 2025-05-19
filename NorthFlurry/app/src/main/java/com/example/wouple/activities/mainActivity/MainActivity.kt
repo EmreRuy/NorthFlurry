@@ -49,19 +49,17 @@ class MainActivity : ComponentActivity() {
                 var isLoading by remember { mutableStateOf(true) }
                 LaunchedEffect(Unit) {
                     isConnected = isInternetConnected(context)
-                    delay(1_000) // Simulating network delay for loading
+                    delay(1_000) // Simulate loading
                     isLoading = false
                     getWeatherData()
                 }
 
                 if (!isConnected) {
-                    // Shows dialog if there is no internet connection
                     NoInternetDialog(activity = this)
                 } else {
                     if (isFirstLaunch == null) {
                         FirstScreenView(
                             onStartButtonClicked = {
-                                Log.d("MainActivity", "Start button clicked")
                                 val intent = Intent(this@MainActivity, StartActivity::class.java)
                                 startActivity(intent)
                                 finish()
@@ -75,18 +73,14 @@ class MainActivity : ComponentActivity() {
                             BottomNavigationBar(
                                 temp = temp.value!!,
                                 locations = searchedLocations.value,
-                                onLocationButtonClicked = { location ->
-                                    onLocationButtonClicked(location)
-                                },
+                                onLocationButtonClicked = { location -> onLocationButtonClicked(location) },
                                 searchedLocation = searchedLocation,
                                 onClose = { searchedLocations.value = null },
                                 onSearch = { query ->
                                     WeatherManager.getSearchedLocations(
                                         context = this,
                                         address = query,
-                                        onSuccessCall = { location ->
-                                            searchedLocations.value = location
-                                        }
+                                        onSuccessCall = { location -> searchedLocations.value = location }
                                     )
                                 },
                                 air = airQuality.value,
@@ -105,9 +99,7 @@ class MainActivity : ComponentActivity() {
         getCurrentWeather(
             context = this,
             location = location,
-            onSuccessCall = { temperature ->
-                temp.value = temperature
-            },
+            onSuccessCall = { temperature -> temp.value = temperature },
             temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
             windUnit = WindUnitPref.getWindUnit(this),
             precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this)
@@ -135,9 +127,7 @@ class MainActivity : ComponentActivity() {
                 temperaUnit = TemperatureUnitPref.getTemperatureUnit(this),
                 windUnit = WindUnitPref.getWindUnit(this),
                 precipitationUnit = PrecipitationUnitPref.getPrecipitationUnit(this),
-                onSuccessCall = { temperature ->
-                    temp.value = temperature
-                }
+                onSuccessCall = { temperature -> temp.value = temperature }
             )
             getAirQuality(location)
         }
