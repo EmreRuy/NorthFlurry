@@ -54,7 +54,7 @@ fun WeeklyForecast(
             .padding(vertical = 8.dp, horizontal = 14.dp)
             .fillMaxWidth()
            // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
-            .background(MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
     ) {
         Row(
