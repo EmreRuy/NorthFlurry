@@ -95,12 +95,12 @@ fun FirstTimeLocationScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(24.dp),
         contentAlignment = Center
     ) {
         Column(
-            modifier = Modifier.background(MaterialTheme.colorScheme.secondaryContainer),
+            modifier = Modifier.background(MaterialTheme.colorScheme.surfaceVariant),
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

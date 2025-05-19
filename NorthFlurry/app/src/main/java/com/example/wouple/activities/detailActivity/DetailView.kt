@@ -15,6 +15,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
@@ -54,7 +56,15 @@ fun DetailView(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surface)
+                    .background(
+                     /*   Brush.verticalGradient(
+                            colors = listOf(
+                                Color(0xFFEAF6FB), // very light sky top
+                                Color(0xFFCDE5F0)  // your card color bottom
+                            ) // For the light mode
+                        ) */
+                        Color(0xFF1F2B2F) // For the Dark Mode
+                    )
                     .padding(innerPadding),
                 horizontalAlignment = CenterHorizontally
             ) {
