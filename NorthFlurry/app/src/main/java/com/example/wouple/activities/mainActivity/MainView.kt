@@ -58,16 +58,16 @@ fun MainView(
                 // Draw the rounded bottom shape
                 drawPath(
                     path = Path().apply {
-                        moveTo(0f, 0f) // Start at top-left corner
-                        lineTo(0f, height - curveHeight) // Left side
+                        moveTo(0f, 0f)
+                        lineTo(0f, height - curveHeight)
                         quadraticTo(
                             x1 = width / 2f,
                             y1 = height + curveHeight,
                             x2 = width,
                             y2 = height - curveHeight
                         )
-                        lineTo(width, 0f) // Line back to the top-right corner
-                        close() // Close the path
+                        lineTo(width, 0f)
+                        close()
                     },
                     color = color
                 )

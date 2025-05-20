@@ -38,7 +38,6 @@ fun CurrentAirQualityCardCompact(
     val airQualityPercentage = (airQualityValue.coerceIn(0, 300)) / 300f
     val descriptionResId = getAirQualityDescriptionResId(airQualityValue)
     val description = stringResource(id = descriptionResId)
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
