@@ -90,8 +90,7 @@ fun DetailView(
                 }
                 item {
                     DayLightDuration(
-                        temp = temp,
-                        explodeConfettiCallback = { setExplodeConfetti(true) })
+                        temp = temp)
                 }
                 item {
                     HorizontalPager(state = pagerState, modifier = Modifier)

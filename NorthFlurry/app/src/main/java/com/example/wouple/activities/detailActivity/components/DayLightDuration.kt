@@ -1,15 +1,25 @@
 package com.example.wouple.activities.detailActivity.components
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -18,8 +28,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,127 +40,192 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
+import java.time.Duration
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import androidx.compose.runtime.getValue
 
 @Composable
-fun DayLightDuration(temp: TemperatureResponse, explodeConfettiCallback: () -> Unit) {
+fun DayLightDuration(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
-    val background = if (isDay) {
-        listOf(
-            Color(0xFF3F54BE),
-            Color(0xFF3F54BE)
-        )
+    val gradientColors = if (isDay) {
+        listOf(Color(0xFF87CEEB), Color(0xFF4682B4))
     } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
-        )
+        listOf(Color(0xFF2C3E50), Color(0xFF34495E))
     }
-    Column(
-        modifier = Modifier
-            .padding(vertical = 8.dp, horizontal = 16.dp)
-            .background(
-                shape = RoundedCornerShape(20.dp),
-                color = MaterialTheme.colorScheme.surfaceVariant
-            )
-            .padding(8.dp)
-    ) {
-        GetDaylightDuration(temp = temp, explodeConfettiCallback)
-    }
-}
 
-
-@Composable
-private fun GetDaylightDuration(temp: TemperatureResponse, explodeConfettiCallback: () -> Unit) {
-    Column(
+    Box(
         modifier = Modifier
+            .padding(16.dp)
             .fillMaxWidth()
-            .padding(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(
+                MaterialTheme.colorScheme.surfaceVariant,
+              //  brush = Brush.verticalGradient(gradientColors),
+                shape = RoundedCornerShape(24.dp)
+            )
+         //   .shadow(8.dp, RoundedCornerShape(24.dp))
+            .padding(20.dp)
     ) {
-        Text(
-            text = stringResource(id = R.string.Daylight_Duration),
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
-            textAlign = TextAlign.Center
-        )
-        val formattedSunset = getFormattedSunset(temp)
-        val formattedSunrise = getFormattedSunrise(temp)
-        if (formattedSunset.isNotEmpty() && formattedSunrise.isNotEmpty()) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(
-                    modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    GetSunRise(temp)
-                    Row {
-                        Icon(
-                            painter = painterResource(id = R.drawable.arrowdropup),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(30.dp),
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        )
-                        Icon(
-                            painter = painterResource(id = R.drawable.arrowdropdown),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(30.dp),
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        )
-                    }
-                    GetSunSet(temp)
-                }
-                Column(
-                    modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    val interactionSource = remember { MutableInteractionSource() }
-                    Image(
-                        modifier = Modifier
-                            .size(70.dp)
-                            .clickable(
-                                interactionSource = interactionSource,
-                                indication = null,
-                                onClick = {
-                                    explodeConfettiCallback()
-                                }),
-                        painter = painterResource(id = R.drawable.icondrop),
-                        contentDescription = null
-                    )
-                }
-                Column(
-                    modifier = Modifier.weight(1f),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    GetDayLength(temp)
-                }
-            }
-        } else {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier.size(18.dp),
-                    painter = painterResource(id = R.drawable.baseline_error_outline_24),
-                    contentDescription = "error",
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Icon(
+                painter = painterResource(id = if (isDay) R.drawable.ic_sun else R.drawable.ic_moon),
+                contentDescription = null,
+                modifier = Modifier.size(36.dp),
+                tint = Color.White
+            )
+
+            Text(
+                text = stringResource(id = R.string.Daylight_Duration),
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
                 )
-                Text(
-                    modifier = Modifier.padding(start = 4.dp),
-                    text = stringResource(id = R.string.NoData),
-                    fontWeight = FontWeight.Light,
-                    fontSize = 15.sp,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer,
-                    textAlign = TextAlign.Center
-                )
-            }
+            )
+
+            DaylightInfoSection(temp = temp, isDay = isDay)
         }
     }
 }
+
+@Composable
+private fun DaylightInfoSection(temp: TemperatureResponse, isDay: Boolean) {
+    val sunrise = getFormattedSunrise(temp)
+    val sunset = getFormattedSunset(temp)
+
+    if (sunrise.isNotEmpty() && sunset.isNotEmpty()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            AnimatedInfoCard("Sunrise", sunrise, isSunrise = true)
+            AnimatedInfoCard("Sunset", sunset, isSunrise = false)
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+        DayLengthIndicator(temp)
+
+        if (!isDay) {
+            Spacer(modifier = Modifier.height(8.dp))
+            MoonPhaseIcon()
+        }
+    } else {
+        ErrorCard()
+    }
+}
+
+@Composable
+fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
+    val offsetY by rememberInfiniteTransition(label = title)
+        .animateFloat(
+            initialValue = if (isSunrise) 10f else -10f,
+            targetValue = if (isSunrise) -10f else 10f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(durationMillis = 1500, easing = LinearEasing),
+                repeatMode = RepeatMode.Reverse
+            ),
+            label = "offsetY"
+        )
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .width(100.dp)
+            .background(
+                color = Color.White.copy(alpha = 0.15f),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .padding(12.dp)
+    ) {
+        Icon(
+            painter = painterResource(id = if (isSunrise) R.drawable.ic_sun else R.drawable.ic_moon),
+            contentDescription = title,
+            tint = Color.White,
+            modifier = Modifier
+                .size(28.dp)
+                .graphicsLayer(translationY = offsetY)
+        )
+        Text(
+            text = title,
+            fontSize = 12.sp,
+            color = Color.White.copy(alpha = 0.8f)
+        )
+        Text(
+            text = value,
+            fontWeight = FontWeight.Bold,
+            color = Color.White,
+            fontSize = 14.sp
+        )
+    }
+}
+
+@Composable
+fun DayLengthIndicator(temp: TemperatureResponse) {
+    val dayLength = getDayLengthString(temp)
+    Text(
+        text = "Day Length: $dayLength",
+        fontSize = 14.sp,
+        color = Color.White.copy(alpha = 0.9f),
+        fontWeight = FontWeight.Medium,
+        textAlign = TextAlign.Center
+    )
+}
+
+@Composable
+fun MoonPhaseIcon() {
+    Icon(
+        painter = painterResource(id = R.drawable.ic_moon),
+        contentDescription = "Moon Phase",
+        tint = Color.White,
+        modifier = Modifier.size(36.dp)
+    )
+}
+
+@Composable
+fun ErrorCard() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(top = 8.dp)
+            .background(Color.Red.copy(alpha = 0.2f), RoundedCornerShape(12.dp))
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.baseline_error_outline_24),
+            contentDescription = null,
+            tint = Color.White,
+            modifier = Modifier.size(18.dp)
+        )
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = stringResource(id = R.string.NoData),
+            fontSize = 14.sp,
+            color = Color.White
+        )
+    }
+}
+@Composable
+fun getDayLengthString(temp: TemperatureResponse): String {
+    val sunrise = getFormattedSunrise(temp)
+    val sunset = getFormattedSunset(temp)
+
+    return try {
+        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+        val sunriseTime = LocalTime.parse(sunrise, timeFormatter)
+        val sunsetTime = LocalTime.parse(sunset, timeFormatter)
+        val duration = Duration.between(sunriseTime, sunsetTime)
+
+        val hours = duration.toHours()
+        val minutes = duration.toMinutes() % 60
+        "${hours}h ${minutes}m"
+    } catch (e: Exception) {
+        "N/A"
+    }
+}
+
