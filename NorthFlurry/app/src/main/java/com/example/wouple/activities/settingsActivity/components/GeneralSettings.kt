@@ -72,13 +72,14 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier
                     .padding(start = 4.dp)
-                    .size(24.dp)
+                    .size(24.dp),
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.TroubleWithTheApp),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -87,7 +88,8 @@ fun TroubleOnAppSettings(onTroubleWithAppClicked: () -> Unit) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(18.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -120,13 +122,14 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier
                     .padding(top = 2.dp, start = 4.dp)
-                    .size(24.dp)
+                    .size(24.dp),
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.AnyGoodIdeas),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -135,7 +138,8 @@ fun IdeasSettings(onIdeaClicked: () -> Unit) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(18.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -179,13 +183,14 @@ fun ShareTheAppSettings() {
                     .padding(top = 2.dp, start = 4.dp)
                     .size(24.dp),
                 painter = painterResource(id = R.drawable.ic_world),
-                contentDescription = null
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.ShareTheApp),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -194,7 +199,8 @@ fun ShareTheAppSettings() {
                 contentDescription = null,
                 modifier = Modifier
                     .size(18.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -240,13 +246,14 @@ fun RateUsSettings() {
                 contentDescription = null,
                 Modifier
                     .padding(top = 2.dp, start = 4.dp)
-                    .size(24.dp)
+                    .size(24.dp),
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.RateUs),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -255,7 +262,8 @@ fun RateUsSettings() {
                 contentDescription = null,
                 modifier = Modifier
                     .size(18.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -290,13 +298,14 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier
                     .padding(top = 2.dp, start = 4.dp)
-                    .size(24.dp)
+                    .size(24.dp),
+                tint =  MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.LottieFilesAndTerms),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -305,7 +314,8 @@ fun LottieFilesAndTerms(onLottieClicked: () -> Unit) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(18.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -340,13 +350,14 @@ fun OpenMetAttribution(onMetClicked: () -> Unit) {
                 contentDescription = null,
                 Modifier
                     .padding(top = 2.dp, start = 4.dp)
-                    .size(24.dp)
+                    .size(24.dp),
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.CCLicence),
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 16.sp
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -355,7 +366,8 @@ fun OpenMetAttribution(onMetClicked: () -> Unit) {
                 contentDescription = null,
                 modifier = Modifier
                     .size(18.dp)
-                    .align(Alignment.CenterVertically)
+                    .align(Alignment.CenterVertically),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
