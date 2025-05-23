@@ -1,7 +1,6 @@
 package com.example.wouple.activities.detailActivity.components.openMetActivity
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
+import androidx.core.net.toUri
 
 @Preview(showBackground = true, name = "Attribution View")
 @Composable
@@ -51,7 +51,7 @@ fun GetAttributionForOpenMet(searchedLocation: SearchedLocation) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(  Color(0xFF1F2B2F))
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -89,7 +89,7 @@ fun GetAttributionForOpenMet(searchedLocation: SearchedLocation) {
                         textDecoration = TextDecoration.Underline
                     ),
                     modifier = Modifier.clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(openMetUrl.value))
+                        val intent = Intent(Intent.ACTION_VIEW, openMetUrl.value.toUri())
                         attributionContext.startActivity(intent)
                     }
                 )

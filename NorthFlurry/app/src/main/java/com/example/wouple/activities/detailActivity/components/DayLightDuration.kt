@@ -1,6 +1,5 @@
 package com.example.wouple.activities.detailActivity.components
 
-import android.util.Log
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -23,7 +22,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,11 +42,11 @@ import androidx.compose.runtime.getValue
 @Composable
 fun DayLightDuration(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
-    val gradientColors = if (isDay) {
-        listOf(Color(0xFF87CEEB), Color(0xFF4682B4))
-    } else {
-        listOf(Color(0xFF2C3E50), Color(0xFF34495E))
-    }
+    /*   val gradientColors = if (isDay) {
+           listOf(Color(0xFF87CEEB), Color(0xFF4682B4))
+       } else {
+           listOf(Color(0xFF2C3E50), Color(0xFF34495E))
+       } */
 
     Box(
         modifier = Modifier
@@ -56,10 +54,10 @@ fun DayLightDuration(temp: TemperatureResponse) {
             .fillMaxWidth()
             .background(
                 MaterialTheme.colorScheme.surfaceVariant,
-              //  brush = Brush.verticalGradient(gradientColors),
+                //  brush = Brush.verticalGradient(gradientColors),
                 shape = RoundedCornerShape(24.dp)
             )
-         //   .shadow(8.dp, RoundedCornerShape(24.dp))
+            //   .shadow(8.dp, RoundedCornerShape(24.dp))
             .padding(20.dp)
     ) {
         Column(
@@ -82,13 +80,13 @@ fun DayLightDuration(temp: TemperatureResponse) {
                 )
             )
 
-            DaylightInfoSection(temp = temp, isDay = isDay)
+            DaylightInfoSection(temp = temp)
         }
     }
 }
 
 @Composable
-private fun DaylightInfoSection(temp: TemperatureResponse, isDay: Boolean) {
+private fun DaylightInfoSection(temp: TemperatureResponse) {
     val sunrise = getFormattedSunrise(temp)
     val sunset = getFormattedSunset(temp)
 
@@ -106,14 +104,7 @@ private fun DaylightInfoSection(temp: TemperatureResponse, isDay: Boolean) {
 
         Spacer(modifier = Modifier.height(12.dp))
         DayLengthIndicator(temp)
-
-        if (!isDay) {
-            Spacer(modifier = Modifier.height(8.dp))
-            MoonPhaseIcon()
-        }
-    } else {
-        ErrorCard()
-    }
+    } else ErrorCard()
 }
 
 @Composable
@@ -174,16 +165,6 @@ fun DayLengthIndicator(temp: TemperatureResponse) {
 }
 
 @Composable
-fun MoonPhaseIcon() {
-    Icon(
-        painter = painterResource(id = R.drawable.ic_moon),
-        contentDescription = "Moon Phase",
-        tint = Color.White,
-        modifier = Modifier.size(36.dp)
-    )
-}
-
-@Composable
 fun ErrorCard() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -206,6 +187,7 @@ fun ErrorCard() {
         )
     }
 }
+
 @Composable
 fun getDayLengthString(temp: TemperatureResponse): String {
     val sunrise = getFormattedSunrise(temp)

@@ -22,7 +22,7 @@ fun GetBottomView(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surface)
             .padding(top = 24.dp),
-       verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center
     ) {
         searchedLocation.value?.let { GetSevenHoursForecast(temp) }
         GetSevenDaysForecast(temp)
