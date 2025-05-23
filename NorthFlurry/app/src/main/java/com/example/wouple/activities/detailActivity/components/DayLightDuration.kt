@@ -42,22 +42,14 @@ import androidx.compose.runtime.getValue
 @Composable
 fun DayLightDuration(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
-    /*   val gradientColors = if (isDay) {
-           listOf(Color(0xFF87CEEB), Color(0xFF4682B4))
-       } else {
-           listOf(Color(0xFF2C3E50), Color(0xFF34495E))
-       } */
-
     Box(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
             .background(
                 MaterialTheme.colorScheme.surfaceVariant,
-                //  brush = Brush.verticalGradient(gradientColors),
                 shape = RoundedCornerShape(24.dp)
             )
-            //   .shadow(8.dp, RoundedCornerShape(24.dp))
             .padding(20.dp)
     ) {
         Column(
@@ -79,7 +71,6 @@ fun DayLightDuration(temp: TemperatureResponse) {
                     color = Color.White
                 )
             )
-
             DaylightInfoSection(temp = temp)
         }
     }
@@ -102,9 +93,10 @@ private fun DaylightInfoSection(temp: TemperatureResponse) {
             AnimatedInfoCard("Sunset", sunset, isSunrise = false)
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(4.dp))
         DayLengthIndicator(temp)
-    } else ErrorCard()
+    }
+    else ErrorCard()
 }
 
 @Composable
@@ -158,7 +150,7 @@ fun DayLengthIndicator(temp: TemperatureResponse) {
     Text(
         text = "Day Length: $dayLength",
         fontSize = 14.sp,
-        color = Color.White.copy(alpha = 0.9f),
+        color = MaterialTheme.colorScheme.onSurface,
         fontWeight = FontWeight.Medium,
         textAlign = TextAlign.Center
     )
