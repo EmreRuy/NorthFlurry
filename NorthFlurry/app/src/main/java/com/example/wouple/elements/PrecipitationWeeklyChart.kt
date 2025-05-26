@@ -1,13 +1,11 @@
 package com.example.wouple.elements
 
-import android.widget.Toast
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
@@ -24,16 +22,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.wouple.preferences.PrecipitationUnitPref
 
 @Composable
 fun RowScope.CustomPrecipitationBarChart(
     size: Float,
     max: Float
 ) {
-    val context = LocalContext.current
     var height by remember { mutableFloatStateOf(0f) }
     val heightStateAnimate by animateDpAsState(
         targetValue = height.dp,
@@ -52,13 +47,6 @@ fun RowScope.CustomPrecipitationBarChart(
                 MaterialTheme.colorScheme.onSurfaceVariant,
                 shape = RoundedCornerShape(16.dp)
             )
-            .clickable {
-                val unit = PrecipitationUnitPref.getPrecipitationUnit(context)
-                Toast
-                    .makeText(context, "$size $unit", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
     ) {
         if (
             size > 1.5.toFloat()

@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,14 +25,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -46,24 +41,23 @@ import java.time.LocalDate
 
 @Composable
 fun WeeklyPrecipitationChart(temp: TemperatureResponse) {
-    val isDay = temp.current_weather.is_day == 1
-    val background = if (isDay) {
-        listOf(
-            Color(0xFF3F54BE),
-            Color(0xFF3F54BE)
-        )
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
+    /*  val isDay = temp.current_weather.is_day == 1
+      val background = if (isDay) {
+          listOf(
+              Color(0xFF3F54BE),
+              Color(0xFF3F54BE)
+          )
+      } else {
+          listOf(
+              Color(0xFF1D244D),
+              Color(0xFF2E3A59),
+              Color(0xFF3F5066),
 
-            )
-    }
+              )
+      } */
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-           // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(20.dp))
             .padding(16.dp)
     ) {
@@ -77,7 +71,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
     val precipitationSum = temp.daily.precipitation_sum.take(7)
     val maxRainSum = precipitationSum.maxOrNull()?.toFloat() ?: return
     val daysOfWeek = (0 until 7).map {
-        getLocalizedDayName(LocalDate.now().plusDays(it.toLong()).dayOfWeek).substring(0,3)
+        getLocalizedDayName(LocalDate.now().plusDays(it.toLong()).dayOfWeek).substring(0, 3)
     }
     Column(
         modifier = Modifier
@@ -93,7 +87,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
             color = MaterialTheme.colorScheme.onSurface,
         )
         Spacer(modifier = Modifier.weight(1f))
-        PopUpViewForPrecipitation(temp)
+        PopUpViewForPrecipitation()
         val minSumForShowingGraph =
             if (PrecipitationUnitPref.getPrecipitationUnit(context) == PrecipitationUnit.MM) 0.1 else 0.01
         if (maxRainSum <= minSumForShowingGraph) {
@@ -102,14 +96,14 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-            Text(
-                modifier = Modifier,
-                text = stringResource(id = R.string.No_Precipitation_expected_for_the_week),
-                fontWeight = FontWeight.Light,
-                fontSize = 15.sp,
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
+                Text(
+                    modifier = Modifier,
+                    text = stringResource(id = R.string.No_Precipitation_expected_for_the_week),
+                    fontWeight = FontWeight.Light,
+                    fontSize = 15.sp,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
         } else {
             Row(
                 modifier = Modifier
@@ -155,7 +149,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
 }
 
 @Composable
-fun PopUpViewForPrecipitation(temp: TemperatureResponse) {
+fun PopUpViewForPrecipitation() {
     var popupVisible by remember { mutableStateOf(false) }
     if (popupVisible) {
         PopUpContent(
