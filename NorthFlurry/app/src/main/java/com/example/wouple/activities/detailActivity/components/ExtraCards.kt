@@ -65,23 +65,30 @@ fun ExtraCards(
             Text(
                 modifier = Modifier.padding(8.dp),
                 text = text,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 22.sp
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 22.sp
+                )
             )
 
             Text(
                 modifier = Modifier.padding(8.dp),
                 text = numbers,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Medium
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                    fontSize = 22.sp,
+                )
             )
         }
 
         Text(
             text = stringResource(id = R.string.Expected_Today),
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 16.sp
+            style = MaterialTheme.typography.bodySmall.copy(
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
         )
 
         HorizontalWave(

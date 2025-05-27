@@ -29,7 +29,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -38,6 +37,8 @@ import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 
 @Composable
 fun DayLightDuration(temp: TemperatureResponse) {
@@ -95,8 +96,7 @@ private fun DaylightInfoSection(temp: TemperatureResponse) {
 
         Spacer(modifier = Modifier.height(4.dp))
         DayLengthIndicator(temp)
-    }
-    else ErrorCard()
+    } else ErrorCard()
 }
 
 @Composable
@@ -115,7 +115,7 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .width(100.dp)
+            .width(150.dp)
             .background(
                 color = Color.White.copy(alpha = 0.15f),
                 shape = RoundedCornerShape(16.dp)
@@ -148,11 +148,20 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
 fun DayLengthIndicator(temp: TemperatureResponse) {
     val dayLength = getDayLengthString(temp)
     Text(
-        text = "Day Length: $dayLength",
-        fontSize = 14.sp,
-        color = MaterialTheme.colorScheme.onSurface,
-        fontWeight = FontWeight.Medium,
-        textAlign = TextAlign.Center
+        text = buildAnnotatedString {
+            append("Day Length: ")
+            withStyle(
+                style = MaterialTheme.typography.bodyMedium.toSpanStyle().copy(
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+            ) {
+                append(dayLength)
+            }
+        },
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
 }
 
