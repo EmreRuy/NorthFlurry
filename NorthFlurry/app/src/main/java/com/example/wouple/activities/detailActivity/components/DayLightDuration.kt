@@ -69,7 +69,7 @@ fun DayLightDuration(temp: TemperatureResponse) {
                 text = stringResource(id = R.string.Daylight_Duration),
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.SemiBold,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             )
             DaylightInfoSection(temp = temp)
@@ -133,13 +133,15 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
         Text(
             text = title,
             fontSize = 12.sp,
-            color = Color.White.copy(alpha = 0.8f)
+            color = MaterialTheme.colorScheme.onSurface
         )
         Text(
             text = value,
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            fontSize = 14.sp
+            style = MaterialTheme.typography.bodySmall.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 15.sp
+            )
         )
     }
 }

@@ -82,9 +82,10 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
         Text(
             modifier = Modifier,
             text = stringResource(id = R.string.Precipitation_For_Upcoming_Days),
-            fontWeight = FontWeight.Light,
-            fontSize = 18.sp,
-            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpViewForPrecipitation()

@@ -53,7 +53,6 @@ fun WeeklyForecast(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 14.dp)
             .fillMaxWidth()
-           // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
     ) {
@@ -67,9 +66,10 @@ fun WeeklyForecast(
                     .align(Alignment.CenterVertically)
                     .padding(start = 3.dp),
                 text = stringResource(id = R.string.Upcoming_Days),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight.Light,
-                fontSize = 18.sp
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
             )
             Spacer(modifier = Modifier.weight(0.5f))
             Icon(
@@ -136,8 +136,11 @@ fun WeeklyForecast(
                         .replaceFirstChar {
                             if (it.isLowerCase()) it.titlecase(locale = Locale.ENGLISH) else it.toString()
                         },
-                    fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 15.sp
+                    )
                 )
                 Spacer(modifier = Modifier.padding(horizontal = 10.dp))
                 Image(
