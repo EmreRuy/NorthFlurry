@@ -17,9 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,19 +33,6 @@ import java.util.Locale
 fun WeeklyForecast(
     temp: TemperatureResponse
 ) {
-    val isDay = temp.current_weather.is_day == 1
-    val background = if (isDay) {
-        listOf(
-            Color(0xFF3F54BE),
-            Color(0xFF3F54BE)
-        )
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
-        )
-    }
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 14.dp)
