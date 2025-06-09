@@ -41,24 +41,13 @@ import java.time.LocalDate
 
 @Composable
 fun WeeklyPrecipitationChart(temp: TemperatureResponse) {
-    /*  val isDay = temp.current_weather.is_day == 1
-      val background = if (isDay) {
-          listOf(
-              Color(0xFF3F54BE),
-              Color(0xFF3F54BE)
-          )
-      } else {
-          listOf(
-              Color(0xFF1D244D),
-              Color(0xFF2E3A59),
-              Color(0xFF3F5066),
-
-              )
-      } */
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .background(MaterialTheme.colorScheme.surfaceContainerLow, shape = RoundedCornerShape(20.dp))
+            .background(
+                MaterialTheme.colorScheme.surfaceContainerLow,
+                shape = RoundedCornerShape(20.dp)
+            )
             .padding(16.dp)
     ) {
         WeeklyShowersChartView(temp = temp)

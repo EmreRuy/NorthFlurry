@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -71,10 +70,10 @@ fun UvChartView(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(8.dp),
             text = stringResource(id = R.string.UV_Index_For_Upcoming_Days),
-            fontWeight = FontWeight.SemiBold,
-            fontStyle = MaterialTheme.typography.titleMedium.fontStyle,
-            fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onSurface
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         )
         Spacer(modifier = Modifier.weight(1f))
         PopUpView()

@@ -17,11 +17,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -48,10 +46,10 @@ fun HourlyForecast(temp: TemperatureResponse) {
         Text(
             modifier = Modifier.padding(12.dp),
             text = stringResource(id = R.string.Next_24_Hours),
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Light,
-            textAlign = TextAlign.Center
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         )
         var selectedTabIndex by remember {
             mutableIntStateOf(0)
