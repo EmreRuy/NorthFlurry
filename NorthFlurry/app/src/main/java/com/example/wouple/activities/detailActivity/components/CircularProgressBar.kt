@@ -28,12 +28,12 @@ import androidx.compose.ui.unit.sp
 fun CircularProgressBar(
     percentage: Float,
     number: Int,
-    fontSize: TextUnit = 32.sp,
-    radius: Dp = 50.dp,
-    color: Color = MaterialTheme.colorScheme.onPrimaryContainer,
-    backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    strokeWidth: Dp = 12.dp,
-    animDuration: Int = 3000,
+    fontSize: TextUnit = 16.sp,
+    radius: Dp = 40.dp,
+    progressColor: Color,
+    backgroundColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+    strokeWidth: Dp = 8.dp,
+    animDuration: Int = 1000,
     animDelay: Int = 0,
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
@@ -43,7 +43,7 @@ fun CircularProgressBar(
             durationMillis = animDuration,
             delayMillis = animDelay
         ),
-        label = ""
+        label = "circular_progress_percentage_anim"
     )
     val animatedNumber by animateIntAsState(
         targetValue = if (animationPlayed) number else 0,
@@ -51,11 +51,13 @@ fun CircularProgressBar(
             durationMillis = animDuration,
             delayMillis = animDelay
         ),
-        label = ""
+        label = "circular_progress_number_anim"
     )
+
     LaunchedEffect(Unit) {
         animationPlayed = true
     }
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier.size(radius * 2f)
@@ -73,7 +75,7 @@ fun CircularProgressBar(
             )
             // Foreground animated arc
             drawArc(
-                color = color,
+                color = progressColor,
                 startAngle = -90f,
                 sweepAngle = 360 * curPercentage,
                 useCenter = false,
@@ -82,10 +84,9 @@ fun CircularProgressBar(
         }
         Text(
             text = animatedNumber.toString(),
-            color = MaterialTheme.colorScheme.onBackground,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = fontSize,
             fontFamily = MaterialTheme.typography.bodyMedium.fontFamily
         )
     }
 }
-
