@@ -97,14 +97,14 @@ fun SearchBar(
                     Row(
                         modifier = Modifier
                             .padding(start = 8.dp),
-                        verticalAlignment = CenterVertically // Align items vertically at the center
+                        verticalAlignment = CenterVertically
                     ) {
-                    Text(
-                        modifier = Modifier.padding(start = 16.dp),
-                        text = stringResource(id = R.string.SearchBar),
-                        color = Color.Black.copy(alpha = 0.7f)
-                    )
-                }
+                        Text(
+                            modifier = Modifier.padding(start = 16.dp),
+                            text = stringResource(id = R.string.SearchBar),
+                            color = Color.Black.copy(alpha = 0.7f)
+                        )
+                    }
                 },
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Search,
@@ -134,10 +134,7 @@ fun SearchBar(
                 onClose()
             },
             modifier = Modifier
-                .padding(
-                    end = 16.dp,
-                    bottom = if (isSearchExpanded.value) 0.dp else 8.dp
-                )
+                .padding(end = 16.dp, bottom = if (isSearchExpanded.value) 0.dp else 8.dp)
                 .rotate(if (isSearchExpanded.value) 1f else 360f)
         ) {
             Icon(

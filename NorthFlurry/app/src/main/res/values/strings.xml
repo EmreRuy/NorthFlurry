@@ -46,7 +46,7 @@ Let's Begin!"</string>
     <string name="Weekly_precipitation_chart">"Weekly Precipitation"</string>
     <string name="Explainer_For_Precipitation">"Precipitation is defined as any liquid or solid water particle that falls from clouds and reaches the ground. Drizzle,rain, snow, snow pellets, ice crystals, and hail are some examples of these particles. Essentially, precipitation encompasses all forms of moisture that fall from the sky. This chart demonstrates total precipitation for a week."</string>
     <string name="air_quality_index">"Air Quality"</string>
-    <string name="current_uv_index">"current uv"</string>
+    <string name="current_uv_index">"Current UV"</string>
     <string name="Temperature">"Temperature"</string>
     <string name="Precipitation">"Precipitation"</string>
     <string name="Next_24_Hours">"Next 24 Hours"</string>

@@ -1,13 +1,10 @@
 package com.example.wouple.activities.detailActivity.components
 
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -67,9 +63,9 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = stringResource(id = R.string.current_uv_index),
-                        style = MaterialTheme.typography.labelLarge.copy(
+                        style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     )
                 }
@@ -80,35 +76,36 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                     text = "${uvIndexValue.toInt()} • $uvIndexDescriptions",
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 19.sp
                     )
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
 
-             /*   Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(10.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(MaterialTheme.colorScheme.surfaceContainer)
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .fillMaxWidth(uvIndexPercentage)
-                            .background(getUvColor(uvIndexValue))
-                            .clip(RoundedCornerShape(8.dp))
-                    )
-                } */
+                /*   Box(
+                       modifier = Modifier
+                           .fillMaxWidth()
+                           .height(10.dp)
+                           .clip(RoundedCornerShape(8.dp))
+                           .background(MaterialTheme.colorScheme.surfaceContainer)
+                   ) {
+                       Box(
+                           modifier = Modifier
+                               .fillMaxHeight()
+                               .fillMaxWidth(uvIndexPercentage)
+                               .background(getUvColor(uvIndexValue))
+                               .clip(RoundedCornerShape(8.dp))
+                       )
+                   } */
             }
-
+// here is my idea, if it is night at the location show moon icon if it is daylight show normal sun what you show here
             Icon(
                 painter = painterResource(id = R.drawable.ic_sun),
                 contentDescription = stringResource(id = R.string.current_uv_index),
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
-                    .size(36.dp)
+                    .size(34.dp)
             )
 
             Spacer(modifier = Modifier.weight(0.5f))
@@ -128,11 +125,11 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
 @Composable
 fun getUvColor(uvIndex: Float): Color {
     return when {
-        uvIndex < 3 -> Color(0xFF4CAF50) // Low - Green
-        uvIndex < 6 -> Color(0xFFFFC107) // Moderate - Amber
-        uvIndex < 8 -> Color(0xFFFF9800) // High - Orange
-        uvIndex < 11 -> Color(0xFFF44336) // Very High - Red
-        else -> Color(0xFF9C27B0) // Extreme - Purple
+        uvIndex < 3 -> Color(0xFF4CAF50) // Low
+        uvIndex < 6 -> Color(0xFFFFC107) // Moderate
+        uvIndex < 8 -> Color(0xFFFF9800) // High
+        uvIndex < 11 -> Color(0xFFF44336) // Very High
+        else -> Color(0xFF9C27B0) // Extreme
     }
 }
 

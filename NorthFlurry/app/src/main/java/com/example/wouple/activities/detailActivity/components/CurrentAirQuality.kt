@@ -68,11 +68,12 @@ fun CurrentAirQualityCardCompact(
 
                 Spacer(modifier = Modifier.height(6.dp))
 
-                Text(
-                    text = description,
+                Text( // "${uvIndexValue.toInt()} • $uvIndexDescriptions",
+                    text = "${airQualityValue.toInt()} •  $description",
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 19.sp
                     )
                 )
 
@@ -99,7 +100,7 @@ fun CurrentAirQualityCardCompact(
                 painter = painterResource(id = R.drawable.ic_airquality),
                 contentDescription = stringResource(id = R.string.air_quality_index),
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(34.dp)
             )
 
             Spacer(modifier = Modifier.weight(0.5f))
