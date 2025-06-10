@@ -33,7 +33,7 @@ fun CircularProgressBar(
     progressColor: Color,
     backgroundColor: Color = MaterialTheme.colorScheme.surfaceContainer,
     strokeWidth: Dp = 8.dp,
-    animDuration: Int = 1000,
+    animDuration: Int = 3000,
     animDelay: Int = 0,
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
