@@ -38,7 +38,7 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
     val uvIndexDescriptions = getUvIndexDescription(uvIndexValue.toInt())
     val uvIndexPercentage = uvIndexValue / 11f
     val color = getUvColor(uvIndexValue)
-
+    val daylight = temp.current_weather.is_day
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -100,14 +100,23 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                    } */
             }
 // here is my idea, if it is night at the location show moon icon if it is daylight show normal sun what you show here
-            Icon(
-                painter = painterResource(id = R.drawable.ic_sun),
-                contentDescription = stringResource(id = R.string.current_uv_index),
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .size(34.dp)
-            )
-
+            if (daylight == 1) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_sun),
+                    contentDescription = stringResource(id = R.string.current_uv_index),
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .size(34.dp)
+                )
+            } else {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_moon),
+                    contentDescription = stringResource(id = R.string.current_uv_index),
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .size(34.dp)
+                )
+            }
             Spacer(modifier = Modifier.weight(0.5f))
             CircularProgressBar(
                 percentage = uvIndexPercentage,
