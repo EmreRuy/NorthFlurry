@@ -45,9 +45,8 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
             .padding(horizontal = 16.dp, vertical = 12.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+            containerColor = MaterialTheme.colorScheme.surfaceContainer    // surfaceContainerHigh
+        )
     ) {
         Row(
             modifier = Modifier
@@ -64,8 +63,8 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                     Text(
                         text = stringResource(id = R.string.current_uv_index),
                         style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurface
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     )
                 }

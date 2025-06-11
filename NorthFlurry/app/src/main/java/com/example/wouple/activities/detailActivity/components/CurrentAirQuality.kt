@@ -43,7 +43,7 @@ fun CurrentAirQualityCardCompact(
             .padding(horizontal = 16.dp, vertical = 12.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceContainer    // surfaceVariant
         )
     ) {
         Row(
@@ -60,7 +60,7 @@ fun CurrentAirQualityCardCompact(
                     Text(
                         text = stringResource(id = R.string.air_quality_index),
                         style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Medium,
+                            fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     )

@@ -46,7 +46,7 @@ fun UvIndexChart(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .background(MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(20.dp))
             .padding(12.dp),
     ) {
         UvChartView(temp = temp)

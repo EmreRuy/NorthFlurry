@@ -48,7 +48,7 @@ fun DayLightDuration(temp: TemperatureResponse) {
             .padding(16.dp)
             .fillMaxWidth()
             .background(
-                MaterialTheme.colorScheme.surfaceVariant,
+                MaterialTheme.colorScheme.surfaceContainer,
                 shape = RoundedCornerShape(24.dp)
             )
             .padding(20.dp)
