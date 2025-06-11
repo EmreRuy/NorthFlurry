@@ -28,7 +28,8 @@ import kotlin.math.max
 @Composable
 fun RowScope.CustomBarChart(
     size: Float,
-    max: Float
+    max: Float,
+    color: Color
 ) {
     var height by remember { mutableFloatStateOf(0f) }
     val heightStateAnimate by animateDpAsState(
@@ -38,7 +39,7 @@ fun RowScope.CustomBarChart(
     LaunchedEffect(key1 = size) {
         height = size * 20
     }
-    val color = MaterialTheme.colorScheme.onSurfaceVariant
+   // val color = MaterialTheme.colorScheme.onSurfaceVariant
     Box(
         modifier = Modifier
             .padding(start = 10.dp, end = 10.dp, top = 4.dp)
@@ -46,7 +47,7 @@ fun RowScope.CustomBarChart(
             .weight(1f)
             .border(BorderStroke(1.dp, color = Color.Transparent))
             .background(
-                color.copy(alpha = max(size / max, 2f)),
+                color.copy(alpha = 0.8f),
                 shape = RoundedCornerShape(16.dp)
             )
     ){

@@ -92,7 +92,8 @@ fun UvChartView(temp: TemperatureResponse) {
             horizontalArrangement = Arrangement.Start
         ) {
             dailyUv.forEach { value ->
-                CustomBarChart(size = value.toFloat(), max = maxUv)
+                val barColor = getUvColor(value.toFloat())
+                CustomBarChart(size = value.toFloat(), max = maxUv, color = barColor)
             }
         }
         Row(
