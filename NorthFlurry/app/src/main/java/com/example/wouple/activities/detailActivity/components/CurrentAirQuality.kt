@@ -68,7 +68,7 @@ fun CurrentAirQualityCardCompact(
 
                 Spacer(modifier = Modifier.height(6.dp))
 
-                Text( // "${uvIndexValue.toInt()} • $uvIndexDescriptions",
+                Text(
                     text = "${airQualityValue.toInt()} •  $description",
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,

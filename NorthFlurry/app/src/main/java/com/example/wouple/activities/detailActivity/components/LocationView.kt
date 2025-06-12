@@ -42,12 +42,13 @@ fun LocationView(
     ) {
         Text(
             text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
-            fontWeight = FontWeight.Thin,
-            fontSize = 50.sp,
-            fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
-            color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
+            style = MaterialTheme.typography.displayMedium.copy(
+                fontWeight = FontWeight.Thin,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 50.sp
+            )
         )
         Spacer(modifier = Modifier.padding(top = 24.dp))
         Text(
@@ -79,26 +80,31 @@ fun LocationView(
             )
             Text(
                 text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 24.sp,
                 textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Light
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 20.sp
+                )
             )
             Spacer(modifier = Modifier.weight(0.9f))
             Text(
                 text = weatherDescription,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 20.sp,
                 textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Light
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 19.sp
+                )
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 24.sp,
                 textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Light
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 20.sp
+                )
             )
             Icon(
                 modifier = Modifier.size(30.dp),

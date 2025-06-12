@@ -118,7 +118,7 @@ fun UvChartView(temp: TemperatureResponse) {
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            fontSize = 15.sp
+                            fontSize = 14.sp
                         )
                     )
                 }

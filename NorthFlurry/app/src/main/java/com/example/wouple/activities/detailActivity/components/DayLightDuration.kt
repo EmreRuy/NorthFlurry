@@ -62,7 +62,7 @@ fun DayLightDuration(temp: TemperatureResponse) {
                 painter = painterResource(id = if (isDay) R.drawable.ic_sun else R.drawable.ic_moon),
                 contentDescription = null,
                 modifier = Modifier.size(36.dp),
-                tint = Color.White
+                tint = MaterialTheme.colorScheme.onPrimaryContainer
             )
 
             Text(
