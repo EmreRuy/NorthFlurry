@@ -38,7 +38,6 @@ fun HourlyForecast(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 12.dp)
-           // .shadow(elevation = 2.dp, shape = RoundedCornerShape(20.dp))
             .background(MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally

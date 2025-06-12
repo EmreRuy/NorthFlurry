@@ -23,12 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlin.math.max
 
 @Composable
 fun RowScope.CustomBarChart(
     size: Float,
-    max: Float,
     color: Color
 ) {
     var height by remember { mutableFloatStateOf(0f) }
@@ -39,7 +37,6 @@ fun RowScope.CustomBarChart(
     LaunchedEffect(key1 = size) {
         height = size * 20
     }
-   // val color = MaterialTheme.colorScheme.onSurfaceVariant
     Box(
         modifier = Modifier
             .padding(start = 10.dp, end = 10.dp, top = 4.dp)
@@ -50,20 +47,18 @@ fun RowScope.CustomBarChart(
                 color.copy(alpha = 0.8f),
                 shape = RoundedCornerShape(16.dp)
             )
-    ){
+    ) {
         if (
             size > 1.5.toFloat()
         ) {
-        Text(
-            text = size.toString(),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.primaryContainer,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(top = 4.dp)
-        )
-    }
+            Text(
+                text = size.toString(),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primaryContainer,
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(top = 4.dp)
+            )
+        }
     }
 }
-// orgn.copy(alpha = size / max)
-

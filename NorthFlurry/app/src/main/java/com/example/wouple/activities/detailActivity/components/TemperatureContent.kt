@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.LightingColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -82,7 +81,7 @@ fun Hours(
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = time,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 16.sp,
             fontWeight = FontWeight.Light
         )
@@ -94,7 +93,7 @@ fun Hours(
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = "$temperature°",
-            color = MaterialTheme.colorScheme.onSurface,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontWeight = FontWeight.Medium,
             fontSize = 17.sp
         )

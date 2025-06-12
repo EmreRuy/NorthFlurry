@@ -18,13 +18,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.activities.detailActivity.utils.getUvColor
 import com.example.wouple.model.api.TemperatureResponse
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -79,24 +79,7 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                         fontSize = 19.sp
                     )
                 )
-
                 Spacer(modifier = Modifier.height(6.dp))
-
-                /*   Box(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .height(10.dp)
-                           .clip(RoundedCornerShape(8.dp))
-                           .background(MaterialTheme.colorScheme.surfaceContainer)
-                   ) {
-                       Box(
-                           modifier = Modifier
-                               .fillMaxHeight()
-                               .fillMaxWidth(uvIndexPercentage)
-                               .background(getUvColor(uvIndexValue))
-                               .clip(RoundedCornerShape(8.dp))
-                       )
-                   } */
             }
 // here is my idea, if it is night at the location show moon icon if it is daylight show normal sun what you show here
             if (daylight == 1) {
@@ -129,16 +112,3 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
         }
     }
 }
-
-@Composable
-fun getUvColor(uvIndex: Float): Color {
-    return when {
-        uvIndex < 3 -> Color(0xFF4CAF50) // Low
-        uvIndex < 6 -> Color(0xFFFFC107) // Moderate
-        uvIndex < 8 -> Color(0xFFFF9800) // High
-        uvIndex < 11 -> Color(0xFFF44336) // Very High
-        else -> Color(0xFF9C27B0) // Extreme
-    }
-}
-
-

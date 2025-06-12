@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
+import com.example.wouple.activities.detailActivity.utils.getUvColor
 import com.example.wouple.elements.CustomBarChart
 import com.example.wouple.model.api.TemperatureResponse
 import java.time.LocalDate
@@ -46,7 +47,10 @@ fun UvIndexChart(temp: TemperatureResponse) {
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .background(MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(20.dp))
+            .background(
+                MaterialTheme.colorScheme.surfaceContainer,
+                shape = RoundedCornerShape(20.dp)
+            )
             .padding(12.dp),
     ) {
         UvChartView(temp = temp)
@@ -57,7 +61,7 @@ fun UvIndexChart(temp: TemperatureResponse) {
 fun UvChartView(temp: TemperatureResponse) {
     val dailyUv =
         temp.daily.uv_index_max.take(7)
-    val maxUv = dailyUv.maxOrNull()?.toFloat() ?: 0f
+    // val maxUv = dailyUv.maxOrNull()?.toFloat() ?: 0f
     val daysOfWeek = (0 until 7).map {
         getLocalizedDayName(LocalDate.now().plusDays(it.toLong()).dayOfWeek).substring(0, 3)
     }
@@ -93,7 +97,7 @@ fun UvChartView(temp: TemperatureResponse) {
         ) {
             dailyUv.forEach { value ->
                 val barColor = getUvColor(value.toFloat())
-                CustomBarChart(size = value.toFloat(), max = maxUv, color = barColor)
+                CustomBarChart(size = value.toFloat(), color = barColor)
             }
         }
         Row(
