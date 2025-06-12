@@ -1,7 +1,6 @@
 package com.example.wouple.activities.detailActivity.components
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -64,7 +63,7 @@ fun PrecipitationHours(
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = time,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 16.sp,
             fontWeight = FontWeight.Light
         )
@@ -86,7 +85,7 @@ fun PrecipitationHours(
         Text(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = "%$precipitationPr",
-            color = MaterialTheme.colorScheme.onSurface,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 17.sp,
             fontWeight = FontWeight.Medium
         )

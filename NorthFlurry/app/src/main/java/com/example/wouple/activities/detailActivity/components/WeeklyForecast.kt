@@ -52,7 +52,7 @@ fun WeeklyForecast(
                 text = stringResource(id = R.string.Upcoming_Days),
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             )
             Spacer(modifier = Modifier.weight(0.5f))

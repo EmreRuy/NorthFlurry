@@ -73,7 +73,7 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
             text = stringResource(id = R.string.Precipitation_For_Upcoming_Days),
             style = MaterialTheme.typography.titleMedium.copy(
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         )
         Spacer(modifier = Modifier.weight(1f))
@@ -128,8 +128,11 @@ fun WeeklyShowersChartView(temp: TemperatureResponse) {
                     ) {
                         Text(
                             text = label,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            fontSize = 12.sp
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                                fontSize = 15.sp
+                            )
                         )
                     }
                 }
