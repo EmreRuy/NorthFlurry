@@ -26,30 +26,25 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun GetSevenHoursForecast(temp: TemperatureResponse) {
-    var visible by remember {
-        mutableStateOf(false)
-    }
-    LaunchedEffect(visible) {
-        delay(500)
-        visible = true
-    }
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 18.dp)
-            .padding(bottom = 18.dp),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 16.dp),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surfaceVariant)
         ) {
             SevenHoursCardNotification(temp)
             Column(
                 modifier = Modifier
-                    .padding(top = 16.dp, bottom = 32.dp, end = 4.dp, start = 4.dp)
+                    .padding(vertical = 24.dp, horizontal = 16.dp)
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
