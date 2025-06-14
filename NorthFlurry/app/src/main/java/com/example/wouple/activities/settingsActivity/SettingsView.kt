@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
@@ -99,7 +100,7 @@ fun GetSurface(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.background),
+                .background(Color(0xFF1F2B2F)), // Color(0xFF1F2B2F) // For the Dark Mode
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {

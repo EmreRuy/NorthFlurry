@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,10 +28,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -49,6 +50,12 @@ private fun MyTabIndicator(
             .width(width = indicatorWidth)
             .offset(x = indicatorOffset)
             .clip(shape = CircleShape)
+            .shadow(
+                elevation = 2.dp,
+                shape = CircleShape,
+                ambientColor = indicatorColor,
+                spotColor = indicatorColor
+            )
             .background(color = indicatorColor)
     )
 }
@@ -61,27 +68,32 @@ private fun RowScope.MyTabItem(
 ) {
     val tabTextColor: Color by animateColorAsState(
         targetValue = if (isSelected) {
-            Color.White
+            MaterialTheme.colorScheme.onPrimary
         } else {
-            Color.Black
+            MaterialTheme.colorScheme.onSurfaceVariant
         },
-        animationSpec = tween(easing = LinearEasing), label = "",
+        animationSpec = tween(durationMillis = 250, easing = LinearEasing),
+        label = "TabTextColorAnimation",
     )
-    Text(
+
+    Box(
         modifier = Modifier
+            .weight(1f)
             .clip(CircleShape)
-            .clickable {
-                onClick()
-            }
-            .padding(top = 8.dp)
-            .weight(1f),
-        text = text.lowercase().replaceFirstChar {
-            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-        },
-        color = tabTextColor,
-        textAlign = TextAlign.Center,
-        fontWeight = FontWeight.Medium
-    )
+            .clickable(onClick = onClick)
+            .minimumInteractiveComponentSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text.lowercase().replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+            },
+            color = tabTextColor,
+            style = MaterialTheme.typography.labelLarge,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(vertical = 8.dp, horizontal = 12.dp)
+        )
+    }
 }
 
 @Composable
