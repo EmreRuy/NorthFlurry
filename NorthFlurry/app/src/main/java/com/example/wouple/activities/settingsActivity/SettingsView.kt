@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -99,7 +100,7 @@ fun GetSurface(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFF1F2B2F)), // Color(0xFF1F2B2F) // For the Dark Mode
+                .background(MaterialTheme.colorScheme.surface), // Color(0xFF1F2B2F) // For the Dark Mode  Color(0xFF1F2B2F)
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {

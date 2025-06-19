@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -61,7 +62,8 @@ fun DetailView(
                                 Color(0xFFCDE5F0)  // your card color bottom
                             ) // For the light mode
                         ) */
-                        Color(0xFF1F2B2F) // For the Dark Mode
+                     //   Color(0xFF1F2B2F) // For the Dark Mode
+                        MaterialTheme.colorScheme.surface
                     )
                     .padding(innerPadding.let { innerPadding -> 0.dp }),
                 horizontalAlignment = CenterHorizontally
