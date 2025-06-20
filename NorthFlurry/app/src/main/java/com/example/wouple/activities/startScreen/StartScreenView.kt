@@ -15,7 +15,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,15 +34,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
 import com.example.wouple.activities.mainActivity.MainActivity
-import com.example.wouple.elements.SnowfallEffect
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.preferences.LocationPref
 import com.google.android.gms.location.LocationServices
@@ -59,119 +67,105 @@ fun FirstTimeLocationScreen(
 ) {
     val context = LocalContext.current
     val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
-    var locationText by remember { mutableStateOf("Detecting location...") }
+
+    var locationText by remember { mutableStateOf("Detecting your location...") }
     var isLocationDetected by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(true) }
 
-    val showSnowfall = remember { mutableStateOf(true) }
-    val searchBarAppear = remember { mutableStateOf(false) }
-
     val randomCities = listOf("New York", "Los Angeles", "Paris", "Tokyo", "London", "Berlin")
 
-    val locationPermission = rememberLauncherForActivityResult(
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { granted ->
+        isLoading = false
         if (granted) {
-            fetchLocation(context, fusedLocationClient) { cityName ->
-                isLoading = false
-                locationText = cityName ?: randomCities.random()
+            fetchLocation(context, fusedLocationClient) { city ->
+                locationText = city ?: randomCities.random()
                 isLocationDetected = true
             }
         } else {
-            isLoading = false
             locationText = randomCities.random()
             isLocationDetected = true
         }
     }
 
     LaunchedEffect(Unit) {
-        delay(1_000)
-        showSnowfall.value = true // Shows snowfall effect when the screen appears
-        delay(6_000) // snowfall effect time
-        showSnowfall.value = false // Hides snowfall effect after 6 seconds
-        locationPermission.launch(Manifest.permission.ACCESS_FINE_LOCATION) // triggers location permission check
+        delay(800)
+        locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceVariant)
-            .padding(24.dp),
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(Color(0xFF3C4043), Color(0xFF3C4043))
+                )
+            ),
         contentAlignment = Center
     ) {
         Column(
-            modifier = Modifier.background(MaterialTheme.colorScheme.surfaceVariant),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 32.dp),
             horizontalAlignment = CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.spacedBy(32.dp)
         ) {
-            if (showSnowfall.value) {
-                SnowfallEffect(searchBarAppear)
-            }
+            LottieAnimationSection()
 
-            if (!showSnowfall.value) {
-                // Shows content after snowfall effect
-                Text(
-                    text = "Welcome to NorthFlurry!",
-                    fontSize = 24.sp,
-                    fontStyle = MaterialTheme.typography.displayLarge.fontStyle,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.secondary
-                )
+            Text(
+                text = "Welcome to NorthFlurry!",
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                textAlign = TextAlign.Center
+            )
 
-                Spacer(modifier = Modifier.height(16.dp))
+            Text(
+                text = locationText,
+                style = MaterialTheme.typography.titleLarge,
+                color = Color.White.copy(alpha = 0.9f),
+                textAlign = TextAlign.Center
+            )
 
-                if (isLoading) {
-                    CircularProgressIndicator(color = MaterialTheme.colorScheme.secondary)
-                } else {
-                    Column(
-                        horizontalAlignment = CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Icon(
-                            modifier = Modifier.size(92.dp),
-                            painter = painterResource(id = R.drawable.baseline_location_on_24),
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
+            if (isLoading) {
+                CircularProgressIndicator(color = Color.White)
+            } else if (isLocationDetected) {
+                Button(
+                    onClick = {
+                        val cityCoordinates = mapOf(
+                            "New York" to ("40.7128" to "-74.0060"),
+                            "Los Angeles" to ("34.0522" to "-118.2437"),
+                            "Paris" to ("48.8566" to "2.3522"),
+                            "Tokyo" to ("35.6895" to "139.6917"),
+                            "London" to ("51.5074" to "-0.1278"),
+                            "Berlin" to ("52.5200" to "13.4050")
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = locationText,
-                            fontSize = 18.sp,
-                            fontFamily = MaterialTheme.typography.labelLarge.fontFamily,
-                            fontStyle = MaterialTheme.typography.bodyLarge.fontStyle,
-                            color = MaterialTheme.colorScheme.secondary
-                        )
-                    }
-                }
-                if (isLocationDetected) {
-                    Spacer(modifier = Modifier.height(24.dp))
-                    Button(
-                        onClick = {
-                            val selectedCity = locationText
-                            val cityCoordinates = mapOf(
-                                "New York" to Pair("40.7128", "-74.0060"),
-                                "Los Angeles" to Pair("34.0522", "-118.2437"),
-                                "Paris" to Pair("48.8566", "2.3522"),
-                                "Tokyo" to Pair("35.6895", "139.6917"),
-                                "London" to Pair("51.5074", "-0.1278"),
-                                "Berlin" to Pair("52.5200", "13.4050")
-                            )
-                            val (lat, lon) = cityCoordinates[selectedCity] ?: Pair("0.0", "0.0")
-                            val searchedLocationObj = SearchedLocation(
-                                lat = lat,
-                                lon = lon,
-                                display_name = selectedCity
-                            )
-                            LocationPref.setSearchedLocation(context, searchedLocationObj)
-                            val intent = Intent(context, MainActivity::class.java)
-                            context.startActivity(intent)
-                            (context as? Activity)?.finish()
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
-                    ) {
-                        Text("Continue", color = MaterialTheme.colorScheme.primaryContainer, fontSize = 18.sp)
-                    }
+                        val (lat, lon) = cityCoordinates[locationText] ?: ("0.0" to "0.0")
+
+                        val searchedLocation = SearchedLocation(lat, lon, locationText)
+                        LocationPref.setSearchedLocation(context, searchedLocation)
+
+                        context.startActivity(Intent(context, MainActivity::class.java))
+                        (context as? Activity)?.finish()
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(52.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.LocationOn,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Continue",
+                        color = Color(0xFF4C49C6),
+                        fontWeight = FontWeight.SemiBold
+                    )
                 }
             }
         }
@@ -179,6 +173,19 @@ fun FirstTimeLocationScreen(
 }
 
 
+@Composable
+fun LottieAnimationSection() {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.sun))
+    val progress by animateLottieCompositionAsState(composition, iterations = LottieConstants.IterateForever)
+
+    LottieAnimation(
+        composition = composition,
+        progress = { progress },
+        modifier = Modifier
+            .height(180.dp)
+            .fillMaxWidth()
+    )
+}
 
 
 
