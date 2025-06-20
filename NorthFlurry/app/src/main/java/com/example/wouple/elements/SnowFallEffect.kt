@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -68,7 +67,7 @@ fun generateRandomSnowflake(): Snowflake {
 fun DrawScope.drawSnowflake(alpha: Float, snowflake: Snowflake, offsetY: Float) {
     val newY = (snowflake.y + offsetY * snowflake.speed) % size.height
     drawCircle(
-        Color.Black,
+        Color.White,
         alpha = alpha,
         radius = snowflake.radius,
         center = Offset(snowflake.x * size.width, newY)

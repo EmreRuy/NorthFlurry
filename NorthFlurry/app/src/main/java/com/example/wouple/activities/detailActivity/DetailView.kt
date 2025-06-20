@@ -15,7 +15,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
@@ -56,13 +55,13 @@ fun DetailView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                     /*   Brush.verticalGradient(
-                            colors = listOf(
-                                Color(0xFFEAF6FB), // very light sky top
-                                Color(0xFFCDE5F0)  // your card color bottom
-                            ) // For the light mode
-                        ) */
-                     //   Color(0xFF1F2B2F) // For the Dark Mode
+                        /*   Brush.verticalGradient(
+                               colors = listOf(
+                                   Color(0xFFEAF6FB), // very light sky top
+                                   Color(0xFFCDE5F0)  // your card color bottom
+                               ) // For the light mode
+                           ) */
+                        //   Color(0xFF1F2B2F) // For the Dark Mode
                         MaterialTheme.colorScheme.surface
                     )
                     .padding(innerPadding.let { innerPadding -> 0.dp }),
@@ -92,7 +91,8 @@ fun DetailView(
                 }
                 item {
                     DayLightDuration(
-                        temp = temp)
+                        temp = temp
+                    )
                 }
                 item {
                     HorizontalPager(state = pagerState, modifier = Modifier)
