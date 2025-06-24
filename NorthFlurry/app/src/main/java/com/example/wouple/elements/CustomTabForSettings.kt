@@ -127,7 +127,9 @@ fun CustomTabForSettings(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) MaterialTheme.colorScheme.primary.copy(alpha = 0.85f) else MaterialTheme.colorScheme.primary.copy(alpha = 0.85f)
+            indicatorColor = if (isDay) MaterialTheme.colorScheme.primary.copy(alpha = 0.85f) else MaterialTheme.colorScheme.primary.copy(
+                alpha = 0.85f
+            )
         )
         Row(
             horizontalArrangement = Arrangement.Center,

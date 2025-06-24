@@ -64,7 +64,7 @@ fun TemperatureUnitSettings(
     ) {
         Text(
             text = stringResource(id = R.string.TemperatureUnits),
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
@@ -92,7 +92,7 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) 
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.PrecipitationUnits),
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Start
@@ -127,7 +127,7 @@ fun WindUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
         Text(
             modifier = Modifier.padding(horizontal = 24.dp, vertical = 4.dp),
             text = stringResource(id = R.string.WindSpeedUnits),
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             textAlign = TextAlign.Start
