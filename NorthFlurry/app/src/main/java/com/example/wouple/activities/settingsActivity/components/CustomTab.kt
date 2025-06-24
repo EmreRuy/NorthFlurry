@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -64,7 +65,7 @@ private fun MyTabItem(
         targetValue = if (isSelected) {
             Color.White
         } else {
-            Color.Black
+            Color.Gray
         },
         animationSpec = tween(easing = LinearEasing), label = "",
     )
@@ -108,13 +109,13 @@ fun CustomTab(
     Box(
         modifier = modifier
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .background(colorScheme.surfaceContainerLow)
             .height(intrinsicSize = IntrinsicSize.Min),
     ) {
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface
+            indicatorColor = if (isDay) colorScheme.primary.copy(alpha = 0.85f) else colorScheme.primary.copy(alpha = 0.85f)
             // if (isDay) Color(0xFF3C4269) else Color(0xFF536AD5)
         )
         Row(
