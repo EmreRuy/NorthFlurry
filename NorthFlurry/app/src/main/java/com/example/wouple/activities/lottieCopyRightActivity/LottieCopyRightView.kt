@@ -1,7 +1,6 @@
 package com.example.wouple.activities.lottieCopyRightActivity
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
+import androidx.core.net.toUri
 
 @Composable
 fun LottieView(temp: TemperatureResponse) {
@@ -93,7 +93,7 @@ fun LottieView(temp: TemperatureResponse) {
                     .clickable {
                         val url = "https://lottiefiles.com/page/license"
                         val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = Uri.parse(url)
+                        intent.data = url.toUri()
                         currentContext.startActivity(intent)
                     }
             )

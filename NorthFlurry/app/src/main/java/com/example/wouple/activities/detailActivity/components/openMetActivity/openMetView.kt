@@ -1,7 +1,6 @@
 package com.example.wouple.activities.detailActivity.components.openMetActivity
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -28,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
+import androidx.core.net.toUri
 
 @Composable
 fun OpenMeteorologyView(temp: TemperatureResponse) {
@@ -85,7 +85,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
                 .clickable {
                     val url = "https://open-meteo.com/"
                     val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(url)
+                    intent.data = url.toUri()
                     context.startActivity(intent)
                 }
         )
@@ -121,7 +121,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             ),
             onClick = {
                 val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://creativecommons.org/licenses/by/4.0/")
+                intent.data = "https://creativecommons.org/licenses/by/4.0/".toUri()
                 context.startActivity(intent)
             }
         )
