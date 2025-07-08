@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,10 +18,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -109,22 +110,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             fontWeight = FontWeight.Light,
             fontSize = 14.sp
         )
-        val annotatedString = with(AnnotatedString.Builder()) {
-            append(stringResource(id = R.string.cc_by_4_license_details))
-            toAnnotatedString()
-        }
-        ClickableText(
-            text = annotatedString,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = Color.White,
-                textDecoration = TextDecoration.Underline
-            ),
-            onClick = {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = "https://creativecommons.org/licenses/by/4.0/".toUri()
-                context.startActivity(intent)
-            }
-        )
+        LicenseLinkText()
         Text(
             text = stringResource(id = R.string.DataAccuracyDisclaimer),
             style = MaterialTheme.typography.bodyMedium,
@@ -148,4 +134,38 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             fontSize = 14.sp
         )
     }
+}
+
+@Composable
+fun LicenseLinkText() {
+    val context = LocalContext.current
+    val annotatedText = buildAnnotatedString {
+        val label = stringResource(id = R.string.cc_by_4_license_details)
+
+        pushStringAnnotation(
+            tag = "URL",
+            annotation = "https://creativecommons.org/licenses/by/4.0/"
+        )
+        withStyle(
+            style = SpanStyle(
+                color = Color.White,
+                textDecoration = TextDecoration.Underline
+            )
+        ) {
+            append(label)
+        }
+        pop()
+    }
+
+    Text(
+        text = annotatedText,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.clickable {
+            annotatedText.getStringAnnotations(tag = "URL", start = 0, end = annotatedText.length)
+                .firstOrNull()?.let { annotation ->
+                    val intent = Intent(Intent.ACTION_VIEW, annotation.item.toUri())
+                    context.startActivity(intent)
+                }
+        }
+    )
 }
