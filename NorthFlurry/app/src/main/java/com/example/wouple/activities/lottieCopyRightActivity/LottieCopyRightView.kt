@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.model.api.TemperatureResponse
 import androidx.core.net.toUri
+import java.nio.file.WatchEvent
 
 @Composable
 fun LottieView(temp: TemperatureResponse) {
@@ -51,7 +53,7 @@ fun LottieView(temp: TemperatureResponse) {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .background(brush = Brush.verticalGradient(background)),
+            .background(color = MaterialTheme.colorScheme.surface),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -59,19 +61,18 @@ fun LottieView(temp: TemperatureResponse) {
         Spacer(modifier = Modifier.padding(top = 24.dp))
         Text(
             text = stringResource(id = R.string.Attribution),
-            fontWeight = FontWeight.Medium,
-            fontSize = 20.sp,
-            color = Color.White
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface
         )
         Text(
-            modifier = Modifier
-                .padding(horizontal = 8.dp)
-                .padding(16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp),
             text = stringResource(id = R.string.LottieFilesCopyright),
-            fontWeight = FontWeight.Light,
-            color = Color.White,
-            fontSize = 14.sp
+            style = MaterialTheme.typography.bodyMedium.copy(
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                fontWeight = FontWeight.Light
+            )
         )
+
         Row(modifier = Modifier.padding(bottom = 8.dp)) {
             Text(
                 text = stringResource(id = R.string.LottieMoreInfo),
@@ -81,10 +82,11 @@ fun LottieView(temp: TemperatureResponse) {
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light
             )
+            Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = stringResource(id = R.string.LottieLicense),
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    color = Color.Blue,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Light,
                     textDecoration = TextDecoration.Underline

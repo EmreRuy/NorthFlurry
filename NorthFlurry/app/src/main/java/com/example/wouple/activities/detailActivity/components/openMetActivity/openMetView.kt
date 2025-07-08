@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -54,7 +53,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .background(brush = Brush.verticalGradient(background))
+            .background(color = MaterialTheme.colorScheme.surface)
             .padding(top = 64.dp, bottom = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -63,7 +62,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             text = stringResource(id = R.string.Attribution),
             fontWeight = FontWeight.Medium,
             fontSize = 20.sp,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
         )
         Text(
             text = stringResource(id = R.string.open_meteo_attribution_part1) + "\n" +
@@ -73,14 +72,14 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             modifier = Modifier
                 .padding(16.dp)
                 .padding(horizontal = 8.dp),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             fontWeight = FontWeight.Light,
             fontSize = 14.sp
         )
         Text(
             text = stringResource(id = R.string.open_meteo_visit),
             style = MaterialTheme.typography.bodyMedium.copy(
-                color = Color.White,
+                color = MaterialTheme.colorScheme.primary,
                 textDecoration = TextDecoration.Underline,
             ),
             modifier = Modifier
@@ -98,7 +97,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             text = stringResource(id = R.string.open_meteo_licenceInfo),
             fontWeight = FontWeight.Medium,
             fontSize = 20.sp,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
         )
         Text(
             text = stringResource(id = R.string.weather_data_ccBy_licence),
@@ -106,7 +105,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             modifier = Modifier
                 .padding(16.dp)
                 .padding(horizontal = 8.dp),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             fontWeight = FontWeight.Light,
             fontSize = 14.sp
         )
@@ -117,7 +116,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .padding(top = 16.dp),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Medium,
             fontSize = 20.sp
@@ -128,7 +127,7 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             modifier = Modifier
                 .padding(16.dp)
                 .padding(horizontal = 8.dp),
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             fontWeight = FontWeight.Light,
             fontSize = 14.sp
         )
@@ -147,7 +146,7 @@ fun LicenseLinkText() {
         )
         withStyle(
             style = SpanStyle(
-                color = Color.White,
+                color = MaterialTheme.colorScheme.primary,
                 textDecoration = TextDecoration.Underline
             )
         ) {
@@ -160,7 +159,8 @@ fun LicenseLinkText() {
         text = annotatedText,
         style = MaterialTheme.typography.bodyMedium,
         modifier = Modifier.clickable {
-            annotatedText.getStringAnnotations(tag = "URL", start = 0, end = annotatedText.length)
+            annotatedText
+                .getStringAnnotations("URL", 0, annotatedText.length)
                 .firstOrNull()?.let { annotation ->
                     val intent = Intent(Intent.ACTION_VIEW, annotation.item.toUri())
                     context.startActivity(intent)
@@ -168,3 +168,4 @@ fun LicenseLinkText() {
         }
     )
 }
+

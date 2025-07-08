@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.wouple.extensions.parcelable
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.ui.theme.AppTheme
 
 class OpenMetAttributionActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +17,9 @@ class OpenMetAttributionActivity : ComponentActivity() {
             if (temp == null) {
                 throw IllegalStateException("temp is missing or wrong")
             }
-            OpenMeteorologyView(temp = temp)
+            AppTheme {
+                OpenMeteorologyView(temp = temp)
+            }
         }
     }
 }
