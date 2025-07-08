@@ -3,8 +3,8 @@ package com.example.wouple.activities.detailActivity.components.openMetActivity
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -54,10 +54,11 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .background(brush = Brush.verticalGradient(background)),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.padding(top = 24.dp))
+            .background(brush = Brush.verticalGradient(background))
+            .padding(top = 64.dp, bottom = 24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    )  {
         Text(
             text = stringResource(id = R.string.Attribution),
             fontWeight = FontWeight.Medium,
@@ -90,7 +91,6 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
                     context.startActivity(intent)
                 }
         )
-        Spacer(modifier = Modifier.padding(top = 12.dp))
         Text(
             modifier = Modifier
                 .padding(horizontal = 8.dp)
@@ -122,7 +122,6 @@ fun OpenMeteorologyView(temp: TemperatureResponse) {
             fontWeight = FontWeight.Medium,
             fontSize = 20.sp
         )
-
         Text(
             text = stringResource(id = R.string.weather_data_disclaimer),
             style = MaterialTheme.typography.bodySmall,
