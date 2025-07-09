@@ -123,7 +123,7 @@ fun LocationView(
                 style = MaterialTheme.typography.headlineSmall.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 16.sp
+                    fontSize = 18.sp
                 )
             )
             Spacer(modifier = Modifier.weight(0.9f))
@@ -142,7 +142,7 @@ fun LocationView(
                 style = MaterialTheme.typography.headlineSmall.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 16.sp
+                    fontSize = 18.sp
                 )
             )
             Icon(
