@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -26,29 +25,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.model.api.TemperatureResponse
 import androidx.core.net.toUri
-import java.nio.file.WatchEvent
 
 @Composable
-fun LottieView(temp: TemperatureResponse) {
-    val isDay = temp.current_weather.is_day == 1
-    val background: List<Color> = if (isDay) {
-        val baseColor = Color(0xFF3F54BE)
-        val lighterShades = listOf(
-            baseColor,
-            baseColor.copy(alpha = 0.9f),
-            baseColor.copy(alpha = 0.8f),
-            baseColor.copy(alpha = 0.5f),
-        )
-        lighterShades
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
-        )
-    }
+fun LottieView() {
     Column(
         modifier = Modifier
             .fillMaxSize()

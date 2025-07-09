@@ -18,7 +18,7 @@ class LottieCopyRightActivity : ComponentActivity() {
                 throw IllegalStateException("temp is missing or wrong")
             }
             AppTheme {
-                LottieView(temp = temp)
+                LottieView()
             }
         }
     }

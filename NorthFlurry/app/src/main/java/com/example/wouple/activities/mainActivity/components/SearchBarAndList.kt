@@ -2,15 +2,18 @@ package com.example.wouple.activities.mainActivity.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -49,65 +52,65 @@ fun GetSearchBarAndList(
     val coroutineScope = rememberCoroutineScope()
     val listState = rememberLazyListState()
 
-    Column(
-        modifier = Modifier
-            .padding(4.dp)
-            .fillMaxWidth()
-    ) {
-        SearchBar(isSearchExpanded, onSearch, onClose)
-        if (locations != null) {
-            LazyColumn(
-                state = listState,
-                modifier = Modifier
-                    .height(200.dp)
-                    .padding(vertical = 4.dp),
-                contentPadding = PaddingValues(vertical = 4.dp)
-            ) {
-                items(locations) { location ->
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 4.dp, horizontal = 16.dp)
-                            .clip(RoundedCornerShape(30.dp))
-                            .clickable {
-                                isSearchExpanded.value = false
-                                searchedLocation.value = location
-                                onLocationButtonClicked(location)
-                                coroutineScope.launch {
-                                    listState.animateScrollToItem(0)
-                                }
-                            },
-                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = Color.White,
-                        )
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_pin),
-                                contentDescription = null,
-                                tint = Color.Unspecified,
-                                modifier = Modifier.size(28.dp)
-                            )
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(
-                                text = location.display_name,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 16.sp,
-                                color = Color.Black,
-                                modifier = Modifier
-                                    .animateContentSize()
-                                    .padding(4.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
+    Box(
+         modifier = Modifier
+             .padding(4.dp)
+             .fillMaxWidth()
+     ) {
+         SearchBar(isSearchExpanded, onSearch, onClose)
+         if (locations != null) {
+             LazyColumn(
+                 state = listState,
+                 modifier = Modifier
+                     .heightIn(max = 300.dp)
+                     .padding(vertical = 4.dp),
+                 contentPadding = PaddingValues(vertical = 4.dp)
+             ) {
+                 items(locations) { location ->
+                     Card(
+                         modifier = Modifier
+                             .fillMaxWidth()
+                             .padding(vertical = 4.dp, horizontal = 16.dp)
+                             .clip(RoundedCornerShape(30.dp))
+                             .clickable {
+                                 isSearchExpanded.value = false
+                                 searchedLocation.value = location
+                                 onLocationButtonClicked(location)
+                                 coroutineScope.launch {
+                                     listState.animateScrollToItem(0)
+                                 }
+                             },
+                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                         colors = CardDefaults.cardColors(
+                             containerColor = Color.White,
+                         )
+                     ) {
+                         Row(
+                             modifier = Modifier
+                                 .fillMaxWidth()
+                                 .padding(12.dp),
+                             verticalAlignment = Alignment.CenterVertically
+                         ) {
+                             Icon(
+                                 painter = painterResource(id = R.drawable.ic_pin),
+                                 contentDescription = null,
+                                 tint = Color.Unspecified,
+                                 modifier = Modifier.size(28.dp)
+                             )
+                             Spacer(modifier = Modifier.width(12.dp))
+                             Text(
+                                 text = location.display_name,
+                                 fontWeight = FontWeight.Bold,
+                                 fontSize = 16.sp,
+                                 color = Color.Black,
+                                 modifier = Modifier
+                                     .animateContentSize()
+                                     .padding(4.dp)
+                             )
+                         }
+                     }
+                 }
+             }
+         }
+     }
 }

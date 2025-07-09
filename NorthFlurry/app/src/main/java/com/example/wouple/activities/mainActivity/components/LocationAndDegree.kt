@@ -29,8 +29,7 @@ fun GetLocationAndDegree(
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 100.dp),
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(

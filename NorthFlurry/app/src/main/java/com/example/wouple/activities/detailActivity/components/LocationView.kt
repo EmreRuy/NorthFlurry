@@ -1,6 +1,9 @@
 package com.example.wouple.activities.detailActivity.components
 
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -8,6 +11,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Icon
@@ -16,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,6 +38,40 @@ fun LocationView(
     searchedLocation: SearchedLocation
 
 ) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        // Canvas with rounded bottom
+        val color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+        Canvas(
+            modifier = Modifier
+                .fillMaxWidth()
+                .requiredHeight(320.dp)
+                .align(Alignment.BottomStart)
+        ) {
+            val width = size.width
+            val height = size.height
+            val curveHeight = 150f // Deeper curve for a more pronounced rounded bottom
+
+            // Draw the rounded bottom shape
+            drawPath(
+                path = Path().apply {
+                    moveTo(0f, 0f)
+                    lineTo(0f, height - curveHeight)
+                    quadraticTo(
+                        x1 = width / 2f,
+                        y1 = height + curveHeight,
+                        x2 = width,
+                        y2 = height - curveHeight
+                    )
+                    lineTo(width, 0f)
+                    close()
+                },
+                color = color
+            )
+        }
     Column(
         modifier = Modifier
             .padding(WindowInsets.statusBars.asPaddingValues())
@@ -65,7 +104,7 @@ fun LocationView(
         val weatherDescriptionResId = getWeatherDescriptionResId(weatherCode)
         val weatherDescription = stringResource(id = weatherDescriptionResId)
         Row(
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+            modifier = Modifier.padding(horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -84,7 +123,7 @@ fun LocationView(
                 style = MaterialTheme.typography.headlineSmall.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 20.sp
+                    fontSize = 16.sp
                 )
             )
             Spacer(modifier = Modifier.weight(0.9f))
@@ -103,7 +142,7 @@ fun LocationView(
                 style = MaterialTheme.typography.headlineSmall.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 20.sp
+                    fontSize = 16.sp
                 )
             )
             Icon(
@@ -114,6 +153,7 @@ fun LocationView(
             )
         }
     }
+}
 }
 
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()

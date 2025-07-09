@@ -16,7 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -82,7 +82,7 @@ fun SettingsItemCard(
                 )
             }
             Icon(
-                imageVector = Icons.Default.KeyboardArrowRight,
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                 contentDescription = null,
                 modifier = Modifier.size(24.dp),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -96,7 +96,9 @@ fun SettingsCardOne() {
     Spacer(modifier = Modifier.padding(top = 24.dp))
     Text(
         text = stringResource(id = R.string.GeneralSettings),
-        modifier = Modifier.padding(horizontal = 24.dp).padding(bottom = 8.dp),
+        modifier = Modifier
+            .padding(horizontal = 24.dp)
+            .padding(bottom = 8.dp),
         fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.onSurface,
         fontSize = 22.sp
