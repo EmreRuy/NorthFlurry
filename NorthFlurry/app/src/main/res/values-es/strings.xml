@@ -37,7 +37,7 @@
     <string name="DewPoint">"Punto de rocío"</string>
     <string name="Precipitation_For_Upcoming_Days">"Precipitación semanal"</string>
     <string name="No_Precipitation_expected_for_the_week">"No se espera precipitación para la semana"</string>
-    <string name="UV_Index_For_Upcoming_Days">"Índice UV semanal"</string>
+    <string name="UV_Index_For_Upcoming_Days">"Exposición UV semanal"</string>
     <string name="The_Ultraviolet_Index">"El índice ultravioleta"</string>
     <string name="Explainer_Of_Uv_Index">"El índice UV ilumina la intensidad solar, guiando elecciones inteligentes de protección solar.\n0-2: Disfruta de los suaves rayos al aire libre con tranquilidad.\n3-7: Disfruta de los momentos soleados con precaución, buscando sombra y protector solar durante el mediodía.\n8 y más: Aléjate de la alta intensidad del mediodía, priorizando la seguridad en lugares sombreados."</string>
     <string name="Weekly_precipitation_chart">"Precipitación semanal"</string>

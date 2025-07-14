@@ -38,7 +38,7 @@ Commençons!"</string>
     <string name="DewPoint">"Point de rosée"</string>
     <string name="Precipitation_For_Upcoming_Days">"Précipitations hebdomadaires"</string>
     <string name="No_Precipitation_expected_for_the_week">"Aucune précipitation prévue pour la semaine"</string>
-    <string name="UV_Index_For_Upcoming_Days">"Indice UV hebdomadaire"</string>
+    <string name="UV_Index_For_Upcoming_Days">"Exposition UV hebdomadaire"</string>
     <string name="The_Ultraviolet_Index">"L'indice ultraviolet"</string>
     <string name="Explainer_Of_Uv_Index">"L'indice UV éclaire l'intensité solaire, guidant les choix judicieux de protection solaire.\n"
                     "0-2 : Profitez des rayons doux en plein air en toute tranquillité.\n"

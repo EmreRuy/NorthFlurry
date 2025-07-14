@@ -37,7 +37,7 @@
     <string name="DewPoint">Duggpunkt</string>
     <string name="Precipitation_For_Upcoming_Days">Ukentlig nedbør</string>
     <string name="No_Precipitation_expected_for_the_week">Ingen nedbør forventet for uken</string>
-    <string name="UV_Index_For_Upcoming_Days">Ukentlig UV-indeks</string>
+    <string name="UV_Index_For_Upcoming_Days">Ukentlig UV-eksponering</string>
     <string name="The_Ultraviolet_Index">Den ultrafiolette indeksen</string>
     <string name="Explainer_Of_Uv_Index">UV–indeksen belyser solintensiteten, og veileder smarte solbeskyttelsesvalg.\n0–2: Nyt milde stråler utendørs med sinnsro.\n3-7: Nyt solfylte øyeblikk klokt, søk skygge og bruk solkrem midt på dagen.\n8 og høyere: Trekk deg tilbake fra intensiteten midt på dagen, prioriter sikkerhet i skyggefulle områder.</string>
     <string name="Weekly_precipitation_chart">Ukentlig nedbør</string>
