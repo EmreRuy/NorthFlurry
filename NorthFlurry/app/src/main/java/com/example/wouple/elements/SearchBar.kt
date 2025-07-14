@@ -102,7 +102,7 @@ fun SearchBar(
                         Text(
                             modifier = Modifier.padding(start = 16.dp),
                             text = stringResource(id = R.string.SearchBar),
-                            color = Color.Black.copy(alpha = 0.7f)
+                            color = Color.White
                         )
                     }
                 },
@@ -121,6 +121,8 @@ fun SearchBar(
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
                     cursorColor = MaterialTheme.colorScheme.onBackground,
+                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                    unfocusedTextColor = MaterialTheme.colorScheme.primary
                 )
             )
         }

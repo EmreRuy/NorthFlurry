@@ -27,12 +27,9 @@ fun GetLocationAndDegree(
 ) {
     val isDay = temp.current_weather.is_day == 1
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
         Column(
+            modifier = Modifier
+                .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -64,7 +61,6 @@ fun GetLocationAndDegree(
 
             Spacer(modifier = Modifier.height(30.dp)) // Adjust spacing below animation
         }
-    }
 }
 
 

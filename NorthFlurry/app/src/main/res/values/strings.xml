@@ -37,7 +37,7 @@ Let's Begin!"</string>
     <string name="DewPoint">"Dew Point"</string>
     <string name="Precipitation_For_Upcoming_Days">"Weekly Precipitation"</string>
     <string name="No_Precipitation_expected_for_the_week">"No precipitation expected for the week"</string>
-    <string name="UV_Index_For_Upcoming_Days">"Weekly UV Index"</string>
+    <string name="UV_Index_For_Upcoming_Days">"Weekly UV Exposure"</string>
     <string name="The_Ultraviolet_Index">"The Ultraviolet Index"</string>
     <string name="Explainer_Of_Uv_Index">"The UV index illuminates solar intensity, guiding smart sun protection choices.\n"
                     "0-2: Enjoy gentle rays outdoors with peace of mind.\n"
