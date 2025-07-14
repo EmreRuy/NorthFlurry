@@ -102,7 +102,7 @@ fun SearchBar(
                         Text(
                             modifier = Modifier.padding(start = 16.dp),
                             text = stringResource(id = R.string.SearchBar),
-                            color = Color.White
+                            color = MaterialTheme.colorScheme.surface
                         )
                     }
                 },
