@@ -55,12 +55,6 @@ fun DetailView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(
-                        /*   Brush.verticalGradient(
-                               colors = listOf(
-                                   Color(0xFFEAF6FB), // very light sky top
-                                   Color(0xFFCDE5F0)  // your card color bottom
-                               ) // For the light mode
-                           ) */
                         //   Color(0xFF1F2B2F) // For the Dark Mode
                         MaterialTheme.colorScheme.surface
                     )

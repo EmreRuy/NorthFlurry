@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -24,43 +24,44 @@ import com.example.wouple.model.api.TemperatureResponse
 fun GetLocationAndDegree(
     temp: TemperatureResponse,
     searchedLocation: MutableState<SearchedLocation?>,
+    modifier: Modifier = Modifier
 ) {
     val isDay = temp.current_weather.is_day == 1
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D",
-                fontWeight = FontWeight.Thin,
-                textAlign = TextAlign.Center,
-                fontSize = 50.sp,
-                fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+    Column(
+        modifier = modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D",
+            fontWeight = FontWeight.Thin,
+            textAlign = TextAlign.Center,
+            fontSize = 50.sp,
+            fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
+            color = MaterialTheme.colorScheme.onBackground
+        )
 
-            Spacer(modifier = Modifier.padding(top = 16.dp))
+        Spacer(modifier = Modifier.padding(top = 16.dp))
 
-            Text(
-                modifier = Modifier.padding(start = 4.dp),
-                text = temp.current_weather.temperature.toInt()
-                    .toString() + temp.hourly_units.temperature_2m[0],
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Thin,
-                fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
-                fontSize = 64.sp,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+        Text(
+            modifier = Modifier.padding(start = 4.dp),
+            text = temp.current_weather.temperature.toInt()
+                .toString() + temp.hourly_units.temperature_2m[0],
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight.Thin,
+            fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
+            fontSize = 64.sp,
+            color = MaterialTheme.colorScheme.onBackground
+        )
 
-            Spacer(modifier = Modifier.padding(top = 12.dp))
+        Spacer(modifier = Modifier.padding(top = 12.dp))
 
-            WeatherAnimation(temp.current_weather.weathercode, isDay)
+        WeatherAnimation(weatherCode = temp.current_weather.weathercode, isDay = isDay)
 
-            Spacer(modifier = Modifier.height(30.dp)) // Adjust spacing below animation
-        }
+        Spacer(modifier = Modifier.height(30.dp))
+    }
 }
 
 

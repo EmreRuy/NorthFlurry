@@ -39,7 +39,7 @@ fun SettingsCardTwo() {
             .padding(horizontal = 24.dp)
             .padding(bottom = 8.dp),
         fontWeight = FontWeight.Bold,
-        color = MaterialTheme.colorScheme.onSurface,
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
         fontSize = 22.sp
     )
     Spacer(modifier = Modifier.height(16.dp))

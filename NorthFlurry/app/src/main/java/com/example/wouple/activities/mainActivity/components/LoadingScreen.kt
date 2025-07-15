@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,15 +35,10 @@ fun LoadingScreen() {
     val composition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.loading)
     )
-    val darkBackground = listOf(
-        Color(0xFF1D244D),
-        Color(0xFF2E3A59),
-        Color(0xFF3F5066),
-    )
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceVariant),
+            .background(MaterialTheme.colorScheme.surfaceContainer),
         contentAlignment = Alignment.Center
     ) {
         Column(

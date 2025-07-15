@@ -11,8 +11,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.Fill
@@ -29,7 +27,7 @@ fun HorizontalWave(
     amplitude: Float,
     frequency: Float
 ) {
-    val color = Color(0xFFAAC7FF)
+    val color = MaterialTheme.colorScheme.primary//Color(0xFFAAC7FF)
     Canvas(
         modifier = Modifier.fillMaxWidth(),
         onDraw = {
