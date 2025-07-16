@@ -1,11 +1,8 @@
 package com.example.wouple.activities.startScreen
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.res.Configuration
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,9 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -39,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -47,53 +41,42 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.wouple.R
-import com.example.wouple.activities.mainActivity.MainActivity
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.preferences.LocationPref
-import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.delay
-@Preview(
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-fun PreviewFirstTimeLocationScreen() {
-    FirstTimeLocationScreen(onLocationDetected = {})
-}
+
 
 @Composable
 fun FirstTimeLocationScreen(
-    onLocationDetected: (String) -> Unit
+    // State values passed from StartActivity
+    locationStatus: String,
+    isLocationReady: Boolean,
+    isLoading: Boolean,
+    // Callbacks to communicate back to StartActivity
+    onAttemptPermissionRequest: () -> Unit,
+    onContinueClicked: (SearchedLocation) -> Unit
 ) {
     val context = LocalContext.current
-    val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
+    LaunchedEffect(Unit) {
+        delay(800) // Small delay for UX
+        onAttemptPermissionRequest() // Inform StartActivity to handle permission check/request
+    }
 
-    var locationText by remember { mutableStateOf("Detecting your location...") }
-    var isLocationDetected by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(true) }
+    val displayedLocationName = remember(locationStatus) {
+        when {
+            locationStatus.startsWith("Location Detected: ") -> locationStatus.replace(
+                "Location Detected: ",
+                ""
+            )
 
-    val randomCities = listOf("New York", "Los Angeles", "Paris", "Tokyo", "London", "Berlin")
+            locationStatus.startsWith("Falling back to: ") -> locationStatus.replace(
+                "Falling back to: ",
+                ""
+            )
 
-    val locationPermissionLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        isLoading = false
-        if (granted) {
-            fetchLocation(context, fusedLocationClient) { city ->
-                locationText = city ?: randomCities.random()
-                isLocationDetected = true
-            }
-        } else {
-            locationText = randomCities.random()
-            isLocationDetected = true
+            else -> locationStatus
         }
     }
-
-    LaunchedEffect(Unit) {
-        delay(800)
-        locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-    }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -120,34 +103,27 @@ fun FirstTimeLocationScreen(
                 color = Color.White,
                 textAlign = TextAlign.Center
             )
-
             Text(
-                text = locationText,
+                text = displayedLocationName,
                 style = MaterialTheme.typography.titleLarge,
                 color = Color.White.copy(alpha = 0.9f),
                 textAlign = TextAlign.Center
             )
 
-            if (isLoading) {
+            AnimatedVisibility(visible = isLoading, enter = fadeIn(), exit = fadeOut()) {
                 CircularProgressIndicator(color = Color.White)
-            } else if (isLocationDetected) {
+            }
+
+            AnimatedVisibility(
+                visible = isLocationReady && !isLoading,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
                 Button(
                     onClick = {
-                        val cityCoordinates = mapOf(
-                            "New York" to ("40.7128" to "-74.0060"),
-                            "Los Angeles" to ("34.0522" to "-118.2437"),
-                            "Paris" to ("48.8566" to "2.3522"),
-                            "Tokyo" to ("35.6895" to "139.6917"),
-                            "London" to ("51.5074" to "-0.1278"),
-                            "Berlin" to ("52.5200" to "13.4050")
-                        )
-                        val (lat, lon) = cityCoordinates[locationText] ?: ("0.0" to "0.0")
-
-                        val searchedLocation = SearchedLocation(lat, lon, locationText)
-                        LocationPref.setSearchedLocation(context, searchedLocation)
-
-                        context.startActivity(Intent(context, MainActivity::class.java))
-                        (context as? Activity)?.finish()
+                        val finalizedLocation = LocationPref.getSearchedLocation(context)
+                            ?: SearchedLocation("0.0", "0.0", displayedLocationName)
+                        onContinueClicked(finalizedLocation)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -172,11 +148,13 @@ fun FirstTimeLocationScreen(
     }
 }
 
-
 @Composable
 fun LottieAnimationSection() {
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.sun))
-    val progress by animateLottieCompositionAsState(composition, iterations = LottieConstants.IterateForever)
+    val progress by animateLottieCompositionAsState(
+        composition,
+        iterations = LottieConstants.IterateForever
+    )
 
     LottieAnimation(
         composition = composition,
