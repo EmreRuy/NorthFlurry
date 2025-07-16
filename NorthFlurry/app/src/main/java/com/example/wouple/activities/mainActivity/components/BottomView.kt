@@ -23,5 +23,6 @@ fun GetBottomView(
     ) {
         searchedLocation.value?.let { GetSevenHoursForecast(temp) }
         GetSevenDaysForecast(temp)
+        WeatherOracleCard(temp)
     }
 }
