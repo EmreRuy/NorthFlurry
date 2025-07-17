@@ -82,7 +82,10 @@ fun FirstTimeLocationScreen(
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(Color(0xFF3C4043), Color(0xFF3C4043))
+                    colors = listOf(
+                        MaterialTheme.colorScheme.onSurfaceVariant,
+                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.85f)
+                    )//Color(0xFF3C4043), Color(0xFF3C4043))
                 )
             ),
         contentAlignment = Center
