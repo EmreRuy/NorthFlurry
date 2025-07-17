@@ -3,7 +3,6 @@ package com.example.wouple.activities.mainActivity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
@@ -73,14 +72,20 @@ class MainActivity : ComponentActivity() {
                             BottomNavigationBar(
                                 temp = temp.value!!,
                                 locations = searchedLocations.value,
-                                onLocationButtonClicked = { location -> onLocationButtonClicked(location) },
+                                onLocationButtonClicked = { location ->
+                                    onLocationButtonClicked(
+                                        location
+                                    )
+                                },
                                 searchedLocation = searchedLocation,
                                 onClose = { searchedLocations.value = null },
                                 onSearch = { query ->
                                     WeatherManager.getSearchedLocations(
                                         context = this,
                                         address = query,
-                                        onSuccessCall = { location -> searchedLocations.value = location }
+                                        onSuccessCall = { location ->
+                                            searchedLocations.value = location
+                                        }
                                     )
                                 },
                                 air = airQuality.value,

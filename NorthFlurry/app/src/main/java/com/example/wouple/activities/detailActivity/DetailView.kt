@@ -66,7 +66,7 @@ fun DetailView(
                     Spacer(modifier = Modifier.padding(top = 8.dp))
                 }
                 item {
-                    CurrentAirQualityCardCompact(temp = temp, air = air)
+                    CurrentAirQualityCardCompact(air = air)
                 }
                 item {
                     CurrentUvIndexCardCompact(temp = temp)

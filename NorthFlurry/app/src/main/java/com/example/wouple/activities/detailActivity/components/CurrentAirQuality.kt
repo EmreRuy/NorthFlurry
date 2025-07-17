@@ -24,19 +24,16 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.activities.detailActivity.utils.getAqiColor
 import com.example.wouple.model.api.AirQuality
-import com.example.wouple.model.api.TemperatureResponse
 
 @Composable
 fun CurrentAirQualityCardCompact(
-    air: AirQuality?,
-    temp: TemperatureResponse
+    air: AirQuality?
 ) {
     val airQualityValue = air?.current?.european_aqi ?: 0
     val airQualityPercentage = (airQualityValue.coerceIn(0, 300)) / 300f
     val descriptionResId = getAirQualityDescriptionResId(airQualityValue)
     val description = stringResource(id = descriptionResId)
     val color = getAqiColor(airQualityValue)
-
     Card(
         modifier = Modifier
             .fillMaxWidth()

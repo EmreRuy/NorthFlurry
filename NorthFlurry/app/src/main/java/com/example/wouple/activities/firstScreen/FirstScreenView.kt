@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -62,7 +61,7 @@ fun FirstScreenView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface),
+            .background(MaterialTheme.colorScheme.surfaceVariant),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
@@ -72,44 +71,43 @@ fun FirstScreenView(
             contentDescription = "logo",
             alignment = Center,
             modifier = Modifier.size(150.dp),
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primaryContainer)
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
         )
         Text(
             modifier = Modifier.padding(top = 16.dp),
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.app_name),
-            fontWeight = FontWeight.Light,
-            fontFamily = FontFamily.Default,
-            fontSize = 32.sp,
-            lineHeight = 32.sp,
-            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.displayMedium.copy(
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         )
         Text(
             modifier = Modifier,
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.WeatherForecast),
-            fontWeight = FontWeight.Light,
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 32.sp,
-            lineHeight = 32.sp,
-            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
         )
         Text(
             modifier = Modifier
-                .padding(horizontal = 4.dp)
+                .padding(vertical = 8.dp , horizontal = 4.dp)
                 .align(CenterHorizontally),
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.AppExplainer),
-            fontWeight = FontWeight.Light,
-            fontFamily = FontFamily.Default,
-            fontSize = 15.sp,
-            color = MaterialTheme.colorScheme.onSurface,
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 15.sp
+            )
         )
         Button(
             modifier = Modifier.padding(8.dp),
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary
             ),
             onClick = {
@@ -118,7 +116,9 @@ fun FirstScreenView(
         ) {
             Text(
                 text = stringResource(id = R.string.GetStartButton),
-                color = MaterialTheme.colorScheme.secondary
+                style = MaterialTheme.typography.titleMedium.copy(
+                    color = MaterialTheme.colorScheme.surface
+                )
             )
         }
         Spacer(modifier = Modifier.weight(1.5f))

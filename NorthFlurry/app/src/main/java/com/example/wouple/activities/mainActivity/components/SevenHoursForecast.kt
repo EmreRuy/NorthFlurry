@@ -24,7 +24,7 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
             .padding(bottom = 16.dp),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerLow
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
     ) {
