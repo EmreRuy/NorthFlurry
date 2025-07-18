@@ -40,7 +40,7 @@ fun CurrentAirQualityCardCompact(
             .padding(horizontal = 16.dp, vertical = 12.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer    // surfaceVariant
+            containerColor = MaterialTheme.colorScheme.surfaceVariant   // surfaceContainer
         )
     ) {
         Row(
