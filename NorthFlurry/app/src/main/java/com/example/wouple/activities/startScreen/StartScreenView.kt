@@ -60,15 +60,13 @@ fun FirstTimeLocationScreen(
 ) {
     val context = LocalContext.current
     val colorScheme = MaterialTheme.colorScheme
-
-    // Gradient that adapts to theme
     val gradientColors = listOf(
         colorScheme.primary.copy(alpha = 0.45f),
         colorScheme.surfaceVariant
     )
     LaunchedEffect(Unit) {
-        delay(800) // Small delay for UX
-        onAttemptPermissionRequest() // Inform StartActivity to handle permission check/request
+        delay(800)
+        onAttemptPermissionRequest()
     }
 
     val displayedLocationName = remember(locationStatus) {
@@ -123,9 +121,9 @@ fun FirstTimeLocationScreen(
                 )
             }
 
-            AnimatedVisibility(visible = isLoading, enter = fadeIn(), exit = fadeOut()) {
+         /*   AnimatedVisibility(visible = isLoading, enter = fadeIn(), exit = fadeOut()) {
                 CircularProgressIndicator(color = Color.White)
-            }
+            } */
 
             AnimatedVisibility(
                 visible = isLocationReady && !isLoading,

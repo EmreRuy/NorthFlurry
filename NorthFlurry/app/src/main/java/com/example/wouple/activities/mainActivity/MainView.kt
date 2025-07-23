@@ -16,7 +16,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
@@ -40,13 +39,12 @@ fun MainView(
     val isSearchExpanded = remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // This remains at the top, potentially covering part of the screen
         if (!isSearchExpanded.value) {
             val canvasColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .requiredHeight(320.dp) // Fixed height for the canvas
+                    .requiredHeight(320.dp)
                     .align(Alignment.TopCenter)
             ) {
                 val width = size.width
@@ -82,7 +80,7 @@ fun MainView(
                 onSearch = onSearch,
                 onClose = onClose
             )
-            // Only shown when search is not expanded
+
             if (!isSearchExpanded.value) {
                 GetLocationAndDegree(
                     temp = temp,
@@ -90,12 +88,11 @@ fun MainView(
                 )
             }
 
-            // This Column will take the remaining space and be scrollable
             if (!isSearchExpanded.value) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f) // This crucial modifier makes it take remaining height
+                        .weight(1f)
                         .verticalScroll(rememberScrollState())
                 ) {
                     GetBottomView(searchedLocation = searchedLocation, temp = temp)
