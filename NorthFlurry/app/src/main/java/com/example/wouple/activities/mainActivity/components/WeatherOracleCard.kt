@@ -103,9 +103,9 @@ fun SparklingText(text: String, modifier: Modifier = Modifier) {
 
     val animatedColor = transition.animateColor(
         initialValue = MaterialTheme.colorScheme.onSurface,
-        targetValue = Color.White,
+        targetValue = MaterialTheme.colorScheme.primary,
         animationSpec = infiniteRepeatable(
-            animation = tween(1000),
+            animation = tween(2000),
             repeatMode = RepeatMode.Reverse
         ),
         label = "ColorAnimation"
