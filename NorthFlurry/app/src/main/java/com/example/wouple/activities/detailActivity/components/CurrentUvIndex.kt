@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +40,7 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
     val uvIndexPercentage = uvIndexValue / 11f
     val color = getUvColor(uvIndexValue)
     val daylight = temp.current_weather.is_day
+    val sunColor = Color(0xFFFFA000)
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -75,7 +77,7 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                     text = "${uvIndexValue.toInt()} • $uvIndexDescriptions",
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 19.sp
                     )
                 )
@@ -86,9 +88,9 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_sun),
                     contentDescription = stringResource(id = R.string.current_uv_index),
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = sunColor,
                     modifier = Modifier
-                        .size(34.dp)
+                        .size(36.dp)
                 )
             } else {
                 Icon(

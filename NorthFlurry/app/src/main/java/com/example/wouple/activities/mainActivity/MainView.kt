@@ -37,10 +37,9 @@ fun MainView(
     onClose: () -> Unit,
 ) {
     val isSearchExpanded = remember { mutableStateOf(false) }
-
     Box(modifier = Modifier.fillMaxSize()) {
         if (!isSearchExpanded.value) {
-            val canvasColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+            val canvasColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f)
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -68,7 +67,6 @@ fun MainView(
                 )
             }
         }
-
         Column(
             modifier = Modifier.fillMaxSize()
         ) {

@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,6 +35,7 @@ fun CurrentAirQualityCardCompact(
     val descriptionResId = getAirQualityDescriptionResId(airQualityValue)
     val description = stringResource(id = descriptionResId)
     val color = getAqiColor(airQualityValue)
+    val leafColor = Color(0xFF2E7D32)
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -66,10 +68,10 @@ fun CurrentAirQualityCardCompact(
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Text(
-                    text = "${airQualityValue.toInt()} •  $description",
+                    text = "$airQualityValue •  $description",
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface,
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 19.sp
                     )
                 )
@@ -96,8 +98,8 @@ fun CurrentAirQualityCardCompact(
             Icon(
                 painter = painterResource(id = R.drawable.ic_airquality),
                 contentDescription = stringResource(id = R.string.air_quality_index),
-                tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(34.dp)
+                tint = leafColor,
+                modifier = Modifier.size(36.dp)
             )
 
             Spacer(modifier = Modifier.weight(0.5f))

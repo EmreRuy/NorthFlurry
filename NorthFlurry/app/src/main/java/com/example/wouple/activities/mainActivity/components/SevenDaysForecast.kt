@@ -37,7 +37,7 @@ fun GetSevenDaysForecast(temp: TemperatureResponse) {
             .fillMaxWidth()
             .padding(horizontal = 18.dp)
             .padding(bottom = 18.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(24.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         val isDay = temp.current_weather.is_day == 1
