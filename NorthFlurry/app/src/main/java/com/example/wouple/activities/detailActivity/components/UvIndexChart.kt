@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -44,14 +45,23 @@ fun PreviewUvIndexChart() {
 
 @Composable
 fun UvIndexChart(temp: TemperatureResponse) {
+    val baseColor = Color(0xFF494CC6)
+    val brush = Brush.verticalGradient(
+        colors = listOf(
+            baseColor.copy(alpha = 0.4f),
+            baseColor.copy(alpha = 0.25f),
+            baseColor.copy(alpha = 0.15f)
+        )
+    )
+
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .background(
-                MaterialTheme.colorScheme.surfaceContainer,
+                brush = brush,
                 shape = RoundedCornerShape(20.dp)
             )
-            .padding(12.dp),
+            .padding(12.dp)
     ) {
         UvChartView(temp = temp)
     }

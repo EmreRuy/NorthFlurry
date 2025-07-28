@@ -56,7 +56,7 @@ fun DetailView(
                     .fillMaxWidth()
                     .background(
                         //   Color(0xFF1F2B2F) // For the Dark Mode
-                        MaterialTheme.colorScheme.surface
+                        MaterialTheme.colorScheme.surfaceContainer
                     )
                     .padding(innerPadding.let { innerPadding -> 0.dp }),
                 horizontalAlignment = CenterHorizontally

@@ -27,7 +27,6 @@ fun GetLocationAndDegree(
     modifier: Modifier = Modifier
 ) {
     val isDay = temp.current_weather.is_day == 1
-
     Column(
         modifier = modifier
             .fillMaxWidth(),
@@ -40,7 +39,7 @@ fun GetLocationAndDegree(
             textAlign = TextAlign.Center,
             fontSize = 50.sp,
             fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onPrimary
         )
 
         Spacer(modifier = Modifier.padding(top = 16.dp))
@@ -53,7 +52,7 @@ fun GetLocationAndDegree(
             fontWeight = FontWeight.Thin,
             fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
             fontSize = 64.sp,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.onPrimary
         )
 
         Spacer(modifier = Modifier.padding(top = 12.dp))

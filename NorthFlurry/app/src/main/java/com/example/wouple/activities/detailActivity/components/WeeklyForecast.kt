@@ -37,7 +37,7 @@ fun WeeklyForecast(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 14.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceContainer, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
     ) {
         Row(

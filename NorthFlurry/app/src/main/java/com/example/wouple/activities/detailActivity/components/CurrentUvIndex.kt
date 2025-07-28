@@ -47,7 +47,7 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
             .padding(horizontal = 16.dp, vertical = 12.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer    // surfaceContainerHigh
+            containerColor = MaterialTheme.colorScheme.background   // surfaceContainerHigh
         )
     ) {
         Row(

@@ -41,10 +41,10 @@ fun LocationView(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)
+            .background(MaterialTheme.colorScheme.surfaceContainer)
     ) {
         // Canvas with rounded bottom
-        val color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f)
+        val color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
@@ -72,88 +72,88 @@ fun LocationView(
                 color = color
             )
         }
-    Column(
-        modifier = Modifier
-            .padding(WindowInsets.statusBars.asPaddingValues())
-            .fillMaxWidth(1f),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-            style = MaterialTheme.typography.displayMedium.copy(
-                fontWeight = FontWeight.Thin,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontSize = 50.sp
-            )
-        )
-        Spacer(modifier = Modifier.padding(top = 24.dp))
-        Text(
-            text = "${temp.current_weather.temperature.toInt()}°",
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(start = 4.dp),
-            fontWeight = FontWeight.Thin,
-            fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
-            fontSize = 64.sp,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.padding(top = 24.dp))
-        val weatherCode = temp.current_weather.weathercode
-        val weatherDescriptionResId = getWeatherDescriptionResId(weatherCode)
-        val weatherDescription = stringResource(id = weatherDescriptionResId)
-        Row(
-            modifier = Modifier.padding(horizontal = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+        Column(
+            modifier = Modifier
+                .padding(WindowInsets.statusBars.asPaddingValues())
+                .fillMaxWidth(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            val day = 0
-            val forecastMini = temp.daily.temperature_2m_min[day].toInt().toString()
-            val maximumDegree = temp.daily.temperature_2m_max[day].toInt().toString()
-            Icon(
-                modifier = Modifier.size(30.dp),
-                painter = painterResource(id = R.drawable.arrowdropdown),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer
-            )
             Text(
-                text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
+                text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineSmall.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 18.sp
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.displayMedium.copy(
+                    fontWeight = FontWeight.Thin,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 50.sp
                 )
             )
-            Spacer(modifier = Modifier.weight(0.9f))
+            Spacer(modifier = Modifier.padding(top = 24.dp))
             Text(
-                text = weatherDescription,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineSmall.copy(
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 19.sp
+                text = "${temp.current_weather.temperature.toInt()}°",
+                color = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.padding(start = 4.dp),
+                fontWeight = FontWeight.Thin,
+                fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
+                fontSize = 64.sp,
+                textAlign = TextAlign.Center
+            )
+            Spacer(modifier = Modifier.padding(top = 24.dp))
+            val weatherCode = temp.current_weather.weathercode
+            val weatherDescriptionResId = getWeatherDescriptionResId(weatherCode)
+            val weatherDescription = stringResource(id = weatherDescriptionResId)
+            Row(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                val day = 0
+                val forecastMini = temp.daily.temperature_2m_min[day].toInt().toString()
+                val maximumDegree = temp.daily.temperature_2m_max[day].toInt().toString()
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.arrowdropdown),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.headlineSmall.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 18.sp
+                Text(
+                    text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontSize = 18.sp
+                    )
                 )
-            )
-            Icon(
-                modifier = Modifier.size(30.dp),
-                painter = painterResource(id = R.drawable.arrowdropup),
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer
-            )
+                Spacer(modifier = Modifier.weight(0.9f))
+                Text(
+                    text = weatherDescription,
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontSize = 19.sp
+                    )
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontSize = 18.sp
+                    )
+                )
+                Icon(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = R.drawable.arrowdropup),
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
+            }
         }
     }
-}
 }
 
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
