@@ -44,7 +44,7 @@ fun LocationView(
             .background(MaterialTheme.colorScheme.surfaceContainer)
     ) {
         // Canvas with rounded bottom
-        val color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
+        val color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()

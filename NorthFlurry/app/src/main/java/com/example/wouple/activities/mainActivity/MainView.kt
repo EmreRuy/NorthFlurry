@@ -39,13 +39,13 @@ fun MainView(
     onClose: () -> Unit,
 ) {
     val gradientColors = listOf(
-        colorScheme.primary.copy(alpha = 0.45f),
+        colorScheme.primary.copy(alpha = 0.15f),
         colorScheme.surfaceVariant
     )
     val isSearchExpanded = remember { mutableStateOf(false) }
     Box(modifier = Modifier.fillMaxSize()) {
         if (!isSearchExpanded.value) {
-            val canvasColor = colorScheme.primary.copy(alpha = 0.7f)
+            val canvasColor = colorScheme.primary.copy(alpha = 0.8f)
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -96,7 +96,6 @@ fun MainView(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f)
                         .verticalScroll(rememberScrollState())
                 ) {
                     GetBottomView(searchedLocation = searchedLocation, temp = temp)

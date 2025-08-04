@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.CheckboxDefaults.colors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,7 +34,7 @@ import java.util.Locale
 fun WeeklyForecast(
     temp: TemperatureResponse
 ) {
-  val colors = listOf(
+    val colors = listOf(
         MaterialTheme.colorScheme.surfaceVariant,
         MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
     )

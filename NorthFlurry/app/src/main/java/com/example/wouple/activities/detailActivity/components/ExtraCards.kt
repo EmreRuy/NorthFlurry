@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,6 +46,12 @@ fun ExtraCards(
         )
     }
 
+    val gradientBrush =
+        listOf(
+            MaterialTheme.colorScheme.surfaceVariant,
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
+        )
+
     val phase1 = rememberPhaseState(10f)
     val phase2 = rememberPhaseState(startPosition = 15f)
 
@@ -54,7 +61,7 @@ fun ExtraCards(
             .size(120.dp)
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .shadow(1.dp, RoundedCornerShape(21.dp))
-            .background(MaterialTheme.colorScheme.background),
+            .background(brush = Brush.verticalGradient(gradientBrush)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
