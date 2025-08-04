@@ -37,18 +37,24 @@ import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 
 @Composable
 fun DayLightDuration(temp: TemperatureResponse) {
+    val gradientBrush =
+       listOf(
+            MaterialTheme.colorScheme.surfaceVariant,
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
+        )
     val isDay = temp.current_weather.is_day == 1
     Box(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
             .background(
-                MaterialTheme.colorScheme.background,
+                brush = Brush.verticalGradient(gradientBrush),
                 shape = RoundedCornerShape(24.dp)
             )
             .padding(20.dp)
@@ -93,7 +99,6 @@ private fun DaylightInfoSection(temp: TemperatureResponse) {
             AnimatedInfoCard("Sunrise", sunrise, isSunrise = true)
             AnimatedInfoCard("Sunset", sunset, isSunrise = false)
         }
-
         Spacer(modifier = Modifier.height(4.dp))
         DayLengthIndicator(temp)
     } else ErrorCard()
@@ -125,7 +130,7 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
         Icon(
             painter = painterResource(id = if (isSunrise) R.drawable.ic_sun else R.drawable.ic_moon),
             contentDescription = title,
-            tint = Color.White,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .size(28.dp)
                 .graphicsLayer(translationY = offsetY)
