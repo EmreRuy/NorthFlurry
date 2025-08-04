@@ -11,12 +11,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CheckboxDefaults.colors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,11 +35,15 @@ import java.util.Locale
 fun WeeklyForecast(
     temp: TemperatureResponse
 ) {
+  val colors = listOf(
+        MaterialTheme.colorScheme.surfaceVariant,
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
+    )
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 14.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(20.dp))
+            .background(brush = Brush.verticalGradient(colors), shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
     ) {
         Row(

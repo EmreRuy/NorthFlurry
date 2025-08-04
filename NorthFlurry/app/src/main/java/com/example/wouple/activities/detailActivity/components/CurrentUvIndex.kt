@@ -1,6 +1,7 @@
 package com.example.wouple.activities.detailActivity.components
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -41,13 +43,22 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
     val color = getUvColor(uvIndexValue)
     val daylight = temp.current_weather.is_day
     val sunColor = Color(0xFFFFA000)
+
+    val gradientBrush = Brush.verticalGradient(
+        colors = listOf(
+            MaterialTheme.colorScheme.surfaceVariant,
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
+        )
+    )
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .background(brush = gradientBrush, shape = RoundedCornerShape(20.dp)),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.background   // surfaceContainerHigh
+            containerColor = Color.Transparent
         )
     ) {
         Row(
@@ -81,27 +92,29 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                         fontSize = 19.sp
                     )
                 )
+
                 Spacer(modifier = Modifier.height(6.dp))
             }
-// here is my idea, if it is night at the location show moon icon if it is daylight show normal sun what you show here
+
+            // Step 4: Daylight-aware icon
             if (daylight == 1) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_sun),
                     contentDescription = stringResource(id = R.string.current_uv_index),
                     tint = sunColor,
-                    modifier = Modifier
-                        .size(36.dp)
+                    modifier = Modifier.size(36.dp)
                 )
             } else {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_moon),
                     contentDescription = stringResource(id = R.string.current_uv_index),
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .size(34.dp)
+                    modifier = Modifier.size(34.dp)
                 )
             }
+
             Spacer(modifier = Modifier.weight(0.5f))
+
             CircularProgressBar(
                 percentage = uvIndexPercentage,
                 number = uvIndexValue.toInt(),
@@ -110,7 +123,6 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                 strokeWidth = 8.dp,
                 fontSize = 16.sp
             )
-
         }
     }
 }

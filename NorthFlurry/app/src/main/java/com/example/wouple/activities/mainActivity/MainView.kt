@@ -10,12 +10,14 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
@@ -36,10 +38,14 @@ fun MainView(
     onLocationButtonClicked: (SearchedLocation) -> Unit,
     onClose: () -> Unit,
 ) {
+    val gradientColors = listOf(
+        colorScheme.primary.copy(alpha = 0.45f),
+        colorScheme.surfaceVariant
+    )
     val isSearchExpanded = remember { mutableStateOf(false) }
     Box(modifier = Modifier.fillMaxSize()) {
         if (!isSearchExpanded.value) {
-            val canvasColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f)
+            val canvasColor = colorScheme.primary.copy(alpha = 0.7f)
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -68,7 +74,7 @@ fun MainView(
             }
         }
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().background(brush = Brush.verticalGradient(gradientColors))
         ) {
             // These composable will NOT scroll
 

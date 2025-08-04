@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CheckboxDefaults.colors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,10 +37,16 @@ fun HourlyForecast(temp: TemperatureResponse) {
             title = stringResource(id = R.string.Precipitation),
         )
     )
+    val gradient =
+        listOf(
+            MaterialTheme.colorScheme.surfaceVariant,
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
+        )
+
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 12.dp)
-            .background(MaterialTheme.colorScheme.background, shape = RoundedCornerShape(20.dp))
+            .background(brush = Brush.verticalGradient(gradient), shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

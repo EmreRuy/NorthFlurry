@@ -45,12 +45,10 @@ fun PreviewUvIndexChart() {
 
 @Composable
 fun UvIndexChart(temp: TemperatureResponse) {
-    val baseColor = Color(0xFF494CC6)
-    val brush = Brush.verticalGradient(
+    val gradient = Brush.verticalGradient(
         colors = listOf(
-            baseColor.copy(alpha = 0.4f),
-            baseColor.copy(alpha = 0.25f),
-            baseColor.copy(alpha = 0.15f)
+            MaterialTheme.colorScheme.surfaceVariant,
+            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
         )
     )
 
@@ -58,7 +56,7 @@ fun UvIndexChart(temp: TemperatureResponse) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .background(
-                brush = brush,
+                brush = gradient,
                 shape = RoundedCornerShape(20.dp)
             )
             .padding(12.dp)
