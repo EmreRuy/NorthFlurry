@@ -50,7 +50,7 @@ fun WeatherOracleCard(temp: TemperatureResponse) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent) // Set to transparent
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
 
@@ -69,13 +69,11 @@ fun WeatherOracleCard(temp: TemperatureResponse) {
                     fontSize = 15.sp
                 )
             }
-
-            // Bottom content — with gradient
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(brush = gradientBrush)
-                    .clip(RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)) // match Card corners
+                    .clip(RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp))
             ) {
                 Column(modifier = Modifier.padding(24.dp)) {
                     AnimatedContent(
