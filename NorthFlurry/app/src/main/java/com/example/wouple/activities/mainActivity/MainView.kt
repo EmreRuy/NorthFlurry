@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -17,7 +16,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
@@ -38,11 +36,8 @@ fun MainView(
     onLocationButtonClicked: (SearchedLocation) -> Unit,
     onClose: () -> Unit,
 ) {
-    val gradientColors = listOf(
-        colorScheme.primary.copy(alpha = 0.15f),
-        colorScheme.surfaceVariant
-    )
     val isSearchExpanded = remember { mutableStateOf(false) }
+
     Box(modifier = Modifier.fillMaxSize()) {
         if (!isSearchExpanded.value) {
             val canvasColor = colorScheme.primary.copy(alpha = 0.8f)
@@ -73,18 +68,19 @@ fun MainView(
                 )
             }
         }
+
         Column(
-            modifier = Modifier.fillMaxSize().background(brush = Brush.verticalGradient(gradientColors))
+            modifier = Modifier.fillMaxSize()
+
+
         ) {
             // These composable will NOT scroll
-
             // Search Bar is always fixed at the very top
             SearchBar(
                 isSearchExpanded = isSearchExpanded,
                 onSearch = onSearch,
                 onClose = onClose
             )
-
             if (!isSearchExpanded.value) {
                 GetLocationAndDegree(
                     temp = temp,
@@ -92,10 +88,12 @@ fun MainView(
                 )
             }
 
+            // This Column is scrollable
             if (!isSearchExpanded.value) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .weight(1f)
                         .verticalScroll(rememberScrollState())
                 ) {
                     GetBottomView(searchedLocation = searchedLocation, temp = temp)
@@ -112,7 +110,7 @@ fun MainView(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background.copy(alpha = 0.95f))
+                    .background(colorScheme.background.copy(alpha = 0.95f))
             ) {
                 GetSearchBarAndList(
                     locations = locations,

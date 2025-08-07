@@ -43,19 +43,16 @@ fun LocationView(
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceContainer)
     ) {
-        // Canvas with rounded bottom
         val color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
                 .requiredHeight(320.dp)
-                .align(Alignment.BottomStart)
+                .align(Alignment.Center)
         ) {
             val width = size.width
             val height = size.height
-            val curveHeight = 150f // Deeper curve for a more pronounced rounded bottom
-
-            // Draw the rounded bottom shape
+            val curveHeight = 150f
             drawPath(
                 path = Path().apply {
                     moveTo(0f, 0f)
@@ -79,6 +76,7 @@ fun LocationView(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Spacer(modifier = Modifier.padding(top = 32.dp))
             Text(
                 text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
                 textAlign = TextAlign.Center,
