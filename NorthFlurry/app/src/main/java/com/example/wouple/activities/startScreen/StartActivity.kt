@@ -54,14 +54,12 @@ class StartActivity : ComponentActivity() {
         }
     }
 
-    // Define the LocationRequest
     private val locationRequest: LocationRequest =
         LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
             .setMinUpdateIntervalMillis(5000)
             .setMaxUpdateDelayMillis(15000)
             .build()
 
-    // NEW LAUNCHER: For resolving location settings issues
     private val resolveLocationSettingsLauncher =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
@@ -94,7 +92,7 @@ class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        settingsClient = LocationServices.getSettingsClient(this) // Initialize settingsClient
+        settingsClient = LocationServices.getSettingsClient(this)
 
         setContent {
             AppTheme {
@@ -168,18 +166,16 @@ class StartActivity : ComponentActivity() {
             }
         }.addOnFailureListener { e ->
             Log.e("StartActivity", "Failed to get last known location: ${e.message}", e)
-            // If even lastLocation fails, check device settings and then try requesting updates
             checkLocationSettingsAndRequestUpdates()
         }
     }
 
     private fun checkLocationSettingsAndRequestUpdates() {
         val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest) // Add our desired location request
+            .addLocationRequest(locationRequest)
         val task = settingsClient.checkLocationSettings(builder.build())
 
         task.addOnSuccessListener { response: LocationSettingsResponse ->
-            // All location settings are satisfied. The client can initialize location requests.
             Log.d("StartActivity", "Location settings are ON (GPS etc.). Starting updates.")
             requestLocationUpdates()
         }
@@ -189,21 +185,19 @@ class StartActivity : ComponentActivity() {
                 // Location settings are not satisfied, but this can be fixed by showing the user a dialog.
                 Log.w("StartActivity", "Location settings NOT satisfied. Prompting user to enable.")
                 try {
-                    // Show the dialog by calling startIntentSenderForResult().
+                    // Shows the dialog by calling startIntentSenderForResult().
                     val intentSenderRequest =
                         IntentSenderRequest.Builder(exception.resolution).build()
                     resolveLocationSettingsLauncher.launch(intentSenderRequest)
                 } catch (sendEx: Exception) {
-                    // Ignore the error.
                     Log.e(
                         "StartActivity",
                         "Error showing location settings dialog: ${sendEx.message}",
                         sendEx
                     )
-                    fallbackToRandomCity() // Fallback if dialog can't be shown
+                    fallbackToRandomCity()
                 }
             } else {
-                // Location settings are not satisfied, and cannot be fixed by showing a dialog.
                 Log.e(
                     "StartActivity",
                     "Location settings NOT satisfied and not resolvable. Falling back to random city. Exception: ${exception.message}",

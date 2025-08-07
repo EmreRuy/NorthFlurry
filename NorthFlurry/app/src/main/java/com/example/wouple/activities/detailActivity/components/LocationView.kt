@@ -76,7 +76,7 @@ fun LocationView(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.padding(top = 32.dp))
+            Spacer(modifier = Modifier.padding(top = 8.dp))
             Text(
                 text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
                 textAlign = TextAlign.Center,

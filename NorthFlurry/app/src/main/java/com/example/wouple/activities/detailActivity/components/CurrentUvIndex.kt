@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,20 +41,14 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
     val uvIndexPercentage = uvIndexValue / 11f
     val color = getUvColor(uvIndexValue)
     val daylight = temp.current_weather.is_day
-    val sunColor = Color(0xFFFFA000)
-
-    val gradientBrush = Brush.verticalGradient(
-        colors = listOf(
-            MaterialTheme.colorScheme.surfaceVariant,
-            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
-        )
-    )
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
-            .background(brush = gradientBrush, shape = RoundedCornerShape(20.dp)),
+            .background(
+                color = MaterialTheme.colorScheme.background,
+                shape = RoundedCornerShape(20.dp)
+            ),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
@@ -101,7 +94,7 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_sun),
                     contentDescription = stringResource(id = R.string.current_uv_index),
-                    tint = sunColor,
+                    tint = Color.Unspecified,
                     modifier = Modifier.size(36.dp)
                 )
             } else {

@@ -116,7 +116,7 @@ fun CustomTabForSettings(
         modifier = modifier
             .fillMaxWidth()
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .background(MaterialTheme.colorScheme.surface)
             .onGloballyPositioned {
                 tabWidth = with(density) {
                     it.size.width.toDp() / items.size

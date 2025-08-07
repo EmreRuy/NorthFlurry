@@ -99,7 +99,7 @@ fun GetSurface(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface), // Color(0xFF1F2B2F) // For the Dark Mode  Color(0xFF1F2B2F)
+                .background(MaterialTheme.colorScheme.surfaceContainer), // Color(0xFF1F2B2F) // For the Dark Mode  Color(0xFF1F2B2F)
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
