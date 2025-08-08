@@ -1,6 +1,5 @@
 package com.example.wouple.activities.detailActivity.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,14 +16,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
-import com.example.wouple.activities.detailActivity.utils.getAqiColor
+import com.example.wouple.activities.detailActivity.utils.getAirQualityInfo
 import com.example.wouple.model.api.AirQuality
 
 @Composable
@@ -33,22 +34,18 @@ fun CurrentAirQualityCardCompact(
 ) {
     val airQualityValue = air?.current?.european_aqi ?: 0
     val airQualityPercentage = (airQualityValue.coerceIn(0, 300)) / 300f
-    val descriptionResId = getAirQualityDescriptionResId(airQualityValue)
-    val description = stringResource(id = descriptionResId)
-    val color = getAqiColor(airQualityValue)
-    val leafColor = Color(0xFF2E7D32)
+    val airQualityInfo = getAirQualityInfo(airQualityValue)
+    val description = stringResource(id = airQualityInfo.descriptionResId)
+    val color = airQualityInfo.color
+    val leafColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-            .background(
-                color = MaterialTheme.colorScheme.background,
-                shape = RoundedCornerShape(20.dp)
-            ),
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
+            containerColor = MaterialTheme.colorScheme.background
         )
     ) {
         Row(
@@ -61,44 +58,28 @@ fun CurrentAirQualityCardCompact(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.Start
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = stringResource(id = R.string.air_quality_index),
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(6.dp))
-
                 Text(
-                    text = "$airQualityValue •  $description",
-                    style = MaterialTheme.typography.headlineSmall.copy(
+                    text = stringResource(id = R.string.air_quality_index),
+                    style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontSize = 19.sp
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
-                /*   Box(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .height(10.dp)
-                           .clip(RoundedCornerShape(8.dp))
-                           .background(MaterialTheme.colorScheme.surfaceContainer)
-                   ) {
-                       Box(
-                           modifier = Modifier
-                               .fillMaxHeight()
-                               .fillMaxWidth(airQualityPercentage)
-                               .background(getAqiColor(airQualityValue))
-                               .clip(RoundedCornerShape(8.dp))
-                       )
-                   } */
 
+                Text(
+                    text = buildAnnotatedString {
+                        append("$airQualityValue •  ")
+                        withStyle(style = SpanStyle(color = color)) {
+                            append(description)
+                        }
+                    },
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 19.sp
+                    )
+                )
             }
 
             Icon(
@@ -121,4 +102,6 @@ fun CurrentAirQualityCardCompact(
         }
     }
 }
+
+
 

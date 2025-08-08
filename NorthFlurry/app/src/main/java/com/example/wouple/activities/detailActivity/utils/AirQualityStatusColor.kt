@@ -1,18 +1,23 @@
 package com.example.wouple.activities.detailActivity.utils
 
-import androidx.compose.runtime.Composable
+import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
+import com.example.wouple.R
 
 
-@Composable
-fun getAqiColor(aqi: Int): Color {
+data class AirQualityInfo(
+    @StringRes val descriptionResId: Int,
+    val color: Color
+)
+
+fun getAirQualityInfo(aqi: Int): AirQualityInfo {
     return when (aqi) {
-        in 0..20 -> Color(0xFF4CAF50)       // Good - Green
-        in 21..40 -> Color(0xFF8BC34A)      // Fair - Light Green
-        in 41..60 -> Color(0xFFFFEB3B)      // Moderate - Yellow
-        in 61..80 -> Color(0xFFFF9800)      // Poor - Orange
-        in 81..100 -> Color(0xFFF44336)     // Very Poor - Red
-        in 101..Int.MAX_VALUE -> Color(0xFF9C27B0) // Hazardous - Purple
-        else -> Color(0xFF9E9E9E)           // Unknown - Gray
+        in 0..20 -> AirQualityInfo(R.string.good, Color(0xFF4CAF50))
+        in 21..40 -> AirQualityInfo(R.string.fair, Color(0xFF8BC34A))
+        in 41..60 -> AirQualityInfo(R.string.moderate, Color(0xFFFFB700))
+        in 61..80 -> AirQualityInfo(R.string.poor, Color(0xFFFF8400))
+        in 81..100 -> AirQualityInfo(R.string.very_poor, Color(0xFFF44336))
+        in 101..Int.MAX_VALUE -> AirQualityInfo(R.string.hazardous, Color(0xFF9C27B0))
+        else -> AirQualityInfo(R.string.unknown, Color(0xFF9E9E9E))
     }
 }
