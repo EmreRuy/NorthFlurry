@@ -22,7 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -78,10 +81,14 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Text(
-                    text = "${uvIndexValue.toInt()} • $uvIndexDescriptions",
+                    text = buildAnnotatedString {
+                        append("${uvIndexValue.toInt()} •  ")
+                        withStyle(style = SpanStyle(color = color)) {
+                            append(uvIndexDescriptions)
+                        }
+                    },
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 19.sp
                     )
                 )

@@ -70,7 +70,7 @@ fun CurrentAirQualityCardCompact(
 
                 Text(
                     text = buildAnnotatedString {
-                        append("$airQualityValue •  ")
+                        append("$airQualityValue • ")
                         withStyle(style = SpanStyle(color = color)) {
                             append(description)
                         }
