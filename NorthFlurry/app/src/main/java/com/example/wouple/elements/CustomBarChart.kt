@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -52,8 +53,9 @@ fun RowScope.CustomBarChart(
             size > 1.5.toFloat()
         ) {
             Text(
-                text = size.toString(),
+                text = size.toInt().toString(),
                 style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier
                     .align(Alignment.Center)
