@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -43,7 +44,8 @@ fun LocationView(
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceContainer)
     ) {
-        val color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
+        val color =
+            Color(0xFF2C5E5A)
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()

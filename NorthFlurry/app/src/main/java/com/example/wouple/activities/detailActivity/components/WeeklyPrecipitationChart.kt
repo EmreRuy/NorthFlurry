@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -42,16 +41,11 @@ import java.time.LocalDate
 
 @Composable
 fun WeeklyPrecipitationChart(temp: TemperatureResponse) {
-    val gradientBrush =
-        listOf(
-            MaterialTheme.colorScheme.surfaceVariant,
-            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
-        )
     Column(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .background(
-                brush = Brush.verticalGradient(gradientBrush),
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = RoundedCornerShape(20.dp)
             )
             .padding(16.dp)

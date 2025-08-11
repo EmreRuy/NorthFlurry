@@ -31,7 +31,7 @@ fun CircularProgressBar(
     fontSize: TextUnit = 16.sp,
     radius: Dp = 40.dp,
     progressColor: Color,
-    backgroundColor: Color = MaterialTheme.colorScheme.surfaceVariant,
+    backgroundColor: Color = MaterialTheme.colorScheme.surfaceContainer,
     strokeWidth: Dp = 8.dp,
     animDuration: Int = 2000,
     animDelay: Int = 0,

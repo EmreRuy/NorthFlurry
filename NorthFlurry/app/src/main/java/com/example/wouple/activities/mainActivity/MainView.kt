@@ -16,6 +16,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
@@ -40,7 +41,7 @@ fun MainView(
 
     Box(modifier = Modifier.fillMaxSize()) {
         if (!isSearchExpanded.value) {
-            val canvasColor = colorScheme.primary.copy(alpha = 0.8f)
+            val canvasColor = Color(0xFF2C5E5A)
             Canvas(
                 modifier = Modifier
                     .fillMaxWidth()

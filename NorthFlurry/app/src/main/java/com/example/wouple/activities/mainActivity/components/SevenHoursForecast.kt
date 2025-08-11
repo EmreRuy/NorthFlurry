@@ -20,10 +20,6 @@ import com.example.wouple.model.api.TemperatureResponse
 
 @Composable
 fun GetSevenHoursForecast(temp: TemperatureResponse) {
-    val gradientBrush = listOf(
-            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
-            MaterialTheme.colorScheme.surfaceVariant
-        )
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,7 +34,7 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(brush = Brush.verticalGradient(gradientBrush))
+                .background(color = MaterialTheme.colorScheme.surfaceVariant)
         ) {
             SevenHoursCardNotification(temp)
             Column(

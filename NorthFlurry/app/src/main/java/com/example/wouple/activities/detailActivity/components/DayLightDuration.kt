@@ -37,24 +37,18 @@ import java.time.Duration
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 
 @Composable
 fun DayLightDuration(temp: TemperatureResponse) {
-    val gradientBrush =
-       listOf(
-            MaterialTheme.colorScheme.surfaceVariant,
-            MaterialTheme.colorScheme.primary.copy(alpha = 0.45f),
-        )
     val isDay = temp.current_weather.is_day == 1
     Box(
         modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth()
             .background(
-                brush = Brush.verticalGradient(gradientBrush),
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = RoundedCornerShape(24.dp)
             )
             .padding(20.dp)
