@@ -23,7 +23,6 @@ import com.example.wouple.R
 import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.elements.UnitSettings
 import com.example.wouple.model.api.PrecipitationUnit
-import com.example.wouple.model.api.TemperatureResponse
 import com.example.wouple.model.api.TemperatureUnit
 import com.example.wouple.model.api.WindUnit
 import com.example.wouple.preferences.PrecipitationUnitPref

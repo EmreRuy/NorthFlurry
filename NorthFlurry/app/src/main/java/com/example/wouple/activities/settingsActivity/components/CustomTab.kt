@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -115,7 +114,9 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) colorScheme.primary.copy(alpha = 0.85f) else colorScheme.primary.copy(alpha = 0.85f)
+            indicatorColor = if (isDay) colorScheme.primary.copy(alpha = 0.85f) else colorScheme.primary.copy(
+                alpha = 0.85f
+            )
             // if (isDay) Color(0xFF3C4269) else Color(0xFF536AD5)
         )
         Row(

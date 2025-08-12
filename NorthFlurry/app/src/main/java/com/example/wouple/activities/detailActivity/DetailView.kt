@@ -63,7 +63,6 @@ fun DetailView(
             ) {
                 item {
                     LocationView(temp = temp, searchedLocation = searchedLocation)
-                    Spacer(modifier = Modifier.padding(top = 8.dp))
                 }
                 item {
                     CurrentAirQualityCardCompact(air = air)

@@ -39,6 +39,8 @@ fun LocationView(
     searchedLocation: SearchedLocation
 
 ) {
+    val locationName = getProperDisplayName(searchedLocation.display_name) ?: "N/D"
+    val fontSize = if (locationName.length > 15) 36.sp else 50.sp
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,13 +82,15 @@ fun LocationView(
         ) {
             Spacer(modifier = Modifier.padding(top = 8.dp))
             Text(
-                text = getProperDisplayName(searchedLocation.display_name) ?: "N/D",
+                text = locationName,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
+                maxLines = 1,
+                modifier = Modifier.fillMaxWidth(0.9f),
                 style = MaterialTheme.typography.displayMedium.copy(
                     fontWeight = FontWeight.Thin,
                     color = MaterialTheme.colorScheme.onPrimary,
-                    fontSize = 50.sp
+                    fontSize = fontSize
                 )
             )
             Spacer(modifier = Modifier.padding(top = 24.dp))
