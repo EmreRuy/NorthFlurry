@@ -137,7 +137,7 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
         Text(
             text = value,
             style = MaterialTheme.typography.bodySmall.copy(
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
                 fontSize = 15.sp
             )

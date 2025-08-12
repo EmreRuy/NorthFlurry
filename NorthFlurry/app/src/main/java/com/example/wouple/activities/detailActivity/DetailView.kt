@@ -1,7 +1,6 @@
 package com.example.wouple.activities.detailActivity
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,8 +10,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -20,7 +17,6 @@ import com.example.wouple.R
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import androidx.compose.ui.res.stringResource
-import com.example.wouple.activities.detailActivity.components.ConfettiView
 import com.example.wouple.activities.detailActivity.components.CurrentAirQualityCardCompact
 import com.example.wouple.activities.detailActivity.components.CurrentUvIndexCardCompact
 import com.example.wouple.activities.detailActivity.components.DayLightDuration
@@ -43,14 +39,9 @@ fun DetailView(
     searchedLocation: SearchedLocation,
     air: AirQuality?,
 ) {
-    val (explodeConfetti, setExplodeConfetti) = remember { mutableStateOf(false) }
     val pagerState = rememberPagerState(pageCount = { 6 })
     val weatherDetails = getWeatherDetails(temp)
     Scaffold { innerPadding ->
-        ConfettiView(
-            explodeConfetti = explodeConfetti,
-            explodeConfettiCallback = { setExplodeConfetti(true) }
-        ) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -139,6 +130,5 @@ fun DetailView(
                     GetAttributionForOpenMet(searchedLocation = searchedLocation)
                 }
             }
-        }
     }
 }

@@ -155,7 +155,7 @@ fun PopUpViewForPrecipitation() {
         Icon(
             Icons.Default.Info,
             contentDescription = "Show Popup",
-            tint = Color.White
+            tint = MaterialTheme.colorScheme.onSurface
         )
     }
 }
