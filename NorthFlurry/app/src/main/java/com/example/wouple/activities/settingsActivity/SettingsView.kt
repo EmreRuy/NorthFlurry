@@ -99,7 +99,7 @@ fun GetSurface(
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surfaceContainer), // Color(0xFF1F2B2F) // For the Dark Mode  Color(0xFF1F2B2F)
+                .background(MaterialTheme.colorScheme.surface), // Color(0xFF1F2B2F) // For the Dark Mode  Color(0xFF1F2B2F)
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
@@ -149,9 +149,9 @@ fun GetSurface(
             } else {
                 item {
                     SettingsCardTwo()
-                    TemperatureUnitSettings(temp, viewModel = viewModel, onUnitSettingsChanged)
-                    PrecipitationUnitSettings(temp, onUnitSettingsChanged)
-                    WindUnitSettings(temp, onUnitSettingsChanged)
+                    TemperatureUnitSettings(viewModel = viewModel, onUnitSettingsChanged)
+                    PrecipitationUnitSettings(onUnitSettingsChanged)
+                    WindUnitSettings(onUnitSettingsChanged)
                 }
             }
 

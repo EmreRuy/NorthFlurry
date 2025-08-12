@@ -28,14 +28,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.wouple.model.api.TemperatureResponse
 import java.util.Locale
 
 @Composable
@@ -50,12 +48,6 @@ private fun MyTabIndicator(
             .width(width = indicatorWidth)
             .offset(x = indicatorOffset)
             .clip(shape = CircleShape)
-            .shadow(
-                elevation = 2.dp,
-                shape = CircleShape,
-                ambientColor = indicatorColor,
-                spotColor = indicatorColor
-            )
             .background(color = indicatorColor)
     )
 }
@@ -102,21 +94,19 @@ fun CustomTabForSettings(
     items: List<String>,
     modifier: Modifier = Modifier,
     onClick: (index: Int) -> Unit,
-    tabHeight: Dp = 40.dp,
-    temp: TemperatureResponse
+    tabHeight: Dp = 40.dp
 ) {
     var tabWidth by remember { mutableStateOf(377.8.dp / items.size) }
     val indicatorOffset: Dp by animateDpAsState(
         targetValue = tabWidth * selectedItemIndex,
         animationSpec = tween(easing = LinearEasing), label = "",
     )
-    val isDay = temp.current_weather.is_day == 1
     val density = LocalDensity.current
     Box(
         modifier = modifier
             .fillMaxWidth()
             .clip(CircleShape)
-            .background(MaterialTheme.colorScheme.surface)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
             .onGloballyPositioned {
                 tabWidth = with(density) {
                     it.size.width.toDp() / items.size
@@ -127,9 +117,8 @@ fun CustomTabForSettings(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) MaterialTheme.colorScheme.primary.copy(alpha = 0.85f) else MaterialTheme.colorScheme.primary.copy(
-                alpha = 0.85f
-            )
+            indicatorColor = MaterialTheme.colorScheme.primary
+
         )
         Row(
             horizontalArrangement = Arrangement.Center,

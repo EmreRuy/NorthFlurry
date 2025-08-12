@@ -14,8 +14,7 @@ fun UnitSettings(
     selectedUnitIndex: Int,
     onUnitSelected: (index: Int) -> Unit,
     units: List<String>,
-    modifier: Modifier = Modifier,
-    temp: TemperatureResponse
+    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier
@@ -26,8 +25,7 @@ fun UnitSettings(
         UnitTab(
             selectedUnitIndex = selectedUnitIndex,
             onUnitSelected = onUnitSelected,
-            units = units,
-            temp = temp
+            units = units
         )
     }
 }
@@ -36,15 +34,13 @@ fun UnitSettings(
 fun UnitTab(
     selectedUnitIndex: Int,
     onUnitSelected: (index: Int) -> Unit,
-    units: List<String>,
-    temp: TemperatureResponse
+    units: List<String>
 ) {
     CustomTabForSettings(
         selectedItemIndex = selectedUnitIndex,
         items = units,
         onClick = { index ->
             onUnitSelected(index)
-        },
-        temp = temp
+        }
     )
 }

@@ -47,7 +47,6 @@ fun SettingsCardTwo() {
 
 @Composable
 fun TemperatureUnitSettings(
-    temp: TemperatureResponse,
     viewModel: SettingsViewModel,
     onChanged: () -> Unit
 ) {
@@ -79,14 +78,13 @@ fun TemperatureUnitSettings(
                 selectedUnitIndex = index
                 onChanged()
             },
-            units = temperatureUnits.map { it.toString() },
-            temp = temp
+            units = temperatureUnits.map { it.toString() }
         )
     }
 }
 
 @Composable
-fun PrecipitationUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
+fun PrecipitationUnitSettings(onChanged: () -> Unit) {
     val context = LocalContext.current
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)) {
         Text(
@@ -114,14 +112,13 @@ fun PrecipitationUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) 
                 selectedUnitIndex = index
                 onChanged()
             },
-            units = units.map { it.toString() },
-            temp = temp
+            units = units.map { it.toString() }
         )
     }
 }
 
 @Composable
-fun WindUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
+fun WindUnitSettings(onChanged: () -> Unit) {
     val context = LocalContext.current
     Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
         Text(
@@ -149,8 +146,7 @@ fun WindUnitSettings(temp: TemperatureResponse, onChanged: () -> Unit) {
                 selectedUnitIndex = index
                 onChanged()
             },
-            units = units.map { it.toString() },
-            temp = temp
+            units = units.map { it.toString() }
         )
     }
 }

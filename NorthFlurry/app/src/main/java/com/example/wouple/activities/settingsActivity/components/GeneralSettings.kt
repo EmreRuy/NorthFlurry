@@ -57,7 +57,7 @@ fun SettingsItemCard(
             .padding(horizontal = 24.dp, vertical = 8.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
     ) {
         Row(
@@ -191,7 +191,7 @@ fun SettingsScreenPreview() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surfaceContainer)
+                .background(MaterialTheme.colorScheme.surface)
         ) {
             SettingsCardOne()
             TroubleOnAppSettings(onTroubleWithAppClicked = {})
