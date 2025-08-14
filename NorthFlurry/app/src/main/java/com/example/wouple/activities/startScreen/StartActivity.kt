@@ -9,11 +9,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresPermission
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.mutableStateOf
 import com.example.wouple.activities.mainActivity.MainActivity
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.preferences.LocationPref
+import com.example.wouple.ui.theme.AppTheme
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationCallback
@@ -49,7 +49,7 @@ class StartActivity : ComponentActivity() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         setContent {
-            MaterialTheme {
+            AppTheme {
                 FirstTimeLocationScreen(
                     locationStatus = _locationStatus.value,
                     isLocationReady = _isLocationReady.value,
