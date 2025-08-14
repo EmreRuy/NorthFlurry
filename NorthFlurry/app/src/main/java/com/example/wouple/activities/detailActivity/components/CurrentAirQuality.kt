@@ -38,11 +38,11 @@ fun CurrentAirQualityCardCompact(
     val description = stringResource(id = airQualityInfo.descriptionResId)
     val color = airQualityInfo.color
     val leafColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
-
+    Spacer(modifier = Modifier.padding(top = 4.dp))
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
