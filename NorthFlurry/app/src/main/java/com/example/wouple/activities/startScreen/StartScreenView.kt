@@ -16,11 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -121,9 +119,9 @@ fun FirstTimeLocationScreen(
                 )
             }
 
-         /*   AnimatedVisibility(visible = isLoading, enter = fadeIn(), exit = fadeOut()) {
-                CircularProgressIndicator(color = Color.White)
-            } */
+            /*   AnimatedVisibility(visible = isLoading, enter = fadeIn(), exit = fadeOut()) {
+                   CircularProgressIndicator(color = Color.White)
+               } */
 
             AnimatedVisibility(
                 visible = isLocationReady && !isLoading,
