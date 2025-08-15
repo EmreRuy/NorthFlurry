@@ -43,75 +43,76 @@ fun MainView(
     onClose: () -> Unit,
 ) {
     val isSearchExpanded = remember { mutableStateOf(false) }
-
-    val gradients = listOf(
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.75f),
-        MaterialTheme.colorScheme.primary.copy(alpha = 0.65f)
-    )
-
-    // A single scrollable Column now holds all the content
-    Column(
+    Scaffold(
         modifier = Modifier
             .fillMaxSize()
-            .background(brush = Brush.verticalGradient(gradients))
-            .verticalScroll(rememberScrollState())
-    ) {
-        if (!isSearchExpanded.value) {
-            // This Box now contains the Canvas, SearchBar, and location info
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .requiredHeight(320.dp)
-            ) {
-                val canvasColor = MaterialTheme.colorScheme.primary
-                Canvas(
-                    modifier = Modifier.matchParentSize()
-                ) {
-                    val width = size.width
-                    val height = size.height
-                    val curveHeight = 150f
+            .background(MaterialTheme.colorScheme.background),
+        containerColor = Color.Transparent,
+    ) { innerPadding ->
 
-                    drawPath(
-                        path = Path().apply {
-                            moveTo(0f, 0f)
-                            lineTo(0f, height - curveHeight)
-                            quadraticTo(
-                                x1 = width / 2f,
-                                y1 = height + curveHeight,
-                                x2 = width,
-                                y2 = height - curveHeight
-                            )
-                            lineTo(width, 0f)
-                            close()
-                        },
-                        color = canvasColor
-                    )
-                }
-
-                // The SearchBar is now also layered on top of the Canvas
-                // We align it to the top and add some padding for spacing
-                SearchBar(
-                    isSearchExpanded = isSearchExpanded,
-                    onSearch = onSearch,
-                    onClose = onClose,
-                )
-
-                // Location and degree are also on top, aligned to the center
-                GetLocationAndDegree(
-                    temp = temp,
-                    searchedLocation = searchedLocation,
+        Box(modifier = Modifier.background(MaterialTheme.colorScheme.primary)) {
+            SearchBar(
+                isSearchExpanded = isSearchExpanded,
+                onSearch = onSearch,
+                onClose = onClose,
+            )
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            if (!isSearchExpanded.value) {
+                Column(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .align(Alignment.Center)
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-                )
-            }
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .requiredHeight(320.dp)
+                    ) {
+                        val canvasColor = MaterialTheme.colorScheme.primary
+                        Canvas(
+                            modifier = Modifier.matchParentSize()
+                        ) {
+                            val width = size.width
+                            val height = size.height
+                            val curveHeight = 150f
 
-            // The rest of your scrollable content follows below this Box
-            GetBottomView(searchedLocation = searchedLocation, temp = temp)
+                            drawPath(
+                                path = Path().apply {
+                                    moveTo(0f, 0f)
+                                    lineTo(0f, height - curveHeight)
+                                    quadraticTo(
+                                        x1 = width / 2f,
+                                        y1 = height + curveHeight,
+                                        x2 = width,
+                                        y2 = height - curveHeight
+                                    )
+                                    lineTo(width, 0f)
+                                    close()
+                                },
+                                color = canvasColor
+                            )
+                        }
 
-            searchedLocation.value?.let {
-                GetAttributionForOpenMet(searchedLocation = it)
+                        GetLocationAndDegree(
+                            temp = temp,
+                            searchedLocation = searchedLocation,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                        )
+                    }
+
+                    GetBottomView(searchedLocation = searchedLocation, temp = temp)
+
+                    searchedLocation.value?.let {
+                        GetAttributionForOpenMet(searchedLocation = it)
+                    }
+                }
             }
         }
     }
@@ -120,7 +121,7 @@ fun MainView(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background.copy(alpha = 0.95f))
+                .background(MaterialTheme.colorScheme.background)
         ) {
             GetSearchBarAndList(
                 locations = locations,
