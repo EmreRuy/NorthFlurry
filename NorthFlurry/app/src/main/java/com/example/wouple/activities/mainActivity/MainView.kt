@@ -6,9 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -16,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
@@ -39,96 +44,98 @@ fun MainView(
 ) {
     val isSearchExpanded = remember { mutableStateOf(false) }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    val gradients = listOf(
+        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.75f),
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.65f)
+    )
+
+    // A single scrollable Column now holds all the content
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(brush = Brush.verticalGradient(gradients))
+            .verticalScroll(rememberScrollState())
+    ) {
         if (!isSearchExpanded.value) {
-            val canvasColor = Color(0xFF2C5E5A)
-            Canvas(
+            // This Box now contains the Canvas, SearchBar, and location info
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .requiredHeight(320.dp)
-                    .align(Alignment.TopCenter)
             ) {
-                val width = size.width
-                val height = size.height
-                val curveHeight = 150f
+                val canvasColor = MaterialTheme.colorScheme.primary
+                Canvas(
+                    modifier = Modifier.matchParentSize()
+                ) {
+                    val width = size.width
+                    val height = size.height
+                    val curveHeight = 150f
 
-                drawPath(
-                    path = Path().apply {
-                        moveTo(0f, 0f)
-                        lineTo(0f, height - curveHeight)
-                        quadraticTo(
-                            x1 = width / 2f,
-                            y1 = height + curveHeight,
-                            x2 = width,
-                            y2 = height - curveHeight
-                        )
-                        lineTo(width, 0f)
-                        close()
-                    },
-                    color = canvasColor
+                    drawPath(
+                        path = Path().apply {
+                            moveTo(0f, 0f)
+                            lineTo(0f, height - curveHeight)
+                            quadraticTo(
+                                x1 = width / 2f,
+                                y1 = height + curveHeight,
+                                x2 = width,
+                                y2 = height - curveHeight
+                            )
+                            lineTo(width, 0f)
+                            close()
+                        },
+                        color = canvasColor
+                    )
+                }
+
+                // The SearchBar is now also layered on top of the Canvas
+                // We align it to the top and add some padding for spacing
+                SearchBar(
+                    isSearchExpanded = isSearchExpanded,
+                    onSearch = onSearch,
+                    onClose = onClose,
                 )
-            }
-        }
 
-        Column(
-            modifier = Modifier.fillMaxSize()
-
-
-        ) {
-            // These composable will NOT scroll
-            // Search Bar is always fixed at the very top
-            SearchBar(
-                isSearchExpanded = isSearchExpanded,
-                onSearch = onSearch,
-                onClose = onClose
-            )
-            if (!isSearchExpanded.value) {
+                // Location and degree are also on top, aligned to the center
                 GetLocationAndDegree(
                     temp = temp,
                     searchedLocation = searchedLocation,
-                )
-            }
-
-            // This Column is scrollable
-            if (!isSearchExpanded.value) {
-                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    GetBottomView(searchedLocation = searchedLocation, temp = temp)
-
-                    searchedLocation.value?.let {
-                        GetAttributionForOpenMet(searchedLocation = it)
-                    }
-                    GetHorizontalWaveView()
-                }
-            }
-        }
-
-        if (isSearchExpanded.value) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(colorScheme.background.copy(alpha = 0.95f))
-            ) {
-                GetSearchBarAndList(
-                    locations = locations,
-                    onSearch = onSearch,
-                    searchedLocation = searchedLocation,
-                    onLocationButtonClicked = {
-                        onLocationButtonClicked(it)
-                        isSearchExpanded.value = false
-                    },
-                    onClose = {
-                        isSearchExpanded.value = false
-                        onClose()
-                    },
-                    isSearchExpanded = isSearchExpanded
+                        .fillMaxSize()
+                        .align(Alignment.Center)
+                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
                 )
+            }
+
+            // The rest of your scrollable content follows below this Box
+            GetBottomView(searchedLocation = searchedLocation, temp = temp)
+
+            searchedLocation.value?.let {
+                GetAttributionForOpenMet(searchedLocation = it)
             }
         }
     }
-}
 
+    if (isSearchExpanded.value) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background.copy(alpha = 0.95f))
+        ) {
+            GetSearchBarAndList(
+                locations = locations,
+                onSearch = onSearch,
+                searchedLocation = searchedLocation,
+                onLocationButtonClicked = {
+                    onLocationButtonClicked(it)
+                    isSearchExpanded.value = false
+                },
+                onClose = {
+                    isSearchExpanded.value = false
+                    onClose()
+                },
+                isSearchExpanded = isSearchExpanded
+            )
+        }
+    }
+}
