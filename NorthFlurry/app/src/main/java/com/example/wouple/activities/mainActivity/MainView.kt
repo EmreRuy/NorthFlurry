@@ -6,11 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -22,7 +20,6 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
 import com.example.wouple.activities.mainActivity.components.GetBottomView
-import com.example.wouple.activities.mainActivity.components.GetHorizontalWaveView
 import com.example.wouple.activities.mainActivity.components.GetLocationAndDegree
 import com.example.wouple.activities.mainActivity.components.GetSearchBarAndList
 import com.example.wouple.elements.SearchBar
@@ -39,25 +36,27 @@ fun MainView(
     onClose: () -> Unit,
 ) {
     val isSearchExpanded = remember { mutableStateOf(false) }
-    Scaffold(
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        containerColor = Color.Transparent,
-    ) { innerPadding ->
-
-        Box(modifier = Modifier.background(MaterialTheme.colorScheme.primary)) {
-            SearchBar(
-                isSearchExpanded = isSearchExpanded,
-                onSearch = onSearch,
-                onClose = onClose,
-            )
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        // Main content behind search
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
+            Box(
+                modifier = Modifier
+                    .background(Color(0xFF2C5E5A))
+            ) {
+                SearchBar(
+                    isSearchExpanded = isSearchExpanded,
+                    onSearch = onSearch,
+                    onClose = onClose,
+                )
+            }
+
             if (!isSearchExpanded.value) {
                 Column(
                     modifier = Modifier
@@ -69,7 +68,7 @@ fun MainView(
                             .fillMaxWidth()
                             .requiredHeight(270.dp)
                     ) {
-                        val canvasColor = MaterialTheme.colorScheme.primary
+                        val canvasColor = Color(0xFF2C5E5A)
                         Canvas(
                             modifier = Modifier.matchParentSize()
                         ) {
@@ -96,10 +95,7 @@ fun MainView(
 
                         GetLocationAndDegree(
                             temp = temp,
-                            searchedLocation = searchedLocation,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                            searchedLocation = searchedLocation
                         )
                     }
 
@@ -108,32 +104,35 @@ fun MainView(
                     searchedLocation.value?.let {
                         GetAttributionForOpenMet(searchedLocation = it)
                     }
-                   // GetHorizontalWaveView()
+
+                    // GetHorizontalWaveView()
                 }
             }
         }
-    }
 
-    if (isSearchExpanded.value) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-        ) {
-            GetSearchBarAndList(
-                locations = locations,
-                onSearch = onSearch,
-                searchedLocation = searchedLocation,
-                onLocationButtonClicked = {
-                    onLocationButtonClicked(it)
-                    isSearchExpanded.value = false
-                },
-                onClose = {
-                    isSearchExpanded.value = false
-                    onClose()
-                },
-                isSearchExpanded = isSearchExpanded
-            )
+        // Search overlay
+        if (isSearchExpanded.value) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+            ) {
+                GetSearchBarAndList(
+                    locations = locations,
+                    onSearch = onSearch,
+                    searchedLocation = searchedLocation,
+                    onLocationButtonClicked = {
+                        onLocationButtonClicked(it)
+                        isSearchExpanded.value = false
+                    },
+                    onClose = {
+                        isSearchExpanded.value = false
+                        onClose()
+                    },
+                    isSearchExpanded = isSearchExpanded
+                )
+            }
         }
     }
 }
+

@@ -80,7 +80,7 @@ fun LocationView(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.padding(top = 8.dp))
+            Spacer(modifier = Modifier.padding(top = 12.dp))
             Text(
                 text = locationName,
                 textAlign = TextAlign.Center,

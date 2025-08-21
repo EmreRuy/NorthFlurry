@@ -66,7 +66,7 @@ fun FirstScreenView(
             modifier = Modifier.weight(1f, fill = false)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.icondrop),
+                painter = painterResource(id = R.drawable.ic_drop),
                 contentDescription = "logo",
                 // Use sizeIn to constrain the image size, making it responsive
                 modifier = Modifier.sizeIn(maxHeight = 150.dp, maxWidth = 150.dp),
