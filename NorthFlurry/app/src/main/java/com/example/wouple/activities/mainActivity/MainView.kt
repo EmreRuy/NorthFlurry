@@ -66,7 +66,7 @@ fun MainView(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .requiredHeight(270.dp)
+                            .requiredHeight(260.dp)
                     ) {
                         val canvasColor = Color(0xFF2C5E5A)
                         Canvas(

@@ -1,7 +1,6 @@
 package com.example.wouple.activities.detailActivity.components
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,9 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Icon
@@ -37,21 +38,19 @@ import com.example.wouple.model.api.TemperatureResponse
 fun LocationView(
     temp: TemperatureResponse,
     searchedLocation: SearchedLocation
-
 ) {
     val locationName = getProperDisplayName(searchedLocation.display_name) ?: "N/D"
     val fontSize = if (locationName.length > 15) 36.sp else 50.sp
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceContainer)
+            .height(320.dp)
     ) {
-        val color =
-            Color(0xFF2C5E5A)
+        // Background curved shape
         Canvas(
             modifier = Modifier
-                .fillMaxWidth()
-                .requiredHeight(320.dp)
+                .fillMaxSize()
                 .align(Alignment.Center)
         ) {
             val width = size.width
@@ -70,17 +69,22 @@ fun LocationView(
                     lineTo(width, 0f)
                     close()
                 },
-                color = color
+                color = Color(0xFF2C5E5A)
             )
         }
+
+        // Foreground content (centered inside the Box)
         Column(
             modifier = Modifier
-                .padding(WindowInsets.statusBars.asPaddingValues())
-                .fillMaxWidth(1f),
+                .fillMaxSize()
+                .offset(y = (-25).dp)
+                .padding(WindowInsets.statusBars.asPaddingValues()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Spacer(modifier = Modifier.padding(top = 12.dp))
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // Location Name
             Text(
                 text = locationName,
                 textAlign = TextAlign.Center,
@@ -93,28 +97,35 @@ fun LocationView(
                     fontSize = fontSize
                 )
             )
-            Spacer(modifier = Modifier.padding(top = 24.dp))
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Temperature
             Text(
                 text = "${temp.current_weather.temperature.toInt()}°",
                 color = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.padding(start = 4.dp),
                 fontWeight = FontWeight.Thin,
                 fontFamily = MaterialTheme.typography.displayLarge.fontFamily,
                 fontSize = 64.sp,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.padding(top = 24.dp))
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Weather info row
             val weatherCode = temp.current_weather.weathercode
             val weatherDescriptionResId = getWeatherDescriptionResId(weatherCode)
             val weatherDescription = stringResource(id = weatherDescriptionResId)
+            val day = 0
+            val forecastMini = temp.daily.temperature_2m_min[day].toInt().toString()
+            val maximumDegree = temp.daily.temperature_2m_max[day].toInt().toString()
+
             Row(
-                modifier = Modifier.padding(horizontal = 8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                val day = 0
-                val forecastMini = temp.daily.temperature_2m_min[day].toInt().toString()
-                val maximumDegree = temp.daily.temperature_2m_max[day].toInt().toString()
                 Icon(
                     modifier = Modifier.size(30.dp),
                     painter = painterResource(id = R.drawable.arrowdropdown),
@@ -123,26 +134,27 @@ fun LocationView(
                 )
                 Text(
                     text = forecastMini + temp.hourly_units.temperature_2m.firstOrNull(),
-                    textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 18.sp
                     )
                 )
-                Spacer(modifier = Modifier.weight(0.9f))
+
+                Spacer(modifier = Modifier.weight(1f))
+
                 Text(
                     text = weatherDescription,
-                    textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.headlineSmall.copy(
                         color = MaterialTheme.colorScheme.onPrimary,
                         fontSize = 19.sp
                     )
                 )
+
                 Spacer(modifier = Modifier.weight(1f))
+
                 Text(
                     text = maximumDegree + temp.hourly_units.temperature_2m.firstOrNull(),
-                    textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onPrimary,
@@ -159,5 +171,6 @@ fun LocationView(
         }
     }
 }
+
 
 private fun getProperDisplayName(displayName: String?) = displayName?.split(",")?.firstOrNull()
