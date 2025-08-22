@@ -1,7 +1,6 @@
 package com.example.wouple.activities.detailActivity
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -43,93 +42,93 @@ fun DetailView(
     val pagerState = rememberPagerState(pageCount = { 6 })
     val weatherDetails = getWeatherDetails(temp)
     Scaffold { innerPadding ->
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        //   Color(0xFF1F2B2F) // For the Dark Mode
-                        MaterialTheme.colorScheme.surfaceContainer
-                    )
-                    .padding(innerPadding.let { innerPadding -> 0.dp }),
-                horizontalAlignment = CenterHorizontally
-            ) {
-                item {
-                    LocationView(temp = temp, searchedLocation = searchedLocation)
-                }
-                item {
-                    CurrentAirQualityCardCompact(air = air)
-                }
-                item {
-                    CurrentUvIndexCardCompact(temp = temp)
-                }
-                item {
-                    UvIndexChart(temp = temp)
-                }
-                item {
-                    HourlyForecast(temp = temp)
-                }
-                item {
-                    WeeklyForecast(temp = temp)
-                }
-                item {
-                    WeeklyPrecipitationChart(temp = temp)
-                }
-                item {
-                    DayLightDuration(
-                        temp = temp
-                    )
-                }
-                item {
-                    HorizontalPager(state = pagerState, modifier = Modifier)
-                    { page ->
-                        when (page) {
-                            0 -> ExtraCards(
-                                text = stringResource(id = R.string.FeelsLike),
-                                numbers = temp.hourly.apparent_temperature.getOrNull(weatherDetails.feelsLike)
-                                    ?.let {
-                                        it.toInt()
-                                            .toString() + temp.hourly_units.apparent_temperature
-                                    } ?: "N/D",
-                                temp = temp
-                            )
-
-                            1 -> ExtraCards(
-                                text = stringResource(id = R.string.Rainfall),
-                                numbers = weatherDetails.rainFall.toString() + temp.daily_units.precipitation_sum,
-                                temp = temp
-                            )
-
-                            2 -> ExtraCards(
-                                text = stringResource(id = R.string.WindSpeed),
-                                numbers = weatherDetails.windSpeed.toString() + temp.hourly_units.windspeed_10m,
-                                temp = temp
-                            )
-
-                            3 -> ExtraCards(
-                                text = stringResource(id = R.string.Visibility),
-                                numbers = weatherDetails.visibilityInMeters.toString() + temp.hourly_units.visibility,
-                                temp = temp
-                            )
-
-                            4 -> ExtraCards(
-                                text = stringResource(id = R.string.Humidity),
-                                numbers = temp.hourly_units.relativehumidity_2m + weatherDetails.humidity.toString(),
-                                temp = temp
-                            )
-
-                            5 -> ExtraCards(
-                                text = stringResource(id = R.string.DewPoint),
-                                numbers = weatherDetails.dewPoint.toString() + temp.hourly_units.temperature_2m,
-                                temp = temp
-                            )
-                        }
-                    }
-                    PagerIndicator(
-                        step = pagerState.currentPage,
-                        totalSteps = pagerState.pageCount
-                    )
-                    GetAttributionForOpenMet(searchedLocation = searchedLocation)
-                }
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    //   Color(0xFF1F2B2F) // For the Dark Mode
+                    MaterialTheme.colorScheme.surfaceContainer
+                )
+                .padding(innerPadding.let { innerPadding -> 0.dp }),
+            horizontalAlignment = CenterHorizontally
+        ) {
+            item {
+                LocationView(temp = temp, searchedLocation = searchedLocation)
             }
+            item {
+                CurrentAirQualityCardCompact(air = air)
+            }
+            item {
+                CurrentUvIndexCardCompact(temp = temp)
+            }
+            item {
+                UvIndexChart(temp = temp)
+            }
+            item {
+                HourlyForecast(temp = temp)
+            }
+            item {
+                WeeklyForecast(temp = temp)
+            }
+            item {
+                WeeklyPrecipitationChart(temp = temp)
+            }
+            item {
+                DayLightDuration(
+                    temp = temp
+                )
+            }
+            item {
+                HorizontalPager(state = pagerState, modifier = Modifier)
+                { page ->
+                    when (page) {
+                        0 -> ExtraCards(
+                            text = stringResource(id = R.string.FeelsLike),
+                            numbers = temp.hourly.apparent_temperature.getOrNull(weatherDetails.feelsLike)
+                                ?.let {
+                                    it.toInt()
+                                        .toString() + temp.hourly_units.apparent_temperature
+                                } ?: "N/D",
+                            temp = temp
+                        )
+
+                        1 -> ExtraCards(
+                            text = stringResource(id = R.string.Rainfall),
+                            numbers = weatherDetails.rainFall.toString() + temp.daily_units.precipitation_sum,
+                            temp = temp
+                        )
+
+                        2 -> ExtraCards(
+                            text = stringResource(id = R.string.WindSpeed),
+                            numbers = weatherDetails.windSpeed.toString() + temp.hourly_units.windspeed_10m,
+                            temp = temp
+                        )
+
+                        3 -> ExtraCards(
+                            text = stringResource(id = R.string.Visibility),
+                            numbers = weatherDetails.visibilityInMeters.toString() + temp.hourly_units.visibility,
+                            temp = temp
+                        )
+
+                        4 -> ExtraCards(
+                            text = stringResource(id = R.string.Humidity),
+                            numbers = temp.hourly_units.relativehumidity_2m + weatherDetails.humidity.toString(),
+                            temp = temp
+                        )
+
+                        5 -> ExtraCards(
+                            text = stringResource(id = R.string.DewPoint),
+                            numbers = weatherDetails.dewPoint.toString() + temp.hourly_units.temperature_2m,
+                            temp = temp
+                        )
+                    }
+                }
+                PagerIndicator(
+                    step = pagerState.currentPage,
+                    totalSteps = pagerState.pageCount
+                )
+                GetAttributionForOpenMet(searchedLocation = searchedLocation)
+            }
+        }
     }
 }
