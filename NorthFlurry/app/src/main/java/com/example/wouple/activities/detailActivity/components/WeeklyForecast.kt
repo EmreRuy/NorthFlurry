@@ -37,7 +37,7 @@ fun WeeklyForecast(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 14.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(20.dp))
+            .background(MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(20.dp))
             .padding(16.dp),
     ) {
         Row(
@@ -121,7 +121,6 @@ fun WeeklyForecast(
                             if (it.isLowerCase()) it.titlecase(locale = Locale.ENGLISH) else it.toString()
                         },
                     style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 15.sp
                     )

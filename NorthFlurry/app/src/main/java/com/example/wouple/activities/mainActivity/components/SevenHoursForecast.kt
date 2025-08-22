@@ -27,13 +27,12 @@ fun GetSevenHoursForecast(temp: TemperatureResponse) {
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.Transparent
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        )
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = MaterialTheme.colorScheme.surfaceVariant)
+                .background(color = MaterialTheme.colorScheme.surface)
         ) {
             SevenHoursCardNotification(temp)
             Column(

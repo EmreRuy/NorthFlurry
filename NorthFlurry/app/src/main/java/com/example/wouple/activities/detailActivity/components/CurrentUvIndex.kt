@@ -49,7 +49,7 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .background(
-                color = MaterialTheme.colorScheme.surfaceVariant,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(20.dp)
             ),
         shape = RoundedCornerShape(20.dp),
@@ -106,7 +106,7 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                 )
             } else {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_moon),
+                    painter = painterResource(id = R.drawable.baseline_nights_stay_24),
                     contentDescription = stringResource(id = R.string.current_uv_index),
                     tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.size(34.dp)

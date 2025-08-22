@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -66,10 +67,11 @@ fun FirstScreenView(
             modifier = Modifier.weight(1f, fill = false)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_drop),
+                painter = painterResource(id = R.drawable.baseline_water_drop_24),
                 contentDescription = "logo",
-                // Use sizeIn to constrain the image size, making it responsive
-                modifier = Modifier.sizeIn(maxHeight = 150.dp, maxWidth = 150.dp),
+                modifier = Modifier
+                    .size(64.dp)
+                    .sizeIn(minWidth = 48.dp, maxWidth = 96.dp),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
             Text(

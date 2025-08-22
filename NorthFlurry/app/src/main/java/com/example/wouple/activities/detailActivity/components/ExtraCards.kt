@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -53,8 +53,8 @@ fun ExtraCards(
             .fillMaxWidth()
             .size(120.dp)
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .shadow(1.dp, RoundedCornerShape(21.dp))
-            .background(color = MaterialTheme.colorScheme.surfaceVariant),
+            .clip(RoundedCornerShape(24.dp))
+            .background(color = MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

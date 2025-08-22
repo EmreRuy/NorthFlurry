@@ -45,10 +45,10 @@ fun DayLightDuration(temp: TemperatureResponse) {
     val isDay = temp.current_weather.is_day == 1
     Box(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(vertical = 8.dp, horizontal = 16.dp)
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.surfaceVariant,
+                color = MaterialTheme.colorScheme.surface,
                 shape = RoundedCornerShape(24.dp)
             )
             .padding(20.dp)
@@ -62,7 +62,7 @@ fun DayLightDuration(temp: TemperatureResponse) {
                 painter = painterResource(id = if (isDay) R.drawable.ic_sun else R.drawable.ic_moon),
                 contentDescription = null,
                 modifier = Modifier.size(36.dp),
-                tint = MaterialTheme.colorScheme.onPrimaryContainer
+                tint = Color.Unspecified
             )
 
             Text(
@@ -116,7 +116,7 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
         modifier = Modifier
             .width(150.dp)
             .background(
-                color = Color.White.copy(alpha = 0.15f),
+                color = Color.Gray.copy(alpha = 0.15f),
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(12.dp)
@@ -124,7 +124,7 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
         Icon(
             painter = painterResource(id = if (isSunrise) R.drawable.ic_sun else R.drawable.ic_moon),
             contentDescription = title,
-            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+            tint = Color.Unspecified,
             modifier = Modifier
                 .size(28.dp)
                 .graphicsLayer(translationY = offsetY)

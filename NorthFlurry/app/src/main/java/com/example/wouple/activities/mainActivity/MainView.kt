@@ -40,7 +40,7 @@ fun MainView(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .background(MaterialTheme.colorScheme.surfaceVariant)
     ) {
         // Main content behind search
         Column(
