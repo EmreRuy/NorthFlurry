@@ -40,7 +40,7 @@ fun MainView(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
     ) {
         // Main content behind search
         Column(
@@ -48,7 +48,7 @@ fun MainView(
         ) {
             Box(
                 modifier = Modifier
-                    .background(Color(0xFF2C5E5A))
+                    .background(Color(0xFF384863))
             ) {
                 SearchBar(
                     isSearchExpanded = isSearchExpanded,
@@ -68,7 +68,7 @@ fun MainView(
                             .fillMaxWidth()
                             .requiredHeight(260.dp)
                     ) {
-                        val canvasColor = Color(0xFF2C5E5A)
+                        val canvasColor = Color(0xFF384863)
                         Canvas(
                             modifier = Modifier.matchParentSize()
                         ) {

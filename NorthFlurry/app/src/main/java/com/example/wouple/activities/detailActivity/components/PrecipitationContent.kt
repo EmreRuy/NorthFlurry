@@ -87,7 +87,7 @@ fun PrecipitationHours(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
             text = "%$precipitationPr",
             color = MaterialTheme.colorScheme.onPrimaryContainer,
-            fontSize = 17.sp,
+            fontSize = 16.sp,
             fontWeight = FontWeight.Medium
         )
     }

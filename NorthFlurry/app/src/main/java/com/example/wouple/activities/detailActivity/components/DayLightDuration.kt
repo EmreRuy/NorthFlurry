@@ -116,13 +116,13 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
         modifier = Modifier
             .width(150.dp)
             .background(
-                color = Color.Gray.copy(alpha = 0.15f),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.30f),
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(12.dp)
     ) {
         Icon(
-            painter = painterResource(id = if (isSunrise) R.drawable.ic_sun else R.drawable.ic_moon),
+            painter = painterResource(id = if (isSunrise) R.drawable.ic_sun else R.drawable.baseline_nights_stay_24),
             contentDescription = title,
             tint = Color.Unspecified,
             modifier = Modifier

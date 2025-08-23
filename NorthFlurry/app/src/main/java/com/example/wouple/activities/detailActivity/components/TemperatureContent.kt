@@ -95,7 +95,7 @@ fun Hours(
             text = "$temperature°",
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontWeight = FontWeight.Medium,
-            fontSize = 17.sp
+            fontSize = 16.sp
         )
     }
 }

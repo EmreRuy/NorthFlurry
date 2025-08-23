@@ -89,14 +89,13 @@ fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
                     },
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        fontSize = 19.sp
+                        fontSize = 16.sp
                     )
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
             }
 
-            // Step 4: Daylight-aware icon
             if (daylight == 1) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_sun),

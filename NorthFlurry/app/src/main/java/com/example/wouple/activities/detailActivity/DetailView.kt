@@ -1,6 +1,7 @@
 package com.example.wouple.activities.detailActivity
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -47,7 +48,7 @@ fun DetailView(
                 .fillMaxWidth()
                 .background(
                     //   Color(0xFF1F2B2F) // For the Dark Mode
-                    MaterialTheme.colorScheme.surfaceVariant
+                    MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
                 )
                 .padding(innerPadding.let { innerPadding -> 0.dp }),
             horizontalAlignment = CenterHorizontally
@@ -56,6 +57,7 @@ fun DetailView(
                 LocationView(temp = temp, searchedLocation = searchedLocation)
             }
             item {
+                Spacer(modifier = Modifier.padding(top = 8.dp))
                 CurrentAirQualityCardCompact(air = air)
             }
             item {

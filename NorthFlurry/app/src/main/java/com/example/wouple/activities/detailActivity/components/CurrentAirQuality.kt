@@ -77,7 +77,7 @@ fun CurrentAirQualityCardCompact(
                     },
                     style = MaterialTheme.typography.headlineSmall.copy(
                         fontWeight = FontWeight.Bold,
-                        fontSize = 19.sp
+                        fontSize = 16.sp
                     )
                 )
             }
