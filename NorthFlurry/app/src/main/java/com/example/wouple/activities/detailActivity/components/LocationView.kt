@@ -21,13 +21,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -41,12 +39,14 @@ fun LocationView(
 ) {
     val locationName = getProperDisplayName(searchedLocation.display_name) ?: "N/D"
     val fontSize = if (locationName.length > 15) 36.sp else 50.sp
+    val lineHeight = if (locationName.length > 15) 34.sp else 50.sp
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(320.dp)
     ) {
+        val primaryColor = MaterialTheme.colorScheme.primary
         // Background curved shape
         Canvas(
             modifier = Modifier
@@ -69,7 +69,7 @@ fun LocationView(
                     lineTo(width, 0f)
                     close()
                 },
-                color = Color(0xFF18474A) //Color(0xFF253650) // Color(0xFF384863) //Color(0xFF18474A) // Color(0xFF2C5E5A)
+                color = primaryColor  // Color(0xFF384863) //Color(0xFF18474A) // Color(0xFF2C5E5A)
             )
         }
 
@@ -87,15 +87,13 @@ fun LocationView(
             // Location Name
             Text(
                 text = locationName,
+                fontWeight = FontWeight.Thin,
                 textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-                modifier = Modifier.fillMaxWidth(0.9f),
-                style = MaterialTheme.typography.displayMedium.copy(
-                    fontWeight = FontWeight.Thin,
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontSize = fontSize
-                )
+                lineHeight = lineHeight,
+                fontSize = fontSize,
+                fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
+                color = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(24.dp))

@@ -15,7 +15,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
 import com.example.wouple.activities.detailActivity.components.openMetActivity.GetAttributionForOpenMet
@@ -40,7 +39,7 @@ fun MainView(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+            .background(MaterialTheme.colorScheme.surface)
     ) {
         // Main content behind search
         Column(
@@ -48,7 +47,7 @@ fun MainView(
         ) {
             Box(
                 modifier = Modifier
-                    .background(Color(0xFF384863))
+                    .background(MaterialTheme.colorScheme.primary)
             ) {
                 SearchBar(
                     isSearchExpanded = isSearchExpanded,
@@ -68,7 +67,7 @@ fun MainView(
                             .fillMaxWidth()
                             .requiredHeight(260.dp)
                     ) {
-                        val canvasColor = Color(0xFF384863)
+                        val canvasColor = MaterialTheme.colorScheme.primary
                         Canvas(
                             modifier = Modifier.matchParentSize()
                         ) {

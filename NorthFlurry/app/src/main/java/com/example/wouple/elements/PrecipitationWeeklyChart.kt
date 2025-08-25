@@ -44,7 +44,7 @@ fun RowScope.CustomPrecipitationBarChart(
             .weight(1f)
             .border(BorderStroke(1.dp, color = Color.Transparent))
             .background(
-                Color(0xFF2B7CBD).copy(alpha = 0.5f),
+               color = MaterialTheme.colorScheme.tertiary,
                 shape = RoundedCornerShape(16.dp)
             )
     ) {

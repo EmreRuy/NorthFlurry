@@ -142,7 +142,7 @@ fun SearchBar(
             Icon(
                 imageVector = if (isSearchExpanded.value) Icons.Default.Clear else Icons.Default.Search,
                 contentDescription = "Search",
-                tint = if (isSearchExpanded.value) Color.White else Color.White,
+                tint = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.size(32.dp)
             )
         }

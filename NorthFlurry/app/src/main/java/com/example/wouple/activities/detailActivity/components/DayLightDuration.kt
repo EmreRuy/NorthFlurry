@@ -48,7 +48,7 @@ fun DayLightDuration(temp: TemperatureResponse) {
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .fillMaxWidth()
             .background(
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = RoundedCornerShape(24.dp)
             )
             .padding(20.dp)
@@ -116,7 +116,7 @@ fun AnimatedInfoCard(title: String, value: String, isSunrise: Boolean) {
         modifier = Modifier
             .width(150.dp)
             .background(
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.30f),
+                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.60f),
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(12.dp)

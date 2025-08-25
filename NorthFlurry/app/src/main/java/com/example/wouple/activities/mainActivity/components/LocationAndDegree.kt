@@ -27,19 +27,25 @@ fun GetLocationAndDegree(
     modifier: Modifier = Modifier
 ) {
     val isDay = temp.current_weather.is_day == 1
+    val displayName = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D"
+    val fontSize = if (displayName.length > 15) 36.sp else 50.sp
+    val lineHeight = if (displayName.length > 15) 34.sp else 50.sp
     Column(
         modifier = modifier
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
         Text(
-            text = getProperDisplayName(searchedLocation.value?.display_name) ?: "N/D",
+            text = displayName,
             fontWeight = FontWeight.Thin,
             textAlign = TextAlign.Center,
-            fontSize = 50.sp,
+            lineHeight = lineHeight,
+            fontSize = fontSize,
             fontFamily = MaterialTheme.typography.headlineLarge.fontFamily,
-            color = MaterialTheme.colorScheme.onPrimary
+            color = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
 
         Spacer(modifier = Modifier.padding(top = 16.dp))

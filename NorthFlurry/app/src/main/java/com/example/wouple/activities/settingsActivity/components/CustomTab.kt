@@ -62,9 +62,9 @@ private fun MyTabItem(
 ) {
     val tabTextColor: Color by animateColorAsState(
         targetValue = if (isSelected) {
-            Color.White
+            colorScheme.onPrimary
         } else {
-            Color.Gray
+            colorScheme.onSurfaceVariant
         },
         animationSpec = tween(easing = LinearEasing), label = "",
     )
@@ -108,7 +108,7 @@ fun CustomTab(
     Box(
         modifier = modifier
             .clip(CircleShape)
-            .background(colorScheme.surfaceContainerLow)
+            .background(colorScheme.surfaceVariant)
             .height(intrinsicSize = IntrinsicSize.Min)
     ) {
         MyTabIndicator(

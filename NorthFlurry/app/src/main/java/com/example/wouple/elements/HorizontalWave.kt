@@ -27,7 +27,7 @@ fun HorizontalWave(
     amplitude: Float,
     frequency: Float
 ) {
-    val color = MaterialTheme.colorScheme.primary//Color(0xFFAAC7FF)
+    val color = MaterialTheme.colorScheme.tertiary
     Canvas(
         modifier = Modifier.fillMaxWidth(),
         onDraw = {
@@ -44,7 +44,7 @@ fun HorizontalWave(
             wavePath.lineTo(x.toFloat(), centerY + amplitude)
             drawPath(
                 path = wavePath,
-                brush = SolidColor(color),// Brush.horizontalGradient(colors = gradientColors),
+                brush = SolidColor(color),
                 alpha = alpha,
                 style = Fill
             )

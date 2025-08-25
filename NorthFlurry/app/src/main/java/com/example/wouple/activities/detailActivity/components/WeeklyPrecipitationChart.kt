@@ -45,7 +45,7 @@ fun WeeklyPrecipitationChart(temp: TemperatureResponse) {
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
             .background(
-                color = MaterialTheme.colorScheme.surface,
+                color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = RoundedCornerShape(20.dp)
             )
             .padding(16.dp)
