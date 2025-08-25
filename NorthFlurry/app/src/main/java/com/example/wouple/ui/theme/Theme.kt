@@ -10,7 +10,7 @@ private val LightColorScheme = lightColorScheme(
     primary = Color(0xFF253650),
     onPrimary = Color(0xFFFEFFFF),
     primaryContainer = Color(0xFFB0C4DE),
-    onPrimaryContainer = Color(0xFF005233),
+    onPrimaryContainer = Color(0xFF121614),
 
     secondary = Color(0xFF4A6357),
     onSecondary = Color(0xFFFFFFFF),
@@ -44,7 +44,7 @@ private val LightColorScheme = lightColorScheme(
 val WaveBlue = Color(0xFF254D4A)
 private val DarkColorScheme = darkColorScheme(
     primary = Color(0xFF6FA88C),
-    onPrimary = Color(0xFF0D172A),          // deep navy for contrast
+    onPrimary = Color(0xFF212828),          // deep navy for contrast
     primaryContainer = Color(0xFF2F3F5F),   // rich muted steel-blue
     onPrimaryContainer = Color(0xFFD8E3FF), // light bluish-white
 

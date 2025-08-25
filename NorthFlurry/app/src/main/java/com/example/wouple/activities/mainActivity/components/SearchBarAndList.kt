@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -80,7 +81,7 @@ fun GetSearchBarAndList(
                             },
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = Color.White,
+                            containerColor = MaterialTheme.colorScheme.onPrimary,
                         )
                     ) {
                         Row(
@@ -100,7 +101,7 @@ fun GetSearchBarAndList(
                                 text = location.display_name,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 16.sp,
-                                color = Color.Black,
+                                color = MaterialTheme.colorScheme.onPrimaryContainer,
                                 modifier = Modifier
                                     .animateContentSize()
                                     .padding(4.dp)

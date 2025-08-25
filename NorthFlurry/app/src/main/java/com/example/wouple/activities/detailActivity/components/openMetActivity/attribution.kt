@@ -51,7 +51,7 @@ fun GetAttributionForOpenMet(searchedLocation: SearchedLocation) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.1f))
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {

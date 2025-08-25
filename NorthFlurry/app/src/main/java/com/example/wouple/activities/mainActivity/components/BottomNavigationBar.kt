@@ -58,7 +58,9 @@ fun BottomNavigationBar(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = MaterialTheme.colorScheme.surface
+            ) {
                 BottomNavigationItem().bottomNavigationItems()
                     .forEachIndexed { index, navigationItem ->
                         NavigationBarItem(
