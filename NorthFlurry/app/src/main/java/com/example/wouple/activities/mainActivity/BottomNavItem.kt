@@ -7,11 +7,11 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class BottomNavigationItem(
-    val label : String = "",
-    val icon : ImageVector = Icons.Filled.Home,
-    val route : String = ""
+    val label: String = "",
+    val icon: ImageVector = Icons.Filled.Home,
+    val route: String = ""
 ) {
-    fun bottomNavigationItems() : List<BottomNavigationItem> {
+    fun bottomNavigationItems(): List<BottomNavigationItem> {
         return listOf(
             BottomNavigationItem(
                 label = "Home",

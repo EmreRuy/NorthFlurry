@@ -36,18 +36,14 @@ import kotlinx.coroutines.isActive
 fun SevenHoursCardNotification(temp: TemperatureResponse) {
     val context = LocalContext.current
     val texts = remember { generateWeatherInfoTexts(temp, context) }
-
     val currentTextIndex = remember { mutableIntStateOf(0) }
-
     LaunchedEffect(Unit) {
         while (isActive) {
             delay(8000)
             currentTextIndex.intValue = (currentTextIndex.intValue + 1) % texts.size
         }
     }
-
     val currentText = texts[currentTextIndex.intValue]
-
     Box(
         modifier = Modifier
             .fillMaxWidth()

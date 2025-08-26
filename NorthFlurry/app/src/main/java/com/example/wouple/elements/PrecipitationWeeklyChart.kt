@@ -45,7 +45,7 @@ fun RowScope.CustomPrecipitationBarChart(
             .weight(1f)
             .border(BorderStroke(1.dp, color = Color.Transparent))
             .background(
-               color = MaterialTheme.colorScheme.tertiary,
+                color = MaterialTheme.colorScheme.tertiary,
                 shape = RoundedCornerShape(16.dp)
             )
     ) {
@@ -53,7 +53,7 @@ fun RowScope.CustomPrecipitationBarChart(
             size > 1.0.toFloat()
         ) {
             Text(
-                text =  size.roundToInt().toString(),
+                text = size.roundToInt().toString(),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier

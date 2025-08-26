@@ -47,7 +47,6 @@ fun DetailView(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    //   Color(0xFF1F2B2F) // For the Dark Mode
                     MaterialTheme.colorScheme.surface
                 )
                 .padding(innerPadding.let { innerPadding -> 0.dp }),
@@ -57,7 +56,7 @@ fun DetailView(
                 LocationView(temp = temp, searchedLocation = searchedLocation)
             }
             item {
-                Spacer(modifier = Modifier.padding(top = 8.dp))
+                Spacer(modifier = Modifier.padding(top = 16.dp))
                 CurrentAirQualityCardCompact(air = air)
             }
             item {
@@ -90,38 +89,32 @@ fun DetailView(
                                 ?.let {
                                     it.toInt()
                                         .toString() + temp.hourly_units.apparent_temperature
-                                } ?: "N/D",
-                            temp = temp
+                                } ?: "N/D"
                         )
 
                         1 -> ExtraCards(
                             text = stringResource(id = R.string.Rainfall),
-                            numbers = weatherDetails.rainFall.toString() + temp.daily_units.precipitation_sum,
-                            temp = temp
+                            numbers = weatherDetails.rainFall.toString() + temp.daily_units.precipitation_sum
                         )
 
                         2 -> ExtraCards(
                             text = stringResource(id = R.string.WindSpeed),
-                            numbers = weatherDetails.windSpeed.toString() + temp.hourly_units.windspeed_10m,
-                            temp = temp
+                            numbers = weatherDetails.windSpeed.toString() + temp.hourly_units.windspeed_10m
                         )
 
                         3 -> ExtraCards(
                             text = stringResource(id = R.string.Visibility),
-                            numbers = weatherDetails.visibilityInMeters.toString() + temp.hourly_units.visibility,
-                            temp = temp
+                            numbers = weatherDetails.visibilityInMeters.toString() + temp.hourly_units.visibility
                         )
 
                         4 -> ExtraCards(
                             text = stringResource(id = R.string.Humidity),
-                            numbers = temp.hourly_units.relativehumidity_2m + weatherDetails.humidity.toString(),
-                            temp = temp
+                            numbers = temp.hourly_units.relativehumidity_2m + weatherDetails.humidity.toString()
                         )
 
                         5 -> ExtraCards(
                             text = stringResource(id = R.string.DewPoint),
-                            numbers = weatherDetails.dewPoint.toString() + temp.hourly_units.temperature_2m,
-                            temp = temp
+                            numbers = weatherDetails.dewPoint.toString() + temp.hourly_units.temperature_2m
                         )
                     }
                 }

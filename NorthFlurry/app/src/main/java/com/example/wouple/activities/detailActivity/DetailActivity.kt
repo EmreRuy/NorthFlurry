@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
@@ -26,9 +24,8 @@ class SecondActivity : ComponentActivity() {
             if (temp == null) {
                 throw IllegalStateException("temp is missing or wrong")
             }
-            val viewModel: SettingsViewModel = viewModel()
             DetailView(
-              //  onBackPressed = { onBackPressedDispatcher.onBackPressed() },
+                //  onBackPressed = { onBackPressedDispatcher.onBackPressed() },
                 temp = temp,
                 searchedLocation = location,
                 air = air,

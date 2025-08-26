@@ -18,7 +18,7 @@ class OpenMetAttributionActivity : ComponentActivity() {
                 throw IllegalStateException("temp is missing or wrong")
             }
             AppTheme {
-                OpenMeteorologyView(temp = temp)
+                OpenMeteorologyView()
             }
         }
     }

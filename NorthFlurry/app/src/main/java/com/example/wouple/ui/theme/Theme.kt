@@ -42,7 +42,7 @@ private val LightColorScheme = lightColorScheme(
     inverseSurface = Color(0xFF2B322D),
     inversePrimary = Color(0xFF9EB4D4)
 )
-val WaveBlue = Color(0xFF254D4A)
+
 private val DarkColorScheme = darkColorScheme(
     primary = Color(0xFF6FA88C),
     onPrimary = Color(0xFF212828),          // deep navy for contrast
@@ -79,7 +79,6 @@ private val DarkColorScheme = darkColorScheme(
     inverseSurface = Color(0xFF3C4043),
     inversePrimary = Color(0xFF3E5C4A)      // desaturated blue
 )
-
 
 @Composable
 fun AppTheme(

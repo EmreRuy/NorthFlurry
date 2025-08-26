@@ -18,7 +18,7 @@ fun generateWeatherInfoTexts(temp: TemperatureResponse, context: Context): List<
     val windSpeedUnit = temp.hourly_units.windspeed_10m
     val pressure = temp.hourly.surface_pressure[hour].toInt()
     val cloudCover = temp.hourly.cloud_cover[hour].toInt()
-    val windDir = getLocalizedWindDirection(temp.current_weather.winddirection.toDouble(), context)
+    val windDir = getLocalizedWindDirection(temp.current_weather.winddirection, context)
     val feelsLike = temp.hourly.apparent_temperature[hour].toInt()
     val tempUnit = temp.hourly_units.apparent_temperature
 

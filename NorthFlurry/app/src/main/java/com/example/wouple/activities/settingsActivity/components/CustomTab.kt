@@ -114,10 +114,9 @@ fun CustomTab(
         MyTabIndicator(
             indicatorWidth = tabWidth,
             indicatorOffset = indicatorOffset,
-            indicatorColor = if (isDay) colorScheme.primary.copy(alpha = 0.85f) else colorScheme.primary.copy(
+            indicatorColor = if (isDay) colorScheme.primary else colorScheme.primary.copy(
                 alpha = 0.85f
             )
-            // if (isDay) Color(0xFF3C4269) else Color(0xFF536AD5)
         )
         Row(
             horizontalArrangement = Arrangement.Center,

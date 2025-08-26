@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -22,29 +21,12 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.elements.HorizontalWave
 import com.example.wouple.elements.rememberPhaseState
-import com.example.wouple.model.api.TemperatureResponse
 
 @Composable
 fun ExtraCards(
     text: String,
-    numbers: String,
-    temp: TemperatureResponse
+    numbers: String
 ) {
-    val isDay = temp.current_weather.is_day == 1
-    val background = if (isDay) {
-        listOf(
-            Color(0xFF3F54BE),
-            Color(0xFF3F54BE)
-        )
-    } else {
-        listOf(
-            Color(0xFF1D244D),
-            Color(0xFF2E3A59),
-            Color(0xFF3F5066),
-            Color(0xFF50767D),
-        )
-    }
-
     val phase1 = rememberPhaseState(10f)
     val phase2 = rememberPhaseState(startPosition = 15f)
 

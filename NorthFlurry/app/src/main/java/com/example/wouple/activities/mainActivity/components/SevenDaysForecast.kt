@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.wouple.elements.GetWeeklyForecast
 import com.example.wouple.elements.SevenDaysCardNotification
@@ -38,22 +37,6 @@ fun GetSevenDaysForecast(temp: TemperatureResponse) {
             .padding(bottom = 18.dp),
         shape = RoundedCornerShape(24.dp)
     ) {
-        val isDay = temp.current_weather.is_day == 1
-        val background: List<Color> = if (isDay) {
-            val baseColor = Color(0xFF494CC6)
-            val lighterShades = listOf(
-                baseColor,
-                baseColor.copy(alpha = 0.9f),
-                baseColor.copy(alpha = 0.8f),
-            )
-            lighterShades
-        } else {
-            listOf(
-                Color(0xFF1D244D),
-                Color(0xFF2E3A59),
-                Color(0xFF3F5066),
-            )
-        }
         Column(
             modifier = Modifier
                 .fillMaxWidth()

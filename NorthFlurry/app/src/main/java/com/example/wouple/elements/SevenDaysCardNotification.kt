@@ -17,11 +17,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Modifier
@@ -40,19 +37,13 @@ import java.util.Locale
 @Composable
 fun SevenDaysCardNotification(temp: TemperatureResponse) {
     val context = LocalContext.current
-
     val messages = buildNotificationMessages(temp, context)
-
-    var visible by remember { mutableStateOf(true) }
     val textIndex = remember { mutableIntStateOf(0) }
 
     // Text animation loop
     LaunchedEffect(Unit) {
         while (true) {
-            delay(1000)
-            visible = true
-            delay(6000)
-            visible = false
+            delay(7000)
             textIndex.intValue = (textIndex.intValue + 1) % messages.size
         }
     }

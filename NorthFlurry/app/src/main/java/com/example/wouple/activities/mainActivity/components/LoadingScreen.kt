@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -58,8 +57,7 @@ fun LoadingScreen() {
             )
             Text(
                 text = stringResource(id = R.string.Loading),
-                fontSize = 20.sp,
-                fontStyle = MaterialTheme.typography.displayMedium.fontStyle,
+                fontStyle = MaterialTheme.typography.headlineSmall.fontStyle,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

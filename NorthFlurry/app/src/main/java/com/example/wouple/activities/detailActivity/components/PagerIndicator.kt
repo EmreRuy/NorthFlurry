@@ -33,7 +33,10 @@ fun PagerIndicator(step: Int, totalSteps: Int) {
                         )
                     } else {
                         Brush.horizontalGradient(
-                            colors = listOf(MaterialTheme.colorScheme.onPrimaryContainer, Color.Transparent)
+                            colors = listOf(
+                                MaterialTheme.colorScheme.onPrimaryContainer,
+                                Color.Transparent
+                            )
                         )
                     }
                 )

@@ -79,7 +79,6 @@ fun GetSearchBarAndList(
                                     listState.animateScrollToItem(0)
                                 }
                             },
-                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.onPrimary,
                         )

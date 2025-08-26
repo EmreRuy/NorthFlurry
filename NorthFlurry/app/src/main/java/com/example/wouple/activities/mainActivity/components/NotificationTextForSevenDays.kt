@@ -15,8 +15,10 @@ fun buildNotificationMessages(temp: TemperatureResponse, context: Context): List
     val messages = mutableListOf<String>()
 
     // Warmest and coldest
-    val warmestDay = getExtremeDayName(temp.daily.temperature_2m_max, temp.daily.time, context, max = true)
-    val coldestDay = getExtremeDayName(temp.daily.temperature_2m_max, temp.daily.time, context, max = false)
+    val warmestDay =
+        getExtremeDayName(temp.daily.temperature_2m_max, temp.daily.time, context, max = true)
+    val coldestDay =
+        getExtremeDayName(temp.daily.temperature_2m_max, temp.daily.time, context, max = false)
 
     messages += context.getString(R.string.warmest_day, warmestDay)
     messages += context.getString(R.string.coldest_day, coldestDay)

@@ -74,19 +74,15 @@ object WeatherManager {
             onSuccessCall(null)
             return
         }
-            fetchDataFromBackend(
-                context,
-                location,
-                onSuccessCall,
-                temperaUnit,
-                windUnit,
-                precipitationUnit
-            )
+        fetchDataFromBackend(
+            context,
+            location,
+            onSuccessCall,
+            temperaUnit,
+            windUnit,
+            precipitationUnit
+        )
 
-    }
-
-    private fun getDataFromMock(onSuccessCall: (TemperatureResponse) -> Unit) {
-        onSuccessCall(TemperatureResponse.getMockInstance())
     }
 
     private fun fetchDataFromBackend(

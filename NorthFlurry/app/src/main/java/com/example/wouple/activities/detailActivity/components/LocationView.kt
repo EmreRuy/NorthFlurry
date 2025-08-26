@@ -69,7 +69,7 @@ fun LocationView(
                     lineTo(width, 0f)
                     close()
                 },
-                color = primaryColor  // Color(0xFF384863) //Color(0xFF18474A) // Color(0xFF2C5E5A)
+                color = primaryColor
             )
         }
 

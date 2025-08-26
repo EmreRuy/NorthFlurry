@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -56,11 +55,10 @@ fun LottieView() {
         Row(modifier = Modifier.padding(bottom = 8.dp)) {
             Text(
                 text = stringResource(id = R.string.LottieMoreInfo),
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(end = 4.dp),
-                color = Color.White,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Light
+                style = MaterialTheme.typography.titleMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 13.sp
+                )
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
