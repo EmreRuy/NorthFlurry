@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.activities.detailActivity.components.WeatherCondition
-import com.example.wouple.formatter.DateFormatterForMain
 import com.example.wouple.model.api.TemperatureResponse
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -28,45 +27,36 @@ fun GetHourlyWeatherInfo(temp: TemperatureResponse) {
     val scrollState = rememberScrollState()
     Row(
         modifier = Modifier
-            .horizontalScroll(scrollState),
-        horizontalArrangement = Arrangement.Center
+            .horizontalScroll(scrollState)
+            .padding(horizontal = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         val timeZone = temp.timezone
         val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
         val currentHour = currentDateTime.hour
+
+        // Loop through the next 7 hours
         for (index in currentHour..(currentHour + 6)) {
-            val time = DateFormatterForMain.formatDateMain(temp.hourly.time[index])
+            val dateTimeString = temp.hourly.time[index]
+            val hourOnly = dateTimeString.substring(11, 13)
+
             val temperature = temp.hourly.temperature_2m[index].toInt().toString()
             val isDaytime = temp.hourly.is_day.getOrNull(index) == 1
-            if (isDaytime) {
-                val hourlyWeatherCondition = when (temp.hourly.weathercode[index]) {
-                    0, 1 -> WeatherCondition.SUNNY
-                    2 -> WeatherCondition.PARTLY_CLOUDY
-                    3 -> WeatherCondition.CLOUDY
-                    45, 48 -> WeatherCondition.FOGGY
-                    51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
-                    71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
-                    95, 96, 99 -> WeatherCondition.THUNDERSTORM
-                    else -> WeatherCondition.RAINY
-                }
-                GetSixHours(time, temperature, hourlyWeatherCondition)
-            }
-            if (!isDaytime) {
-                val hourlyWeatherConditionNight = when (temp.hourly.weathercode[index]) {
-                    0, 1 -> WeatherCondition.CLEAR_NIGHT
-                    2, 3 -> WeatherCondition.CLOUDY
-                    45, 48 -> WeatherCondition.FOGGY
-                    51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
-                    71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
-                    95, 96, 99 -> WeatherCondition.THUNDERSTORM
-                    else -> {
-                        WeatherCondition.RAINY
-                    }
-                }
-                GetSixHours(time, temperature, hourlyWeatherConditionNight)
-            }
-        }
 
+            // Determine weather condition based on code and day/night
+            val hourlyWeatherCondition = when (temp.hourly.weathercode[index]) {
+                0, 1 -> if (isDaytime) WeatherCondition.SUNNY else WeatherCondition.CLEAR_NIGHT
+                2 -> if (isDaytime) WeatherCondition.PARTLY_CLOUDY else WeatherCondition.CLOUDY
+                3 -> WeatherCondition.CLOUDY
+                45, 48 -> WeatherCondition.FOGGY
+                51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82 -> WeatherCondition.RAINY
+                71, 73, 75, 77, 85, 86 -> WeatherCondition.SNOWY
+                95, 96, 99 -> WeatherCondition.THUNDERSTORM
+                else -> WeatherCondition.RAINY
+            }
+
+            GetSixHours(hourOnly, temperature, hourlyWeatherCondition)
+        }
     }
 }
 
@@ -83,7 +73,7 @@ fun GetSixHours(
     ) {
         Text(
             modifier = Modifier.padding(top = 4.dp),
-            text = time,
+            text = time, // Hour only
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontSize = 15.sp,
             fontWeight = FontWeight.Light

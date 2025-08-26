@@ -54,8 +54,8 @@ fun SearchBar(
 
     val gradient = Brush.horizontalGradient(
         colors = if (isSearchExpanded.value) listOf(
-            colors.inversePrimary, // Background surface color
-            colors.primary // Dynamic primary color
+            colors.primary, // Background surface color
+            colors.inversePrimary // Dynamic primary color
         ) else listOf(Color.Transparent, Color.Transparent)
     )
     LaunchedEffect(isSearchExpanded.value) {

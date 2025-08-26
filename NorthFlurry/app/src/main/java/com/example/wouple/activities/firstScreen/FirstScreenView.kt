@@ -22,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -53,10 +54,16 @@ fun FirstScreenView(
     onStartButtonClicked: () -> Unit
 ) {
     val currentContext = LocalContext.current
+    val backgroundGradient = Brush.verticalGradient(
+        colors = listOf(
+            MaterialTheme.colorScheme.surfaceDim,
+            MaterialTheme.colorScheme.surface
+        )
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .background(brush = backgroundGradient)
             .padding(16.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = CenterHorizontally
@@ -70,7 +77,7 @@ fun FirstScreenView(
                 painter = painterResource(id = R.drawable.baseline_water_drop_24),
                 contentDescription = "logo",
                 modifier = Modifier
-                    .size(64.dp)
+                    .size(200.dp)
                     .sizeIn(minWidth = 48.dp, maxWidth = 96.dp),
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
             )
@@ -138,7 +145,7 @@ fun FirstScreenView(
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
                 textAlign = TextAlign.Center,
-                color = MaterialTheme.colorScheme.secondary,
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 textDecoration = TextDecoration.Underline
             )
         }

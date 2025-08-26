@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.2.0" // New: Compose Compiler Plugin
+    id("org.jetbrains.kotlin.plugin.compose") version "2.2.10" // New: Compose Compiler Plugin
 }
 
 android {
@@ -48,13 +48,6 @@ android {
     }
     ndkVersion = "28.0.12916984 rc3"
 }
-
-// Optional: Configure Compose Compiler (remove if not needed)
-composeCompiler {
-    reportsDestination = layout.buildDirectory.dir("compose_compiler")
-   // stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
-}
-
 dependencies {
     // Core
     implementation("androidx.core:core-ktx:1.17.0")

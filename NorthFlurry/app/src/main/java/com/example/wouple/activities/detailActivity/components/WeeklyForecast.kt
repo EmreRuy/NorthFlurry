@@ -140,7 +140,7 @@ fun WeeklyForecast(
                     textAlign = TextAlign.Right,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 15.sp,
+                    fontSize = 16.sp,
                 )
                 Spacer(
                     modifier = Modifier
@@ -155,7 +155,7 @@ fun WeeklyForecast(
                     textAlign = TextAlign.Right,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 15.sp,
+                    fontSize = 16.sp,
                 )
             }
         }

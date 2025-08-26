@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kotlin.math.roundToInt
 
 @Composable
 fun RowScope.CustomPrecipitationBarChart(
@@ -49,10 +50,10 @@ fun RowScope.CustomPrecipitationBarChart(
             )
     ) {
         if (
-            size > 1.toFloat()
+            size > 1.0.toFloat()
         ) {
             Text(
-                text = size.toString(),
+                text =  size.roundToInt().toString(),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier

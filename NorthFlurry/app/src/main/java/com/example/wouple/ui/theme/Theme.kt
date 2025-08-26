@@ -35,6 +35,7 @@ private val LightColorScheme = lightColorScheme(
     surfaceContainer = Color(0xFFDEE8DD),
     surfaceVariant = Color(0xFFF6FBF4),
     onSurfaceVariant = Color(0xFF333A34),
+    surfaceDim = Color(0xFF546F80),
 
     outline = Color(0xFFDEE8DD),
     inverseOnSurface = Color(0xFFF0F1ED),
@@ -71,10 +72,11 @@ private val DarkColorScheme = darkColorScheme(
     surfaceVariant = Color(0xFF1B2121),     // elegant dark green-gray
     onSurfaceVariant = Color(0xFFBEC7C0),
     surfaceContainer = Color(0xFF272F2F),
+    surfaceDim = Color(0xFF3C4043),
 
     outline = Color(0xFF656C67),
     inverseOnSurface = Color(0xFF121614),
-    inverseSurface = Color(0xFFE0E3DF),
+    inverseSurface = Color(0xFF3C4043),
     inversePrimary = Color(0xFF3E5C4A)      // desaturated blue
 )
 
