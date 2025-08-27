@@ -103,8 +103,6 @@ fun MainView(
                     searchedLocation.value?.let {
                         GetAttributionForOpenMet(searchedLocation = it)
                     }
-
-                    // GetHorizontalWaveView()
                 }
             }
         }

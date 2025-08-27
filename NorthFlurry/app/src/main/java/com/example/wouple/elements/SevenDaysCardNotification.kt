@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment.Companion.CenterStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
@@ -86,9 +85,9 @@ fun NotificationBox(
             ) { animatedText ->
                 Text(
                     text = animatedText,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Light,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    fontFamily = MaterialTheme.typography.displayMedium.fontFamily,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 15.sp
                 )
             }
         }

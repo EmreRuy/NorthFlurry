@@ -13,8 +13,8 @@ android {
         applicationId = "com.weather.wouple"
         minSdk = 28
         targetSdk = 35
-        versionCode = 12
-        versionName = "1.6.1"
+        versionCode = 14
+        versionName = "2.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -95,6 +95,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-     //Fonts
+    //Fonts
     implementation("androidx.compose.ui:ui-text-google-fonts:1.9.0")
 }
