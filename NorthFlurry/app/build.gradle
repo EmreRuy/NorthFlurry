@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.2.10" // New: Compose Compiler Plugin
+    id("org.jetbrains.kotlin.plugin.compose") version "2.2.20" // New: Compose Compiler Plugin
 }
 
 android {
@@ -51,11 +51,11 @@ android {
 dependencies {
     // Core
     implementation("androidx.core:core-ktx:1.17.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.2")
-    implementation("androidx.activity:activity-compose:1.10.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.4")
+    implementation("androidx.activity:activity-compose:1.11.0")
 
     // Compose UI
-    implementation(platform("androidx.compose:compose-bom:2025.08.00"))
+    implementation(platform("androidx.compose:compose-bom:2025.09.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.ui:ui-graphics")
@@ -63,7 +63,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.9.3")
+    implementation("androidx.navigation:navigation-compose:2.9.4")
 
     // Retrofit & Moshi
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
@@ -72,11 +72,11 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
 
     // JSON Parsing
-    implementation("com.google.code.gson:gson:2.13.1")
+    implementation("com.google.code.gson:gson:2.13.2")
 
     // Lottie Animations
-    implementation("com.airbnb.android:lottie:6.6.7")
-    implementation("com.airbnb.android:lottie-compose:6.6.7")
+    implementation("com.airbnb.android:lottie:6.6.9")
+    implementation("com.airbnb.android:lottie-compose:6.6.9")
 
     // Accompanist (UI Helpers)
     implementation("com.google.accompanist:accompanist-pager-indicators:0.36.0")
@@ -96,5 +96,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
 
     //Fonts
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.9.0")
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.9.1")
 }

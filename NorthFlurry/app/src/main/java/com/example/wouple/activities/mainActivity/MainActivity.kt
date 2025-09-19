@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                 var isLoading by remember { mutableStateOf(true) }
                 LaunchedEffect(Unit) {
                     isConnected = isInternetConnected(context)
-                    delay(1_000) // Simulate loading
+                    delay(1_000)
                     isLoading = false
                     getWeatherData()
                 }
