@@ -1,7 +1,7 @@
 # NorthFlurry 🌨️
 
-[![Android CI](https://img.shields.io/badge/Android-Compose-blue)](https://developer.android.com/jetpack/compose)  
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9-orange)](https://kotlinlang.org/)  
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20-orange)](https://kotlinlang.org/)  
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-1.9.0-blueviolet)](https://developer.android.com/jetpack/compose)
 
 NorthFlurry is a modern Android weather app that provides **real-time weather updates, accurate forecasts, and detailed weather insights**. Designed with simplicity, smooth animations, and a clean UI, it helps users stay informed about current weather conditions and plan their day effectively.
 
