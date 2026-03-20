@@ -28,9 +28,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -54,10 +55,11 @@ fun SearchBar(
 
     val gradient = Brush.horizontalGradient(
         colors = if (isSearchExpanded.value) listOf(
-            colors.primary, // Background surface color
-            colors.inversePrimary // Dynamic primary color
+            colors.primary.copy(alpha = 0.05f),
+            colors.primary.copy(alpha = 0.15f)
         ) else listOf(Color.Transparent, Color.Transparent)
     )
+
     LaunchedEffect(isSearchExpanded.value) {
         query = ""
         onSearch("")
@@ -66,12 +68,18 @@ fun SearchBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 5.dp, horizontal = 16.dp)
+            .padding(vertical = 6.dp, horizontal = 16.dp)
             .background(
                 brush = gradient,
                 shape = RoundedCornerShape(28.dp)
+            )
+            .shadow(
+                elevation = if (isSearchExpanded.value) 6.dp else 2.dp,
+                shape = RoundedCornerShape(28.dp),
+                ambientColor = colors.primary.copy(alpha = 0.08f),
+                spotColor = colors.primary.copy(alpha = 0.08f)
             ),
-        verticalAlignment = CenterVertically,
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         AnimatedVisibility(
@@ -90,39 +98,30 @@ fun SearchBar(
                     .weight(1f)
                     .padding(start = 18.dp),
                 textStyle = TextStyle(
-                    color = Color.Black,
+                    color = colors.onSurface,
                     fontSize = 18.sp,
                 ),
                 placeholder = {
-                    Row(
-                        modifier = Modifier
-                            .padding(start = 8.dp),
-                        verticalAlignment = CenterVertically
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(start = 16.dp),
-                            text = stringResource(id = R.string.SearchBar),
-                            color = MaterialTheme.colorScheme.surface
-                        )
-                    }
+                    Text(
+                        text = stringResource(id = R.string.SearchBar),
+                        color = colors.onSurface.copy(alpha = 0.4f)
+                    )
                 },
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Search,
                     keyboardType = KeyboardType.Text
                 ),
                 keyboardActions = KeyboardActions(
-                    onSearch = {
-                        focusManager.clearFocus(true)
-                    }
+                    onSearch = { focusManager.clearFocus(true) }
                 ),
                 colors = TextFieldDefaults.colors(
                     unfocusedIndicatorColor = Color.Transparent,
                     focusedIndicatorColor = Color.Transparent,
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
-                    cursorColor = MaterialTheme.colorScheme.onBackground,
-                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
-                    unfocusedTextColor = MaterialTheme.colorScheme.primary
+                    cursorColor = colors.primary,
+                    focusedTextColor = colors.onSurface,
+                    unfocusedTextColor = colors.onSurface.copy(alpha = 0.8f)
                 )
             )
         }
@@ -130,9 +129,7 @@ fun SearchBar(
         IconButton(
             onClick = {
                 isSearchExpanded.value = !isSearchExpanded.value
-                if (!isSearchExpanded.value) {
-                    query = ""
-                }
+                if (!isSearchExpanded.value) query = ""
                 onClose()
             },
             modifier = Modifier
@@ -142,7 +139,7 @@ fun SearchBar(
             Icon(
                 imageVector = if (isSearchExpanded.value) Icons.Default.Clear else Icons.Default.Search,
                 contentDescription = "Search",
-                tint = MaterialTheme.colorScheme.onPrimary,
+                tint = if (isSearchExpanded.value) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.size(32.dp)
             )
         }
