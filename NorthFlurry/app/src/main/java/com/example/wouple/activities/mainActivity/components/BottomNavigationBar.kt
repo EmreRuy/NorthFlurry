@@ -1,6 +1,5 @@
 package com.example.wouple.activities.mainActivity.components
 
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -8,17 +7,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.material3.*
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,8 +37,6 @@ import com.example.wouple.elements.SettingsViewModel
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
-import androidx.core.net.toUri
-
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -43,7 +44,7 @@ fun BottomNavigationBar(
     temp: TemperatureResponse,
     locations: List<SearchedLocation>?,
     onSearch: (String) -> Unit,
-    searchedLocation: MutableState<SearchedLocation?>,
+    searchedLocation: SearchedLocation?,
     onLocationButtonClicked: (SearchedLocation) -> Unit,
     onClose: () -> Unit,
     air: AirQuality?,
@@ -55,6 +56,10 @@ fun BottomNavigationBar(
         mutableIntStateOf(0)
     }
     val navController = rememberNavController()
+    val searchedLocationState = remember(searchedLocation) {
+        mutableStateOf(searchedLocation)
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
@@ -103,7 +108,7 @@ fun BottomNavigationBar(
                     temp = temp,
                     locations = locations,
                     onSearch = onSearch,
-                    searchedLocation = searchedLocation,
+                    searchedLocation = searchedLocationState,
                     onLocationButtonClicked = onLocationButtonClicked,
                     onClose = onClose
                 )
@@ -111,7 +116,7 @@ fun BottomNavigationBar(
             composable(Screens.Details.route) {
                 DetailView(
                     temp = temp,
-                    searchedLocation = searchedLocation.value ?: SearchedLocation(
+                    searchedLocation = searchedLocation ?: SearchedLocation(
                         display_name = "Oslo",
                         lat = "00.00",
                         lon = "00.00"

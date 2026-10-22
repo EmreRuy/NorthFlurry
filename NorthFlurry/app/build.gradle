@@ -1,18 +1,20 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.3.20" // New: Compose Compiler Plugin
+    id("org.jetbrains.kotlin.plugin.compose") version "2.4.21"
 }
 
 android {
     namespace = "com.example.wouple"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.weather.wouple"
         minSdk = 28
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 15
         versionName = "2.0.3"
 
@@ -31,11 +33,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
@@ -48,47 +47,52 @@ android {
     }
     ndkVersion = "28.0.12916984 rc3"
 }
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_17)
+    }
+}
+
 dependencies {
     // Core
-    implementation("androidx.core:core-ktx:1.18.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
+    implementation("androidx.core:core-ktx:1.19.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.11.0")
     implementation("androidx.activity:activity-compose:1.13.0")
 
     // Compose UI
-    implementation(platform("androidx.compose:compose-bom:2026.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2026.09.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-test-junit4")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material-icons-extended:1.7.8")
+    implementation("androidx.compose.material:material-icons-extended")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.9.7")
+    implementation("androidx.navigation:navigation-compose:2.10.2")
 
     // Retrofit & Moshi
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
-    implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
 
     // JSON Parsing
-    implementation("com.google.code.gson:gson:2.13.2")
+    implementation("com.google.code.gson:gson:2.14.0")
 
     // Lottie Animations
     implementation("com.airbnb.android:lottie:6.7.1")
     implementation("com.airbnb.android:lottie-compose:6.7.1")
 
-    // Accompanist (UI Helpers)
+    // Accompanist
     implementation("com.google.accompanist:accompanist-pager-indicators:0.36.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.36.0")
 
     // Preferences
     implementation("androidx.preference:preference-ktx:1.2.1")
 
-    // Window Manager
+    // Location & Services
     implementation("androidx.window:window:1.5.1")
-    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.android.gms:play-services-location:21.4.0")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
@@ -96,6 +100,6 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-    //Fonts
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.10.5")
+    // Fonts
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.12.1")
 }

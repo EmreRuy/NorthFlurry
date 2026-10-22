@@ -23,13 +23,13 @@ class AirQualityInfoTest {
     fun testAqi_41_to_60_returnsModerate(){
         val result = getAirQualityInfo(55)
         assertEquals(R.string.moderate, result.descriptionResId)
-        assertEquals(Color(0xFFFFB700), result.color)
+        assertEquals(Color(0xFFFF8C00), result.color)
     }
     @Test
     fun testAqi_61_to_80_returnsPoor(){
         val result = getAirQualityInfo(70)
         assertEquals(R.string.poor, result.descriptionResId)
-        assertEquals(Color(0xFFFF8400), result.color)
+        assertEquals(Color(0xFFFF7700), result.color)
     }
     @Test
     fun testAqi_81_to_100_returnsVeryPoor(){

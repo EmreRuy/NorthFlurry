@@ -21,19 +21,8 @@
         <activity
             android:name=".activities.lottieCopyRightActivity.LottieCopyRightActivity">
         </activity>
-      <activity android:name=".activities.detailActivity.components.openMetActivity.OpenMetAttributionActivity">
-      </activity>
         <activity
-            android:name=".activities.settingsActivity.SettingsActivity">
-        </activity>
-        <activity
-            android:name=".activities.detailActivity.SecondActivity"
-            android:exported="false"
-            android:label="@string/title_activity_second"
-            android:theme="@style/Theme.Wouple" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+            android:name=".activities.detailActivity.components.openMetActivity.OpenMetAttributionActivity">
         </activity>
         <activity
             android:name=".activities.mainActivity.MainActivity"
