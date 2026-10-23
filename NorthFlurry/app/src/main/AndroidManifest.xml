@@ -19,6 +19,9 @@
             android:name=".activities.startScreen.StartActivity">
         </activity>
         <activity
+            android:name=".activities.detailActivity.DetailActivity">
+        </activity>
+        <activity
             android:name=".activities.lottieCopyRightActivity.LottieCopyRightActivity">
         </activity>
         <activity

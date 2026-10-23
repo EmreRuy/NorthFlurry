@@ -4,33 +4,35 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.wouple.extensions.parcelable
 import com.example.wouple.model.api.AirQuality
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
+import com.example.wouple.ui.theme.AppTheme
 
-class SecondActivity : ComponentActivity() {
+class DetailActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            val location = intent.getParcelableExtra<SearchedLocation>("location")
-            val temp = intent.getParcelableExtra<TemperatureResponse>("temp")
-            val air = intent.getParcelableExtra<AirQuality>("air")
-            Log.d("SecondActivity", "Location: $location")
-            Log.d("SecondActivity", "Temperature: $temp")
-            if (location == null) {
-                throw IllegalStateException("location is missing or wrong")
-            }
+        val location = intent.parcelable<SearchedLocation>("location")
+        val temp = intent.parcelable<TemperatureResponse>("temp")
+        val air = intent.parcelable<AirQuality>("air")
 
-            if (temp == null) {
-                throw IllegalStateException("temp is missing or wrong")
+        Log.d("DetailActivity", "Location: $location")
+        Log.d("DetailActivity", "Temperature: $temp")
+
+        if (location == null || temp == null) {
+            finish()
+            return
+        }
+
+        setContent {
+            AppTheme {
+                DetailView(
+                    temp = temp,
+                    searchedLocation = location,
+                    air = air,
+                )
             }
-            DetailView(
-                //  onBackPressed = { onBackPressedDispatcher.onBackPressed() },
-                temp = temp,
-                searchedLocation = location,
-                air = air,
-            )
         }
     }
 }
-

@@ -2,12 +2,16 @@ package com.example.wouple.elements
 
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,9 +22,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 
-
 @Composable
-fun NoInternetDialog(activity: ComponentActivity) {
+fun NoInternetDialog(
+    activity: ComponentActivity,
+    onRetry: () -> Unit = { }
+) {
     AlertDialog(
         onDismissRequest = { },
         title = {
@@ -55,23 +61,35 @@ fun NoInternetDialog(activity: ComponentActivity) {
             }
         },
         confirmButton = {
-            Button(
-                onClick = { activity.finish() },
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                    contentColor = MaterialTheme.colorScheme.onPrimary
-                )
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
             ) {
-                Text(
-                    text = stringResource(id = R.string.OK),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = MaterialTheme.typography.bodyMedium.fontFamily,
-                    color = MaterialTheme.colorScheme.onError
-                )
+                OutlinedButton(
+                    onClick = { activity.finish() },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.OK),
+                        fontSize = 14.sp
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                Button(
+                    onClick = { onRetry() },
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                ) {
+                    Text(
+                        text = "Try Again",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         },
         modifier = Modifier.padding(16.dp)

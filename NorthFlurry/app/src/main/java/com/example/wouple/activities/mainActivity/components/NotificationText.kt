@@ -2,14 +2,14 @@ package com.example.wouple.activities.mainActivity.components
 
 import android.content.Context
 import com.example.wouple.R
+import com.example.wouple.formatter.DateFormatter
 import com.example.wouple.model.api.TemperatureResponse
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 
 fun generateWeatherInfoTexts(temp: TemperatureResponse, context: Context): List<String> {
     val timeZone = temp.timezone
-    val now = ZonedDateTime.now(ZoneId.of(timeZone))
+    val now = ZonedDateTime.now(DateFormatter.safeZoneId(timeZone))
     val hour = now.hour
     val nextHour = (hour + 1) % 24
 

@@ -11,12 +11,14 @@ import com.example.wouple.ui.theme.AppTheme
 class LottieCopyRightActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val temp = intent.parcelable<TemperatureResponse>("temp")
+        Log.d("LottieActivity", "Temperature: $temp")
+        if (temp == null) {
+            finish()
+            return
+        }
+
         setContent {
-            val temp = intent.parcelable<TemperatureResponse>("temp")
-            Log.d("LottieActivity", "Temperature: $temp")
-            if (temp == null) {
-                throw IllegalStateException("temp is missing or wrong")
-            }
             AppTheme {
                 LottieView()
             }

@@ -59,10 +59,21 @@ class WeatherRepository(
     suspend fun searchLocations(query: String): Result<List<SearchedLocation>> =
         withContext(Dispatchers.IO) {
             try {
-                val response = apiService.getSearchedLocations(address = query)
-                Result.success(response)
-            } catch (e: Exception) {
-                Result.failure(e)
+                val openMeteoResponse = apiService.searchOpenMeteoLocations(name = query)
+                val openMeteoList = openMeteoResponse.results?.map { it.toSearchedLocation() }
+                if (!openMeteoList.isNullOrEmpty()) {
+                    Result.success(openMeteoList)
+                } else {
+                    val legacyList = apiService.getSearchedLocations(address = query)
+                    Result.success(legacyList)
+                }
+            } catch (_: Exception) {
+                try {
+                    val fallback = apiService.getSearchedLocations(address = query)
+                    Result.success(fallback)
+                } catch (e: Exception) {
+                    Result.failure(e)
+                }
             }
         }
 

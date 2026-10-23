@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.formatter.DateFormatter
 import com.example.wouple.model.api.TemperatureResponse
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Composable
@@ -33,7 +32,7 @@ fun PrecipitationContent(temp: TemperatureResponse) {
             .horizontalScroll(scrollState)
     ) {
         val timeZone = temp.timezone
-        val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
+        val currentDateTime = ZonedDateTime.now(DateFormatter.safeZoneId(timeZone))
         val currentHour = currentDateTime.hour
         for (index in currentHour..(currentHour + 23)) {
             val time = DateFormatter.formatDate(temp.hourly.time[index])

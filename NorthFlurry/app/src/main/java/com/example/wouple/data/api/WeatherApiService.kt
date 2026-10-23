@@ -1,6 +1,7 @@
 package com.example.wouple.data.api
 
 import com.example.wouple.model.api.AirQuality
+import com.example.wouple.model.api.OpenMeteoGeocodingResponse
 import com.example.wouple.model.api.SearchedLocation
 import com.example.wouple.model.api.TemperatureResponse
 import retrofit2.http.GET
@@ -31,6 +32,15 @@ interface WeatherApiService {
         @Query("longitude") longitude: String,
         @Query("current") current: String = "european_aqi"
     ): AirQuality
+
+    @GET
+    suspend fun searchOpenMeteoLocations(
+        @Url url: String = "https://geocoding-api.open-meteo.com/v1/search",
+        @Query("name") name: String,
+        @Query("count") count: Int = 10,
+        @Query("language") language: String = "en",
+        @Query("format") format: String = "json"
+    ): OpenMeteoGeocodingResponse
 
     @GET
     suspend fun getSearchedLocations(

@@ -30,14 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wouple.R
 import com.example.wouple.activities.detailActivity.utils.getUvColor
+import com.example.wouple.formatter.DateFormatter
 import com.example.wouple.model.api.TemperatureResponse
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Composable
 fun CurrentUvIndexCardCompact(temp: TemperatureResponse) {
     val timeZone = temp.timezone
-    val currentDateTime = ZonedDateTime.now(ZoneId.of(timeZone))
+    val currentDateTime = ZonedDateTime.now(DateFormatter.safeZoneId(timeZone))
     val currentHour = currentDateTime.hour
     val uvIndexValue = temp.hourly.uv_index[currentHour].toFloat().coerceAtMost(11f)
     val uvIndexDescriptions = getUvIndexDescription(uvIndexValue.toInt())

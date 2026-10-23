@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.wouple.activities.firstScreen.FirstScreenView
 import com.example.wouple.activities.mainActivity.components.BottomNavigationBar
+import com.example.wouple.activities.mainActivity.components.ErrorScreen
 import com.example.wouple.activities.mainActivity.components.LoadingScreen
 import com.example.wouple.activities.startScreen.StartActivity
 import com.example.wouple.data.preferences.PreferenceManager
@@ -47,7 +48,13 @@ class MainActivity : ComponentActivity() {
                 }
 
                 if (!isConnected) {
-                    NoInternetDialog(activity = this)
+                    NoInternetDialog(
+                        activity = this,
+                        onRetry = {
+                            isConnected = isInternetConnected(context)
+                            if (isConnected) viewModel.loadWeatherData()
+                        }
+                    )
                 } else if (isFirstLaunch) {
                     FirstScreenView(
                         onStartButtonClicked = {
@@ -78,7 +85,10 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         is MainUiState.Error -> {
-                            LoadingScreen()
+                            ErrorScreen(
+                                message = state.message,
+                                onRetry = { viewModel.loadWeatherData() }
+                            )
                         }
                     }
                 }
